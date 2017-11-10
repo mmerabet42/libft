@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoincs.c                                     :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:51:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 15:24:13 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/10 14:54:40 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/10 14:57:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoincs(char a, const char *b)
+int	ft_intlen(int n)
 {
-	char	*s;
-	size_t	i;
+	int	len;
 
-	if (b == NULL)
-		return (NULL);
-	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(b) + 2))) == NULL)
-		return (NULL);
-	i = 0;
-	s[i++] = a;
-	while (*b)
-		s[i++] = *b++;
-	s[i] = '\0';
-	return (s);
+	len = 1;
+	while (n /= 10)
+		++len;
+	return (len);
 }
-

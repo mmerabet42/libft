@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoincs.c                                     :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:51:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 15:24:13 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/10 14:38:37 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/10 15:35:44 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoincs(char a, const char *b)
+char	*ft_itoa(int n)
 {
-	char	*s;
-	size_t	i;
+	char	*str;
+	char	*fstr;
+	int		i;
 
-	if (b == NULL)
+	i = ft_intlen(n);
+	str = NULL;
+	if (n < 0)
+	{
+		fstr = ft_itoa(-n);
+		if (!(str = ft_strjoincs('-', fstr)))
+			free(fstr);
+		return (str);
+	}
+	if ((str = ft_strnew(i)) == NULL)
 		return (NULL);
-	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(b) + 2))) == NULL)
-		return (NULL);
-	i = 0;
-	s[i++] = a;
-	while (*b)
-		s[i++] = *b++;
-	s[i] = '\0';
-	return (s);
+	while (n > 0 || str[i] == '\0')
+	{
+		str[--i] = (n % 10 + 48);
+		n /= 10;
+	}
+	return (str);
 }
-

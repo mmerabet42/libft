@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 23:47:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/10 14:54:30 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ long				ft_atol(const char *s);
 long long			ft_atoll(const char *s);
 unsigned int		ft_atoui(const char *s);
 
+char				*ft_itoa(int n);
+
+
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 
@@ -86,5 +89,6 @@ char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
 int					ft_strstr_pos(const char *a, const char *b);
 void				*ft_realloc_fail(void *ptr, size_t size);
+int					ft_intlen(int n);
 
 #endif

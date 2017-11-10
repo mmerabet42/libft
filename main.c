@@ -9,7 +9,8 @@ int main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
-	print_strs(ft_strsplitstr(argv[1], argv[2]));
+	printf("'%s'", ft_itoa(-1));
+	//print_strs(ft_strsplitstr(argv[1], argv[2]));
 	return (0);
 }
 
