@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:51:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 15:24:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:27:28 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ char	*ft_strjoincs(char a, const char *b)
 	char	*s;
 	size_t	i;
 
+	i = 0;
 	if (b == NULL)
 		return (NULL);
-	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(b) + 2))) == NULL)
+	if ((s = ft_strnew(ft_strlen(b) + 1)) == NULL)
 		return (NULL);
-	i = 0;
 	s[i++] = a;
 	while (*b)
 		s[i++] = *b++;
-	s[i] = '\0';
 	return (s);
 }
 

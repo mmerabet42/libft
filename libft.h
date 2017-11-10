@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 15:41:15 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/10 18:26:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char				*ft_strdup(const char *s);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
 char				*ft_strcat(char *a, const char *b);
+char				*ft_strcatc(char *a, char b);
 char				*ft_strncat(char *a, const char *b, size_t n);
 size_t				ft_strlcat(char *a, const char *b, size_t n);
 char				*ft_strchr(const char *s, int c);
@@ -63,7 +64,9 @@ long long			ft_atoll(const char *s);
 unsigned int		ft_atoui(const char *s);
 
 char				*ft_itoa(int n);
-
+char				*ft_ltoa(long n);
+char				*ft_lltoa(long long n);
+char				*ft_uitoa(unsigned int n);
 
 int					ft_toupper(int c);
 int					ft_tolower(int c);

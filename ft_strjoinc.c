@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:49:58 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 15:24:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:49:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,11 @@
 char	*ft_strjoinc(const char *a, char b)
 {
 	char	*s;
-	size_t	i;
 
 	if (a == NULL)
 		return (NULL);
-	if ((s = (char *)malloc(sizeof(char) * (ft_strlen(a) + 2))) == NULL)
+	if ((s = ft_strmdup(a, 1)) == NULL)
 		return (NULL);
-	i = 0;
-	while (*a)
-		s[i++] = *a++;
-	s[i++] = b;
-	s[i] = '\0';
+	s[ft_strlen(a)] = b;
 	return (s);
 }
