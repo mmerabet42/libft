@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_revnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 22:13:58 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 22:28:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+char	*ft_revnstr(char *a, size_t n)
 {
-	free(*ap);
-	*ap = NULL;
+	size_t	i;
+
+	i = ft_strlen(a) - 1;
+	n = (n > i ? i : n);
+	i = 0;
+	while (i < n)
+		ft_swap(a + i++, a + n--);
+	return (a);
 }

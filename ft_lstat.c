@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 18:54:04 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 19:29:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+t_list	*ft_lstatpos(t_list *lst, int i)
 {
-	free(*ap);
-	*ap = NULL;
+	if (lst && i > 0)
+		return (ft_lstatpos(lst->next, i - 1));
+	return (lst);
 }

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_llonglen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 13:55:16 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 13:56:02 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+int	ft_llonglen(long long n)
 {
-	free(*ap);
-	*ap = NULL;
+	int	len;
+
+	len = (n < 0) ? 2 : 1;
+	while (n /= 10)
+		++len;
+	return (len);
 }
+

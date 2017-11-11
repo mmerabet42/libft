@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 17:46:45 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 18:28:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	free(*ap);
-	*ap = NULL;
+	if (alst && *alst)
+	{
+		del((*alst)->content, (*alst)->content_size);
+		ft_memdel((void **)alst);
+	}
 }

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 19:00:48 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 19:46:35 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+void	ft_lstadd(t_list **alst, t_list *elem)
 {
-	free(*ap);
-	*ap = NULL;
+	if (alst && elem)
+		ft_lstend(elem)->next = *alst;
+	*alst = elem;
 }

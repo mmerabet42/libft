@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:27:54 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:34:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/11 18:13:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ char	*ft_strmap(char *s, char (*f)(char))
 		return (NULL);
 	while (*s)
 		snew[i++] = f(*s++);
+	snew[i] = '\0';
 	return (snew);
 }

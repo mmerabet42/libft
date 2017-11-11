@@ -3,19 +3,11 @@
 #include <string.h>
 #include <limits.h>
 
-void print_strs(char **arr);
-
 int main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-
-	printf("'%s'", ft_itoa(INT_MIN));
+	
+	printf("'%s'\n", ft_revnstr(argv[1], ft_atoi(argv[2])));
 	return (0);
-}
-
-void print_strs(char **arr)
-{
-	while (*arr)
-		printf("'%s'\n", *arr++);
 }

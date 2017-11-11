@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 14:41:14 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 15:44:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+void	ft_putnbr_base_fd(int n, const char *base, int fd)
 {
-	free(*ap);
-	*ap = NULL;
+	int	baselen;
+
+	baselen = ft_strlen(base);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_base_fd(-(n / baselen), base, fd);
+	}
+	else if (n / baselen != 0)
+		ft_putnbr_base_fd(n / baselen, base, fd);
+	ft_putchar_fd(base[ft_abs((int)n % baselen)], fd);
 }
+

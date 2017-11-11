@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 20:30:51 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 21:56:31 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	free(*ap);
-	*ap = NULL;
+	t_list	*newlst;
+	t_list	**elem;
+
+	newlst = NULL;
+	while (lst)
+	{
+		if (newlst)
+		{
+			*elem = f(lst);
+			elem = &(*elem)->next;
+		}
+		else
+		{
+			newlst = f(lst);
+			elem = &newlst->next;
+		}
+		lst = lst->next;
+	}
+	return (newlst);
 }

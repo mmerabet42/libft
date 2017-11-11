@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 14:12:34 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 14:19:33 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+char	*ft_uitoa(unsigned int n)
 {
-	free(*ap);
-	*ap = NULL;
+	char	*str;
+	int		i;
+
+	i = ft_uintlen(n);
+	if ((str = ft_strnew(i)) == NULL)
+		return (NULL);
+	while (i > 0)
+	{
+		str[--i] = ft_abs(n % 10) + 48;
+		n /= 10;
+	}
+	return (str);
 }
+

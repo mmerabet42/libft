@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:15:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 17:31:55 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 18:27:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+t_list	*ft_lstnew(const void *content, size_t content_size)
 {
-	free(*ap);
-	*ap = NULL;
+	t_list	*lst;
+
+	if ((lst = (t_list *)ft_memmalloc(sizeof(t_list))))
+	{
+		if (content)
+			lst->content = ft_memdup(content, content_size);
+		lst->content_size = (content ? content_size : 0);
+	}
+	return (lst);
 }

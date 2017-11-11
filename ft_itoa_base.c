@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 14:38:37 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 17:20:31 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/11 16:40:21 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/11 17:20:30 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+char	*ft_itoa_base(int n, const char *base)
 {
 	char	*str;
+	int		baselen;
 	int		i;
+	int		nc;
 	int		isneg;
-
-	isneg = (n < 0) ? 1 : 0;
-	i = ft_intlen(n);
+	
+	isneg = (n < 0 ? 1 : 0);
+	baselen = ft_strlen(base);
+	i = (isneg ? 2 : 1);
+	nc = n;
+	while (nc /= baselen)
+		++i;
 	if ((str = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 		return (NULL);
 	str[i] = '\0';
-	while (i > 0)
+	while (i >= 0)
 	{
-		str[--i] = ft_abs(n % 10) + 48;
-		n /= 10;
+		str[--i] = base[ft_abs(n % baselen)];
+		n /= baselen;
 	}
 	str[0] = (isneg ? '-' : str[0]);
 	return (str);
