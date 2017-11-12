@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:17:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:18:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 18:54:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*ft_strnew(size_t size)
 {
-	return (ft_memmalloc(size + 1));
+	return (ft_memalloc(size + 1));
 }

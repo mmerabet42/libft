@@ -1,6 +1,6 @@
 NAME	=	libft.a
 CC		=	gcc
-CCFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra
 
 _OBJS	=	ft_abs.o \
 			ft_atoi.o \
@@ -39,7 +39,7 @@ _OBJS	=	ft_abs.o \
 			ft_lltoa.o \
 			ft_longlen.o \
 			ft_lstadd.o \
-			ft_lstat.o \
+			ft_lstatpos.o \
 			ft_lstcopy.o \
 			ft_lstcopyone.o \
 			ft_lstdel.o \
@@ -59,7 +59,7 @@ _OBJS	=	ft_abs.o \
 			ft_memcpy.o \
 			ft_memdel.o \
 			ft_memdup.o \
-			ft_memmalloc.o \
+			ft_memalloc.o \
 			ft_memmove.o \
 			ft_memset.o \
 			ft_pow.o \
@@ -142,11 +142,11 @@ OBJS	=	$(patsubst %,$(SRCS)/%,$(_OBJS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $@ $^
-	ranlib $@
+	ar rc $(NAME) $^
+	ranlib $(NAME)
 
-$(SRCS)%.o: %.c \
-	&(CC) $(CCFLAGS) -c $@ $^
+$(SRCS)/%.o: %.c \
+	$(CC) $(CFLAGS) -c $<
 
 re: fclean all
 

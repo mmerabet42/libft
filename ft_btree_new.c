@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:31:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 13:36:03 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 18:52:40 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_btree	*ft_btree_new(const void *content, size_t content_size)
 {
 	t_btree	*bt;
 
-	if ((bt = (t_btree *)ft_memmalloc(sizeof(t_btree))))
+	if ((bt = (t_btree *)ft_memalloc(sizeof(t_btree))))
 	{
 		if (content)
 			bt->content = ft_memdup(content, content_size);

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:42:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 15:42:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 19:55:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	*ft_memset(void *s, int c, size_t n)
 	schar = (unsigned char *)s;
 	while (n--)
 		*schar++ = cchar;
-	return (schar);
+	return (s);
 }

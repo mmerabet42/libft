@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:12:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 20:13:41 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 19:10:58 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_isprint(int c)
 {
-	return (ft_isascii(c) && ft_iscntrl(c));
+	return (ft_isascii(c) && !ft_iscntrl(c));
 }
