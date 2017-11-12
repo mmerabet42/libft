@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 22:30:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 22:41:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 12:54:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_clr(const char *a, const char *b, int d)
+char	*ft_strjoin_clr(char *a, char *b, int d)
 {
 	char	*s;
 	size_t	i;

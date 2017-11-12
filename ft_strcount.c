@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_strcount.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 16:46:40 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 16:47:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+int	ft_strcount(const char *s, char a)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	int	count;
+
+	count = 0;
+	while (*s)
+		if (*s++ == a)
+			++count;
+	return (count);
 }

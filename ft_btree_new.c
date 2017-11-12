@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_btree_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 13:31:23 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 13:36:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+t_btree	*ft_btree_new(const void *content, size_t content_size)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	t_btree	*bt;
+
+	if ((bt = (t_btree *)ft_memmalloc(sizeof(t_btree))))
+	{
+		if (content)
+			bt->content = ft_memdup(content, content_size);
+		bt->content_size = (content ? content_size : 0);
+	}
+	return (bt);
 }

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_btree_fromlist.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 16:28:01 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 16:28:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+t_btree	*ft_btree_fromlist(t_list *lst)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	return (ft_btree_fromlistf(lst, ft_memcmp));
 }

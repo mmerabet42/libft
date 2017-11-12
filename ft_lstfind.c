@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 12:44:56 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 13:31:11 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+t_list	*ft_lstfind(t_list *lst, const void *content, size_t content_size)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	if (!lst)
+		return (NULL);
+	if (lst->content_size == content_size)
+		if (ft_memcmp(lst->content, content, content_size) == 0)
+			return (lst);
+	return (ft_lstfind(lst->next, content, content_size));
 }

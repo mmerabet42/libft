@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_btree_searchf.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 14:00:28 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 14:47:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+t_btree	*ft_btree_searchf(t_btree *bt,
+					const void *content,
+					size_t content_size,
+					t_cmpfunc cmp)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	int	cmp_n;
+
+	if (!bt)
+		return (NULL);
+	cmp_n = cmp(bt->content, content, content_size);
+	if (cmp_n == 0)
+		return (bt);
+	bt = (cmp_n < 0 ? bt->right : bt->left);
+	return (ft_btree_searchf(bt, content, content_size, cmp));
 }

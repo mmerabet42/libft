@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 22:41:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:17:02 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_btree
+{
+	void			*content;
+	size_t			content_size;
+	struct s_btree	*left;
+	struct s_btree	*right;
+}					t_btree;
+
+typedef int	(*t_cmpfunc)(const void *, const void *, size_t);
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -73,10 +83,18 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(const char *a, const char *b);
 char				*ft_strjoinc(const char *a, char b);
 char				*ft_strjoincs(char a, const char *b);
-char				*ft_strjoin_clr(const char *a, const char *b, int d);
+char				*ft_strjoin_clr(char *a, char *b, int d);
 char				*ft_strtrim(const char *s);
 char				**ft_strsplit(const char *s, char sep);
 char				**ft_strsplitstr(const char *s, const char *sep);
+int					ft_strcount(const char *s, char a);
+int					ft_strcountstr(const char *s, const char *a);
+char				*ft_strrep(const char *s, char a, char b);
+char				*ft_strrepstr(const char *s, const char *a, const char *b);
+char				*ft_strrep_clr(const char *s, char a, char b);
+char				*ft_strrepstr_clr(const char *s,
+								const char *a,
+								const char *b);
 
 int					ft_atoi(const char *s);
 long				ft_atol(const char *s);
@@ -134,9 +152,36 @@ void				ft_lstadd(t_list **alst, t_list *elem);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstpush(t_list *lst, t_list *elem);
+void				ft_lstpushfront(t_list **alst, t_list *elem);
 t_list				*ft_lstatpos(t_list *lst, int i);
+t_list				*ft_lstfind(t_list *lst,
+							const void *content,
+							size_t content_size);
 size_t				ft_lstsize(t_list *lst);
 t_list				*ft_lstend(t_list *lst);
+t_list				*ft_lstcopy(t_list *lst);
+t_list				*ft_lstcopyone(t_list *lst);
+
+t_btree				*ft_btree_new(const void *content, size_t content_size);
+void				ft_btree_delone(t_btree **abt, void (*del)(void *, size_t));
+void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
+t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
+t_btree				*ft_btree_insertf(t_btree *bt,
+								t_btree *elem,
+								t_cmpfunc cmp);
+t_btree				*ft_btree_search(t_btree *bt,
+								const void *content,
+								size_t content_size);
+t_btree				*ft_btree_searchf(t_btree *bt,
+								const void *content,
+								size_t content_size,
+								t_cmpfunc cmp);
+t_btree				*ft_btree_left(t_btree *bt);
+t_btree				*ft_btree_right(t_btree *bt);
+t_list				*ft_btree_tolist(t_btree *bt);
+t_btree				*ft_btree_fromlist(t_list *lst);
+t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
+size_t				ft_btree_size(t_btree *bt);
 
 void				*ft_realloc_fail(void *ptr, size_t size);
 int					ft_intlen(int n);

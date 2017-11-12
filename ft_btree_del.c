@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_btree_del.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 13:38:13 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 14:45:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_btree_del(t_btree **abt, void (*del)(void *, size_t))
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	t_btree	*left;
+	t_btree *right;
+
+	left = NULL;
+	right = NULL;
+	if (abt && *abt)
+	{
+		left = (*abt)->left;
+		right = (*abt)->right;
+	}
+	ft_btree_delone(abt, del);
+	if (left)
+		ft_btree_del(&left, del);
+	if (right)
+		ft_btree_del(&right, del);
 }

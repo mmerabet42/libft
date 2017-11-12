@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_btree_tolist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 18:30:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:52:36 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/12 16:05:12 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/12 16:27:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+t_list	*ft_btree_tolist(t_btree *bt)
 {
-	t_list	*nxt;
-	
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
+	t_list	*lst;
+
+	if (bt == NULL)
+		return (NULL);
+	if ((lst = ft_lstnew(bt->content, bt->content_size)) == NULL)
+		return (NULL);
+	ft_lstpushfront(&lst, ft_btree_tolist(bt->left));
+	ft_lstpush(lst, ft_btree_tolist(bt->right));
+	return (lst);
 }
