@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:25:45 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:27:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:29:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 	while (s[i])
 		f(i++, s);
 }
-

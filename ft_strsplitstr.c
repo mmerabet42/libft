@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:44:34 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 23:46:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:34:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ char	**ft_strsplitstr(const char *s, const char *sep)
 	t[sz] = NULL;
 	return (t);
 }
-

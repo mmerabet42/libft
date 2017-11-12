@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:41:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 15:44:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:29:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	ft_putnbr_base_fd(int n, const char *base, int fd)
 		ft_putnbr_base_fd(n / baselen, base, fd);
 	ft_putchar_fd(base[ft_abs((int)n % baselen)], fd);
 }
-

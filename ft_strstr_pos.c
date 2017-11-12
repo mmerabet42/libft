@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:04:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 23:07:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:33:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ int	ft_strstr_pos(const char *a, const char *b)
 	}
 	return (-1);
 }
-

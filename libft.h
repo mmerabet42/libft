@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 17:17:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:51:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ int					ft_strcount(const char *s, char a);
 int					ft_strcountstr(const char *s, const char *a);
 char				*ft_strrep(const char *s, char a, char b);
 char				*ft_strrepstr(const char *s, const char *a, const char *b);
-char				*ft_strrep_clr(const char *s, char a, char b);
-char				*ft_strrepstr_clr(const char *s,
-								const char *a,
-								const char *b);
+char				*ft_strrep_clr(char *s, char a, char b);
+char				*ft_strrepstr_clr(char *s, const char *a, const char *b);
 
 int					ft_atoi(const char *s);
 long				ft_atol(const char *s);

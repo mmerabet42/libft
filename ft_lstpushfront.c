@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:22:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 16:25:00 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:28:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,3 @@ void	ft_lstpushfront(t_list **alst, t_list *elem)
 		*alst = elem;
 	}
 }
-

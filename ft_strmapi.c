@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:34:16 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:36:00 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:31:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ char	*ft_strmapi(char *s, char (*f)(unsigned int, char))
 	}
 	return (snew);
 }
-

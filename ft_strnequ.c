@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:39:18 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:40:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:36:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,3 @@ int	ft_strnequ(const char *a, const char *b, size_t n)
 {
 	return (ft_strncmp(a, b, n) == 0 ? 0 : 1);
 }
-
