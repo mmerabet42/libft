@@ -6,13 +6,31 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:44:34 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 17:34:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/12 18:30:28 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_strsplitstr(const char *s, const char *sep)
+static int	ft_count_words(const char *s, const char *sep)
+{
+	int	count;
+	int	pos;
+	int	seplen;
+
+	seplen = ft_strlen(sep);
+	count = 0;
+	while (s)
+	{
+		pos = ft_strstr_pos(s, sep);
+		if (pos > 0 || pos == -1)
+			++count;
+		s = (pos != -1 ? s + (pos + seplen) : NULL);
+	}
+	return (count);
+}
+
+char		**ft_strsplitstr(const char *s, const char *sep)
 {
 	char	**t;
 	int		sz;
@@ -20,19 +38,16 @@ char	**ft_strsplitstr(const char *s, const char *sep)
 	size_t	seplen;
 
 	seplen = ft_strlen(sep);
-	t = NULL;
+	t = (char **)ft_memmalloc(sizeof(char *) * (ft_count_words(s, sep) + 1));
+	if (t == NULL)
+		return (NULL);
 	sz = 0;
 	while (s)
 	{
 		pos = ft_strstr_pos(s, sep);
 		if (pos > 0 || pos == -1)
-		{
-			t = (char **)ft_realloc_fail(t, sizeof(char *) * (sz + 1));
 			t[sz++] = (pos != -1 ? ft_strndup(s, pos) : ft_strdup(s));
-		}
 		s = (pos != -1 ? s + (pos + seplen) : NULL);
 	}
-	t = (char **)realloc(t, sizeof(char *) * (sz + 1));
-	t[sz] = NULL;
 	return (t);
 }
