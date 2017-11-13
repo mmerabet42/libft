@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoinc.c                                      :+:      :+:    :+:   */
+/*   ft_dtoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:49:58 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 21:33:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/13 14:12:56 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/13 14:41:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoinc(const char *a, char b)
+char	*ft_dtoa(double n, int precision)
 {
-	char	*s;
+	int		firstp;
+	double	secondp;
+	char	*cfirstp;
+	char	*csecondp;
 
-	if (a == NULL)
-		return (NULL);
-	if ((s = ft_strmdup(a, 1)) == NULL)
-		return (NULL);
-	s[ft_strlen(a)] = b;
-	return (s);
+	firstp = (int)n;
+	secondp = (double)(n - firstp) * (n < 0 ? -1 : 1);
+	cfirstp = ft_itoa(firstp);
+	if (precision > 0)
+	{
+		while (--precision)
+			secondp *= 10;
+		csecondp = ft_ulltoa((unsigned long long)secondp);
+		cfirstp = ft_strjoin(ft_strjoinc(cfirstp, '.'), csecondp);
+	}
+	return (cfirstp);
 }

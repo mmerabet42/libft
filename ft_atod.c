@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoinc.c                                      :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:49:58 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 21:33:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/13 12:54:12 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/13 14:12:14 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoinc(const char *a, char b)
+double	ft_atod(const char *s)
 {
-	char	*s;
+	double	firstp;
+	double	secondp;
+	char	*cfirstp;
+	char	*csecondp;
 
-	if (a == NULL)
-		return (NULL);
-	if ((s = ft_strmdup(a, 1)) == NULL)
-		return (NULL);
-	s[ft_strlen(a)] = b;
-	return (s);
+	if (ft_strchr(s, '.') == NULL)
+		return ((double)ft_atoi(s));
+	cfirstp = ft_strbefore(s, '.');
+	csecondp = ft_strafter(s, '.');
+	firstp = (double)ft_atoll(cfirstp);
+	secondp = (double)ft_atoull(csecondp);
+	while ((unsigned long long)secondp > 0)
+		secondp /= 10;
+	return (firstp + secondp);
 }

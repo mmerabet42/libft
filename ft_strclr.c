@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:22:00 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:22:56 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 22:09:55 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_strclr(char *s)
 {
-	ft_memset(s, '\0', ft_strlen(s));
+	if (s)
+		ft_bzero((void *)s, ft_strlen(s));
 }

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:40:33 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:45:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 22:13:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
-	return (ft_strndup(s + start, len));
+	if (s)
+		return (ft_strndup(s + start, len));
+	return (NULL);
 }

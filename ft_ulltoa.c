@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoinc.c                                      :+:      :+:    :+:   */
+/*   ft_ulltoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:49:58 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 21:33:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/13 14:23:36 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/13 14:45:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoinc(const char *a, char b)
+char	*ft_ulltoa(unsigned long long n)
 {
-	char	*s;
+	char	*str;
+	int		i;
 
-	if (a == NULL)
+	i = ft_ullonglen(n);
+	if ((str = ft_strnew(i)) == NULL)
 		return (NULL);
-	if ((s = ft_strmdup(a, 1)) == NULL)
-		return (NULL);
-	s[ft_strlen(a)] = b;
-	return (s);
+	while (i > 0)
+	{
+		str[--i] = ft_abs((int)(n % 10)) + 48;
+		n /= 10;
+	}
+	return (str);
 }

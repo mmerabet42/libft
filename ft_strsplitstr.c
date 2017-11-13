@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:44:34 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 18:54:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 21:56:00 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_count_words(const char *s, const char *sep)
 	while (s)
 	{
 		pos = ft_strstr_pos(s, sep);
-		if (pos > 0 || pos == -1)
+		if (pos != 0 && s[0])
 			++count;
 		s = (pos != -1 ? s + (pos + seplen) : NULL);
 	}
@@ -45,7 +45,7 @@ char		**ft_strsplitstr(const char *s, const char *sep)
 	while (s)
 	{
 		pos = ft_strstr_pos(s, sep);
-		if (pos > 0 || pos == -1)
+		if (pos != 0 && s[0])
 			t[sz++] = (pos != -1 ? ft_strndup(s, pos) : ft_strdup(s));
 		s = (pos != -1 ? s + (pos + seplen) : NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:53:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 18:17:35 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 20:05:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strnstr(const char *a, const char *b, size_t n)
 {
-	size_t	i;
-	size_t	j;
+	size_t	blen;
 
-	i = 0;
-	while (i < n && a[i])
+	if (*a == '\0' || n == 0)
+		return (NULL);
+	if (*b == '\0')
+		return ((char *)a);
+	blen = ft_strlen(b);
+	while (*a && n-- >= blen)
 	{
-		j = 0;
-		while (b[j] && a[i + j] && (b[j] == a[i + j]))
-			++j;
-		if (b[j] == '\0')
-			return ((char *)(&a[i]));
-		++i;
+		if (ft_strncmp(a, b, blen) == 0)
+			return ((char *)(a));
+		++a;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:36:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:39:08 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 22:12:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int	ft_strequ(const char *a, const char *b)
 {
-	return (ft_strcmp(a, b) == 0 ? 0 : 1);
+	if (!a || !b)
+		return (0);
+	while (*a || *b)
+		if (*a++ != *b++)
+			return (0);
+	return (1);
 }

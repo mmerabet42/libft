@@ -3,11 +3,13 @@ CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
 
 _OBJS	=	ft_abs.o \
+			ft_atod.o \
 			ft_atoi.o \
 			ft_atoi_base.o \
 			ft_atol.o \
 			ft_atoll.o \
 			ft_atoui.o \
+			ft_atoull.o \
 			ft_btree_del.o \
 			ft_btree_delone.o \
 			ft_btree_fromlist.o \
@@ -22,6 +24,7 @@ _OBJS	=	ft_abs.o \
 			ft_btree_size.o \
 			ft_btree_tolist.o \
 			ft_bzero.o \
+			ft_dtoa.o \
 			ft_intlen.o \
 			ft_isalnum.o \
 			ft_isalpha.o \
@@ -65,6 +68,8 @@ _OBJS	=	ft_abs.o \
 			ft_pow.o \
 			ft_putchar.o \
 			ft_putchar_fd.o \
+			ft_putdouble.o \
+			ft_putdouble_fd.o \
 			ft_putendl.o \
 			ft_putendl_fd.o \
 			ft_putnbr.o \
@@ -82,6 +87,10 @@ _OBJS	=	ft_abs.o \
 			ft_realloc_fail.o \
 			ft_revnstr.o \
 			ft_revstr.o \
+			ft_strafter.o \
+			ft_strafterstr.o \
+			ft_strbefore.o \
+			ft_strbeforestr.o \
 			ft_strcat.o \
 			ft_strcatc.o \
 			ft_strchr.o \
@@ -99,7 +108,9 @@ _OBJS	=	ft_abs.o \
 			ft_strjoin.o \
 			ft_strjoin_clr.o \
 			ft_strjoinc.o \
+			ft_strjoinc_clr.o \
 			ft_strjoincs.o \
+			ft_strjoincs_clr.o \
 			ft_strlcat.o \
 			ft_strlen.o \
 			ft_strmap.o \
@@ -132,7 +143,9 @@ _OBJS	=	ft_abs.o \
 			ft_tolower.o \
 			ft_toupper.o \
 			ft_uintlen.o \
-			ft_uitoa.o
+			ft_uitoa.o \
+			ft_ullonglen.o \
+			ft_ulltoa.o
 
 SRCS	=	.
 OBJS	=	$(patsubst %,$(SRCS)/%,$(_OBJS))
@@ -142,7 +155,7 @@ OBJS	=	$(patsubst %,$(SRCS)/%,$(_OBJS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $^
+	ar rc $(NAME) $?
 	ranlib $(NAME)
 
 $(SRCS)/%.o: %.c \

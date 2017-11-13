@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoinc.c                                      :+:      :+:    :+:   */
+/*   ft_atoull.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:49:58 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 21:33:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/13 14:05:31 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/13 14:08:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoinc(const char *a, char b)
+unsigned long long	ft_atoull(const char *s)
 {
-	char	*s;
+	unsigned long long	nb;
 
-	if (a == NULL)
-		return (NULL);
-	if ((s = ft_strmdup(a, 1)) == NULL)
-		return (NULL);
-	s[ft_strlen(a)] = b;
-	return (s);
+	nb = 0;
+	while (ft_isspace(*s))
+		++s;
+	while (ft_isdigit(*s))
+		nb = nb * 10 + (*s++ - 48);
+	return (nb);
 }

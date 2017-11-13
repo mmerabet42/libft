@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 19:59:48 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 21:25:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char				*ft_strjoin(const char *a, const char *b);
 char				*ft_strjoinc(const char *a, char b);
 char				*ft_strjoincs(char a, const char *b);
 char				*ft_strjoin_clr(char *a, char *b, int d);
+char				*ft_strjoinc_clr(char *a, char b);
+char				*ft_strjoics_clr(char a, char *b);
 char				*ft_strtrim(const char *s);
 char				**ft_strsplit(const char *s, char sep);
 char				**ft_strsplitstr(const char *s, const char *sep);
@@ -93,17 +95,25 @@ char				*ft_strrep(const char *s, char a, char b);
 char				*ft_strrepstr(const char *s, const char *a, const char *b);
 char				*ft_strrep_clr(char *s, char a, char b);
 char				*ft_strrepstr_clr(char *s, const char *a, const char *b);
+char				*ft_strafterstr(const char *s, const char *a);
+char				*ft_strafter(const char *s, char a);
+char				*ft_strbeforestr(const char *s, const char *a);
+char				*ft_strbefore(const char *s, char a);
 
 int					ft_atoi(const char *s);
 long				ft_atol(const char *s);
 long long			ft_atoll(const char *s);
 unsigned int		ft_atoui(const char *s);
+unsigned long long	ft_atoull(const char *s);
+double				ft_atod(const char *s);
 int					ft_atoi_base(const char *s, const char *base);
 
 char				*ft_itoa(int n);
 char				*ft_ltoa(long n);
 char				*ft_lltoa(long long n);
 char				*ft_uitoa(unsigned int n);
+char				*ft_ulltoa(unsigned long long n);
+char				*ft_dtoa(double n, int precision);
 char				*ft_itoa_base(int n, const char *base);
 char				*ft_tobase(const char *s,
 							const char *fbase,
@@ -131,6 +141,7 @@ void				ft_putunbr(unsigned int n);
 void				ft_putnbr_base(int n, const char *base);
 void				ft_putullong_base(unsigned long long n, const char *base);
 void				ft_putptr(void *ptr);
+void				ft_putdouble(double n, int precision);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
@@ -142,6 +153,7 @@ void				ft_putullong_base_fd(unsigned long long n,
 									const char *base,
 									int fd);
 void				ft_putptr_fd(void *ptr, int fd);
+void				ft_putdouble_fd(double n, int precision, int fd);
 
 t_list				*ft_lstnew(const void *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
@@ -186,6 +198,7 @@ int					ft_intlen(int n);
 int					ft_longlen(long n);
 int					ft_llonglen(long long n);
 int					ft_uintlen(unsigned int n);
+int					ft_ullonglen(unsigned long long n);
 int					ft_abs(int n);
 int					ft_pow(int x, int y);
 
