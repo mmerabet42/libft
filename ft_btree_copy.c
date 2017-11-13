@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_btree_copy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 19:46:39 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 22:24:05 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/13 22:27:35 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/13 22:35:09 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+t_btree	*ft_btree_copy(t_btree *bt)
 {
-	while (lst)
-	{
-		f(lst);
-		lst = lst->next;
-	}
+	t_btree	*newbt;
+
+	if (!bt)
+		return (NULL);
+	newbt = ft_btree_new(bt->content, bt->content_size);
+	newbt->left = ft_btree_copy(bt->left);
+	newbt->right = ft_btree_copy(bt->right);
+	return (newbt);
 }

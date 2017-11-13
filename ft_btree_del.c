@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:38:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 14:45:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 22:20:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_btree_del(t_btree **abt, void (*del)(void *, size_t))
 	{
 		left = (*abt)->left;
 		right = (*abt)->right;
+		ft_btree_delone(abt, del);
+		if (left)
+			ft_btree_del(&left, del);
+		if (right)
+			ft_btree_del(&right, del);
 	}
-	ft_btree_delone(abt, del);
-	if (left)
-		ft_btree_del(&left, del);
-	if (right)
-		ft_btree_del(&right, del);
 }

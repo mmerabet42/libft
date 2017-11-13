@@ -10,6 +10,7 @@ _OBJS	=	ft_abs.o \
 			ft_atoll.o \
 			ft_atoui.o \
 			ft_atoull.o \
+			ft_btree_copy.o \
 			ft_btree_del.o \
 			ft_btree_delone.o \
 			ft_btree_fromlist.o \
@@ -84,7 +85,6 @@ _OBJS	=	ft_abs.o \
 			ft_putullong_base_fd.o \
 			ft_putunbr.o \
 			ft_putunbr_fd.o \
-			ft_realloc_fail.o \
 			ft_revnstr.o \
 			ft_revstr.o \
 			ft_strafter.o \

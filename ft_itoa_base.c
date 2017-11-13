@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 16:40:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 17:28:15 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 23:09:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base(int n, const char *base)
+char	*ft_itoa_base(int n, char *base)
 {
 	char	*str;
 	int		baselen;
