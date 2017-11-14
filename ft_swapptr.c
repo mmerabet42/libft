@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstpushfront.c                                  :+:      :+:    :+:   */
+/*   ft_swapptr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 16:22:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/14 18:54:33 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/14 22:47:06 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/14 22:54:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstpushfront(t_list **alst, t_list *elem)
+void	ft_swapptr(void **a, void **b)
 {
-	if (alst && elem)
-	{
-		ft_lstend(elem)->next = *alst;
-		*alst = elem;
-	}
+	void	*tmp;
+
+	if (!a || !b)
+		return;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

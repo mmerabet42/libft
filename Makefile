@@ -13,6 +13,8 @@ _OBJS	=	ft_abs.o \
 			ft_btree_copy.o \
 			ft_btree_del.o \
 			ft_btree_delone.o \
+			ft_btree_erase.o \
+			ft_btree_erasef.o \
 			ft_btree_fromlist.o \
 			ft_btree_fromlistf.o \
 			ft_btree_insert.o \
@@ -139,6 +141,7 @@ _OBJS	=	ft_abs.o \
 			ft_strsub.o \
 			ft_strtrim.o \
 			ft_swap.o \
+			ft_swapptr.o \
 			ft_tobase.o \
 			ft_tolower.o \
 			ft_toupper.o \
@@ -150,21 +153,43 @@ _OBJS	=	ft_abs.o \
 SRCS	=	.
 OBJS	=	$(patsubst %,$(SRCS)/%,$(_OBJS))
 
-.PHONY:	all clean fclean re
+# PROGRESS BAR
+T = $(words $(OBJS))
+N = 0
+C = $(words $N)$(eval N := x $N)
+ECHO = "[`expr $C  '*' 100 / $T`%]"
+
+# COLORS
+_GREY=\x1b[30m
+_RED=\x1b[31m
+_GREEN=\x1b[32m
+_YELLOW=\x1b[33m
+_BLUE=\x1b[34m
+_PURPLE=\x1b[35m
+_CYAN=\x1b[36m
+_WHITE=\x1b[37m
+_END=\x1b[0m
+_SUCCESS=$(_CYAN)
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $?
-	ranlib $(NAME)
+	@ar rc $(NAME) $?
+	@ranlib $(NAME)
+	@echo "\n$(NAME) compilation : $(_SUCCESS)done$(_END)"
 
-$(SRCS)/%.o: %.c \
-	$(CC) $(CFLAGS) -c $<
-
-re: fclean all
+$(SRCS)/%.o: %.c
+	@printf "%-60b\r" "$(ECHO) $(_SUCCESS) Compiling $@ $(_END)"
+	@$(CC) $(CFLAGS) -c $<
 
 clean:
-	/bin/rm -f $(OBJS)
+	@/bin/rm -f $(OBJS)
+	@echo "clean: $(_SUCCESS)done$(_END)"
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo "fclean: $(_SUCCESS)done$(_END)"
+
+re: fclean all

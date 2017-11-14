@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 23:10:03 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/14 23:20:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_btree
 {
 	void			*content;
 	size_t			content_size;
+	struct s_btree	*parent;
 	struct s_btree	*left;
 	struct s_btree	*right;
 }					t_btree;
@@ -179,6 +180,13 @@ t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
 t_btree				*ft_btree_insertf(t_btree *bt,
 								t_btree *elem,
 								t_cmpfunc cmp);
+t_btree				*ft_btree_erase(t_btree *bt,
+								const void *content,
+								size_t content_size);
+t_btree				*ft_btree_erasef(t_btree *bt,
+								const void *content,
+								size_t content_size,
+								t_cmpfunc cmp);
 t_btree				*ft_btree_search(t_btree *bt,
 								const void *content,
 								size_t content_size);
@@ -193,7 +201,6 @@ t_btree				*ft_btree_fromlist(t_list *lst);
 t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 t_btree				*ft_btree_copy(t_btree *bt);
 size_t				ft_btree_size(t_btree *bt);
-
 int					ft_intlen(int n);
 int					ft_longlen(long n);
 int					ft_llonglen(long long n);
@@ -201,5 +208,6 @@ int					ft_uintlen(unsigned int n);
 int					ft_ullonglen(unsigned long long n);
 int					ft_abs(int n);
 int					ft_pow(int x, int y);
+void				ft_swapptr(void **a, void **b);
 
 #endif

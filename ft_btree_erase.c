@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstpushfront.c                                  :+:      :+:    :+:   */
+/*   ft_btree_erase.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 16:22:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/14 18:54:33 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/14 10:22:23 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/14 10:28:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstpushfront(t_list **alst, t_list *elem)
+t_btree	*ft_btree_erase(t_btree *bt, const void *content, size_t content_size)
 {
-	if (alst && elem)
-	{
-		ft_lstend(elem)->next = *alst;
-		*alst = elem;
-	}
+	return (ft_btree_erasef(bt, content, content_size, ft_memcmp));
 }

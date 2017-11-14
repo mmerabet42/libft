@@ -6,16 +6,26 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:49:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 16:05:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/14 19:12:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_btree	*ft_btree_insertf(t_btree *bt, t_btree *elem, t_cmpfunc cmp)
+static t_btree	*ft_btree_insertf_(t_btree *parent,
+								t_btree *bt,
+								t_btree *elem,
+								t_cmpfunc cmp)
 {
+	t_btree	*old_bt;
+
+	old_bt = bt;
 	if (bt == NULL || bt == elem)
+	{
+		if (elem)
+			elem->parent = parent;
 		return (elem);
+	}
 	if (cmp(bt->content, elem->content, elem->content_size) > 0)
 	{
 		if (bt->left == NULL)
@@ -28,5 +38,10 @@ t_btree	*ft_btree_insertf(t_btree *bt, t_btree *elem, t_cmpfunc cmp)
 			bt->right = elem;
 		bt = bt->right;
 	}
-	return (ft_btree_insertf(bt, elem, cmp));
+	return (ft_btree_insertf_(old_bt, bt, elem, cmp));
+}
+
+t_btree			*ft_btree_insertf(t_btree *bt, t_btree *elem, t_cmpfunc cmp)
+{
+	return (ft_btree_insertf_(bt, bt, elem, cmp));
 }
