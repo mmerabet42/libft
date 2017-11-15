@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/14 23:20:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 11:04:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char				*ft_lltoa(long long n);
 char				*ft_uitoa(unsigned int n);
 char				*ft_ulltoa(unsigned long long n);
 char				*ft_dtoa(double n, int precision);
-char				*ft_itoa_base(int n, char *base);
+char				*ft_itoa_base(int n, const char *base);
 char				*ft_tobase(const char *s,
 							char *fbase,
 							char *tbase);
@@ -201,6 +201,7 @@ t_btree				*ft_btree_fromlist(t_list *lst);
 t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 t_btree				*ft_btree_copy(t_btree *bt);
 size_t				ft_btree_size(t_btree *bt);
+
 int					ft_intlen(int n);
 int					ft_longlen(long n);
 int					ft_llonglen(long long n);
@@ -208,6 +209,7 @@ int					ft_uintlen(unsigned int n);
 int					ft_ullonglen(unsigned long long n);
 int					ft_abs(int n);
 int					ft_pow(int x, int y);
+int					ft_sqrt(int n);
 void				ft_swapptr(void **a, void **b);
 
 #endif

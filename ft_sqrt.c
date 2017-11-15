@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swapptr.c                                       :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 22:47:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 10:34:09 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/15 10:46:26 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/15 10:56:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_swapptr(void **a, void **b)
+int	ft_sqrt(int n)
 {
-	void	*tmp;
+	int	rt;
 
-	if (!a || !b)
-		return ;
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	rt = 1;
+	if (n <= 0)
+		return (0);
+	while (rt * rt != n && rt * rt < n)
+		++rt;
+	return ((rt * rt == n) ? rt : 0);
 }

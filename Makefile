@@ -115,6 +115,7 @@ _OBJS	=	ft_abs.o \
 			ft_strjoincs_clr.o \
 			ft_strlcat.o \
 			ft_strlen.o \
+			ft_sqrt.o \
 			ft_strmap.o \
 			ft_strmapi.o \
 			ft_strmdup.o \

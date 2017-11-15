@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 16:40:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 23:09:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 11:03:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base(int n, char *base)
+char	*ft_itoa_base(int n, const char *base)
 {
 	char	*str;
 	int		baselen;
@@ -20,6 +20,8 @@ char	*ft_itoa_base(int n, char *base)
 	int		nc;
 	int		isneg;
 
+	if (!base)
+		return (NULL);
 	isneg = (n < 0 ? 1 : 0);
 	baselen = ft_strlen(base);
 	i = (isneg ? 2 : 1);
