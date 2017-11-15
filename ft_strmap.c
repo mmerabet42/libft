@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:27:54 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 22:10:59 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:00:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strmap(char *s, char (*f)(char))
 	char	*snew;
 	size_t	i;
 
-	if (!s)
+	if (!s || !f)
 		return (NULL);
 	i = 0;
 	if ((snew = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))) == NULL)

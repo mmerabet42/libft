@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:46:40 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 16:47:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:13:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strcount(const char *s, char a)
 	int	count;
 
 	count = 0;
-	while (*s)
+	while (s && *s)
 		if (*s++ == a)
 			++count;
 	return (count);

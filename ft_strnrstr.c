@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 19:06:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/10 14:38:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:08:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strnrstr(const char *a, const char *b, size_t n)
 	size_t	alen;
 	int		blen;
 
+	if (!a || !b)
+		return (NULL);
 	alen = ft_strlen(a);
 	if (n >= alen)
 		n = alen - 1;

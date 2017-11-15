@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 20:30:51 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 21:56:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:05:40 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	t_list	**elem;
 
 	newlst = NULL;
-	while (lst)
+	while (lst && f)
 	{
 		if (newlst)
 		{

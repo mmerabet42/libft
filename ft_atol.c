@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 21:03:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 22:01:22 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:17:19 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ long	ft_atol(const char *s)
 	long				nb;
 	int					sign;
 
+	if (!s)
+		return (0);
 	nb = 0;
 	sign = 1;
 	while (ft_isspace(*s))

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:09:09 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 21:56:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 12:04:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char		**ft_strsplit(const char *s, char sep)
 	int		sz;
 	int		pos;
 
+	if (!s)
+		return (NULL);
 	t = NULL;
 	sz = 0;
 	t = (char **)ft_memalloc(sizeof(char *) * (ft_count_words(s, sep) + 1));

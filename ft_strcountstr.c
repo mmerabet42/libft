@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:48:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 16:50:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:14:48 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_strcountstr(const char *s, const char *a)
 	int	j;
 
 	count = 0;
-	while (*s)
+	while (s && *s)
 	{
 		j = 0;
 		while (a[j] && s[j] && (a[j] == s[j]))

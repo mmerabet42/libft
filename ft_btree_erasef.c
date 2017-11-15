@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 10:29:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 11:08:05 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 12:06:47 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ t_btree			*ft_btree_erasef(t_btree *bt,
 	t_btree	*tmp;
 
 	tmp = NULL;
-	if (bt == NULL)
-		return (bt);
+	if (!bt || !cmp)
+		return (NULL);
 	cmp_n = cmp(bt->content, content, content_size);
 	if (cmp_n > 0)
 		return (ft_btree_erasef(bt->left, content, content_size, cmp));

@@ -6,12 +6,16 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 11:04:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:11:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LIBFT_H
 # define FT_LIBFT_H
+# define FT_HEX "0123456789ABCDEF"
+# define FT_BIN "01"
+# define FT_OCT "01234567"
+# define FT_DEC "0123456789"
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -115,7 +119,7 @@ char				*ft_lltoa(long long n);
 char				*ft_uitoa(unsigned int n);
 char				*ft_ulltoa(unsigned long long n);
 char				*ft_dtoa(double n, int precision);
-char				*ft_itoa_base(int n, const char *base);
+char				*ft_itoa_cbase(int n, const char *base);
 char				*ft_tobase(const char *s,
 							char *fbase,
 							char *tbase);

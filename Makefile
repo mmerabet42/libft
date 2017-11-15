@@ -40,7 +40,7 @@ _OBJS	=	ft_abs.o \
 			ft_isspace.o \
 			ft_isupper.o \
 			ft_itoa.o \
-			ft_itoa_base.o \
+			ft_itoa_cbase.o \
 			ft_llonglen.o \
 			ft_lltoa.o \
 			ft_longlen.o \

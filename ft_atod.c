@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:54:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 14:12:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:09:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ double	ft_atod(const char *s)
 	char	*cfirstp;
 	char	*csecondp;
 
+	if (!s)
+		return (0.0);
 	if (ft_strchr(s, '.') == NULL)
 		return ((double)ft_atoi(s));
 	cfirstp = ft_strbefore(s, '.');

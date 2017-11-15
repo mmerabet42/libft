@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:57:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 17:49:03 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/15 12:10:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char		*ft_strrepstr(const char *s, const char *a, const char *b)
 	char	*pos;
 	int		lens[3];
 
+	if (!s || !a || !b)
+		return (NULL);
 	ft_setlens(s, a, b, lens);
 	if ((snew = (char *)malloc(sizeof(char) * (lens[2] + 1))) == NULL)
 		return (NULL);
