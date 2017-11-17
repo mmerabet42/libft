@@ -151,14 +151,9 @@ _OBJS	=	ft_abs.o \
 			ft_ullonglen.o \
 			ft_ulltoa.o
 
-SRCS	=	.
-OBJS	=	$(patsubst %,$(SRCS)/%,$(_OBJS))
-
-# PROGRESS BAR
-T = $(words $(OBJS))
-N = 0
-C = $(words $N)$(eval N := x $N)
-ECHO = "[`expr $C  '*' 100 / $T`%]"
+SRCS_DIR=	.
+OBJS	=	$(patsubst %,$(SRCS_DIR)/%,$(_OBJS))
+SRCS	=	$(OBJS:.o=.c)
 
 # COLORS
 _GREY=\x1b[30m
@@ -176,14 +171,13 @@ _SUCCESS=$(_CYAN)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@ar rc $(NAME) $?
+$(NAME): compile
+	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo "\n$(NAME) compilation : $(_SUCCESS)done$(_END)"
+	@echo "\n$(NAME) : $(_SUCCESS)done$(_END)"
 
-$(SRCS)/%.o: %.c
-	@printf "%-60b\r" "$(ECHO) $(_SUCCESS) Compiling $@ $(_END)"
-	@$(CC) $(CFLAGS) -c $<
+compile:
+	@$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:
 	@/bin/rm -f $(OBJS)
