@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/23 20:31:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/23 22:43:22 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,11 @@ int					ft_isspace(int c);
 int					ft_ispinct(int c);
 
 void				ft_putchar(char c);
+void				ft_putnchar(char c, size_t n);
 void				ft_putstr(const char *s);
+void				ft_putnstr(const char *s, size_t n);
 void				ft_putendl(const char *s);
+void				ft_putnendl(const char *s, size_t n);
 void				ft_putnbr(int n);
 void				ft_putunbr(unsigned int n);
 void				ft_putnbr_base(int n, const char *base);
@@ -149,8 +152,11 @@ void				ft_putptr(void *ptr);
 void				ft_putdouble(double n, int precision);
 
 void				ft_putchar_fd(char c, int fd);
+void				ft_putnchar_fd(char c, size_t n, int fd);
 void				ft_putstr_fd(const char *s, int fd);
+void				ft_putnstr_fd(const char *s, size_t n, int fd);
 void				ft_putendl_fd(const char *s, int fd);
+void				ft_putnendl_fd(const char *s, size_t n, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putunbr_fd(unsigned int n, int fd);
 void				ft_putnbr_base_fd(int n, const char *base, int fd);

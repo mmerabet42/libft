@@ -75,11 +75,15 @@ _OBJS	=	ft_abs.o \
 			ft_memset.o \
 			ft_pow.o \
 			ft_putchar.o \
+			ft_putnchar.o \
 			ft_putchar_fd.o \
+			ft_putnchar_fd.o \
 			ft_putdouble.o \
 			ft_putdouble_fd.o \
 			ft_putendl.o \
+			ft_putnendl.o \
 			ft_putendl_fd.o \
+			ft_putnendl_fd.o \
 			ft_putnbr.o \
 			ft_putnbr_base.o \
 			ft_putnbr_base_fd.o \
@@ -87,7 +91,9 @@ _OBJS	=	ft_abs.o \
 			ft_putptr.o \
 			ft_putptr_fd.o \
 			ft_putstr.o \
+			ft_putnstr.o \
 			ft_putstr_fd.o \
+			ft_putnstr_fd.o \
 			ft_putullong_base.o \
 			ft_putullong_base_fd.o \
 			ft_putunbr.o \
