@@ -10,7 +10,9 @@ _OBJS	=	ft_abs.o \
 			ft_atoll.o \
 			ft_atoui.o \
 			ft_atoull.o \
+			ft_btree_balance.o \
 			ft_btree_copy.o \
+			ft_btree_create.o \
 			ft_btree_del.o \
 			ft_btree_delone.o \
 			ft_btree_erase.o \
@@ -20,11 +22,14 @@ _OBJS	=	ft_abs.o \
 			ft_btree_insert.o \
 			ft_btree_insertf.o \
 			ft_btree_left.o \
+			ft_btree_leftrotate.o \
 			ft_btree_new.o \
 			ft_btree_right.o \
+			ft_btree_rightrotate.o \
 			ft_btree_search.o \
 			ft_btree_searchf.o \
 			ft_btree_size.o \
+			ft_btree_swap.o \
 			ft_btree_tolist.o \
 			ft_bzero.o \
 			ft_dtoa.o \
@@ -165,7 +170,7 @@ _PURPLE=\x1b[35m
 _CYAN=\x1b[36m
 _WHITE=\x1b[37m
 _END=\x1b[0m
-_SUCCESS=$(_CYAN)
+_SUCCESS=$(_GREEN)
 
 .PHONY: all clean fclean re
 
@@ -174,9 +179,10 @@ all: $(NAME)
 $(NAME): compile
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo "\n$(NAME) : $(_SUCCESS)done$(_END)"
+	@echo "$(NAME) : $(_SUCCESS)done$(_END)"
 
 compile:
+	@echo "$(_RED)Compiling$(_END) : $(NAME) $(_SUCCESS)...$(_END)"
 	@$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:

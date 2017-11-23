@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 13:11:05 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/23 20:31:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ t_list				*ft_lstcopy(t_list *lst);
 t_list				*ft_lstcopyone(t_list *lst);
 
 t_btree				*ft_btree_new(const void *content, size_t content_size);
+t_btree				*ft_btree_create(const void *content, size_t content_size);
 void				ft_btree_delone(t_btree **abt, void (*del)(void *, size_t));
 void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
 t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
@@ -204,6 +205,10 @@ t_list				*ft_btree_tolist(t_btree *bt);
 t_btree				*ft_btree_fromlist(t_list *lst);
 t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 t_btree				*ft_btree_copy(t_btree *bt);
+void				ft_btree_swap(t_btree *a, t_btree *b, int childs);
+t_btree				*ft_btree_leftrotate(t_btree *bt);
+t_btree				*ft_btree_rightrotate(t_btree *bt);
+t_btree				*ft_btree_balance(t_btree *bt);
 size_t				ft_btree_size(t_btree *bt);
 
 int					ft_intlen(int n);

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 10:29:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 12:06:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/23 17:17:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,22 @@
 static t_btree	*ft_btree_erase_case0(t_btree *found)
 {
 	t_btree	*rep;
-	size_t	tmp;
 
 	rep = (found->left ? found->left : found->right);
-	ft_swapptr((void **)&found->content, (void **)&rep->content);
-	tmp = found->content_size;
-	found->content_size = rep->content_size;
-	rep->content_size = tmp;
-	ft_swapptr((void **)&found->left, (void **)&rep->left);
-	ft_swapptr((void **)&found->right, (void **)&rep->right);
+	ft_btree_swap(found, rep, 1);
 	return (rep);
 }
 
 static t_btree	*ft_btree_erase_case1(t_btree *found)
 {
 	t_btree	*mostleft;
-	size_t	tmp;
 
 	mostleft = ft_btree_left(found->right);
 	if (mostleft->parent == found)
 		mostleft->parent->right = mostleft->right;
 	else
 		mostleft->parent->left = mostleft->right;
-	ft_swapptr((void **)&found->content, (void **)&mostleft->content);
-	tmp = found->content_size;
-	found->content_size = mostleft->content_size;
-	mostleft->content_size = tmp;
+	ft_btree_swap(found, mostleft, 0);
 	return (mostleft);
 }
 
