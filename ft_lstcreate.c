@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstcreate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 15:42:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/26 14:22:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/26 15:21:05 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/26 15:30:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+t_list	*ft_lstcreate(void *content, size_t content_size)
 {
-	if (!s)
-		return (NULL);
-	return ((char *)ft_memdup((void *)s, ft_strlen(s) + 1));
+	t_list	*lst;
+
+	if ((lst = (t_list *)ft_memalloc(sizeof(t_list))))
+	{
+		lst->content = content;
+		lst->content_size = (content ? content_size : 0);
+	}
+	return (lst);
 }

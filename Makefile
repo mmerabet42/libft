@@ -53,10 +53,12 @@ _OBJS	=	ft_abs.o \
 			ft_lstatpos.o \
 			ft_lstcopy.o \
 			ft_lstcopyone.o \
+			ft_lstcreate.o \
 			ft_lstdel.o \
 			ft_lstdelone.o \
 			ft_lstend.o \
 			ft_lstfind.o \
+			ft_lstfindbysize.o \
 			ft_lstiter.o \
 			ft_lstmap.o \
 			ft_lstnew.o \
@@ -163,6 +165,7 @@ _OBJS	=	ft_abs.o \
 			ft_ulltoa.o
 
 SRCS_DIR=	.
+ICLD_DIR=	includes
 OBJS	=	$(patsubst %,$(SRCS_DIR)/%,$(_OBJS))
 SRCS	=	$(OBJS:.o=.c)
 
@@ -189,8 +192,7 @@ $(NAME): compile
 
 compile:
 	@echo "$(_RED)Compiling$(_END) : $(NAME) $(_SUCCESS)...$(_END)"
-	@$(CC) $(CFLAGS) -c $(SRCS)
-
+	@$(CC) $(CFLAGS) -I $(ICLD_DIR) -c $(SRCS)
 clean:
 	@/bin/rm -f $(OBJS)
 	@echo "clean: $(_SUCCESS)done$(_END)"

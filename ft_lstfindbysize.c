@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstfindbysize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 15:42:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/26 14:22:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/26 14:33:40 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/11/26 14:36:01 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+t_list	*ft_lstfindbysize(t_list *lst, size_t content_size)
 {
-	if (!s)
+	if (!lst)
 		return (NULL);
-	return ((char *)ft_memdup((void *)s, ft_strlen(s) + 1));
+	if (lst->content_size == content_size)
+		return (lst);
+	return (ft_lstfindbysize(lst->next, content_size));
 }
