@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:30:32 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/30 14:49:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/30 15:13:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*ft_strjoincs_clr(char a, char *b)
 	if (b)
 		while (*b)
 			s[i++] = *b++;
+	b = NULL;
 	free(sb);
 	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 22:30:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/30 14:26:36 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/30 15:07:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	free_strs(char *a, char *b, int d)
 {
-	if (d == 0 && a)
+	if (d == 0)
 		free(a);
-	else if (d == 1 && b)
+	else if (d == 1)
 		free(b);
-	else if (d == 2 && a && b)
+	else if (d == 2)
 	{
 		free(a);
 		free(b);
