@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:42:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/26 14:22:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/13 13:05:35 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 
 char	*ft_strdup(const char *s)
 {
-	if (!s)
-		return (NULL);
 	return ((char *)ft_memdup((void *)s, ft_strlen(s) + 1));
 }

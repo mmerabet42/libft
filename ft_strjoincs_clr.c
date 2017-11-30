@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:30:32 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 14:33:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/11/30 14:49:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 char	*ft_strjoincs_clr(char a, char *b)
 {
 	char	*s;
+	char	*sb;
 	size_t	i;
 
 	i = 0;
-	if (b == NULL)
-		return (NULL);
+	sb = b;
 	if ((s = ft_strnew(ft_strlen(b) + 1)) == NULL)
 		return (NULL);
 	s[i++] = a;
-	while (*b)
-		s[i++] = *b++;
-	free(b);
+	if (b)
+		while (*b)
+			s[i++] = *b++;
+	free(sb);
 	return (s);
 }
