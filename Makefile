@@ -25,7 +25,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c \
 			ft_islower.c ft_isprint.c ft_ispunct.c ft_isspace.c ft_isupper.c \
 			ft_itoa.c ft_ltoa.c ft_lltoa.c ft_uitoa.c ft_ultoa.c ft_ulltoa.c \
 			ft_itoa_cbase.c ft_uitoa_cbase.c ft_ltoa_cbase.c ft_lltoa_cbase.c \
-			ft_ultoa_cbase.c ft_ulltoa_cbase.c ft_dtoa.c \
+			ft_ultoa_cbase.c ft_ulltoa_cbase.c \
 			ft_lstadd.c ft_lstatpos.c ft_lstcopy.c ft_lstcopyone.c ft_lstdel.c \
 			ft_lstdelone.c ft_lstend.c ft_lstfind.c ft_lstiter.c ft_lstmap.c \
 			ft_lstnew.c ft_lstpush.c ft_lstpushfront.c ft_lstsize.c \
@@ -51,7 +51,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c \
 			ft_strrepc.c ft_strrep_clr.c ft_strrepstr.c ft_strrepstr_clr.c \
 			ft_strrstr.c ft_strsplit.c ft_strsplitstr.c ft_strstr.c \
 			ft_strstr_pos.c ft_strsub.c ft_strtrim.c ft_swap.c ft_strforeach.c \
-			ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c ft_uintlen.c \
+			ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_wstrnlen.c \
 			ft_getwstr.c ft_getnwstr.c \
 
@@ -90,13 +90,14 @@ all: $(NAME)
 $(NAME):
 	@echo "$(_RED)Compiling$(_END) $(NAME) $(_RED)...$(_END)"
 	@$(CC) -c $(CFLAGS) $(SRCS) -I$(ICLD)
-	@ar rc $(NAME) $(_OBJS)
+	@mv $(_OBJS) $(OBJD)/
+	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo  "$(NAME) : $(_SUCCESS)done$(_END)"
 
 clean:
 	@echo "$(_RED)Cleaning$(_END) : object files"
-	@/bin/rm -f $(_OBJS)
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
 	@echo "$(_RED)Cleaning$(_END) : $(NAME)"
