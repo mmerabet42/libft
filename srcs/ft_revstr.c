@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 22:05:26 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 12:58:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 22:42:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,29 @@ char	*ft_revstr(char *a)
 	while (i < len)
 		ft_swap(a + i++, a + len--);
 	return (a);
+}
+
+char	*ft_strrepeat(const char *s, int n)
+{
+	char	*result;
+	int		len;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	len *= n;
+	if (!(result = ft_strnew(len)))
+		return (NULL);
+	while (n--)
+		ft_strcat(result, s);
+	return (result);
+}
+
+char	*ft_strrepeat_clr(char *s, int n)
+{
+	char	*result;
+	
+	result = ft_strrepeat(s, n);
+	free(s);
+	return (result);
 }

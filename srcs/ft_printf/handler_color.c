@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 21:42:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 23:35:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_color_above(char *tcolor, int fb)
 		return ("\e[7m");
 	else if (ft_strequ(tcolor, "hide"))
 		return ("\e[8m");
-	else if (ft_strequ(tcolor, "eoc"))
+	else if (ft_strequ(tcolor, "eoc") || *tcolor == '0')
 		return ("\e[0m");
 	return ("");
 }
@@ -66,18 +66,6 @@ static char	*get_color(char *tcolor, int fb)
 	return (get_color_above(tcolor, fb));
 }
 
-static char	*check(char *tcolor)
-{
-	char	*tmp;
-
-	tmp = tcolor;
-	while (ft_isdigit(*tcolor))
-		++tcolor;
-	if (*tcolor == '\0')
-		return (tmp);
-	return (NULL);
-}
-
 static char	*perform_color(char *tcolor, t_printf_params params)
 {
 	char	esc_fb[12];
@@ -87,11 +75,11 @@ static char	*perform_color(char *tcolor, t_printf_params params)
 		free(tcolor);
 		return (ft_strdup("\e[0m"));
 	}
-	ft_strcpy(esc_fb, "\e[38;5;");
+	ft_strcpy(esc_fb, "\e[38;2;");
 	if (params.width > 0)
 		ft_strncpy(esc_fb + 2, "48", 2);
 	if (params.precision > 0)
-		tcolor = ft_strjoin_clr(esc_fb, ft_strjoinc_clr(check(tcolor), 'm'), 1);
+		tcolor = ft_strjoin_clr(esc_fb, ft_strjoinc_clr(tcolor, 'm'), 1);
 	else
 		tcolor = ft_strdup(get_color(tcolor, params.width));
 	return (tcolor);
@@ -102,21 +90,16 @@ char		*handler_color(va_list lst, t_printf_params params)
 	char	*color;
 	char	*tcolor;
 	int		pos;
-	t_pcur	pcur;
 
 	if ((pos = ft_strchr_pos(*params.format, '}')) == -1)
 		return (ft_strdup("{"));
 	if (params.flags[HASH_FLAG])
 		params.width = 1;
-	if (params.flags[ZERO_FLAG])
+	if (params.flags[L_MOD])
 		params.precision = 1;
 	color = ft_strndup(*params.format, pos);
 	*params.format += pos + 1;
-	va_copy(pcur.ap, lst);
-	va_copy(pcur.ap_cur, lst);
-	tcolor = ft_strtrim_clr(ft_inner_printf(color, pcur).buf);
-	va_end(pcur.ap);
-	va_end(pcur.ap_cur);
+	ft_vprintf_s(&tcolor, color, lst);
 	free(color);
-	return (perform_color(tcolor, params));
+	return (perform_color(ft_strtrim_clr(tcolor), params));
 }

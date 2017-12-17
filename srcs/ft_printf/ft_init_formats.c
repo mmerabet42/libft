@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 22:52:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 20:34:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 23:41:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			ft_init_formats(void)
 
 	if (!frst_call)
 	{
-		frst_call = 1;
 		ft_printf_add_format("s", handler_s);
 		ft_printf_add_format("S", handler_s_m);
 		ft_printf_add_format("p", handler_p);
@@ -45,4 +44,10 @@ void			ft_init_formats(void)
 		ft_printf_add_format("C", handler_c_m);
 		ft_init_bonuses();
 	}
+}
+
+void			ft_init_params(t_printf_params *params)
+{
+	ft_bzero(params, sizeof(t_printf_params));
+	params->flags[QUERY_FLAG] = 1;
 }

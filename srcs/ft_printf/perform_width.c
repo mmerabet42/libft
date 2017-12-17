@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 21:59:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 20:27:15 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 21:23:01 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,27 @@ int		check_dollar(const char **index, int n, t_pcur *ap)
 		while (--n)
 			va_arg(ap->ap_cur, int);
 		++(*index);
+		return (1);
+	}
+	return (0);
+}
+
+int		check_query(const char **index, t_printf_params *params, t_pcur *ap)
+{
+	if (**index == '?')
+	{
+		++(*index);
+		if (**index == '*')
+		{
+			++(*index);
+			params->flags[QUERY_FLAG] = (int)va_arg(ap->ap_cur, int);
+		}
+		else
+		{
+			params->flags[QUERY_FLAG] = ft_atoi(*index);
+			while (ft_isdigit(**index))
+				++(*index);
+		}
 		return (1);
 	}
 	return (0);

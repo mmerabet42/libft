@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wcharlen.c                                      :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/11 19:06:55 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 22:00:28 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/11/23 22:48:49 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/12/17 19:45:48 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 64
 
-int	ft_wcharlen(wchar_t c)
+# include "libft.h"
+
+typedef struct	s_fd
 {
-	if (c < 0 || (c >= 0xd800 && c < 0xe000))
-		return (0);
-	if ((c <= 0x7f && MB_CUR_MAX >= 1) || (c <= 0xff && MB_CUR_MAX == 1))
-		return (1);
-	else if (c <= 0x7ff && MB_CUR_MAX >= 2)
-		return (2);
-	else if (c <= 0xffff && MB_CUR_MAX >= 3)
-		return (3);
-	else if (c <= 0x10ffff && MB_CUR_MAX >= 4)
-		return (4);
-	return (0);
-}
+	int			fd;
+	int			len;
+	char		buffer[BUFF_SIZE + 1];
+}				t_fd;
+
+int				get_next_line(const int fd, char **line);
+
+#endif

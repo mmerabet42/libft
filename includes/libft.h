@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 18:37:56 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 20:56:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char				*ft_strrstr(const char *a, const char *b);
 char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
 int					ft_strstr_pos(const char *a, const char *b);
+char				*ft_strrepeat(const char *s, int n);
+char				*ft_strrepeat_clr(char *s, int n);
 char				*ft_revstr(char *a);
 char				*ft_revnstr(char *a, size_t n);
 void				ft_swap(char *a, char *b);

@@ -55,6 +55,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c \
 			ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_wstrnlen.c \
 			ft_getwstr.c ft_getnwstr.c \
+			get_next_line.c \
 
 SRCD		=	srcs
 ICLD		=	includes

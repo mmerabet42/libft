@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 21:26:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 23:43:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ enum
 {
 	PLUS_FLAG, MINUS_FLAG, HASH_FLAG, ZERO_FLAG, SPACE_FLAG,
 	L_MOD, LM_MOD, LL_MOD, H_MOD, HH_MOD, J_MOD, T_MOD, Z_MOD,
-	FLAGS_SIZE
+	QUERY_FLAG, FLAGS_SIZE
 };
 
 typedef struct		s_printf_params
@@ -42,6 +42,7 @@ typedef struct		s_printf_format
 
 int					ft_printf_add_format(const char *f, t_printfunc func);
 void				ft_init_formats(void);
+void				ft_init_params(t_printf_params *params);
 void				ft_printf_free_formats();
 char				*ft_handle_format(va_list lst,
 								const char **format,
@@ -50,6 +51,8 @@ char				*ft_printf_parser(const char **format, const char *cur_buf,
 									t_pcur *ap);
 
 int					check_dollar(const char **index, int n, t_pcur *ap);
+int					check_query(const char **index, t_printf_params *params,
+							t_pcur *ap);
 char				*perform_width(char *str, t_printf_params *params);
 char				*pad_zeroes(char *str, t_printf_params *params);
 long long			proper_cast(va_list lst, t_printf_params params);
