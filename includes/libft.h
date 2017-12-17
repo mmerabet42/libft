@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 18:28:56 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 18:37:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_list
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
+	struct s_list	*parent;
 }					t_list;
 
 typedef struct		s_btree
@@ -201,6 +202,10 @@ t_list				*ft_lstcopyone(t_list *lst);
 t_list				*ft_lsterase(t_list **alst,
 							const void *content,
 							size_t content_size);
+t_list				*ft_lsterasef(t_list **alst,
+							const void *content,
+							size_t content_size,
+							t_cmpfunc cmp);
 
 t_btree				*ft_btree_new(const void *content, size_t content_size);
 t_btree				*ft_btree_create(const void *content, size_t content_size);
