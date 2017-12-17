@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 14:00:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/15 19:47:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/17 18:28:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,9 @@ size_t				ft_lstsize(t_list *lst);
 t_list				*ft_lstend(t_list *lst);
 t_list				*ft_lstcopy(t_list *lst);
 t_list				*ft_lstcopyone(t_list *lst);
+t_list				*ft_lsterase(t_list **alst,
+							const void *content,
+							size_t content_size);
 
 t_btree				*ft_btree_new(const void *content, size_t content_size);
 t_btree				*ft_btree_create(const void *content, size_t content_size);
