@@ -52,10 +52,7 @@ char	*handler_s_m(va_list lst, t_printf_params params)
 	ws = (wchar_t *)va_arg(lst, wchar_t *);
 	if (!(gs = get_proper_gs(ws, &params)) && ws)
 		return (NULL);
-	if (!gs)
-		str = "(null)";
-	else
-		str = gs;
+	str = (gs ? gs : "(null)");
 	slen = ft_strlen(str);
 	if (params.precision_spec && params.precision < slen)
 		slen = params.precision;
