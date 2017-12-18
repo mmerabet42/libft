@@ -59,7 +59,7 @@ static int	inner_get_next_line(t_fd *fd, char **l, int len)
 		fd->len = bread;
 		return (inner_get_next_line(fd, l, len));
 	}
-	return (*line ? len : bread);
+	return (*l ? len : bread);
 }
 
 int			get_next_line(const int fd, char **line)
