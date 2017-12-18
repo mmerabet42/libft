@@ -6,14 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 20:56:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/14 18:55:44 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 23:51:11 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
 #include <wctype.h>
 
-char	*handler_s(va_list lst, t_printf_params params)
+char		*handler_s(va_list lst, t_printf_params params)
 {
 	char	*gs;
 	int		slen;
@@ -31,7 +31,7 @@ char	*handler_s(va_list lst, t_printf_params params)
 	return (perform_width(gs, &params));
 }
 
-char	*get_proper_gs(wchar_t *ws, t_printf_params *params)
+static char	*get_proper_gs(wchar_t *ws, t_printf_params *params)
 {
 	if (ws && params->precision_spec)
 	{
@@ -41,7 +41,7 @@ char	*get_proper_gs(wchar_t *ws, t_printf_params *params)
 	return (ft_getwstr(ws));
 }
 
-char	*handler_s_m(va_list lst, t_printf_params params)
+char		*handler_s_m(va_list lst, t_printf_params params)
 {
 	wchar_t	*ws;
 	char	*gs;
@@ -59,6 +59,27 @@ char	*handler_s_m(va_list lst, t_printf_params params)
 	ostr = str;
 	str = ft_strndup(ostr, slen);
 	if (gs)
-		free(ostr); <-- CHANGE THIS
+		free(ostr);
 	return (perform_width(str, &params));
+}
+
+char		*handler_r(va_list lst, t_printf_params params)
+{
+	char	*gs;
+	int		i;
+
+	gs = (char *)va_arg(lst, char *);
+	if (!gs)
+		gs = "(null)";
+	params.precision = ft_abs(params.precision);
+	gs = (char *)ft_memcpy(ft_memalloc(params.precision + 1),
+			(void *)gs, params.precision);
+	i = 0;
+	while (i < params.precision)
+	{
+		if (gs[i] == 0)
+			gs[i] = -1;
+		++i;
+	}
+	return (perform_width(gs, &params));
 }

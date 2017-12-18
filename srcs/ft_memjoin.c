@@ -1,26 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:45:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 17:39:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/12/18 17:38:02 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/12/18 22:54:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strjoin(const char *a, const char *b)
+void	*ft_memjoin(const void *a,
+				size_t an,
+				const void *b,
+				size_t bn)
 {
-	char	*s;
+	void	*s;
 
-	if (!(s = ft_strnew(ft_strlen(a) + ft_strlen(b))))
+	if (!(s = malloc(an + bn)))
 		return (NULL);
 	if (a)
-		ft_strcat(s, a);
+		ft_memcpy(s, a, an);
 	if (b)
-		ft_strcat(s, b);
+		ft_memcpy(s + an, b, bn);
+	return (s);
+}
+
+void	*ft_memjoin_clr(void *a,
+					size_t an,
+					void *b,
+					size_t bn)
+{
+	void	*s;
+
+	if (!(s = malloc(an + bn)))
+		return (NULL);
+	if (a)
+		ft_memcpy(s, a, an);
+	if (b)
+		ft_memcpy(s + an, b, bn);
+	free(a);
 	return (s);
 }

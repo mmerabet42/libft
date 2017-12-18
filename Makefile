@@ -39,7 +39,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c \
 			ft_putstr.c ft_putnstr.c ft_putstr_fd.c ft_putnstr_fd.c \
 			ft_putullong_base.c ft_putullong_base_fd.c \
 			ft_putunbr.c ft_putunbr_fd.c \
-			ft_revnstr.c ft_revstr.c \
+			ft_revnstr.c ft_revstr.c ft_memjoin.c \
 			ft_strafter.c ft_strafterstr.c ft_strbefore.c ft_strbeforestr.c \
 			ft_strcat.c ft_strcatc.c ft_strchr.c ft_strchr_pos.c ft_strclr.c \
 			ft_strcmp.c ft_strcount.c ft_strcountstr.c ft_strcpy.c ft_strdel.c \

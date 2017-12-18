@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 19:43:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 23:53:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,25 @@ static int	inner_get_next_line(t_fd *fd, char **l, int len)
 
 	if (fd->len > 0)
 	{
-		if ((bread = ft_strchr_pos(fd->buffer, '\n')) != -1)
-			fd->buffer[bread] = '\0';
-		*l = (*l ? ft_strjoin_clr(*l, fd->buffer, 0) : ft_strdup(fd->buffer));
-		if (bread != -1 && ft_strcpy(fd->buffer, fd->buffer + (bread + 1)))
+		if ((bread = ft_memchr_pos(fd->buffer, '\n', fd->len)) == -1)
+			bread = fd->len;
+		*l = (*l ? ft_memjoin_clr(*l, len, fd->buffer, bread)
+				: ft_memdup(fd->buffer, bread));
+		if (bread < fd->len)
 		{
 			fd->len -= bread + 1;
+			ft_memcpy(fd->buffer, fd->buffer + (bread + 1), fd->len);
 			return (len + bread);
 		}
-		cur_len += fd->len;
-		ft_strclr(fd->buffer);
+		len += fd->len;
+		ft_bzero(fd->buffer, fd->len);
+		fd->len = 0;
 	}
-	if ((bread = read(fd->fd, fd->buffer, BUFF_SIZE)) > 0)
-	{
-		fd->buffer[bread] = '\0';
-		fd->len = bread;
+	if ((fd->len = read(fd->fd, fd->buffer, BUFF_SIZE)) > 0)
 		return (inner_get_next_line(fd, l, len));
-	}
-	return (*l ? len : bread);
+	if (!*l && fd->len == 0)
+		return (-2);
+	return (*l ? len : fd->len);
 }
 
 int			get_next_line(const int fd, char **line)
@@ -70,6 +71,5 @@ int			get_next_line(const int fd, char **line)
 	if (fd < 0 || !line || !(curr_fd = get_fd(&fds, fd)))
 		return (-1);
 	*line = NULL;
-	curr_fd->len = 0;
 	return (inner_get_next_line(curr_fd, line, 0));
 }

@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 22:52:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 23:41:56 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 18:08:43 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
 
-static void		ft_init_bonuses(void)
+static void		ft_init_addon(void)
 {
 	ft_printf_add_format("f", handler_f);
 	ft_printf_add_format("F", handler_f);
@@ -20,6 +20,7 @@ static void		ft_init_bonuses(void)
 	ft_printf_add_format("y", handler_y);
 	ft_printf_add_format("{", handler_color);
 	ft_printf_add_format("n", handler_n);
+	ft_printf_add_format("r", handler_r);
 }
 
 void			ft_init_formats(void)
@@ -28,6 +29,7 @@ void			ft_init_formats(void)
 
 	if (!frst_call)
 	{
+		frst_call = 1;
 		ft_printf_add_format("s", handler_s);
 		ft_printf_add_format("S", handler_s_m);
 		ft_printf_add_format("p", handler_p);
@@ -42,7 +44,7 @@ void			ft_init_formats(void)
 		ft_printf_add_format("X", handler_x_m);
 		ft_printf_add_format("c", handler_c);
 		ft_printf_add_format("C", handler_c_m);
-		ft_init_bonuses();
+		ft_init_addon();
 	}
 }
 

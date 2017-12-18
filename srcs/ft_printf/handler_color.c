@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 23:35:25 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 23:53:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static char	*get_color(char *tcolor, int fb)
 static char	*perform_color(char *tcolor, t_printf_params params)
 {
 	char	esc_fb[12];
+	char	*final_color;
 
 	if (params.flags[MINUS_FLAG])
 	{
@@ -79,10 +80,11 @@ static char	*perform_color(char *tcolor, t_printf_params params)
 	if (params.width > 0)
 		ft_strncpy(esc_fb + 2, "48", 2);
 	if (params.precision > 0)
-		tcolor = ft_strjoin_clr(esc_fb, ft_strjoinc_clr(tcolor, 'm'), 1);
+		final_color = ft_strjoin_clr(esc_fb, ft_strjoinc(tcolor, 'm'), 1);
 	else
-		tcolor = ft_strdup(get_color(tcolor, params.width));
-	return (tcolor);
+		final_color = ft_strdup(get_color(tcolor, params.width));
+	free(tcolor);
+	return (final_color);
 }
 
 char		*handler_color(va_list lst, t_printf_params params)

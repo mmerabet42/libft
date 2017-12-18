@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 22:05:26 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 22:42:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 22:56:17 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strrepeat(const char *s, int n)
 char	*ft_strrepeat_clr(char *s, int n)
 {
 	char	*result;
-	
+
 	result = ft_strrepeat(s, n);
 	free(s);
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 23:43:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/18 18:16:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char				*handler_b(va_list lst, t_printf_params params);
 char				*handler_y(va_list lst, t_printf_params params);
 char				*handler_color(va_list lst, t_printf_params params);
 char				*handler_n(va_list lst, t_printf_params params);
+char				*handler_r(va_list lst, t_printf_params params);
 
 #endif
