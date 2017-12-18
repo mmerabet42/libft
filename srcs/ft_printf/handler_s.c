@@ -59,6 +59,6 @@ char	*handler_s_m(va_list lst, t_printf_params params)
 	ostr = str;
 	str = ft_strndup(ostr, slen);
 	if (gs)
-		free(ostr);
+		free(ostr); <-- CHANGE THIS
 	return (perform_width(str, &params));
 }
