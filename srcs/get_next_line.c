@@ -36,7 +36,7 @@ static t_fd	*get_fd(t_list **lst, int fd)
 	return ((t_fd *)lst_fd->content);
 }
 
-static int	inner_get_next_line(t_fd *fd, char **line, int cur_len)
+static int	inner_get_next_line(t_fd *fd, char **l, int len)
 {
 	int			bread;
 
@@ -44,14 +44,11 @@ static int	inner_get_next_line(t_fd *fd, char **line, int cur_len)
 	{
 		if ((bread = ft_strchr_pos(fd->buffer, '\n')) != -1)
 			fd->buffer[bread] = '\0';
-		if (*line)
-			*line = ft_strjoin_clr(*line, fd->buffer, 0);
-		else
-			*line = ft_strdup(fd->buffer);
+		*l = (*l ? ft_strjoin_clr(*l, fd->buffer, 0) : ft_strdup(fd->buffer));
 		if (bread != -1 && ft_strcpy(fd->buffer, fd->buffer + (bread + 1)))
 		{
 			fd->len -= bread + 1;
-			return (cur_len + bread);
+			return (len + bread);
 		}
 		cur_len += fd->len;
 		ft_strclr(fd->buffer);
@@ -60,9 +57,9 @@ static int	inner_get_next_line(t_fd *fd, char **line, int cur_len)
 	{
 		fd->buffer[bread] = '\0';
 		fd->len = bread;
-		return (inner_get_next_line(fd, line, cur_len));
+		return (inner_get_next_line(fd, l, len));
 	}
-	return (*line ? cur_len : bread);
+	return (*line ? len : bread);
 }
 
 int			get_next_line(const int fd, char **line)
