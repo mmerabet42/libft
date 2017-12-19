@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:03:45 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 13:16:59 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:26:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 unsigned int	ft_atoui(const char *s)
 {

@@ -6,25 +6,35 @@
 #include <locale.h>
 #include <wctype.h>
 #include <fcntl.h>
+#include <float.h>
+
+# define PRINTFT "%f", -89.23
+
+void printbtree(t_btree *bt, int n)
 
 int main(int argc, char **argv)
 {
-	char	*line;
-	int		len;
-	int		fd = open(argv[1], O_RDWR);
-	int		lnb = 0;
-	while ((len = get_next_line(fd, &line)) > 0)
+	t_btree *bt = NULL;
+	t_btree *tmp;
+	int	i = 1;
+	while (i < argc)
 	{
-		ft_printf("%-10d|%.*r\n", ++lnb, len - 1, line);
-		free(line);
+		tmp = ft_btree_insert(bt, ft_btree_new(argv[1], ft_strlen(argv[1])));
+		if (!bt)
+			bt = tmp;
+		++i;
 	}
-	//ft_printf("%-10d|%.*r\n", len, len, line);
-	/*ft_printf("FT_PRINTF : %s\n'", "");
+
+	return (0);
+	ft_printf("FT_PRINTF : \n'");
 	int	ftlen = ft_printf(PRINTFT);
 	printf("'\nPRINTF : \n'");
 	int	len = printf(PRINTFT);
-	printf("'\nmy : %d; his : %d\n", ftlen, len);*/
-
-	ft_printf_free_formats();
+	printf("'\nmy : %d; his : %d\n", ftlen, len);
 	return (0);
+}
+
+void printbtree(t_btree *bt, int n)
+{
+	
 }

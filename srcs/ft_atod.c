@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:54:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 13:09:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:24:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
+#include "ft_str.h"
 
 double	ft_atod(const char *s)
 {

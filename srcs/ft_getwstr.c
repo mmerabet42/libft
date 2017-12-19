@@ -6,17 +6,20 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:27:31 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/12 16:00:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:14:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 char	*ft_getwstr(const wchar_t *wcs)
 {
-	char	*str;
+	return (ft_getnwstr(wcs, ft_wstrlen(wcs)));
+	/*char	*str;
 	char	*wc;
+	int		len;
 
+	len = ft_wstrlen(wcs);
 	str = ft_strnew(0);
 	if (!wcs)
 		return (NULL);
@@ -28,6 +31,30 @@ char	*ft_getwstr(const wchar_t *wcs)
 			return (NULL);
 		}
 		str = ft_strjoin_clr(str, wc, 2);
+	}
+	return (str);*/
+}
+
+char	*ft_getnwstr(const wchar_t *wcs, int n)
+{
+	char	*str;
+	char	*wc;
+	int		len;
+
+	if (n > (len = ft_wstrlen(wcs)))
+		n = len;
+	str = ft_strnew(n);
+	if (!wcs || n < 0)
+		return (NULL);
+	while (*wcs && n--)
+	{
+		if (!(wc = ft_getwchar(*wcs++)))
+		{
+			free(str);
+			return (NULL);
+		}
+		ft_strcat(str, wc);
+		free(wc);
 	}
 	return (str);
 }

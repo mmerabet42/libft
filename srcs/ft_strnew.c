@@ -6,12 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:17:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/10 18:04:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 21:45:24 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "ft_str.h"
+#include "ft_mem.h"
 
 char	*ft_strnew(size_t size)
 {

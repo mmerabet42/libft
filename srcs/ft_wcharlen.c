@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:06:55 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 22:00:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:27:04 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 int	ft_wcharlen(wchar_t c)
 {

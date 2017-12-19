@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:12:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/14 22:18:36 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:37:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
+#include "ft_str.h"
 
 static long double	ft_ldtoa_adder(int precision)
 {

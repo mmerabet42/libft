@@ -6,11 +6,23 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:23:36 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 12:57:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:26:54 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
+#include "ft_str.h"
+#include "ft_math.h"
+
+int	ft_ullonglen(unsigned long long n)
+{
+	int	len;
+
+	len = 1;
+	while (n /= 10)
+		++len;
+	return (len);
+}
 
 char	*ft_ulltoa(unsigned long long n)
 {
@@ -24,6 +36,31 @@ char	*ft_ulltoa(unsigned long long n)
 	{
 		str[--i] = ft_abs((int)(n % 10)) + 48;
 		n /= 10;
+	}
+	return (str);
+}
+
+char	*ft_ulltoa_cbase(unsigned long long n, const char *base)
+{
+	char				*str;
+	int					baselen;
+	int					i;
+	unsigned long long	nc;
+
+	if (!base)
+		return (NULL);
+	baselen = ft_strlen(base);
+	i = 1;
+	nc = n;
+	while (nc /= baselen)
+		++i;
+	if ((str = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
+		return (NULL);
+	str[i] = '\0';
+	while (i >= 0)
+	{
+		str[--i] = base[ft_abs(n % baselen)];
+		n /= baselen;
 	}
 	return (str);
 }

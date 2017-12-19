@@ -6,24 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 16:57:08 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 18:37:30 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:58:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "ft_list.h"
 
-static void	ft_swap_list(t_list *a, t_list *b)
-{
-	size_t	tmp;
-
-	ft_swapptr(&a->content, &b->content);
-	tmp = a->content_size;
-	a->content_size = b->content_size;
-	b->content_size = tmp;
-}
-
-t_list		*ft_lsterase(t_list **alst,
+t_list	*ft_lsterase(t_list **alst,
 					const void *content,
 					size_t content_size)
 {
@@ -42,7 +31,7 @@ t_list		*ft_lsterase(t_list **alst,
 			lstdel = (*alst)->next;
 			if (((*alst)->next = lstdel->next))
 				lstdel->next->parent = *alst;
-			ft_swap_list(*alst, lstdel);
+			ft_lstswap(*alst, lstdel);
 		}
 		else
 			*alst = NULL;
@@ -53,7 +42,7 @@ t_list		*ft_lsterase(t_list **alst,
 	return (NULL);
 }
 
-t_list		*ft_lsterasef(t_list **alst,
+t_list	*ft_lsterasef(t_list **alst,
 					const void *content,
 					size_t content_size,
 					t_cmpfunc cmp)
@@ -73,7 +62,7 @@ t_list		*ft_lsterasef(t_list **alst,
 			lstdel = (*alst)->next;
 			if (((*alst)->next = lstdel->next))
 				lstdel->next->parent = *alst;
-			ft_swap_list(*alst, lstdel);
+			ft_lstswap(*alst, lstdel);
 		}
 		else
 			*alst = NULL;

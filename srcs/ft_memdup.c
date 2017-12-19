@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:42:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/27 17:54:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:09:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_mem.h"
 
 void	*ft_memdup(const void *s, size_t n)
 {
@@ -19,4 +19,13 @@ void	*ft_memdup(const void *s, size_t n)
 	if (s && (mem = malloc(n)))
 		return (ft_memcpy(mem, s, n));
 	return (NULL);
+}
+
+void	ft_memdel(void **ap)
+{
+	if (ap && *ap)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 }

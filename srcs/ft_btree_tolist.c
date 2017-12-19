@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:05:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 13:02:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:36:17 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_btree.h"
 
 t_list	*ft_btree_tolist(t_btree *bt)
 {

@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 16:10:42 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/23 17:01:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:35:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_btree.h"
+#include "ft_mem.h"
 
 void	ft_btree_swap(t_btree *a, t_btree *b, int childs)
 {

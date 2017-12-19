@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 13:36:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 17:26:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:27:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_math.h"
 
 int	ft_abs(int n)
 {

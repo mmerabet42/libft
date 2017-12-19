@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:07:59 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 17:04:35 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 21:56:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 char	*ft_strstr(const char *a, const char *b)
 {
@@ -29,3 +29,61 @@ char	*ft_strstr(const char *a, const char *b)
 	}
 	return (NULL);
 }
+
+char	*ft_strnstr(const char *a, const char *b, size_t n)
+{
+	size_t	blen;
+
+	if (*a == '\0' || n == 0)
+		return (NULL);
+	if (*b == '\0')
+		return ((char *)a);
+	blen = ft_strlen(b);
+	while (*a && n-- >= blen)
+	{
+		if (ft_strncmp(a, b, blen) == 0)
+			return ((char *)(a));
+		++a;
+	}
+	return (NULL);
+}
+
+char	*ft_strrstr(const char *a, const char *b)
+{
+	int		i;
+	int		j;
+	size_t	blen;
+
+	i = ft_strlen(a);
+	blen = ft_strlen(b) - 1;
+	while (--i >= 0)
+	{
+		j = blen;
+		while (j >= 0 && a[i - (blen - j)] && (a[i - (blen - j)] == b[j]))
+			--j;
+		if (j == 0)
+			return ((char *)(&a[i]));
+	}
+	return (NULL);
+}
+
+int	ft_strstr_pos(const char *a, const char *b)
+{
+	int		pos;
+	size_t	j;
+
+	if (!a || !b)
+		return (-1);
+	pos = 0;
+	while (a[pos])
+	{
+		j = 0;
+		while (b[j] && a[pos + j] && (b[j] == a[pos + j]))
+			++j;
+		if (b[j] == '\0')
+			return (pos);
+		++pos;
+	}
+	return (-1);
+}
+

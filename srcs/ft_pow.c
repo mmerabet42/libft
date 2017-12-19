@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 16:34:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 22:22:17 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:27:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_math.h"
 
 int	ft_pow(int x, int y)
 {

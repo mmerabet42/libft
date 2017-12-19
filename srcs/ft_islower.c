@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:14:34 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 18:15:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:22:48 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 int	ft_islower(int c)
 {

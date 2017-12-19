@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 22:05:26 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 22:56:17 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:40:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 char	*ft_revstr(char *a)
 {
@@ -26,27 +26,16 @@ char	*ft_revstr(char *a)
 	return (a);
 }
 
-char	*ft_strrepeat(const char *s, int n)
+char	*ft_revnstr(char *a, size_t n)
 {
-	char	*result;
-	int		len;
+	size_t	i;
 
-	if (!s)
+	if (!a)
 		return (NULL);
-	len = ft_strlen(s);
-	len *= n;
-	if (!(result = ft_strnew(len)))
-		return (NULL);
-	while (n--)
-		ft_strcat(result, s);
-	return (result);
-}
-
-char	*ft_strrepeat_clr(char *s, int n)
-{
-	char	*result;
-
-	result = ft_strrepeat(s, n);
-	free(s);
-	return (result);
+	i = ft_strlen(a) - 1;
+	n = (n > i ? i : n);
+	i = 0;
+	while (i < n)
+		ft_swap(a + i++, a + n--);
+	return (a);
 }

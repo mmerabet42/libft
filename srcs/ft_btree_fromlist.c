@@ -6,11 +6,29 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:28:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/12 16:28:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:49:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_btree.h"
+#include "ft_mem.h"
+
+t_btree	*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp)
+{
+	t_btree	*bt;
+	t_btree	*elem;
+
+	bt = NULL;
+	while (lst && cmp)
+	{
+		elem = ft_btree_new(lst->content, lst->content_size);
+		elem = ft_btree_insertf(bt, elem, cmp);
+		if (!bt)
+			bt = elem;
+		lst = lst->next;
+	}
+	return (bt);
+}
 
 t_btree	*ft_btree_fromlist(t_list *lst)
 {

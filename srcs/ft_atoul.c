@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/03 14:01:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:27:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 unsigned long	ft_atoul(const char *s)
 {

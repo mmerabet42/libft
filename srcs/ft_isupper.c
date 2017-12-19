@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:13:47 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 20:14:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:24:00 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 int	ft_isupper(int c)
 {

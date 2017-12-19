@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 12:44:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 18:37:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:54:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
+#include "ft_mem.h"
 
 t_list	*ft_lstfind(t_list *lst, const void *content, size_t content_size)
 {

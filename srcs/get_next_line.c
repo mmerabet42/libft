@@ -6,12 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 18:04:46 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:27:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include <unistd.h>
+#include "get_next_line.h"
 
 static int	fdcmp(const void *a, const void *b, size_t n)
 {

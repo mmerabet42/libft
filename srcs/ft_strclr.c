@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:22:00 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/13 22:09:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:53:24 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_mem.h"
 
 void	ft_strclr(char *s)
 {

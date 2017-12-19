@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:09:26 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 22:00:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 22:27:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_mem.h"
 
 static char	*ft_inner_getwchar(wchar_t wc, char wcs[MB_CUR_MAX + 1])
 {

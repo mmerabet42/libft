@@ -6,12 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:38:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 22:54:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:10:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_printf.h"
+#include "ft_mem.h"
 
 void	*ft_memjoin(const void *a,
 				size_t an,

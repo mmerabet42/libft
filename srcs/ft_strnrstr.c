@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 19:06:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/15 13:08:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 21:49:04 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 char	*ft_strnrstr(const char *a, const char *b, size_t n)
 {

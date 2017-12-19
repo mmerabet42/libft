@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 15:53:40 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:14:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define HANDLERS_H
 
 # include "ft_printf.h"
+# include "ft_types.h"
+# include "ft_str.h"
+# include "ft_math.h"
+# include "ft_mem.h"
 
 enum
 {

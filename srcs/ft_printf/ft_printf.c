@@ -6,12 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:27:32 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/15 16:22:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:01:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "handlers.h"
 
 int				ft_printf(const char *format, ...)
 {

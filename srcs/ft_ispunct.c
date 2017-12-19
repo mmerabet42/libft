@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:16:29 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 20:18:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:23:22 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 int	ft_ispunct(int c)
 {

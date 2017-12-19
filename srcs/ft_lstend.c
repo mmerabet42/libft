@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 18:48:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/11 19:27:59 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:50:11 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
 
 t_list	*ft_lstend(t_list *lst)
 {

@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:15:34 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 20:16:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:22:23 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 int	ft_iscntrl(int c)
 {

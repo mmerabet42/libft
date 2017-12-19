@@ -6,12 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 18:17:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 23:43:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:19:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 #include "handlers.h"
+#include "ft_str.h"
 
 static t_ret	get_ret(char *buffer, int err)
 {

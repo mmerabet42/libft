@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 17:38:59 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 20:47:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 18:59:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "libft.h"
 
 typedef struct	s_ret
 {

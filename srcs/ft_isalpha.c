@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:09:40 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/11/09 20:10:32 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:21:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_types.h"
 
 int	ft_isalpha(int c)
 {

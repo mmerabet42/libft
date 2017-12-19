@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 19:47:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/15 19:51:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 21:37:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_str.h"
 
 int	ft_strforeach(const char *s, int (*f)(char))
 {
