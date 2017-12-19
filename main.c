@@ -9,18 +9,13 @@
 
 int main(int argc, char **argv)
 {
-	int	i = 0;
-	while (i < argc)
-		ft_printf("%{%s}", argv[++i]);
-	ft_printf("Hello world%{0}\n");
-	return (0);
 	char	*line;
 	int		len;
 	int		fd = open(argv[1], O_RDWR);
 	int		lnb = 0;
 	while ((len = get_next_line(fd, &line)) > 0)
 	{
-		ft_printf("%-10d|%.*r\n", ++lnb, len, line);
+		ft_printf("%-10d|%.*r\n", ++lnb, len - 1, line);
 		free(line);
 	}
 	//ft_printf("%-10d|%.*r\n", len, len, line);
