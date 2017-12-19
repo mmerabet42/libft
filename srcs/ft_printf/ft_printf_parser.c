@@ -24,6 +24,8 @@ static int	ft_is_flag(char c, t_printf_params *params)
 		return (params->flags[ZERO_FLAG] = 1);
 	else if (c == ' ')
 		return (params->flags[SPACE_FLAG] = 1);
+	else if (check_query(params->format, params, params->pcur))
+		return (1);
 	return (0);
 }
 
@@ -108,6 +110,8 @@ char		*ft_printf_parser(const char **format, const char *cur_buf,
 
 	ft_init_params(&params);
 	params.current_buffer = cur_buf;
+	params.format = format;
+	params.pcur = ap;
 	while (**format)
 	{
 		if (ft_is_flag(**format, &params))
@@ -115,8 +119,6 @@ char		*ft_printf_parser(const char **format, const char *cur_buf,
 		else if (ft_is_width(format, &params, ap))
 			;
 		else if (ft_is_precision(format, &params, ap))
-			;
-		else if (check_query(format, &params, ap))
 			;
 		else if ((inc_format = ft_is_modifier(format, &params)))
 			(*format) += inc_format;

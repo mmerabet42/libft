@@ -23,7 +23,7 @@ static t_ret	get_ret(char *buffer, int err)
 	return (ret);
 }
 
-t_ret			ft_inner_printf(const char *format, t_pcur ap)
+t_ret			ft_inner_printf(const char *format, t_pcur *ap)
 {
 	char	*cs;
 	char	*tmp;
@@ -37,7 +37,7 @@ t_ret			ft_inner_printf(const char *format, t_pcur ap)
 		if (*format == '%')
 		{
 			++format;
-			if (!(tmp = ft_printf_parser(&format, ret.buf ? ret.buf : cs, &ap)))
+			if (!(tmp = ft_printf_parser(&format, ret.buf ? ret.buf : cs, ap)))
 			{
 				ret = get_ret(ret.buf, 1);
 				free(cs);
@@ -61,7 +61,7 @@ int				ft_vprintf_s(char **buffer, const char *format, va_list ap)
 		return (-1);
 	va_copy(pcur.ap, ap);
 	va_copy(pcur.ap_cur, ap);
-	ret = ft_inner_printf(format, pcur);
+	ret = ft_inner_printf(format, &pcur);
 	va_end(pcur.ap_cur);
 	va_end(pcur.ap);
 	*buffer = ret.buf;
@@ -77,7 +77,7 @@ int				ft_vprintf_fd(int fd, const char *format, va_list ap)
 		return (-1);
 	va_copy(pcur.ap, ap);
 	va_copy(pcur.ap_cur, ap);
-	ret = ft_inner_printf(format, pcur);
+	ret = ft_inner_printf(format, &pcur);
 	va_end(pcur.ap_cur);
 	va_end(pcur.ap);
 	ret.len = write(fd, ret.buf, ret.len);

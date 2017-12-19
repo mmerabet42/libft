@@ -34,7 +34,7 @@ static char	*get_color_above(char *tcolor, int fb)
 		return ("\e[7m");
 	else if (ft_strequ(tcolor, "hide"))
 		return ("\e[8m");
-	else if (ft_strequ(tcolor, "eoc") || *tcolor == '0')
+	else if (ft_strequ(tcolor, "eoc") || ft_strequ(tcolor, "0"))
 		return ("\e[0m");
 	return ("");
 }
@@ -93,6 +93,7 @@ char		*handler_color(va_list lst, t_printf_params params)
 	char	*tcolor;
 	int		pos;
 
+	(void)lst;
 	if ((pos = ft_strchr_pos(*params.format, '}')) == -1)
 		return (ft_strdup("{"));
 	if (params.flags[HASH_FLAG])
@@ -101,7 +102,7 @@ char		*handler_color(va_list lst, t_printf_params params)
 		params.precision = 1;
 	color = ft_strndup(*params.format, pos);
 	*params.format += pos + 1;
-	ft_vprintf_s(&tcolor, color, lst);
+	tcolor = ft_inner_printf(color, params.pcur).buf;
 	free(color);
 	return (perform_color(ft_strtrim_clr(tcolor), params));
 }

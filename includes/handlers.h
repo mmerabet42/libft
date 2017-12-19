@@ -26,6 +26,7 @@ typedef struct		s_printf_params
 {
 	const char		**format;
 	const char		*current_buffer;
+	t_pcur			*pcur;
 	int				width;
 	int				precision;
 	int				precision_spec;

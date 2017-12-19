@@ -25,9 +25,9 @@ static void		ft_init_addon(void)
 
 void			ft_init_formats(void)
 {
-	static int	frst_call;
+	static int	frst_call = 0;
 
-	if (!frst_call)
+	if (frst_call == 0)
 	{
 		frst_call = 1;
 		ft_printf_add_format("s", handler_s);

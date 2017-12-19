@@ -36,6 +36,6 @@ int				ft_printf_s(char **buffer, const char *format, ...);
 int				ft_vprintf(const char *format, va_list ap);
 int				ft_vprintf_fd(int fd, const char *format, va_list ap);
 int				ft_vprintf_s(char **buffer, const char *format, va_list ap);
-t_ret			ft_inner_printf(const char *format, t_pcur ap);
+t_ret			ft_inner_printf(const char *format, t_pcur *ap);
 
 #endif
