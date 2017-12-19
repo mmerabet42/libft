@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 18:16:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 15:53:40 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef struct		s_printf_format
 
 int					ft_printf_add_format(const char *f, t_printfunc func);
 void				ft_init_formats(void);
-void				ft_init_params(t_printf_params *params);
+void				ft_init_params(t_printf_params *params, const char *cur_buf,
+								const char **format, t_pcur *ap);
 void				ft_printf_free_formats();
 char				*ft_handle_format(va_list lst,
 								const char **format,

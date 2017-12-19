@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 22:52:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 18:08:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 15:53:31 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ void			ft_init_formats(void)
 	}
 }
 
-void			ft_init_params(t_printf_params *params)
+void			ft_init_params(t_printf_params *params, const char *cur_buf,
+							const char **format, t_pcur *ap)
 {
 	ft_bzero(params, sizeof(t_printf_params));
 	params->flags[QUERY_FLAG] = 1;
+	params->current_buffer = cur_buf;
+	params->format = format;
+	params->pcur = ap;
 }

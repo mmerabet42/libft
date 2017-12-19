@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 23:53:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 17:35:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ static int	inner_get_next_line(t_fd *fd, char **l, int len)
 	{
 		if ((bread = ft_memchr_pos(fd->buffer, '\n', fd->len)) == -1)
 			bread = fd->len;
-		*l = (*l ? ft_memjoin_clr(*l, len, fd->buffer, bread)
-				: ft_memdup(fd->buffer, bread));
+		fd->buffer[bread] = '\0';
+		*l = (*l ? ft_memjoin_clr(*l, len, fd->buffer, bread + 1)
+				: ft_memdup(fd->buffer, bread + 1));
 		if (bread < fd->len)
 		{
 			fd->len -= bread + 1;
 			ft_memcpy(fd->buffer, fd->buffer + (bread + 1), fd->len);
-			return (len + bread);
+			return (len + bread + 1);
 		}
 		len += fd->len;
 		ft_bzero(fd->buffer, fd->len);
@@ -58,9 +59,7 @@ static int	inner_get_next_line(t_fd *fd, char **l, int len)
 	}
 	if ((fd->len = read(fd->fd, fd->buffer, BUFF_SIZE)) > 0)
 		return (inner_get_next_line(fd, l, len));
-	if (!*l && fd->len == 0)
-		return (-2);
-	return (*l ? len : fd->len);
+	return (*l ? len + 1 : fd->len);
 }
 
 int			get_next_line(const int fd, char **line)

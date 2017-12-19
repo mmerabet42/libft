@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 16:03:19 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 22:01:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 16:28:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	ft_is_flag(char c, t_printf_params *params)
 		return (params->flags[ZERO_FLAG] = 1);
 	else if (c == ' ')
 		return (params->flags[SPACE_FLAG] = 1);
-	else if (check_query(params->format, params, params->pcur))
-		return (1);
 	return (0);
 }
 
@@ -108,10 +106,7 @@ char		*ft_printf_parser(const char **format, const char *cur_buf,
 	int				inc_format;
 	char			*buffer;
 
-	ft_init_params(&params);
-	params.current_buffer = cur_buf;
-	params.format = format;
-	params.pcur = ap;
+	ft_init_params(&params, cur_buf, format, ap);
 	while (**format)
 	{
 		if (ft_is_flag(**format, &params))
@@ -119,6 +114,8 @@ char		*ft_printf_parser(const char **format, const char *cur_buf,
 		else if (ft_is_width(format, &params, ap))
 			;
 		else if (ft_is_precision(format, &params, ap))
+			;
+		else if (check_query(format, &params, ap))
 			;
 		else if ((inc_format = ft_is_modifier(format, &params)))
 			(*format) += inc_format;

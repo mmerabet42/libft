@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/18 23:53:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/19 17:43:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static char	*get_color(char *tcolor, int fb)
 		return ("\e[2m");
 	else if (ft_strequ(tcolor, "underlined"))
 		return ("\e[4m");
+	else if (ft_strequ(tcolor, "italic"))
+		return ("\e[3m");
 	return (get_color_above(tcolor, fb));
 }
 
