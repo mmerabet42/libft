@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmalloc.c                                     :+:      :+:    :+:   */
+/*   ft_btree_parent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:14:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:59:50 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/12/20 23:30:35 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/12/20 23:32:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_btree.h"
 
-void	*ft_memalloc(size_t size)
+t_btree	*ft_btree_parent(t_btree *bt)
 {
-	void	*mem;
-
-	if ((mem = malloc(size)))
-		ft_bzero(mem, size);
-	return (mem);
+	if (!bt || !bt->parent)
+		return (bt);
+	return (ft_btree_parent(bt->parent));
 }

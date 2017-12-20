@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:00:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:24:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:38:50 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ int	ft_atoi_base(const char *s, const char *base)
 		nb += pos * ft_pow(baselen, --i);
 	return (nb * sign);
 }
-

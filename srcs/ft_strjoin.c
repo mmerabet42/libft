@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:45:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 21:40:50 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:41:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strjoin(const char *a, const char *b)
 	return (s);
 }
 
-char		*ft_strjoin_clr(char *a, char *b, int d)
+char	*ft_strjoin_clr(char *a, char *b, int d)
 {
 	char	*s;
 

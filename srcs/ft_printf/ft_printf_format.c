@@ -6,12 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:58:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:10:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:32:33 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
 #include "ft_list.h"
+#include "ft_str.h"
 
 static t_list	*g_printf_formats = NULL;
 static t_list	*g_printf_last = NULL;

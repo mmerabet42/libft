@@ -6,11 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 16:03:19 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:17:53 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:34:14 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_math.h"
+#include "ft_types.h"
+#include "ft_str.h"
 
 static int	ft_is_flag(char c, t_printf_params *params)
 {

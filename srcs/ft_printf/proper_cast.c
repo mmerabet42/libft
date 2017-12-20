@@ -6,12 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:48:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/16 20:56:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 22:31:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "handlers.h"
 #include <inttypes.h>
+#include <stdlib.h>
+#include "handlers.h"
 
 long long			proper_cast(va_list lst, t_printf_params params)
 {

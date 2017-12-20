@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 12:44:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:54:16 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:14:50 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,16 @@ t_list	*ft_lstfindf(t_list *lst, const void *content, size_t content_size,
 	if (cmp(lst->content, content, content_size) == 0)
 		return (lst);
 	return (ft_lstfindf(lst->next, content, content_size, cmp));
+}
+
+t_list	*ft_lstfindm(t_list *lst,
+				const void *content,
+				size_t pstart,
+				size_t plen)
+{
+	if (!lst)
+		return (NULL);
+	if (ft_memcmp(lst->content + pstart, content + pstart, plen) == 0)
+		return (lst);
+	return (ft_lstfindm(lst->next, content, pstart, plen));
 }

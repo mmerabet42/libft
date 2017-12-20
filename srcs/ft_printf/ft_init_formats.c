@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 22:52:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 15:53:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:34:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_mem.h"
 
 static void		ft_init_addon(void)
 {

@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 18:04:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:36:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_str.h"
 
 static char	*get_color_above(char *tcolor, int fb)
 {

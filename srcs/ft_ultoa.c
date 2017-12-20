@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 22:18:43 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:21:03 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:40:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_str.h"
 #include "ft_math.h"
 
-int	ft_ulonglen(unsigned long n)
+int		ft_ulonglen(unsigned long n)
 {
 	int	len;
 

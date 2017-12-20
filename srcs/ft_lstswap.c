@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 19:52:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:56:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:42:31 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ void	ft_lstswap(t_list *a, t_list *b)
 	a->content_size = b->content_size;
 	b->content_size = tmp;
 }
-

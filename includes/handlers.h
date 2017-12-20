@@ -6,18 +6,15 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:14:41 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 22:46:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HANDLERS_H
 # define HANDLERS_H
 
+# include <stdarg.h>
 # include "ft_printf.h"
-# include "ft_types.h"
-# include "ft_str.h"
-# include "ft_math.h"
-# include "ft_mem.h"
 
 enum
 {
@@ -26,7 +23,7 @@ enum
 	QUERY_FLAG, FLAGS_SIZE
 };
 
-typedef struct		s_printf_params
+typedef struct	s_printf_params
 {
 	const char		**format;
 	const char		*current_buffer;

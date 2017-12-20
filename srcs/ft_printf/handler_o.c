@@ -6,11 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:55:47 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/11 14:16:25 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:38:17 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_str.h"
+#include "ft_types.h"
 
 char	*handler_o(va_list lst, t_printf_params params)
 {

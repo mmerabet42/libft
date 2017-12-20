@@ -10,8 +10,6 @@
 
 # define PRINTFT "%f", -89.23
 
-void printbtree(t_btree *bt, int n);
-
 int main(int argc, char **argv)
 {
 	t_btree *bt = NULL;
@@ -19,32 +17,17 @@ int main(int argc, char **argv)
 	int	i = 2;
 	while (i < argc)
 	{
-		tmp = ft_btree_insert(bt, ft_btree_new(argv[i], ft_strlen(argv[i])));
+		tmp = ft_btree_insert(bt, ft_btree_create(argv[i], ft_strlen(argv[i])));
 		if (!bt)
 			bt = tmp;
 		++i;
 	}
-	ft_btree_erase(bt, argv[1], ft_strlen(argv[1]));
-	printbtree(ft_btree_balance(bt), 0);
+	ft_btree_dump(bt);
+	tmp = ft_btree_search(bt, argv[1], ft_strlen(argv[1]));
+	ft_printf("BFORE : '%s' is on %s\n", tmp->content, ft_btree_pos(bt, tmp) == -1 ? "left" : "right");
+	bt = ft_btree_balance(bt);
+	ft_btree_dump(bt);
+	tmp = ft_btree_search(bt, argv[1], ft_strlen(argv[1]));
+	ft_printf("BFORE : '%s' is on %s\n", tmp->content, ft_btree_pos(bt, tmp) == -1 ? "left" : "right");
 	return (0);
-	ft_printf("FT_PRINTF : \n'");
-	int	ftlen = ft_printf(PRINTFT);
-	printf("'\nPRINTF : \n'");
-	int	len = printf(PRINTFT);
-	printf("'\nmy : %d; his : %d\n", ftlen, len);
-	return (0);
-}
-
-void printbtree(t_btree *bt, int n)
-{
-	if (!bt)
-	{
-		ft_printf("%?*\tEND\n", n);
-		return ;
-	}
-	ft_printf("%?*\t'%ld': '%s'\n%1$?*\tLeft {\n", n, bt->content_size, (char *)bt->content);
-	printbtree(bt->left, n + 1);
-	ft_printf("%?*\t}\n%1$?*\tRight {\n", n);
-	printbtree(bt->right, n + 1);
-	ft_printf("%?*\t}\n", n);
 }

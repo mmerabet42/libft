@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:31:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:48:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 18:17:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_btree	*ft_btree_new(const void *content, size_t content_size)
 	return (bt);
 }
 
-t_btree	*ft_btree_create(const void *content, size_t content_size)
+t_btree	*ft_btree_create(void *content, size_t content_size)
 {
 	t_btree	*bt;
 
 	if ((bt = (t_btree *)ft_memalloc(sizeof(t_btree))))
 	{
-		bt->content = ft_memdup(content, content_size);
+		bt->content = content;
 		bt->content_size = (content ? content_size : 0);
 	}
 	return (bt);

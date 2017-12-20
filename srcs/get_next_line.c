@@ -6,18 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:27:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:18:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "get_next_line.h"
-
-static int	fdcmp(const void *a, const void *b, size_t n)
-{
-	(void)n;
-	return (((t_fd *)a)->fd - ((t_fd *)b)->fd);
-}
 
 static t_fd	*get_fd(t_list **lst, int fd)
 {
@@ -25,7 +19,7 @@ static t_fd	*get_fd(t_list **lst, int fd)
 	t_fd	tmp_fd;
 
 	tmp_fd.fd = fd;
-	if (!(lst_fd = ft_lstfindf(*lst, &tmp_fd, sizeof(t_fd), fdcmp)))
+	if (!(lst_fd = ft_lstfindm(*lst, &tmp_fd, 0, sizeof(int))))
 	{
 		ft_bzero(tmp_fd.buffer, BUFF_SIZE + 1);
 		tmp_fd.len = 0;

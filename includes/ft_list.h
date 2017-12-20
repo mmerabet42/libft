@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 20:19:09 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 19:06:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ t_list				*ft_lstfindf(t_list *lst,
 							const void *content,
 							size_t content_size,
 							t_cmpfunc cmp);
+t_list				*ft_lstfindm(t_list *lst,
+							const void *content,
+							size_t pstart,
+							size_t plen);
 size_t				ft_lstsize(t_list *lst);
 t_list				*ft_lstend(t_list *lst);
 t_list				*ft_lstcopy(t_list *lst);

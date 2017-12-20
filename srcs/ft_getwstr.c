@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:27:31 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:14:36 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:48:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 char	*ft_getwstr(const wchar_t *wcs)
 {
 	return (ft_getnwstr(wcs, ft_wstrlen(wcs)));
-	/*char	*str;
-	char	*wc;
-	int		len;
-
-	len = ft_wstrlen(wcs);
-	str = ft_strnew(0);
-	if (!wcs)
-		return (NULL);
-	while (*wcs)
-	{
-		if (!(wc = ft_getwchar(*wcs++)))
-		{
-			free(str);
-			return (NULL);
-		}
-		str = ft_strjoin_clr(str, wc, 2);
-	}
-	return (str);*/
 }
 
 char	*ft_getnwstr(const wchar_t *wcs, int n)

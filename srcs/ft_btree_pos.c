@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmalloc.c                                     :+:      :+:    :+:   */
+/*   ft_btree_pos.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 22:14:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:59:50 by mmerabet         ###   ########.fr       */
+/*   Created: 2017/12/20 21:04:03 by mmerabet          #+#    #+#             */
+/*   Updated: 2017/12/20 22:37:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_btree.h"
 
-void	*ft_memalloc(size_t size)
+int	ft_btree_pos(t_btree *bt, t_btree *elem)
 {
-	void	*mem;
-
-	if ((mem = malloc(size)))
-		ft_bzero(mem, size);
-	return (mem);
+	if (!elem || !bt)
+		return (0);
+	if (elem->parent == bt)
+		return (elem == bt->left ? -1 : 1);
+	return (ft_btree_pos(bt, elem->parent));
 }

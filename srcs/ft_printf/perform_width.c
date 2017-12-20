@@ -6,11 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 21:59:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/17 21:23:01 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 21:45:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_str.h"
+#include "ft_mem.h"
+#include "ft_types.h"
 
 char	*perform_width(char *str, t_printf_params *params)
 {

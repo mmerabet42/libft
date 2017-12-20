@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 20:38:08 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 21:52:19 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/20 20:41:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ char	*ft_strrepeat_clr(char *s, int n)
 	free(s);
 	return (result);
 }
-
