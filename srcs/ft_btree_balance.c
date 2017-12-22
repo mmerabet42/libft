@@ -28,17 +28,9 @@ t_btree	*ft_btree_balance(t_btree *bt)
 		//ft_printf("BTREE %d %d %d :\n", i++, leftlen, rightlen);
 		//ft_btree_dump(newroot);
 		if (leftlen < rightlen - 1)
-		{
-			if ((newroot->right = ft_btree_rightrotate(newroot->right)))
-				newroot->right->parent = newroot;
 			return (ft_btree_balance(ft_btree_leftrotate(newroot)));
-		}
 		else if (rightlen < leftlen - 1)
-		{
-			if ((newroot->left = ft_btree_leftrotate(newroot->left)))
-				newroot->left->parent = newroot;
 			return (ft_btree_balance(ft_btree_rightrotate(newroot)));
-		}
 		if ((newroot->left = ft_btree_balance(newroot->left)))
 			newroot->left->parent = newroot;
 		if ((newroot->right = ft_btree_balance(newroot->right)))

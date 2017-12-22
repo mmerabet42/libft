@@ -40,11 +40,7 @@ t_ret			ft_inner_printf(const char *format, t_pcur *ap)
 		{
 			++format;
 			if (!(tmp = ft_printf_parser(&format, ret.buf ? ret.buf : cs, ap)))
-			{
-				ret = get_ret(ret.buf, 1);
-				free(cs);
-				return (ret);
-			}
+				return (get_ret(ft_strjoin_clr(cs, ret.buf, 2), 1));
 			ret.buf = ft_strjoin_clr(ft_strjoin_clr(ret.buf, cs, 2), tmp, 2);
 			cs = NULL;
 		}

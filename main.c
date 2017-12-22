@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <float.h>
 
-# define PRINTFT "%f", -89.23
+# define PRINTFT "'%8C et coco %C titi %lc'", 3250, 0x11ffff, 'a'
 
 int	ft_intcmp(const void *a, const void *b, size_t n)
 {
@@ -18,6 +18,10 @@ int	ft_intcmp(const void *a, const void *b, size_t n)
 
 int main(int argc, char **argv)
 {
+	setlocale(LC_ALL, "");
+	ft_printf("FT %d\n", ft_printf(PRINTFT));
+	printf("STD %d\n", printf(PRINTFT));
+	return (0);
 	t_btree *bt = NULL;
 	t_btree *tmp;
 	int	i = 1;
@@ -28,7 +32,7 @@ int main(int argc, char **argv)
 			bt = tmp;
 		++i;
 	}
-	bt = ft_btree_balance(bt);
+	//bt = ft_btree_balance(bt);
 	ft_btree_dump(bt);
 	/*ft_printf("AFTER MOVE :\n");
 	bt = ft_btree_splay(bt, argv[1], ft_strlen(argv[1]));
