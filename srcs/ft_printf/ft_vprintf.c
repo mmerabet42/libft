@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 18:17:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:31:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/22 20:03:43 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ t_ret			ft_inner_printf(const char *format, t_pcur *ap)
 		{
 			++format;
 			if (!(tmp = ft_printf_parser(&format, ret.buf ? ret.buf : cs, ap)))
-				return (get_ret(ft_strjoin_clr(cs, ret.buf, 2), 1));
+			{
+				ret = get_ret(ret.buf, 1);
+				free(cs);
+				return (ret);
+			}
 			ret.buf = ft_strjoin_clr(ft_strjoin_clr(ret.buf, cs, 2), tmp, 2);
 			cs = NULL;
 		}

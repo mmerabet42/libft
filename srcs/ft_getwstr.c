@@ -21,11 +21,13 @@ char	*ft_getnwstr(const wchar_t *wcs, int n)
 {
 	char	*str;
 	char	*wc;
+	int		len;
 
+	if (n > (len = ft_wstrlen(wcs)))
+		n = len;
+	str = ft_strnew(n);
 	if (!wcs || n < 0)
 		return (NULL);
-	n = ft_wstrnlen(wcs, n);
-	str = ft_strnew(n - 1);
 	while (*wcs && n--)
 	{
 		if (!(wc = ft_getwchar(*wcs++)))

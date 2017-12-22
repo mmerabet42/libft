@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:12:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:37:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2017/12/22 20:42:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static long double	ft_ldtoa_adder(int precision)
 {
 	long double	adder;
 
-	adder = 0.05;
+	adder = (precision ? 0.05 : 0.5);
 	while (precision-- > 1)
 		adder /= 10;
 	return (adder);
@@ -27,7 +27,7 @@ static double		ft_dtoa_adder(int precision)
 {
 	double	adder;
 
-	adder = 0.05;
+	adder = (precision ? 0.05 : 0.5);
 	while (precision-- > 1)
 		adder /= 10;
 	return (adder);
@@ -41,12 +41,12 @@ char				*ft_dtoa(double n, int precision)
 	int			kprec;
 
 	kprec = 0;
-	firstp = (long long)n;
+	firstp = (long long)(n + ft_dtoa_adder(precision));
 	secondp = (double)(n - firstp) * (n < 0 ? -1 : 1);
 	cps[0] = ft_lltoa(firstp);
 	if (precision > 0)
 	{
-		cps[1] = ft_strnew(kprec);
+		cps[1] = ft_strnew(precision);
 		secondp += ft_dtoa_adder(precision);
 		while (kprec < precision)
 		{
@@ -66,12 +66,12 @@ char				*ft_ldtoa(long double n, int precision)
 	int			kprec;
 
 	kprec = 0;
-	firstp = (long long)n;
+	firstp = (long long)(n + ft_ldtoa_adder(precision));
 	secondp = (long double)(n - firstp) * (n < 0 ? -1 : 1);
 	cps[0] = ft_lltoa(firstp);
 	if (precision > 0)
 	{
-		cps[1] = ft_strnew(kprec);
+		cps[1] = ft_strnew(precision);
 		secondp += ft_ldtoa_adder(precision);
 		while (kprec < precision)
 		{

@@ -14,6 +14,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c \
 			ft_atoul.c ft_atoull.c ft_dtoa.c ft_btree_balance.c \
 			ft_btree_copy.c ft_btree_erase.c ft_btree_dump.c ft_btree_parent.c \
 			ft_btree_fromlist.c ft_btree_insert.c ft_btree_left.c \
+			ft_btree_move.c \
 			ft_btree_new.c ft_btree_right.c ft_btree_search.c ft_btree_size.c \
 			ft_btree_swap.c ft_btree_tolist.c ft_btree_splay.c ft_btree_pos.c \
 			ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscntrl.c ft_isdigit.c \

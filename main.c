@@ -7,8 +7,9 @@
 #include <wctype.h>
 #include <fcntl.h>
 #include <float.h>
+#include <math.h>
 
-# define PRINTFT "'%8C et coco %C titi %lc'", 3250, 0x11ffff, 'a'
+# define PRINTFT "%.400f\n", 0.0
 
 int	ft_intcmp(const void *a, const void *b, size_t n)
 {
@@ -16,12 +17,15 @@ int	ft_intcmp(const void *a, const void *b, size_t n)
 	return (ft_atoi((char *)a) - ft_atoi((char *)b));
 }
 
+typedef struct s_a
+{
+	int a;
+	int b;
+	char c;
+} t_a;
+
 int main(int argc, char **argv)
 {
-	setlocale(LC_ALL, "");
-	ft_printf("FT %d\n", ft_printf(PRINTFT));
-	printf("STD %d\n", printf(PRINTFT));
-	return (0);
 	t_btree *bt = NULL;
 	t_btree *tmp;
 	int	i = 1;
@@ -32,13 +36,14 @@ int main(int argc, char **argv)
 			bt = tmp;
 		++i;
 	}
-	//bt = ft_btree_balance(bt);
+	bt = ft_btree_balance(bt);
 	ft_btree_dump(bt);
+	//ft_printf("DEPTH : %ld; SIZE : %ld\n", ft_btree_depth(bt), ft_btree_size(bt));
 	/*ft_printf("AFTER MOVE :\n");
-	bt = ft_btree_splay(bt, argv[1], ft_strlen(argv[1]));
+	bt = ft_btree_splayf(bt, argv[1], ft_strlen(argv[1]), ft_intcmp);
 	ft_btree_dump(bt);
 	ft_printf("AFTER MOVE :\n");
-	bt = ft_btree_splay(bt, argv[2], ft_strlen(argv[2]));
+	bt = ft_btree_splayf(bt, argv[2], ft_strlen(argv[2]), ft_intcmp);
 	ft_btree_dump(bt);*/
 	return (0);
 }
