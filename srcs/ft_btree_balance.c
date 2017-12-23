@@ -15,42 +15,44 @@
 
 static t_btree	*ft_btree_align(t_btree *bt)
 {
-	
-}
+	int	pos;
+	int	leftlen;
+	int	rightlen;
 
+	if (!bt)
+		return (NULL);
+	leftlen = ft_btree_size(bt->left);
+	rightlen = ft_btree_size(bt->right);
+	if ((pos = ft_btree_pos(bt->parent, bt)) == -1 && leftlen < rightlen)
+		return (ft_btree_align(ft_btree_leftrotate(bt)));
+	else if (pos == 1 && rightlen < leftlen)
+		return (ft_btree_align(ft_btree_rightrotate(bt)));
+	return (bt);
+}
+#include <stdlib.h>
 t_btree			*ft_btree_balance(t_btree *bt)
 {
+	//static int i;
 	int		leftlen;
 	int		rightlen;
-	int		pos;
 	t_btree	*newroot;
 
-	newroot = bt;
-	if (newroot)
+	if ((newroot = bt))
 	{
+	//	ft_printf("BTREE %d : \n", i++);
+	//	ft_btree_dump(newroot);
+	//	if (i == 40)
+	//		exit(0);
+		if ((newroot->left = ft_btree_balance(ft_btree_align(newroot->left))))
+			newroot->left->parent = newroot;
+		if ((newroot->right = ft_btree_balance(ft_btree_align(newroot->right))))
+			newroot->right->parent = newroot;
 		leftlen = ft_btree_depth(newroot->left);
 		rightlen = ft_btree_depth(newroot->right);
-		if ((pos = ft_btree_pos(newroot->parent, newroot)) == 1)
-		{
-			while (rightlen < leftlen)
-			{
-				newroot = ft_btree_rightrotate(
-				leftlen = ft_btree_depth(newroot->left);
-				rightlen = ft_btree_depth(newroot->right);
-			}
-		}
-		else if (pos == -1)
-		{
-
-		}
 		if (leftlen < rightlen - 1)
 			return (ft_btree_balance(ft_btree_leftrotate(newroot)));
 		else if (rightlen < leftlen - 1)
 			return (ft_btree_balance(ft_btree_rightrotate(newroot)));
-		if ((newroot->left = ft_btree_balance(newroot->left)))
-			newroot->left->parent = newroot;
-		if ((newroot->right = ft_btree_balance(newroot->right)))
-			newroot->right->parent = newroot;
 	}
 	return (newroot);
 }

@@ -22,12 +22,17 @@ t_btree	*ft_btree_left(t_btree *bt)
 t_btree	*ft_btree_leftrotate(t_btree *bt)
 {
 	t_btree	*right;
+	int		pos;
 
 	right = bt;
 	if (bt && (right = bt->right))
 	{
+		if ((pos = ft_btree_pos(bt->parent, bt)) == -1)
+			bt->parent->left = right;
+		else if (pos == 1)
+			bt->parent->right = right;
 		bt->right = right->left;
-		right->parent = NULL;
+		right->parent = bt->parent;
 		right->left = bt;
 		bt->parent = right;
 		if (bt->right)
