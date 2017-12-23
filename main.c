@@ -34,12 +34,13 @@ int main(int argc, char **argv)
 		tmp = ft_btree_insertf(bt, ft_btree_create(argv[i], ft_strlen(argv[i])), ft_intcmp);
 		if (!bt)
 			bt = tmp;
+		bt = ft_btree_balance(bt);
 		++i;
 	}
 	ft_btree_dump(bt);
-	bt = ft_btree_balance(bt);
-	ft_printf("AFTER BALANCING : \n");
-	ft_btree_dump(bt);
+	//bt = ft_btree_balance(bt);
+	//ft_printf("AFTER BALANCING : \n");
+	//1ft_btree_dump(bt);
 	//ft_printf("DEPTH : %ld; SIZE : %ld\n", ft_btree_depth(bt), ft_btree_size(bt));
 	/*ft_printf("AFTER MOVE :\n");
 	bt = ft_btree_splayf(bt, argv[1], ft_strlen(argv[1]), ft_intcmp);

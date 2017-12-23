@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_btree.h"
+#include "ft_math.h"
 
 size_t	ft_btree_size(t_btree *bt)
 {
@@ -22,6 +23,7 @@ size_t	ft_btree_size(t_btree *bt)
 size_t	ft_btree_depth(t_btree *bt)
 {
 	if (bt)
-		return (1 + (ft_btree_depth(bt->left) | ft_btree_depth(bt->right)));
+		return (1 + ft_max(ft_btree_depth(bt->left),
+						ft_btree_depth(bt->right)));
 	return (0);
 }
