@@ -44,9 +44,9 @@ t_btree			*ft_btree_balance(t_btree *bt)
 		leftlen = ft_btree_depth(newroot->left);
 		rightlen = ft_btree_depth(newroot->right);
 		if (leftlen < rightlen - 1)
-			newroot = ft_btree_balance(ft_btree_leftrotate(newroot));
+			return (ft_btree_balance(ft_btree_leftrotate(newroot)));
 		else if (rightlen < leftlen - 1)
-			newroot = ft_btree_balance(ft_btree_rightrotate(newroot));
+			return (ft_btree_balance(ft_btree_rightrotate(newroot)));
 	}
 	return (newroot);
 }
