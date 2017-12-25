@@ -83,7 +83,10 @@ t_btree				*ft_btree_copy(t_btree *bt);
 void				ft_btree_swap(t_btree *a, t_btree *b, int childs);
 t_btree				*ft_btree_leftrotate(t_btree *bt);
 t_btree				*ft_btree_rightrotate(t_btree *bt);
+t_btree				*ft_btree_leftrotatef(t_btree *bt, t_cmpfunc cmp);
+t_btree				*ft_btree_rightrotatef(t_btree *bt, t_cmpfunc cmp);
 t_btree				*ft_btree_balance(t_btree *bt);
+t_btree				*ft_btree_balancef(t_btree *bt, t_cmpfunc cmp);
 t_btree				*ft_btree_splay(t_btree *bt,
 								const void *content,
 								size_t content_size);
@@ -98,6 +101,7 @@ t_btree				*ft_btree_splaym(t_btree *bt,
 size_t				ft_btree_size(t_btree *bt);
 size_t				ft_btree_depth(t_btree *bt);
 void				ft_btree_dump(t_btree *bt);
+void				ft_btree_dumpf(t_btree *bt, void (*f)(t_btree *));
 t_btree				*ft_btree_move(t_btree *bt, t_btree *elem);
 t_btree				*ft_btree_disconnect(t_btree *bt);
 

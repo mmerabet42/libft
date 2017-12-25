@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_btree.h"
-#include "ft_printf.h"
 
 t_btree	*ft_btree_right(t_btree *bt)
 {
@@ -28,6 +27,30 @@ t_btree	*ft_btree_rightrotate(t_btree *bt)
 	left = bt;
 	if (bt && (left = bt->left))
 	{
+		if ((pos = ft_btree_pos(bt->parent, bt)) == -1)
+			bt->parent->left = left;
+		else if (pos == 1)
+			bt->parent->right = left;
+		bt->left = left->right;
+		left->parent = bt->parent;
+		left->right = bt;
+		bt->parent = left;
+		if (bt->left)
+			bt->left->parent = bt;
+	}
+	return (left);
+}
+
+t_btree	*ft_btree_rightrotatef(t_btree *bt, t_cmpfunc cmp)
+{
+	t_btree	*left;
+	int		pos;
+
+	left = bt;
+	if (cmp && bt && (left = bt->left))
+	{
+		if (cmp(bt->content, left->content, bt->content_size) < 0)
+			return (bt);
 		if ((pos = ft_btree_pos(bt->parent, bt)) == -1)
 			bt->parent->left = left;
 		else if (pos == 1)

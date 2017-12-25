@@ -40,3 +40,27 @@ t_btree	*ft_btree_leftrotate(t_btree *bt)
 	}
 	return (right);
 }
+
+t_btree	*ft_btree_leftrotatef(t_btree *bt, t_cmpfunc cmp)
+{
+	t_btree	*right;
+	int		pos;
+
+	right = bt;
+	if (cmp && bt && (right = bt->right))
+	{
+		if (cmp(bt->content, right->content, bt->content_size) >= 0)
+			return (bt);
+		if ((pos = ft_btree_pos(bt->parent, bt)) == -1)
+			bt->parent->left = right;
+		else if (pos == 1)
+			bt->parent->right = right;
+		bt->right = right->left;
+		right->parent = bt->parent;
+		right->left = bt;
+		bt->parent = right;
+		if (bt->right)
+			bt->right->parent = bt;
+	}
+	return (right);
+}
