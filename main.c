@@ -25,6 +25,7 @@ typedef struct s_a
 } t_a;
 
 int main(int argc, char **argv)
+
 {
 	t_btree *bt = NULL;
 	t_btree *tmp;
