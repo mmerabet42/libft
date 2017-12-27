@@ -43,17 +43,11 @@ int main(int argc, char **argv)
 		tmp = ft_btree_insertf(bt, ft_btree_create(argv[i], ft_strlen(argv[i]) + 1), ft_intcmpstr);
 		if (!bt)
 			bt = tmp;
-	//	ft_printf("FOR : %s\n", argv[i]);
-	//	ft_btree_dump(bt);
-	//	ft_printf("%?3\n");
-		bt = ft_btree_balancef(bt, ft_intcmpstr);
+	bt = ft_btree_balancef(bt, ft_intcmpstr);
 		++i;
 	}
 	ft_btree_dump(bt);
-//	ft_printf("%?3\n");
-//	bt = ft_btree_balancef(bt, ft_intcmp);
-//	ft_btree_dump(bt);
-	//ft_lstiter(ft_btree_tolist(bt), lstprint);
+	ft_lstiter(ft_btree_tolist(bt), lstprint);
 	//ft_printf("AFTER BALANCING : \n");
 	//1ft_btree_dump(bt);
 	//ft_printf("DEPTH : %ld; SIZE : %ld\n", ft_btree_depth(bt), ft_btree_size(bt));

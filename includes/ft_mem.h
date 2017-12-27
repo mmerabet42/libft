@@ -23,6 +23,14 @@ void				*ft_memmove(void *dst, const void *src, size_t n);
 void				*ft_memdup(const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memchr_pos(const void *s, int c, size_t n);
+void*				ft_memstr(const void *a,
+							size_t an,
+							const void *b,
+							size_t ab);
+int					ft_memstr_pos(const void *a,
+							size_t an,
+							const void *b,
+							size_t ab);
 int					ft_memcmp(const void *a, const void *b, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);

@@ -16,8 +16,6 @@ char	*ft_strstr(const char *a, const char *b)
 {
 	size_t	j;
 
-	if (*b == '\0')
-		return ((char *)a);
 	while (*a)
 	{
 		j = 0;

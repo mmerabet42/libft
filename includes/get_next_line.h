@@ -24,5 +24,7 @@ typedef struct	s_fd
 }				t_fd;
 
 int				get_next_line(const int fd, char **line);
+int				get_next_delim(const int fd, char delim, char **line);
+int				get_next_delimstr(const int fd, const char *delim, char **line);
 
 #endif
