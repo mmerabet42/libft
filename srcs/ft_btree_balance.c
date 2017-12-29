@@ -47,7 +47,6 @@ t_btree			*ft_btree_balance(t_btree *bt)
 	return (ft_btree_balancef(bt, ft_memcmp));
 }
 
-
 t_btree			*ft_btree_balancef(t_btree *bt, t_cmpfunc cmp)
 {
 	int		leftlen;

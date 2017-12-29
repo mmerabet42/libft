@@ -57,9 +57,9 @@ char	*ft_ulltoa_cbase(unsigned long long n, const char *base)
 	if ((str = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 		return (NULL);
 	str[i] = '\0';
-	while (i >= 0)
+	while (--i >= 0)
 	{
-		str[--i] = base[ft_abs(n % baselen)];
+		str[i] = base[ft_abs(n % baselen)];
 		n /= baselen;
 	}
 	return (str);

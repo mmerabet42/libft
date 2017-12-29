@@ -61,6 +61,10 @@ t_list				*ft_lsterasef(t_list **alst,
 							const void *content,
 							size_t content_size,
 							t_cmpfunc cmp);
+t_list				*ft_lsterasem(t_list **alst,
+							const void *content,
+							size_t pstart,
+							size_t plen);
 void				ft_lstswap(t_list *a, t_list *b);
 
 #endif

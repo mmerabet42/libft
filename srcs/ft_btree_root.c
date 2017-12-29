@@ -12,9 +12,9 @@
 
 #include "ft_btree.h"
 
-t_btree	*ft_btree_parent(t_btree *bt)
+t_btree	*ft_btree_root(t_btree *bt)
 {
 	if (!bt || !bt->parent)
 		return (bt);
-	return (ft_btree_parent(bt->parent));
+	return (ft_btree_root(bt->parent));
 }

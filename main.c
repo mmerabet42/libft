@@ -1,6 +1,3 @@
-#include "ft_printf.h"
-#include "get_next_line.h"
-#include "handlers.h"
 #include <stdio.h>
 #include <limits.h>
 #include <locale.h>
@@ -8,45 +5,63 @@
 #include <fcntl.h>
 #include <float.h>
 #include <math.h>
+#include "libft.h"
 
 # define PRINTFT "%.400f\n", 0.0
 
-int	ft_intcmp(const void *a, const void *b, size_t n)
+typedef struct	s_pair
 {
-	(void)n;
-	return (*(int *)a - *(int *)b);
-}
-
-int	ft_intcmpstr(const void *a, const void *b, size_t n)
-{
-	(void)n;
-	return (ft_atoi((char *)a) - ft_atoi((char *)b));
-}
+	int		key;
+	char	value;
+	unsigned long long n;
+}				t_pair;
 
 void printbtree(t_btree *bt)
 {
-	ft_printf("'%d'", *(int *)bt->content);
+	t_pair *p = (t_pair *)bt->content;
+	ft_printf("{key:'%d'; value:'%c'}", p->key, p->value);
 }
 
 void lstprint(t_list *lst)
 {
-	ft_printf("'%s' : '%s'\n", lst->content, (lst->parent ? lst->parent->content : NULL));
+	t_pair *p = (t_pair *)lst->content;
+	ft_printf("{key:'%d'; value:'%c'}\n", p->key, p->value);
+}
+
+void pairdel(void *data, size_t data_size)
+{
+	free(data);
 }
 
 int main(int argc, char **argv)
 {
+	void *ptr = NULL;
+	int l = 78;
+	char c = 'P';
+	unsigned long long v = "Hello world";
+	ptr = ft_memjoin(ptr, 0, &l, sizeof(int));
+	ptr = ft_memjoin(ptr, sizeof(int), &c, sizeof(char));
+	ptr = ft_memjoin(ptr, sizeof(int) + sizeof(int), &v, sizeof(unsigned long long));
+	t_pair *p = (t_pair *)ptr;
+	ft_printf("%d %c '%p'\n", p->key, p->value, p->n);
+	printf("%d %c '%p'\n", p->key, p->value, p->n);
+	return (0);
 	t_btree *bt = NULL;
 	t_btree *tmp;
-	int	i = 1;
-	while (i < argc)
+	t_list	*lst;
+	t_pair pair;
+	int	i = 0;
+	while (i < 100)
 	{
-		tmp = ft_btree_insertf(bt, ft_btree_create(argv[i], ft_strlen(argv[i]) + 1), ft_intcmpstr);
+		pair.key = i;
+		pair.value = 0;
+		tmp = ft_btree_insertm(bt, ft_btree_new(&pair, sizeof(t_pair)), 0, sizeof(int));
 		if (!bt)
 			bt = tmp;
-	bt = ft_btree_balancef(bt, ft_intcmpstr);
 		++i;
 	}
-	ft_btree_dump(bt);
+	bt = ft_btree_balancem(bt, 0, sizeof(int));
+	ft_btree_dumpf(bt, printbtree);
 	ft_lstiter(ft_btree_tolist(bt), lstprint);
 	//ft_printf("AFTER BALANCING : \n");
 	//1ft_btree_dump(bt);

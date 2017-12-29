@@ -56,8 +56,8 @@ static t_btree	*inner_btree_insertm(t_btree *parent,
 			elem->parent = parent;
 		return (elem);
 	}
-	if (ft_memcmp(bt->content + ppos.start,
-				elem->content + ppos.start, ppos.len) > 0)
+	if (ft_memcmp((char *)bt->content + ppos.start,
+				(char *)elem->content + ppos.start, ppos.len) > 0)
 	{
 		if (bt->left == NULL)
 			bt->left = elem;
