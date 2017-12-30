@@ -33,23 +33,23 @@ static t_btree	*ft_btree_erase_case(t_btree *found, int d)
 	}
 	else
 	{
-		if (found == found->parent->left)
+		if (found->parent && found == found->parent->left)
 			found->parent->left = NULL;
-		else
+		else if (found->parent)
 			found->parent->right = NULL;
 		tmp = found;
 	}
 	return (tmp);
 }
 
-t_btree			*ft_btree_erase(t_btree *bt,
+t_btree			*ft_btree_erase(t_btree **bt,
 							const void *content,
 							size_t content_size)
 {
 	return (ft_btree_erasef(bt, content, content_size, ft_memcmp));
 }
 
-t_btree			*ft_btree_erasef(t_btree *bt,
+t_btree			*ft_btree_erasef(t_btree **bt,
 					const void *content,
 					size_t content_size,
 					t_cmpfunc cmp)
@@ -58,21 +58,23 @@ t_btree			*ft_btree_erasef(t_btree *bt,
 	t_btree	*tmp;
 
 	tmp = NULL;
-	if (!bt || !cmp)
+	if (!bt || !*bt || !cmp)
 		return (NULL);
-	cmp_n = cmp(bt->content, content, content_size);
+	cmp_n = cmp((*bt)->content, content, content_size);
 	if (cmp_n > 0)
-		return (ft_btree_erasef(bt->left, content, content_size, cmp));
+		return (ft_btree_erasef(&(*bt)->left, content, content_size, cmp));
 	else if (cmp_n < 0)
-		return (ft_btree_erasef(bt->right, content, content_size, cmp));
+		return (ft_btree_erasef(&(*bt)->right, content, content_size, cmp));
 	else
 	{
-		if ((bt->right && !bt->left) || (!bt->right && bt->left))
-			tmp = ft_btree_erase_case(bt, 0);
-		else if (bt->right && bt->left)
-			tmp = ft_btree_erase_case(bt, 1);
+		if (((*bt)->right && !(*bt)->left) || (!(*bt)->right && (*bt)->left))
+			tmp = ft_btree_erase_case(*bt, 0);
+		else if ((*bt)->right && (*bt)->left)
+			tmp = ft_btree_erase_case(*bt, 1);
 		else
-			tmp = ft_btree_erase_case(bt, 2);
+			tmp = ft_btree_erase_case(*bt, 2);
+		if (!tmp->left && !tmp->right && !tmp->parent)
+			*bt = NULL;
 		tmp->left = NULL;
 		tmp->right = NULL;
 		tmp->parent = NULL;
@@ -80,7 +82,7 @@ t_btree			*ft_btree_erasef(t_btree *bt,
 	return (tmp);
 }
 
-t_btree			*ft_btree_erasem(t_btree *bt,
+t_btree			*ft_btree_erasem(t_btree **bt,
 					const void *content,
 					size_t pstart,
 					size_t plen)
@@ -89,21 +91,23 @@ t_btree			*ft_btree_erasem(t_btree *bt,
 	t_btree	*tmp;
 
 	tmp = NULL;
-	if (!bt)
+	if (!bt || !*bt)
 		return (NULL);
-	cmp_n = ft_memcmp(bt->content + pstart, content + pstart, plen);
+	cmp_n = ft_memcmp((*bt)->content + pstart, content + pstart, plen);
 	if (cmp_n > 0)
-		return (ft_btree_erasem(bt->left, content, pstart, plen));
+		return (ft_btree_erasem(&(*bt)->left, content, pstart, plen));
 	else if (cmp_n < 0)
-		return (ft_btree_erasem(bt->right, content, pstart, plen));
+		return (ft_btree_erasem(&(*bt)->right, content, pstart, plen));
 	else
 	{
-		if ((bt->right && !bt->left) || (!bt->right && bt->left))
-			tmp = ft_btree_erase_case(bt, 0);
-		else if (bt->right && bt->left)
-			tmp = ft_btree_erase_case(bt, 1);
+		if (((*bt)->right && !(*bt)->left) || (!(*bt)->right && (*bt)->left))
+			tmp = ft_btree_erase_case(*bt, 0);
+		else if ((*bt)->right && (*bt)->left)
+			tmp = ft_btree_erase_case(*bt, 1);
 		else
-			tmp = ft_btree_erase_case(bt, 2);
+			tmp = ft_btree_erase_case(*bt, 2);
+		if (!tmp->left && !tmp->right && !tmp->parent)
+			*bt = NULL;
 		tmp->left = NULL;
 		tmp->right = NULL;
 		tmp->parent = NULL;

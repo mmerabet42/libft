@@ -15,14 +15,15 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_btree_copy.c ft_btree_erase.c ft_btree_dump.c ft_btree_root.c \
 			ft_btree_fromlist.c ft_btree_insert.c ft_btree_left.c \
 			ft_btree_move.c ft_btree_new.c ft_btree_right.c ft_btree_search.c \
-			ft_btree_size.c ft_btree_swap.c ft_btree_tolist.c \
-			ft_btree_splay.c ft_btree_pos.c ft_btree_balancem.c \
+			ft_btree_size.c ft_btree_swap.c ft_btree_tolist.c ft_btree_pos.c \
+			ft_btree_splay.c ft_btree_balancem.c ft_btree_count.c \
+			ft_btree_erase_all.c \
 			ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscntrl.c ft_isdigit.c \
 			ft_islower.c ft_isprint.c ft_ispunct.c ft_isspace.c ft_isupper.c \
 			ft_itoa.c ft_ltoa.c ft_lltoa.c ft_uitoa.c ft_ultoa.c ft_ulltoa.c \
 			ft_lstatpos.c ft_lstcopy.c ft_lstend.c ft_lstfind.c ft_lstiter.c \
-			ft_lstmap.c ft_lstnew.c ft_lstpush.c ft_lstsize.c \
-			ft_lsterase.c ft_lstswap.c \
+			ft_lstmap.c ft_lstnew.c ft_lstpush.c ft_lstsize.c ft_lstcount.c \
+			ft_lsterase.c ft_lsterase_all.c ft_lstswap.c \
 			ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdup.c \
 			ft_memalloc.c ft_memset.c ft_memjoin.c ft_memstr.c \
 			ft_putchar.c ft_putdouble.c ft_putendl.c  ft_putnbr.c \
@@ -35,6 +36,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_swap.c \
 			ft_strforeach.c ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_getwstr.c \
+			ft_event_new.c ft_event_add.c ft_event_trigger.c \
 			get_next_line.c \
 
 SRCD		=	srcs

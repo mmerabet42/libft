@@ -32,6 +32,18 @@ t_list	*ft_lstnew(const void *content, size_t content_size)
 	return (lst);
 }
 
+t_list	*ft_lstcreate(void *content, size_t content_size)
+{
+	t_list	*lst;
+
+	if ((lst = (t_list *)ft_memalloc(sizeof(t_list))))
+	{
+		lst->content = content;
+		lst->content_size = (content ? content_size : 0);
+	}
+	return (lst);
+}
+
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list	*nxt;

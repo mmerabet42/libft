@@ -55,4 +55,10 @@
 
 # include "ft_math.h"
 
+/*
+** --------------------/ EVENT SYSTEM, CALLBACKS ETC. \-------------------------
+*/
+
+# include "ft_event.h"
+
 #endif

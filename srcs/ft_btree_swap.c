@@ -29,7 +29,15 @@ void	ft_btree_swap(t_btree *a, t_btree *b, int childs)
 		if (childs)
 		{
 			ft_swapptr((void **)&a->left, (void **)&b->left);
+			if (a->left)
+				a->left->parent = a;
+			if (b->left)
+				b->left->parent = b;
 			ft_swapptr((void **)&a->right, (void **)&b->right);
+			if (a->right)
+				a->right->parent = a;
+			if (b->right)
+				b->right->parent = b;
 		}
 	}
 }

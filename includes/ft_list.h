@@ -31,6 +31,7 @@ typedef struct		s_list
 }					t_list;
 
 t_list				*ft_lstnew(const void *content, size_t content_size);
+t_list				*ft_lstcreate(void *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *elem);
@@ -50,6 +51,17 @@ t_list				*ft_lstfindm(t_list *lst,
 							const void *content,
 							size_t pstart,
 							size_t plen);
+int					ft_lstcount(t_list *lst,
+							const void *content,
+							size_t content_size);
+int					ft_lstcountf(t_list *lst,
+							const void *content,
+							size_t content_size,
+							t_cmpfunc cmp);
+int					ft_lstcountm(t_list *lst,
+							const void *content,
+							size_t pstart,
+							size_t plen);
 size_t				ft_lstsize(t_list *lst);
 t_list				*ft_lstend(t_list *lst);
 t_list				*ft_lstcopy(t_list *lst);
@@ -62,6 +74,17 @@ t_list				*ft_lsterasef(t_list **alst,
 							size_t content_size,
 							t_cmpfunc cmp);
 t_list				*ft_lsterasem(t_list **alst,
+							const void *content,
+							size_t pstart,
+							size_t plen);
+t_list				*ft_lsterase_all(t_list **alst,
+							const void *content,
+							size_t content_size);
+t_list				*ft_lsterasef_all(t_list **alst,
+							const void *content,
+							size_t content_size,
+							t_cmpfunc cmp);
+t_list				*ft_lsterasem_all(t_list **alst,
 							const void *content,
 							size_t pstart,
 							size_t plen);
