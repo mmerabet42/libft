@@ -49,8 +49,8 @@ void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
 
 /*
 ** Binary tree insertions and removals.
-** The insert functions inserts the element and then returns it.
-** The erase functions extracts the first occurence of 'content' then returns
+** The insert functions insert the element and then return it.
+** The erase functions extract the first occurence of 'content' then return
 ** it to be properly deleted by the user.
 */
 
@@ -114,7 +114,7 @@ t_btree				*ft_btree_searchm(t_btree *bt,
 								size_t plen);
 
 /*
-** Searchs an element 'a la' SPLAY, it simply put the matched node at root.
+** SPLAY searching : it simply put the matched node at root.
 */
 
 t_btree				*ft_btree_splay(t_btree *bt,
@@ -131,7 +131,7 @@ t_btree				*ft_btree_splaym(t_btree *bt,
 
 /*
 ** Have you ever wondered how many times an element is present on a binary
-** tree ? Well this function maybe has the answer !
+** tree ? Well this function has the answer !
 */
 
 int					ft_btree_count(t_btree *bt,
@@ -200,7 +200,7 @@ void				ft_btree_swap(t_btree *a, t_btree *b, int childs);
 
 /*
 ** Returns the result of the left/right rotation of the binary tree.
-** The rotateF and rotateM functions checks if the binary tree can be rotated
+** The rotateF and rotateM functions check if the binary tree can be rotated
 ** before rotating it. So if it can't be, the same binary tree is returned.
 ** Yes, there are cases where a binary tree cant be rotated, it happens when
 ** same values occurs on the right branch, left rotating it could break some
@@ -219,9 +219,9 @@ t_btree				*ft_btree_rightrotatem(t_btree *bt,
 										size_t len);
 
 /*
-** Balances the tree 'a la' AVL, it simply perform rotations until both, left
+** AVL balancing : it simply perform rotations until both, left
 ** and right, branches have an equal height.
-** Two call is sufficient to have a perfectly balanced tree.
+** Two calls are sufficient to have a perfectly balanced tree.
 */
 
 t_btree				*ft_btree_balance(t_btree *bt);
