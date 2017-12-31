@@ -19,7 +19,9 @@ t_btree	*ft_btree_copy(t_btree *bt)
 	if (!bt)
 		return (NULL);
 	newbt = ft_btree_new(bt->content, bt->content_size);
-	newbt->left = ft_btree_copy(bt->left);
-	newbt->right = ft_btree_copy(bt->right);
+	if ((newbt->left = ft_btree_copy(bt->left)))
+		newbt->left->parent = newbt;
+	if ((newbt->right = ft_btree_copy(bt->right)))
+		newbt->right->parent = newbt;
 	return (newbt);
 }

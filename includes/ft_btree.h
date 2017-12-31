@@ -49,9 +49,9 @@ void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
 
 /*
 ** Binary tree insertions and removals.
-** The insert functions inserts the element and returns it.
-** The erase functions extract the first occurence of 'content' from the binary
-** tree then returns it to be properly deleted by the user.
+** The insert functions inserts the element and then returns it.
+** The erase functions extracts the first occurence of 'content' then returns
+** it to be properly deleted by the user.
 */
 
 t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
@@ -75,10 +75,14 @@ t_btree				*ft_btree_erasem(t_btree **bt,
 								size_t plen);
 
 /*
-** Extract all occurences of 'content' and put them all in a binary tree then
-** returns it. The binary tree law is followed, so the returned binary tree
-** will have only right childs, because when an element is greater or equal it
-** is put on the right.
+** Returns a binary tree storing all the removed nodes from the binary tree.
+** This binary tree can then be freed or whatever the hell you want.
+** The reason why this function does not free the data is simple :
+** We all hate leaks. Imagine the data stored (void *) is a structure that has
+** an attribute that has been malloced before, if you just free the data
+** (because you cant know the nature of a god damn void pointer) the attribute
+** will be lost, unless the user keeps track of it, but you can't
+** be sure of that.
 */
 
 t_btree				*ft_btree_erase_all(t_btree **bt,
@@ -94,7 +98,7 @@ t_btree				*ft_btree_erasem_all(t_btree **bt,
 								size_t plen);
 
 /*
-** Return the matched element 'content' as the user defines it
+** Return the matched node that contain 'content'
 */
 
 t_btree				*ft_btree_search(t_btree *bt,
@@ -110,8 +114,7 @@ t_btree				*ft_btree_searchm(t_btree *bt,
 								size_t plen);
 
 /*
-** Searchs an element in SPLAY mode, this means that the matched element is
-** set as root. Useful when the same elements are accessed frequently.
+** Searchs an element 'a la' SPLAY, it simply put the matched node at root.
 */
 
 t_btree				*ft_btree_splay(t_btree *bt,
@@ -127,7 +130,8 @@ t_btree				*ft_btree_splaym(t_btree *bt,
 								size_t plen);
 
 /*
-** Return number 'content's occurences in the given binary tree.
+** Have you ever wondered how many times an element is present on a binary
+** tree ? Well this function maybe has the answer !
 */
 
 int					ft_btree_count(t_btree *bt,
@@ -143,31 +147,31 @@ int					ft_btree_countm(t_btree *bt,
 								size_t plen);
 
 /*
-** Returns the position of a binary tree relative to another one, -1 means it
-** is on the left branch, 1 on the right one, and 0 means that they are not
-** is the same tree.
+** Returns the position of the node relatively to another one. -1 means it
+** is at his left, 1 at his right, and 0 means nowhere. The function checks the
+** childs so if they points to the same node, it will gives you 0.
 */
 
 int					ft_btree_pos(t_btree *bt, t_btree *elem);
 
 /*
-** Returns the root of the current tree.
+** Returns the root of the node wherever the node is on the binary tree.
 */
 
 t_btree				*ft_btree_root(t_btree *bt);
 
 /*
-** Gives the left/right most child of a binary tree, if the binary tree rules
-** are followed, the left most child is the minimum value and the right most
-** child is the maximum value.
+** Returns the left/right most child of the current node. If the binary tree's
+** rules are respected, then the left most child is the minimum value and the
+** right most child is the maximum value.
 */
 
 t_btree				*ft_btree_left(t_btree *bt);
 t_btree				*ft_btree_right(t_btree *bt);
 
 /*
-** Convert a binary tree to ia list, the returned list is automatically sorted.
-** Convert a list to a binary tree.
+** Returns the equivalent in list of the given binary tree.
+** And vice-versa, returns the equivalent in binary tree of the given list.
 */
 
 t_list				*ft_btree_tolist(t_btree *bt);
@@ -176,20 +180,31 @@ t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 
 t_btree				*ft_btree_copy(t_btree *bt);
 
+
 /*
-** Swap the values of the two binary tree, the content_size is swapped as the
-** content. If childs is TRUE then the childs are swapped too.
+** Apply a function to each node of the binary tree in different modes.
+*/
+
+enum
+{
+	BT_INORDER, BT_PREORDER, BT_POSTORDER, BT_BREADTHFIRST
+};
+
+void				ft_btree_iter(t_btree *bt, void (*f)(t_btree *), int mode);
+
+/*
+** Swap every attribute of the structure.
 */
 
 void				ft_btree_swap(t_btree *a, t_btree *b, int childs);
 
 /*
-** Returns the result of the left/right rotation of a binary tree.
+** Returns the result of the left/right rotation of the binary tree.
 ** The rotateF and rotateM functions checks if the binary tree can be rotated
 ** before rotating it. So if it can't be, the same binary tree is returned.
 ** Yes, there are cases where a binary tree cant be rotated, it happens when
-** same values occur on the right branch, left rotating it could break some
-** rules.
+** same values occurs on the right branch, left rotating it could break some
+** fundamental rules of binary trees.
 */
 
 t_btree				*ft_btree_leftrotate(t_btree *bt);
@@ -204,8 +219,9 @@ t_btree				*ft_btree_rightrotatem(t_btree *bt,
 										size_t len);
 
 /*
-** Balances the tree in AVL mode, it simply perform rotations until both, left
-** and right branches have an equal depth.
+** Balances the tree 'a la' AVL, it simply perform rotations until both, left
+** and right, branches have an equal height.
+** Two call is sufficient to have a perfectly balanced tree.
 */
 
 t_btree				*ft_btree_balance(t_btree *bt);
@@ -215,7 +231,7 @@ t_btree				*ft_btree_balancem(t_btree *bt, size_t start, size_t len);
 /*
 ** Returns the number of nodes.
 ** Returns the maximum depth.
-** Print a binary tree.
+** Print the binary tree.
 */
 
 size_t				ft_btree_size(t_btree *bt);
