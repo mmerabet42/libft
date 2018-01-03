@@ -18,6 +18,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_btree_size.c ft_btree_swap.c ft_btree_tolist.c ft_btree_pos.c \
 			ft_btree_splay.c ft_btree_balancem.c ft_btree_count.c \
 			ft_btree_erase_all.c ft_btree_traversal.c \
+			ft_btree_getcreate.c ft_btree_getnew.c \
 			ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscntrl.c ft_isdigit.c \
 			ft_islower.c ft_isprint.c ft_ispunct.c ft_isspace.c ft_isupper.c \
 			ft_itoa.c ft_ltoa.c ft_lltoa.c ft_uitoa.c ft_ultoa.c ft_ulltoa.c \
@@ -36,7 +37,9 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_swap.c \
 			ft_strforeach.c ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_getwstr.c \
-			ft_event_new.c ft_event_add.c ft_event_trigger.c \
+			ft_event_new.c ft_event_add.c ft_event_trigger.c ft_event_clean.c \
+			ft_pevent_new.c ft_pevent_add.c ft_pevent_remove.c \
+			ft_pevent_trigger.c ft_pevent_clean.c \
 			get_next_line.c \
 
 SRCD		=	srcs

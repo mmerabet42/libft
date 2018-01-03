@@ -56,9 +56,10 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 
 void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	if (alst && *alst && del)
+	if (alst && *alst)
 	{
-		del((*alst)->content, (*alst)->content_size);
+		if (del)
+			del((*alst)->content, (*alst)->content_size);
 		ft_memdel((void **)alst);
 	}
 }

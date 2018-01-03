@@ -1,18 +1,30 @@
 #include "ft_btree.h"
 
-static t_btree	*btree_atlevel(t_btree *bt, void (*f)(t_btree *), int level)
+static void		inner_btree_bf(t_btree *bt, void (*f)(t_btree *), int n, int m)
 {
-	int	i;
-
-	i = 0;
+	if (!bt)
+		return ;
+	if (n == m)
+	{
+		f(bt);
+		return ;
+	}
+	inner_btree_bf(bt->left, f, n + 1, m);
+	inner_btree_bf(bt->right, f, n + 1, m);
 }
 
 static void		ft_btree_breadthfirst(t_btree *bt, void (*f)(t_btree *))
 {
-	
+	int	n;
+	int	i;
+
+	n = ft_btree_depth(bt);
+	i = 0;
+	while (i < n)
+		inner_btree_bf(bt, f, 0, i++);
 }
 
-void			ft_btree_iter(t_btree *bt, void (*f)(t_btree *), int mode)
+void			ft_btree_iter(t_btree *bt, void (*f)(t_btree *), t_btmode mode)
 {
 	if (!bt || !f)
 		return ;

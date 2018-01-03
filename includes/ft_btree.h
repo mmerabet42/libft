@@ -52,6 +52,9 @@ void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
 ** The insert functions insert the element and then return it.
 ** The erase functions extract the first occurence of 'content' then return
 ** it to be properly deleted by the user.
+** Get functions work the same as search functions, except that they add the
+** element if it is not found, so they dont allow occurences as insert
+** functions do
 */
 
 t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
@@ -73,6 +76,30 @@ t_btree				*ft_btree_erasem(t_btree **bt,
 								const void *content,
 								size_t pstart,
 								size_t plen);
+
+t_btree				*ft_btree_getnew(t_btree *bt,
+								void *content,
+								size_t content_size);
+t_btree				*ft_btree_getnewf(t_btree *bt,
+								void *content,
+								size_t content_size,
+								t_cmpfunc cmp);
+t_btree				*ft_btree_getnewm(t_btree *bt,
+								void *content,
+								size_t content_size,
+								t_ptrpos ptrpos);
+t_btree				*ft_btree_getcreate(t_btree *bt,
+								void *content,
+								size_t content_size);
+t_btree				*ft_btree_getcreatef(t_btree *bt,
+								void *content,
+								size_t content_size,
+								t_cmpfunc cmp);
+t_btree				*ft_btree_getcreatem(t_btree *bt,
+								void *content,
+								size_t content_size,
+								t_ptrpos ptrpos);
+t_ptrpos			make_ptrpos(size_t pstart, size_t plen);
 
 /*
 ** Returns a binary tree storing all the removed nodes from the binary tree.
@@ -182,15 +209,18 @@ t_btree				*ft_btree_copy(t_btree *bt);
 
 
 /*
-** Apply a function to each node of the binary tree in different modes.
+** Apply a function to each node of the binary tree by different modes.
 */
 
-enum
+typedef enum e_btmode
 {
 	BT_INORDER, BT_PREORDER, BT_POSTORDER, BT_BREADTHFIRST
-};
+} t_btmode;
 
-void				ft_btree_iter(t_btree *bt, void (*f)(t_btree *), int mode);
+void				ft_btree_iter(t_btree *bt,
+								void (*f)(t_btree *),
+								t_btmode mode);
+t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
 
 /*
 ** Swap every attribute of the structure.

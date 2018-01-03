@@ -7,50 +7,67 @@
 #include <math.h>
 #include "libft.h"
 
-# define PRINTFT "%.400f\n", 0.0
 
-typedef struct	s_pair
+void	callm1(t_pevent *event, void *data)
 {
-	int		key;
-	char	value;
-	unsigned long long n;
-}				t_pair;
-
-void printbtree(t_btree *bt)
-{
-	ft_printf("L: %s\n", bt->content);
+	ft_printf("%d\n", *(int *)data);
 }
 
-void lstprint(t_list *lst)
+void	call0(t_pevent *event, void *data)
 {
-	ft_printf("'%s'\n", lst->content);
+	*(int *)data += 2;
+	ft_printf("%d\n", *(int *)data);
 }
 
-void pairdel(void *data, size_t data_size)
+void	call1(t_pevent *event, void *data)
 {
-	free(data);
+	ft_printf("%d\n", *(int *)data);
 }
 
-int intcmp(const void *a, const void *b, size_t n)
+void	call2(t_pevent *event, void *data)
 {
-	(void)n;
+	ft_printf("%d\n", *(int *)data);
+}
+
+void	call3(t_pevent *event, void *data)
+{
+	ft_printf("%d\n", *(int *)data);
+}
+
+void btiter(t_list *bt)
+{
+	ft_printf("%s\n", bt->content);
+}
+
+int cmpint(const void *a, const void *b, size_t n)
+{
 	return (ft_atoi(a) - ft_atoi(b));
 }
 
 int main(int argc, char **argv)
 {
 	t_btree *bt = NULL, *tmp;
-	int i = 1;
-	while (i < 1000)
+	int	i = 1;
+	while (i < argc)
 	{
-		char *str = ft_itoa(i);
-		tmp = ft_btree_insertf(bt, ft_btree_create(str, ft_strlen(str) + 1), intcmp);
+		tmp = ft_btree_insert(bt, ft_btree_create(argv[i], ft_strlen(argv[i]) + 1));
 		if (!bt)
 			bt = tmp;
 		++i;
 	}
-	bt = ft_btree_balancef(bt, intcmp);
-	//bt = ft_btree_balancef(bt, intcmp);
 	ft_btree_dump(bt);
+	ft_printf("BREADTH FIRST\n");
+	ft_lstiter(ft_btree_tolist(bt), btiter);
+	return (0);
+	int data = 0;
+	t_pevent *pevent = ft_pevent_new();
+	ft_pevent_addp(pevent, call2, 2);
+	ft_pevent_addp(pevent, call0, 1);
+	ft_pevent_addp(pevent, call3, 3);
+	ft_pevent_addp(pevent, call1, 1);
+	ft_pevent_addp(pevent, call0, 1);
+	ft_pevent_addp(pevent, call1, -500);
+	ft_pevent_trigger(pevent, &data);
+	ft_pevent_del(&pevent);
 	return (0);
 }
