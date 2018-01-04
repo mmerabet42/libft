@@ -23,6 +23,10 @@ typedef int	(*t_cmpfunc)(const void *, const void *, size_t);
 
 # endif
 
+/*
+** A binary tree node.
+*/
+
 typedef struct		s_btree
 {
 	void			*content;
@@ -40,6 +44,10 @@ typedef struct		s_ptrpos
 
 /*
 ** Binary tree creations and deletions
+** The btree_new function return a new node whose content is a duplicate of
+** content.
+** The btree_create function return a new node whose content is assigned to
+** content.
 */
 
 t_btree				*ft_btree_new(const void *content, size_t content_size);
@@ -54,7 +62,9 @@ void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
 ** it to be properly deleted by the user.
 ** Get functions work the same as search functions, except that they add the
 ** element if it is not found, so they dont allow occurences as insert
-** functions do
+** functions do. The difference between getnew and getcreate functions is that
+** they use the btree_new and btree_create function respectively to create a new
+** node.
 */
 
 t_btree				*ft_btree_insert(t_btree *bt, t_btree *elem);
@@ -104,7 +114,7 @@ t_ptrpos			make_ptrpos(size_t pstart, size_t plen);
 /*
 ** Returns a binary tree storing all the removed nodes from the binary tree.
 ** This binary tree can then be freed or whatever the hell you want.
-** The reason why this function does not free the data is simple :
+** The reason why these functions do not free the data is simple :
 ** We all hate leaks. Imagine the data stored (void *) is a structure that has
 ** an attribute that has been malloced before, if you just free the data
 ** (because you cant know the nature of a god damn void pointer) the attribute
@@ -157,7 +167,7 @@ t_btree				*ft_btree_splaym(t_btree *bt,
 								size_t plen);
 
 /*
-** Have you ever wondered how many times an element is present on a binary
+** Have you ever wondered how many times an element occurs on a binary
 ** tree ? Well this function has the answer !
 */
 
@@ -207,17 +217,17 @@ t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 
 t_btree				*ft_btree_copy(t_btree *bt);
 
-
 /*
 ** Apply a function to each node of the binary tree by different modes.
 */
 
 typedef enum e_btmode
 {
-	BT_INORDER, BT_PREORDER, BT_POSTORDER, BT_BREADTHFIRST
+	BT_INORDER, BT_PREORDER, BT_POSTORDER, BT_LEVELORDER
 } t_btmode;
 
-void				ft_btree_iter(t_btree *bt,
+void				ft_btree_iter(t_btree *bt, void (*f)(t_btree *));
+void				ft_btree_iterm(t_btree *bt,
 								void (*f)(t_btree *),
 								t_btmode mode);
 t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
@@ -229,7 +239,7 @@ t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
 void				ft_btree_swap(t_btree *a, t_btree *b, int childs);
 
 /*
-** Returns the result of the left/right rotation of the binary tree.
+** Return the result of the left/right rotation of the binary tree.
 ** The rotateF and rotateM functions check if the binary tree can be rotated
 ** before rotating it. So if it can't be, the same binary tree is returned.
 ** Yes, there are cases where a binary tree cant be rotated, it happens when

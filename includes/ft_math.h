@@ -16,6 +16,7 @@
 int					ft_abs(int n);
 int					ft_pow(int x, int y);
 int					ft_sqrt(int n);
+
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 

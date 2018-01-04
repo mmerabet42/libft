@@ -77,6 +77,8 @@ char				*ft_strafter(const char *s, char a);
 char				*ft_strbeforestr(const char *s, const char *a);
 char				*ft_strbefore(const char *s, char a);
 
+int					ft_strmatch(const char *str, const char *match);
+
 int					ft_wcharlen(wchar_t wc);
 char				*ft_getwchar(wchar_t wc);
 int					ft_wstrlen(const wchar_t *wcs);

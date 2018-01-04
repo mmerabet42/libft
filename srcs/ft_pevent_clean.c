@@ -8,7 +8,7 @@ static void	btiter(t_btree *bt)
 void	ft_pevent_clean(t_pevent *event)
 {
 	if (event)
-		ft_btree_iter(event->callbacks, btiter, BT_INORDER);
+		ft_btree_iter(event->callbacks, btiter);
 	ft_btree_del(&event->callbacks, NULL);
 }
 
