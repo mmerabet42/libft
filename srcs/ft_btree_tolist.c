@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_btree.h"
+#include "ft_mem.h"
 
 t_list			*ft_btree_tolist(t_btree *bt)
 {

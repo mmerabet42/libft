@@ -12,23 +12,23 @@
 
 #include "ft_types.h"
 #include "ft_str.h"
+#include "ft_math.h"
 
 double	ft_atod(const char *s)
 {
-	double	firstp;
-	double	secondp;
-	char	*cfirstp;
-	char	*csecondp;
+	long long	firstp;
+	double		secondp;
+	char		*csecondp;
 
 	if (!s)
 		return (0.0);
-	if (ft_strchr(s, '.') == NULL)
-		return ((double)ft_atoi(s));
-	cfirstp = ft_strbefore(s, '.');
-	csecondp = ft_strafter(s, '.');
-	firstp = (double)ft_atoll(cfirstp);
+	firstp = ft_atoll(s);
+	if (!(csecondp = ft_strchr(s, '.')))
+		return ((double)firstp - (firstp < 0 ? 1 : 0));
+	else
+		++csecondp;
 	secondp = (double)ft_atoull(csecondp);
-	while ((unsigned long long)secondp > 0)
+	while ((unsigned long long)secondp > 0 || *csecondp++ == '0')
 		secondp /= 10;
-	return (firstp + secondp);
+	return (((double)ft_abs(firstp) + secondp) * (firstp < 0 ? -1 : 1));
 }

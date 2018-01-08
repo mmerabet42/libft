@@ -1,6 +1,6 @@
 #include "ft_btree.h"
 
-static void		inner_btree_lo(t_btree *bt, void (*f)(t_btree *), int n, int m)
+static void	inner_btree_lo(t_btree *bt, void (*f)(t_btree *), int n, int m)
 {
 	if (!bt)
 		return ;
@@ -10,7 +10,7 @@ static void		inner_btree_lo(t_btree *bt, void (*f)(t_btree *), int n, int m)
 	inner_btree_lo(bt->right, f, n + 1, m);
 }
 
-static void		ft_btree_levelorder(t_btree *bt, void (*f)(t_btree *))
+static void	ft_btree_levelorder(t_btree *bt, void (*f)(t_btree *))
 {
 	int	n;
 	int	i;
@@ -21,7 +21,7 @@ static void		ft_btree_levelorder(t_btree *bt, void (*f)(t_btree *))
 		inner_btree_lo(bt, f, 0, i++);
 }
 
-void			ft_btree_iterm(t_btree *bt, void (*f)(t_btree *), t_btmode mode)
+void		ft_btree_iterm(t_btree *bt, void (*f)(t_btree *), t_btmode mode)
 {
 	if (!bt || !f)
 		return ;
@@ -37,7 +37,7 @@ void			ft_btree_iterm(t_btree *bt, void (*f)(t_btree *), t_btmode mode)
 		f(bt);
 }
 
-void			ft_btree_iter(t_btree *bt, void (*f)(t_btree *))
+void		ft_btree_iter(t_btree *bt, void (*f)(t_btree *))
 {
 	ft_btree_iterm(bt, f, BT_INORDER);
 }

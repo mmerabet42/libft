@@ -13,7 +13,11 @@
 #ifndef FT_MATH_H
 # define FT_MATH_H
 
+typedef double (*t_calcfunc)(double a, double b);
+
 int					ft_abs(int n);
+double				ft_absf(double n);
+
 int					ft_pow(int x, int y);
 int					ft_sqrt(int n);
 

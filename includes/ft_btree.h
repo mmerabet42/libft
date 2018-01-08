@@ -212,6 +212,7 @@ t_btree				*ft_btree_right(t_btree *bt);
 */
 
 t_list				*ft_btree_tolist(t_btree *bt);
+t_list				*ft_btree_tolistv(t_btree *bt);
 t_btree				*ft_btree_fromlist(t_list *lst);
 t_btree				*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp);
 
@@ -231,6 +232,12 @@ void				ft_btree_iterm(t_btree *bt,
 								void (*f)(t_btree *),
 								t_btmode mode);
 t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
+
+void				ft_btree_iterv(t_btree *bt, void (*f)(t_btree *));
+void				ft_btree_itermv(t_btree *bt,
+								void (*f)(t_btree *),
+								t_btmode mode);
+t_list				*ft_btree_tolistmv(t_btree *bt, t_btmode mode);
 
 /*
 ** Swap every attribute of the structure.

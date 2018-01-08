@@ -12,7 +12,12 @@
 
 #include "ft_math.h"
 
-int	ft_abs(int n)
+int		ft_abs(int n)
+{
+	return (n < 0 ? -n : n);
+}
+
+double	ft_absf(double n)
 {
 	return (n < 0 ? -n : n);
 }
