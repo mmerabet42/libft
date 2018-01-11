@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/11 16:05:40 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/01/11 16:06:00 by mmerabet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_mem.h"
 
-void*	ft_memstr(const void *a, size_t an, const void *b, size_t ab)
+void	*ft_memstr(const void *a, size_t an, const void *b, size_t ab)
 {
 	size_t	i;
 

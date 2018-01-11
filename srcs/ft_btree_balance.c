@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 18:07:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/22 22:02:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:02:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void		balance_childs(t_btree *bt, int *leftlen, int *rightlen,
 
 static t_btree	*ft_btree_alignf(t_btree *bt, t_cmpfunc cmp)
 {
-	int	pos;
-	int	leftlen;
-	int	rightlen;
+	int		pos;
+	int		leftlen;
+	int		rightlen;
 	t_btree	*bt_rot;
 
 	if (!bt)
@@ -34,11 +34,15 @@ static t_btree	*ft_btree_alignf(t_btree *bt, t_cmpfunc cmp)
 	leftlen = ft_btree_size(bt->left);
 	rightlen = ft_btree_size(bt->right);
 	if ((pos = ft_btree_pos(bt->parent, bt)) == -1 && leftlen < rightlen)
+	{
 		return (bt == (bt_rot = ft_btree_leftrotatef(bt, cmp)) ?
 			bt_rot : ft_btree_alignf(bt_rot, cmp));
+	}
 	else if (pos == 1 && rightlen < leftlen)
+	{
 		return (bt == (bt_rot = ft_btree_rightrotatef(bt, cmp)) ?
 			bt_rot : ft_btree_alignf(bt_rot, cmp));
+	}
 	return (bt);
 }
 
@@ -60,7 +64,7 @@ t_btree			*ft_btree_balancef(t_btree *bt, t_cmpfunc cmp)
 			balance_childs(newroot, &leftlen, &rightlen, cmp);
 			if (leftlen >= rightlen - 1 || newroot == (bt = ft_btree_alignf(
 				ft_btree_leftrotatef(newroot, cmp), cmp)))
-				break;
+				break ;
 			newroot = bt;
 		}
 		while (1)
@@ -68,7 +72,7 @@ t_btree			*ft_btree_balancef(t_btree *bt, t_cmpfunc cmp)
 			balance_childs(newroot, &leftlen, &rightlen, cmp);
 			if (rightlen >= leftlen - 1 || newroot == (bt = ft_btree_alignf(
 				ft_btree_rightrotatef(newroot, cmp), cmp)))
-				break;
+				break ;
 			newroot = bt;
 		}
 	}

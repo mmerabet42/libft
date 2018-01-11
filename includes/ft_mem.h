@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:03 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:38:36 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:07:27 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void				*ft_memmove(void *dst, const void *src, size_t n);
 void				*ft_memdup(const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memchr_pos(const void *s, int c, size_t n);
-void*				ft_memstr(const void *a,
+void				*ft_memstr(const void *a,
 							size_t an,
 							const void *b,
 							size_t ab);

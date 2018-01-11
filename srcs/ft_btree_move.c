@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 21:09:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/22 21:23:40 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 16:13:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_btree	*ft_btree_move_case(t_btree *bt, t_btree *elem, int pos)
 {
-	int	pos0;
+	int		pos0;
 	t_btree	*tmp;
 	t_btree	*tmp0;
 

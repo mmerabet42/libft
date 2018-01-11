@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:01:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 22:46:34 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:04:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ enum
 	QUERY_FLAG, FLAGS_SIZE
 };
 
-typedef struct	s_printf_params
+typedef struct		s_printf_params
 {
 	const char		**format;
 	const char		*current_buffer;
@@ -34,7 +34,7 @@ typedef struct	s_printf_params
 	int				flags[FLAGS_SIZE];
 }					t_printf_params;
 
-typedef char *(*t_printfunc)(va_list lst, t_printf_params params);
+typedef char	*(*t_printfunc)(va_list lst, t_printf_params params);
 
 typedef struct		s_printf_format
 {

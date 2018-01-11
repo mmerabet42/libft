@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pevent_new.c                                    :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/11 16:04:43 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/11 16:05:10 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/01/11 14:20:22 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/01/11 14:37:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_event.h"
-#include "ft_mem.h"
+#include "ft_str.h"
 
-static void	delevent(void *data, size_t n)
+char	*ft_strpbrk(const char *s, const char *charset)
 {
-	(void)n;
-	ft_event_del((t_event **)&data);
-}
-
-t_pevent	*ft_pevent_new(void)
-{
-	t_pevent	*event;
-
-	if (!(event = ft_memalloc(sizeof(t_pevent))))
+	if (!s || !charset)
 		return (NULL);
-	return (event);
+	while (*s)
+	{
+		if (ft_strchr(charset, *s))
+			return ((char *)s);
+		++s;
+	}
+	return (NULL);
 }
 
-void		ft_pevent_del(t_pevent **event)
+int		ft_strpbrk_pos(const char *s, const char *charset)
 {
-	if (event && *event)
-		ft_btree_del(&(*event)->callbacks, delevent);
-	ft_memdel((void **)event);
+	int	i;
+
+	if (!s || !charset)
+		return (-1);
+	i = 0;
+	while (s[i])
+	{
+		if (ft_strchr(charset, s[i]))
+			return (i);
+		++i;
+	}
+	return (-1);
 }

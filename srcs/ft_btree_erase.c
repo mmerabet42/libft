@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 10:22:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:43:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 16:53:55 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ t_btree			*ft_btree_erasef(t_btree **bt,
 			tmp = ft_btree_erase_case(*bt, 2);
 		if (!tmp->left && !tmp->right && !tmp->parent)
 			*bt = NULL;
-		tmp->left = NULL;
-		tmp->right = NULL;
-		tmp->parent = NULL;
+		ft_bzero((char *)tmp + (sizeof(void *) + sizeof(size_t)),
+				sizeof(t_btree *) * 3);
 	}
 	return (tmp);
 }
@@ -108,9 +107,8 @@ t_btree			*ft_btree_erasem(t_btree **bt,
 			tmp = ft_btree_erase_case(*bt, 2);
 		if (!tmp->left && !tmp->right && !tmp->parent)
 			*bt = NULL;
-		tmp->left = NULL;
-		tmp->right = NULL;
-		tmp->parent = NULL;
+		ft_bzero((char *)tmp + (sizeof(void *) + sizeof(size_t)),
+				sizeof(t_btree *) * 3);
 	}
 	return (tmp);
 }

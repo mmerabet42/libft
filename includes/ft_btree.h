@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:43:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/22 22:02:33 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:06:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,10 +222,10 @@ t_btree				*ft_btree_copy(t_btree *bt);
 ** Apply a function to each node of the binary tree by different modes.
 */
 
-typedef enum e_btmode
+typedef enum	e_btmode
 {
 	BT_INORDER, BT_PREORDER, BT_POSTORDER, BT_LEVELORDER
-} t_btmode;
+}				t_btmode;
 
 void				ft_btree_iter(t_btree *bt, void (*f)(t_btree *));
 void				ft_btree_iterm(t_btree *bt,
@@ -274,6 +274,8 @@ t_btree				*ft_btree_rightrotatem(t_btree *bt,
 t_btree				*ft_btree_balance(t_btree *bt);
 t_btree				*ft_btree_balancef(t_btree *bt, t_cmpfunc cmp);
 t_btree				*ft_btree_balancem(t_btree *bt, size_t start, size_t len);
+void				balancem_childs(t_btree *bt, int *leftlen, int *rightlen,
+								t_ptrpos ptrpos);
 
 /*
 ** Returns the number of nodes.

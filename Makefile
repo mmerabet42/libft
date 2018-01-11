@@ -35,6 +35,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_strlen.c ft_strrepeat.c ft_strmap.c ft_strnew.c ft_strmatch.c \
 			ft_strnrchr.c ft_strnrstr.c ft_strrep.c ft_strrepstr.c \
 			ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_swap.c \
+			ft_strpbrk.c \
 			ft_strforeach.c ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_getwstr.c \
 			ft_event_new.c ft_event_add.c ft_event_trigger.c ft_event_clean.c \
