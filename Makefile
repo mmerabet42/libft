@@ -41,7 +41,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_event_new.c ft_event_add.c ft_event_trigger.c ft_event_clean.c \
 			ft_pevent_new.c ft_pevent_add.c ft_pevent_remove.c \
 			ft_pevent_trigger.c ft_pevent_clean.c \
-			get_next_line.c \
+			get_next_line.c ft_timefnew.c \
 
 SRCD		=	srcs
 ICLD		=	includes
