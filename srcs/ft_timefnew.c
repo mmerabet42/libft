@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 18:47:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/12 20:53:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/13 22:56:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_timef				*ft_timefnew(const time_t *t)
 	tf->cday = ft_strndup(out, 3);
 	tf->cmonth = ft_strndup(out + 4, 3);
 	tf->month = timef_getmonth(tf->cmonth);
+	tf->full = *t;
 	return (tf);
 }
 

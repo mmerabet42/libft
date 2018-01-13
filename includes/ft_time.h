@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 18:50:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/12 21:53:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/13 22:55:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_timef
 	unsigned int	year;
 	char			*cday;
 	char			*cmonth;
+	time_t			full;
 }					t_timef;
 
 t_timef				*ft_timefnew(const time_t *t);
