@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:36:37 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/15 18:08:54 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,10 @@ char		*handler_color(va_list lst, t_printf_params params)
 	*params.format += pos + 1;
 	tcolor = ft_inner_printf(color, params.pcur).buf;
 	free(color);
+	if (tcolor[0] == '-')
+	{
+		free(tcolor);
+		return (ft_strnew(0));
+	}
 	return (perform_color(ft_strtrim_clr(tcolor), params));
 }
