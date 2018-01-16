@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstswap.c                                       :+:      :+:    :+:   */
+/*   ft_lstsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/19 19:52:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/16 20:28:56 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/01/16 20:24:47 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/01/16 20:52:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 #include "ft_mem.h"
 
-void	ft_lstswap(t_list *a, t_list *b)
+t_list	*ft_lstsort(t_list *lst)
 {
-	size_t	tmp;
+	return (ft_lstsortf(lst, ft_memcmp));
+}
 
-	ft_swapptr(&a->content, &b->content);
-	tmp = a->content_size;
-	a->content_size = b->content_size;
-	b->content_size = tmp;
+t_list	*ft_lstsortf(t_list *lst, t_cmpfunc cmp)
+{
+	t_list	*lst_a;
+	t_list	*lst_b;
+	
+	lst_a = lst;
+	while (lst_a)
+	{
+		lst_b = lst_a->next;
+		while (lst_b)
+		{
+			if (cmp(lst_a->content, lst_b->content, lst_b->content_size) > 0)
+				ft_lstswap(lst_a, lst_b);
+			lst_b = lst_b->next;
+		}
+		lst_a = lst_a->next;
+	}
+	return (lst);
 }

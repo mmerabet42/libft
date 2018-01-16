@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:05:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 19:36:17 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/16 20:19:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_list	*inner_btree_lo(t_btree *bt, int n, int m)
 	if (!bt)
 		return (NULL);
 	if (n == m)
-		return (ft_lstnew(bt->content, bt->content_size));
+		return (ft_lstcreate(bt->content, bt->content_size));
 	lst = NULL;
 	ft_lstpushfront(&lst, inner_btree_lo(bt->left, n + 1, m));
 	tmp = ft_lstpush(lst, inner_btree_lo(bt->right, n + 1, m));

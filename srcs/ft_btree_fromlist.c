@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:28:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:49:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/16 20:19:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_btree	*ft_btree_fromlistf(t_list *lst, t_cmpfunc cmp)
 	bt = NULL;
 	while (lst && cmp)
 	{
-		elem = ft_btree_new(lst->content, lst->content_size);
+		elem = ft_btree_create(lst->content, lst->content_size);
 		elem = ft_btree_insertf(bt, elem, cmp);
 		if (!bt)
 			bt = elem;

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 18:47:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/13 22:56:52 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/16 21:10:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ t_timef				*ft_timefnew(const time_t *t)
 {
 	t_timef	*tf;
 	char	*out;
+	time_t	cur_t;
 
+	if (!t && (cur_t = time(NULL)))
+		return (ft_timefnew(&cur_t));
 	if (!(tf = ft_memalloc(sizeof(t_timef))))
 		return (NULL);
 	if (!(out = ctime(t)))
