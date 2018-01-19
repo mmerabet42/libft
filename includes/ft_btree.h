@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:43:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/14 16:59:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/19 22:23:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # ifndef FT_CMPFUNC_T
 #  define FT_CMPFUNC_T
 
-typedef int	(*t_cmpfunc)(const void *, const void *, size_t);
+typedef int		(*t_cmpfunc)(const void *, const void *, size_t);
 
 # endif
 
@@ -35,6 +35,8 @@ typedef struct		s_btree
 	struct s_btree	*left;
 	struct s_btree	*right;
 }					t_btree;
+
+typedef void	(*t_btiter_d)(t_btree *, void *);
 
 typedef struct		s_ptrpos
 {
@@ -231,12 +233,23 @@ void				ft_btree_iter(t_btree *bt, void (*f)(t_btree *));
 void				ft_btree_iterm(t_btree *bt,
 								void (*f)(t_btree *),
 								t_btmode mode);
-t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
+void				ft_btree_iter_d(t_btree *bt, t_btiter_d f, void *data);
+void				ft_btree_iterm_d(t_btree *bt,
+								t_btiter_d f,
+								t_btmode mode,
+								void *data);
 
 void				ft_btree_iterv(t_btree *bt, void (*f)(t_btree *));
 void				ft_btree_itermv(t_btree *bt,
 								void (*f)(t_btree *),
 								t_btmode mode);
+void				ft_btree_iterv_d(t_btree *bt, t_btiter_d f, void *data);
+void				ft_btree_itermv_d(t_btree *bt,
+								t_btiter_d f,
+								t_btmode mode,
+								void *data);
+
+t_list				*ft_btree_tolistm(t_btree *bt, t_btmode mode);
 t_list				*ft_btree_tolistmv(t_btree *bt, t_btmode mode);
 
 /*

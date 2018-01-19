@@ -19,6 +19,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_btree_splay.c ft_btree_balancem.c ft_btree_count.c \
 			ft_btree_erase_all.c ft_btree_iter.c ft_btree_getcreate.c \
 			ft_btree_getnew.c ft_btree_iterv.c ft_btree_tolistv.c \
+			ft_btree_iter_d.c ft_btree_iterv_d.c \
 			ft_isalnum.c ft_isalpha.c ft_isascii.c ft_iscntrl.c ft_isdigit.c \
 			ft_islower.c ft_isprint.c ft_ispunct.c ft_isspace.c ft_isupper.c \
 			ft_itoa.c ft_ltoa.c ft_lltoa.c ft_uitoa.c ft_ultoa.c ft_ulltoa.c \

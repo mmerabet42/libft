@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/16 20:40:22 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/19 17:44:32 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,7 @@ t_list				*ft_lstcopyone(t_list *lst);
 void				ft_lstswap(t_list *a, t_list *b);
 t_list				*ft_lstsort(t_list *lst);
 t_list				*ft_lstsortf(t_list *lst, t_cmpfunc cmp);
+t_list				*ft_lstsortv(t_list *lst);
+t_list				*ft_lstsortvf(t_list *lst, t_cmpfunc cmp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 18:47:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/18 15:07:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/19 17:21:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 static unsigned int	timef_getmonth(const char *mth)
 {
 	static char	*mths[] = {
-		"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug",
-		"Sept", "Oct", "Nov", "Dec"
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+		"Sep", "Oct", "Nov", "Dec"
 	};
 	int			i;
 
