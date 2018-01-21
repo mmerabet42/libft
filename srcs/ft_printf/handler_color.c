@@ -6,70 +6,44 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/19 17:06:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/21 21:18:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
 #include "ft_str.h"
 
-static char	*get_color_above(char *tcolor, int fb)
+static const t_color_attr	g_colors[] = {
+	{"black", "\e[30m", "\e[40m"}, {"red", "\e[31m", "\e[41m"},
+	{"green", "\e[32m", "\e[42m"}, {"yellow", "\e[33m", "\e[43m"},
+	{"blue", "\e[34m", "\e[44m"}, {"magenta", "\e[35m", "\e[45m"},
+	{"cyan", "\e[36m", "\e[46m"}, {"lgray", "\e[37m", "\e[47m"},
+	{"dgray", "\e[90m", "\e[100m"}, {"lred", "\e[91m", "\e[101m"},
+	{"lgreen", "\e[92m", "\e[102m"}, {"lyellow", "\e[93m", "\e[103m"},
+	{"lblue", "\e[94m", "\e[104m"}, {"lmagenta", "\e[95m", "\e[105m"},
+	{"lcyan", "\e[96m", "\e[106m"}, {"white", "\e[97m", "\e[107m"},
+	{"bold", "\e[1m", "\e[1m"}, {"dim", "\e[2m", "\e[2m"},
+	{"italic", "\e[3m", "\e[3m"}, {"underlined", "\e[4m", "\e[4m"},
+	{"invert", "\e[7m", "\e[7m"}, {"hide", "\e[8m", "\e[8m"},
+	{"eoc", "\e[0m", "\e[0m"}, {"0", "\e[0m", "\e[0m"}
+};
+static const size_t		g_colors_n = (sizeof(g_colors) / sizeof(t_color_attr));
+
+static char			*get_color(char *tcolor, int fb)
 {
-	if (ft_strequ(tcolor, "dgray"))
-		return (!fb ? "\e[90m" : "\e[100m");
-	else if (ft_strequ(tcolor, "lred"))
-		return (!fb ? "\e[91m" : "\e[101m");
-	else if (ft_strequ(tcolor, "lgreen"))
-		return (!fb ? "\e[92m" : "\e[102m");
-	else if (ft_strequ(tcolor, "lyellow"))
-		return (!fb ? "\e[93m" : "\e[103m");
-	else if (ft_strequ(tcolor, "lblue"))
-		return (!fb ? "\e[94m" : "\e[104m");
-	else if (ft_strequ(tcolor, "lmagenta"))
-		return (!fb ? "\e[95m" : "\e[105m");
-	else if (ft_strequ(tcolor, "lcyan"))
-		return (!fb ? "\e[96m" : "\e[106m");
-	else if (ft_strequ(tcolor, "white"))
-		return (!fb ? "\e[97m" : "\e[107m");
-	else if (ft_strequ(tcolor, "invert"))
-		return ("\e[7m");
-	else if (ft_strequ(tcolor, "hide"))
-		return ("\e[8m");
-	else if (ft_strequ(tcolor, "eoc") || ft_strequ(tcolor, "0"))
-		return ("\e[0m");
-	return ("");
+	size_t	i;
+
+	i = 0;
+	while (i < g_colors_n)
+	{
+		if (ft_strequ(g_colors[i].name, tcolor))
+			return (fb ? g_colors[i].fg_cd : g_colors[i].bg_cd);
+		++i;
+	}
+	return (tcolor);
 }
 
-static char	*get_color(char *tcolor, int fb)
-{
-	if (ft_strequ(tcolor, "black"))
-		return (!fb ? "\e[30m" : "\e[40m");
-	else if (ft_strequ(tcolor, "red"))
-		return (!fb ? "\e[31m" : "\e[41m");
-	else if (ft_strequ(tcolor, "green"))
-		return (!fb ? "\e[32m" : "\e[42m");
-	else if (ft_strequ(tcolor, "yellow"))
-		return (!fb ? "\e[33m" : "\e[43m");
-	else if (ft_strequ(tcolor, "blue"))
-		return (!fb ? "\e[34m" : "\e[44m");
-	else if (ft_strequ(tcolor, "magenta"))
-		return (!fb ? "\e[35m" : "\e[45m");
-	else if (ft_strequ(tcolor, "cyan"))
-		return (!fb ? "\e[36m" : "\e[46m");
-	else if (ft_strequ(tcolor, "lgray"))
-		return (!fb ? "\e[37m" : "\e[47m");
-	else if (ft_strequ(tcolor, "bold"))
-		return ("\e[1m");
-	else if (ft_strequ(tcolor, "dim"))
-		return ("\e[2m");
-	else if (ft_strequ(tcolor, "underlined"))
-		return ("\e[4m");
-	else if (ft_strequ(tcolor, "italic"))
-		return ("\e[3m");
-	return (get_color_above(tcolor, fb));
-}
-
-static char	*perform_color(char *tcolor, t_printf_params params)
+static char			*perform_color(char *tcolor, t_printf_params params)
 {
 	char	esc_fb[12];
 	char	*final_color;
@@ -90,7 +64,7 @@ static char	*perform_color(char *tcolor, t_printf_params params)
 	return (final_color);
 }
 
-char		*handler_color(va_list lst, t_printf_params params)
+char				*handler_color(va_list lst, t_printf_params params)
 {
 	char	*color;
 	char	*tcolor;

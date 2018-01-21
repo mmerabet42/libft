@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/21 20:16:19 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/21 20:34:30 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/21 21:09:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ enum
 	L_MOD, LM_MOD, LL_MOD, H_MOD, HH_MOD, J_MOD, T_MOD, Z_MOD,
 	QUERY_FLAG, FLAGS_SIZE
 };
+
+typedef struct		s_color_attr
+{
+	char			*name;
+	char			*bg_cd;
+	char			*fg_cd;
+}					t_color_attr;
 
 typedef struct		s_printf_params
 {
