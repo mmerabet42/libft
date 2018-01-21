@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/21 21:18:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/21 22:14:23 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char			*get_color(char *tcolor, int fb)
 			return (fb ? g_colors[i].fg_cd : g_colors[i].bg_cd);
 		++i;
 	}
-	return (tcolor);
+	return ("");
 }
 
 static char			*perform_color(char *tcolor, t_printf_params params)
