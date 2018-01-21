@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 15:58:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:32:33 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/21 20:30:44 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
+#include "ft_printf_ext.h"
 #include "ft_list.h"
 #include "ft_str.h"
 
@@ -70,7 +71,13 @@ int				ft_printf_add_format(const char *f, t_printfunc func)
 	return (0);
 }
 
+static void		free_printf_format(void *content, size_t n)
+{
+	(void)n;
+	free(content);
+}
+
 void			ft_printf_free_formats(void)
 {
-	ft_lstdel(&g_printf_formats, NULL);
+	ft_lstdel(&g_printf_formats, free_printf_format);
 }
