@@ -6,14 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:09:26 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:27:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/23 19:07:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 #include "ft_mem.h"
 
-static char	*ft_inner_getwchar(wchar_t wc, char wcs[MB_CUR_MAX + 1])
+static char	*inner_getwchar(wchar_t wc, char wcs[MB_CUR_MAX + 1])
 {
 	if ((wc <= 0x7f && MB_CUR_MAX >= 1) || (wc <= 0xff && MB_CUR_MAX == 1))
 		wcs[0] = (char)wc;
@@ -45,5 +45,5 @@ char		*ft_getwchar(wchar_t wc)
 	if (ft_wcharlen(wc) == 0)
 		return (NULL);
 	ft_bzero(wcs, MB_CUR_MAX + 1);
-	return (ft_inner_getwchar(wc, wcs));
+	return (inner_getwchar(wc, wcs));
 }

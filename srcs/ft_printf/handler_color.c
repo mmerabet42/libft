@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/21 22:14:23 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/23 18:52:01 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,36 @@ static char			*get_color(char *tcolor, int fb)
 	return ("");
 }
 
+static char			*all_colors(char *tcolor, char esc_fb[12],
+							t_printf_params params)
+{
+	char	*final;
+	char	*total;
+	int		pos;
+
+	pos = 0;
+	total = NULL;
+	while (pos != -1)
+	{
+		if ((pos = ft_strchr_pos(tcolor, '/')) != -1)
+			tcolor[pos] = '\0';
+		if (params.precision > 0)
+			final = ft_strjoin_clr(esc_fb, ft_strjoinc(tcolor, 'm'), 1);
+		else if (tcolor[0] == ';')
+			final = ft_strjoin_clr(esc_fb, ft_strjoinc(tcolor + 1, 'm'), 1);
+		else
+			final = ft_strdup(get_color(tcolor, params.width));
+		if (pos != -1)
+			tcolor += pos + 1;
+		total = ft_strjoin_clr(total, final, 2);
+	}
+	return (total);
+}
+
 static char			*perform_color(char *tcolor, t_printf_params params)
 {
 	char	esc_fb[12];
-	char	*final_color;
+	char	*total;
 
 	if (params.flags[MINUS_FLAG])
 	{
@@ -56,12 +82,9 @@ static char			*perform_color(char *tcolor, t_printf_params params)
 	ft_strcpy(esc_fb, "\e[38;2;");
 	if (params.width > 0)
 		ft_strncpy(esc_fb + 2, "48", 2);
-	if (params.precision > 0)
-		final_color = ft_strjoin_clr(esc_fb, ft_strjoinc(tcolor, 'm'), 1);
-	else
-		final_color = ft_strdup(get_color(tcolor, params.width));
+	total = all_colors(tcolor, esc_fb, params);
 	free(tcolor);
-	return (final_color);
+	return (total);
 }
 
 char				*handler_color(va_list lst, t_printf_params params)
