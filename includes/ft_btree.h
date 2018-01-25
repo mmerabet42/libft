@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:43:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/19 22:23:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/25 21:15:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ t_btree				*ft_btree_insertm(t_btree *bt,
 								t_btree *elem,
 								size_t pstart,
 								size_t plen);
+
+t_btree				*ft_btree_insert_p(t_btree **bt, t_btree *elem);
+t_btree				*ft_btree_insertf_p(t_btree **bt,
+								t_btree *elem,
+								t_cmpfunc cmp);
+t_btree				*ft_btree_insertm_p(t_btree **bt,
+								t_btree *elem,
+								size_t pstart,
+								size_t plen);
+
 t_btree				*ft_btree_erase(t_btree **bt,
 								const void *content,
 								size_t content_size);
