@@ -76,7 +76,7 @@ _SUCCESS=$(_RED)
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRCS)
 	@echo "$(_RED)Compiling$(_END) $(NAME)$(_RED)...$(_END)"
 	@$(CC) -c $(CFLAGS) $(SRCS) -I$(ICLD)
 	@mkdir -p objs
@@ -84,6 +84,9 @@ $(NAME):
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo  "$(NAME) : $(_SUCCESS)done$(_END)"
+
+%.c:
+	
 
 clean:
 	@echo "$(_RED)Cleaning$(_END) : object files"

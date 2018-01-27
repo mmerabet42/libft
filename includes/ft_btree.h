@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:43:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/25 21:15:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/27 15:52:58 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef int		(*t_cmpfunc)(const void *, const void *, size_t);
 /*
 ** A binary tree node.
 */
+
+typedef struct		s_pair
+{
+	void			*first;
+	void			*second;
+}					t_pair;
 
 typedef struct		s_btree
 {
