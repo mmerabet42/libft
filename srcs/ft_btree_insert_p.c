@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 21:14:20 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/25 21:18:54 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:29:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_btree	*ft_btree_insertf_p(t_btree **bt, t_btree *elem, t_cmpfunc cmp)
 	tmp = ft_btree_insertf(*bt, elem, cmp);
 	if (!*bt)
 		*bt = tmp;
-	return (elem);
+	return (tmp);
 }
 
 t_btree	*ft_btree_insertm_p(t_btree **bt, t_btree *elem, size_t pstart,

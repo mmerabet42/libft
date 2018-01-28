@@ -44,22 +44,22 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_pevent_trigger.c ft_pevent_clean.c \
 			get_next_line.c ft_timefnew.c \
 
-SRCD		=	srcs/
+SRCD		=	srcs
 ICLD		=	includes
-LIBFTS		=	$(addprefix $(SRCD),$(_LIBFTS))
+LIBFTS		=	$(addprefix $(SRCD)/,$(_LIBFTS))
 _LIBFTO		=	$(_LIBFTS:.c=.o)
 LIBFTO		=	$(LIBFTS:.c=.o)
 
 PRINTFD		=	$(SRCD)/ft_printf
-PRINTFS		=	$(addprefix $(PRINTFD),$(_PRINTFS))
+PRINTFS		=	$(addprefix $(PRINTFD)/,$(_PRINTFS))
 _PRINTFO	=	$(_PRINTFS:.c=.o)
 PRINTFO		=	$(PRINTFS:.c=.o)
 
 SRCS		=	$(LIBFTS) $(PRINTFS)
 _OBJS		=	$(_LIBFTO) $(_PRINTFO)
-OBJD		=	objs/
+OBJD		=	objs
 OBJS		=	$(LIBFTO) $(PRINTFO)
-OBJB		=	$(addprefix $(OBJD),$(_OBJS))
+OBJB		=	$(addprefix $(OBJD)/,$(_OBJS))
 
 # COLORS
 _GREY=\x1b[30m
@@ -77,18 +77,17 @@ _SUCCESS=$(_RED)
 
 all: $(NAME)
 
-$(NAME): $(OBJB)
+$(NAME): $(SRCS)
 	@echo "$(_RED)Compiling$(_END) $(NAME)$(_RED)...$(_END)"
-	@#$(CC) -c $(CFLAGS) $(SRCS) -I$(ICLD)
-	@#mkdir -p objs
-	@#mv $(OBJS) $(OBJD)/
+	@$(CC) -c $(CFLAGS) $(SRCS) -I$(ICLD)
+	@mkdir -p objs
+	@mv $(_OBJS) $(OBJD)/
 	@ar rc $(NAME) $(OBJB)
 	@ranlib $(NAME)
 	@echo  "$(NAME) : $(_SUCCESS)done$(_END)"
 
-$(OBJD)%.o: $(SRCD)%.c
-	@mkdir -p $(OBJD)
-	@$(CC) -c $(CFLAGS) $^ -o $@ -I$(ICLD)
+%.c:
+	;
 
 clean:
 	@/bin/rm -f $(OBJB)
@@ -98,6 +97,4 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "$(NAME) fclean: $(_RED)done$(_END)"
 
-re:
-	@make fclean
-	@make
+re: fclean all
