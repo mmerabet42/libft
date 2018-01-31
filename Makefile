@@ -63,7 +63,7 @@ OBJB		=	$(addprefix $(OBJD)/,$(_OBJS))
 
 # COLORS
 _GREY=\x1b[30m
-_RED=\x1b[38;5;220m
+_RED=\x1b[38;2;0;255;145m
 _GREEN=\x1b[32m
 _YELLOW=\x1b[33m
 _BLUE=\x1b[34m
