@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mat_dump.c                                      :+:      :+:    :+:   */
+/*   ft_mat_mult.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 16:00:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/01 22:25:17 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/02/01 23:02:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
-#include "ft_printf.h"
 
-void	ft_mat_dump(const t_mat *mat)
+t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 {
-	size_t	x;
-	size_t	y;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	if (!mat)
-		return ;
-	y = 0;
-	while (y < mat->rows)
+	if (a.rows != b.columns)
+		return (NULL);
+	res = ft_mat_opget(a.rows, b.columns, res);
+	i = 0;
+	while (i < a.rows)
 	{
-		x = 0;
-		ft_printf("[");
-		while (x < mat->columns)
+		j = 0;
+		while (j < b.columns)
 		{
-			ft_printf("%d%s", mat->matrix[x + mat->columns * y],
-					(x + 1 < mat->columns ? ", " : "]\n"));
-			++x;
+			k = 0;
+			while (k < a.columns)
+			{
+				*ft_mat_get(res, j, i) +=
+					*ft_mat_get(&a, k, i) * *ft_mat_get(&b, j, k);
+				++k;
+			}
+			++j;
 		}
-		++y;
+		++i;
 	}
+	return (res);
 }

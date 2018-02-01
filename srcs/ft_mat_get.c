@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mat_dump.c                                      :+:      :+:    :+:   */
+/*   ft_mat_get.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 16:00:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/01 22:25:17 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/02/01 21:10:27 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/02/01 22:25:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
-#include "ft_printf.h"
 
-void	ft_mat_dump(const t_mat *mat)
+int	*ft_mat_get(t_mat *mat, size_t x, size_t y)
 {
-	size_t	x;
-	size_t	y;
-
-	if (!mat)
-		return ;
-	y = 0;
-	while (y < mat->rows)
-	{
-		x = 0;
-		ft_printf("[");
-		while (x < mat->columns)
-		{
-			ft_printf("%d%s", mat->matrix[x + mat->columns * y],
-					(x + 1 < mat->columns ? ", " : "]\n"));
-			++x;
-		}
-		++y;
-	}
+	if(!mat || !mat->matrix)
+		return ((void *)0);
+	while (x >= mat->columns)
+		x -= mat->columns;
+	while (y >= mat->rows)
+		y += mat->rows;
+	return (mat->matrix + (x + mat->columns * y));
 }
