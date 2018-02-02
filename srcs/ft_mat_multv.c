@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mat_get.c                                       :+:      :+:    :+:   */
+/*   ft_mat_multv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 21:10:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/02 15:03:44 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/02/02 16:29:05 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/02/02 16:37:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-int	*ft_mat_get(t_mat *mat, size_t x, size_t y)
+t_mat	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 {
-	if(!mat || !mat->matrix)
-		return ((void *)0);
-/*	while (x >= mat->columns)
-		x -= mat->columns;
-	while (y >= mat->rows)
-		y += mat->rows;*/
-	return (mat->matrix + (x + mat->columns * y));
+	size_t	i;
+	size_t	j;
+
+	if (a.columns == b.dimensions)
+		return (NULL);
+	res = ft_vec_opget(a.rows, res);
+	while (i < a.rows)
+	{
+		
+	}
 }

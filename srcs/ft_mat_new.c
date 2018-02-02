@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 14:44:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/01 23:25:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/02 15:53:23 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ t_mat	*ft_mat_newi(size_t rows, size_t columns, int scalar)
 {
 	t_mat	*nmat;
 	size_t	i;
-	size_t	x;
-	size_t	y;
 
 	if (!(nmat = (t_mat *)malloc(sizeof(t_mat))))
 		return (NULL);
@@ -70,13 +68,15 @@ t_mat	*ft_mat_newi(size_t rows, size_t columns, int scalar)
 		return (NULL);
 	}
 	i = 0;
-	if (nmat->columns == nmat->rows)
+	while (i < columns)
 	{
-		y = 0;
+		if ((nmat->columns == nmat->rows && i % (rows + 1) == 0)
+				|| nmat->columns != nmat->rows)
+			nmat->matrix[i] = scalar;
+		else
+			nmat->matrix[i] = 0;
+		++i;
 	}
-	else
-		while (i < columns)
-			nmat->matrix[i++] = scalar;
 	return (nmat);
 }
 
