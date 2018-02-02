@@ -6,38 +6,37 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/02 16:28:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/02 23:04:32 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 #include "ft_printf.h"
+#include "ft_mem.h"
 
 t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	size_t	i[3];
 
 	if (a.columns != b.rows)
 		return (NULL);
 	res = ft_mat_opget(a.rows, b.columns, res);
-	i = 0;
-	while (i < a.rows)
+	i[0] = 0;
+	while (i[0] < a.rows)
 	{
-		j = 0;
-		while (j < b.columns)
+		i[1] = 0;
+		while (i[1] < b.columns)
 		{
-			k = 0;
-			while (k < a.columns)
+			i[2] = 0;
+			while (i[2] < a.columns)
 			{
-				*ft_mat_get(res, j, i) +=
-					*ft_mat_get(&a, k, i) * *ft_mat_get(&b, j, k);
-				++k;
+				*ft_mat_get(res, i[1], i[0]) +=
+					*ft_mat_get(&a, i[2], i[0]) * *ft_mat_get(&b, i[1], i[2]);
+				++i[2];
 			}
-			++j;
+			++i[1];
 		}
-		++i;
+		++i[0];
 	}
 	return (res);
 }
@@ -47,7 +46,8 @@ t_mat	*ft_mat_multi(t_mat a, int scalar, t_mat *res)
 	size_t	i;
 	size_t	size;
 
-	res = ft_mat_opget(a.rows, a.columns, res);
+	if (!res || res->matrix != a.matrix)
+		res = ft_mat_opget(a.rows, a.columns, res);
 	i = 0;
 	size = a.rows * a.columns;
 	while (i < size)
