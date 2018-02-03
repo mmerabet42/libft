@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/02 23:04:32 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/03 16:59:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 {
 	size_t	i[3];
+	int		*tmp;
 
-	if (a.columns != b.rows)
+	if (a.columns != b.rows || !(res = ft_mat_opget(a.rows, b.columns, res)))
 		return (NULL);
-	res = ft_mat_opget(a.rows, b.columns, res);
+	tmp = res->matrix;
+	res->matrix = (int *)malloc(sizeof(int) * (a.rows * b.columns));
 	i[0] = 0;
 	while (i[0] < a.rows)
 	{
@@ -38,6 +40,8 @@ t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 		}
 		++i[0];
 	}
+	if (tmp == a.matrix || tmp == b.matrix)
+		free(tmp);
 	return (res);
 }
 
