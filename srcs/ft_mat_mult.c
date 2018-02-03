@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 16:59:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/03 22:43:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,28 @@
 
 t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 {
-	size_t	i[3];
-	int		*tmp;
+	size_t		i[3];
+	int			*tmp;
 
 	if (a.columns != b.rows || !(res = ft_mat_opget(a.rows, b.columns, res)))
 		return (NULL);
 	tmp = res->matrix;
-	res->matrix = (int *)malloc(sizeof(int) * (a.rows * b.columns));
-	i[0] = 0;
-	while (i[0] < a.rows)
+	if ((tmp == a.matrix || tmp == b.matrix) &&
+			!(res->matrix = (int *)malloc(sizeof(int) * (a.rows * b.columns))))
+		res->matrix = tmp;
+	i[0] = -1;
+	while (++i[0] < a.rows)
 	{
-		i[1] = 0;
-		while (i[1] < b.columns)
+		i[1] = -1;
+		while (++i[1] < b.columns)
 		{
-			i[2] = 0;
-			while (i[2] < a.columns)
-			{
+			i[2] = -1;
+			while (++i[2] < a.columns)
 				*ft_mat_get(res, i[1], i[0]) +=
 					*ft_mat_get(&a, i[2], i[0]) * *ft_mat_get(&b, i[1], i[2]);
-				++i[2];
-			}
-			++i[1];
 		}
-		++i[0];
 	}
-	if (tmp == a.matrix || tmp == b.matrix)
+	if ((tmp == a.matrix || tmp == b.matrix) && tmp != res->matrix)
 		free(tmp);
 	return (res);
 }

@@ -45,6 +45,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			get_next_line.c ft_timefnew.c \
 			ft_mat_new.c ft_mat_dump.c ft_mat_add.c ft_mat_get.c ft_mat_mult.c \
 			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c \
+			ft_vec_get.c ft_mat_multv.c \
 
 SRCD		=	srcs
 ICLD		=	includes

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 16:59:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/03 22:43:31 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void				ft_vec_del(t_vec **vec);
 void				ft_vec_dump(const t_vec *vec);
 
 t_vec				*ft_vec_opget(size_t dimensions, t_vec *res);
+
+int					*ft_vec_get(t_vec *vec, size_t x);
 
 t_vec				*ft_vec_add(t_vec a, t_vec b, t_vec *res);
 t_vec				*ft_vec_addi(t_vec a, int b, t_vec *res);

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 16:08:11 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 16:03:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/03 22:03:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_vec	*ft_vec_opget(size_t dimensions, t_vec *res)
 	if (res->dimensions != dimensions)
 		if (!(res->vector = (int *)malloc(sizeof(int) * dimensions)))
 			return (NULL);
+	res->dimensions = dimensions;
 	return (res);
 }
 
