@@ -44,8 +44,9 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
 			ft_pevent_trigger.c ft_pevent_clean.c \
 			get_next_line.c ft_timefnew.c \
 			ft_mat_new.c ft_mat_dump.c ft_mat_add.c ft_mat_get.c ft_mat_mult.c \
-			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c \
-			ft_vec_get.c ft_mat_multv.c \
+			ft_mat_sub.c ft_mat_div.c ft_mat_calc.c ft_mat_zero.c \
+			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c ft_vec_get.c \
+			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c \
 
 SRCD		=	srcs
 ICLD		=	includes

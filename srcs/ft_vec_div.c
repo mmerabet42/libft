@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vec_add.c                                       :+:      :+:    :+:   */
+/*   ft_vec_div.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/02 16:08:11 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/04 21:10:49 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/02/04 20:43:41 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/02/04 20:44:24 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
-#include <stdlib.h>
 
-t_vec	*ft_vec_opget(size_t dimensions, t_vec *res)
-{
-	if (!res && !(res = ft_vec_new(dimensions)))
-		return (NULL);
-	if (res->dimensions != dimensions)
-		if (!(res->vector = (int *)malloc(sizeof(int) * dimensions)))
-			return (NULL);
-	res->dimensions = dimensions;
-	return (res);
-}
-
-t_vec	*ft_vec_add(t_vec a, t_vec b, t_vec *res)
+t_vec	*ft_vec_div(t_vec a, t_vec b, t_vec *res)
 {
 	size_t	i;
 	size_t	dmin;
@@ -34,13 +22,13 @@ t_vec	*ft_vec_add(t_vec a, t_vec b, t_vec *res)
 	i = 0;
 	while (i < dmin)
 	{
-		res->vector[i] = a.vector[i] + b.vector[i];
+		res->vector[i] = a.vector[i] / b.vector[i];
 		++i;
 	}
 	return (res);
 }
 
-t_vec	*ft_vec_addi(t_vec a, int b, t_vec *res)
+t_vec	*ft_vec_divi(t_vec a, int b, t_vec *res)
 {
 	size_t	i;
 
@@ -48,13 +36,13 @@ t_vec	*ft_vec_addi(t_vec a, int b, t_vec *res)
 	i = 0;
 	while (i < a.dimensions)
 	{
-		res->vector[i] = a.vector[i] + b;
+		res->vector[i] = a.vector[i] / b;
 		++i;
 	}
 	return (res);
 }
 
-t_vec	*ft_vec_iadd(int a, t_vec b, t_vec *res)
+t_vec	*ft_vec_idiv(int a, t_vec b, t_vec *res)
 {
 	size_t	i;
 
@@ -62,7 +50,7 @@ t_vec	*ft_vec_iadd(int a, t_vec b, t_vec *res)
 	i = 0;
 	while (i < b.dimensions)
 	{
-		res->vector[i] = a + b.vector[i];
+		res->vector[i] = a / b.vector[i];
 		++i;
 	}
 	return (res);

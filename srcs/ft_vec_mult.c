@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 16:21:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 19:03:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/04 20:43:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ t_vec	*ft_vec_multi(t_vec a, int b, t_vec *res)
 	while (i < a.dimensions)
 	{
 		res->vector[i] = a.vector[i] * b;
+		++i;
+	}
+	return (res);
+}
+
+t_vec	*ft_vec_imult(int a, t_vec b, t_vec *res)
+{
+	size_t	i;
+
+	res = ft_vec_opget(b.dimensions, res);
+	i = 0;
+	while (i < b.dimensions)
+	{
+		res->vector[i] = a * b.vector[i];
 		++i;
 	}
 	return (res);
