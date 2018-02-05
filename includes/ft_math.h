@@ -73,7 +73,7 @@ void				ft_vec_dump(const t_vec *vec);
 
 t_vec				*ft_vec_opget(size_t dimensions, t_vec *res);
 
-int					*ft_vec_get(t_vec *vec, size_t x);
+int					*ft_vec_get(const t_vec *vec, size_t x);
 
 t_vec				*ft_vec_add(t_vec a, t_vec b, t_vec *res);
 t_vec				*ft_vec_addi(t_vec a, int b, t_vec *res);
@@ -108,7 +108,7 @@ void				ft_mat_dump(const t_mat *mat);
 
 t_mat				*ft_mat_opget(size_t rows, size_t cols, t_mat *res);
 
-int					*ft_mat_get(t_mat *mat, size_t x, size_t y);
+int					*ft_mat_get(const t_mat *mat, size_t x, size_t y);
 
 t_mat				*ft_mat_add(t_mat a, t_mat b, t_mat *res);
 t_mat				*ft_mat_addi(t_mat a, int b, t_mat *res);
@@ -132,4 +132,15 @@ t_mat				*ft_mat_calc(t_mat a, t_mat b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_calci(t_mat a, int b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_icalc(int a, t_mat b, t_mat *res, t_calcmode op);
 
+https://www.google.fr/imgres?imgurl=http%3A%2F%2Fwww.codinglabs.net%2Fpublic%2Fcontents%2Farticle_world_view_projection_matrix%2Fimages%2FperspMatrix.png&imgrefurl=http%3A%2F%2Fwww.codinglabs.net%2Farticle_world_view_projection_matrix.aspx&docid=E-4UDpZVSYLZNM&tbnid=SNxmHlIvBa14QM%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA..i&w=471&h=151&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA&iact=mrc&uact=8
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/building-basic-perspective-projection-matrix
+
+https://www.google.fr/imgres?imgurl=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2Foriginals%2Fff%2Fb3%2F2b%2Fffb32b24d885ae08b02e16345f7a4b30.jpg&imgrefurl=https%3A%2F%2Fwww.pinterest.fr%2Fpin%2F383580093238051605%2F&docid=DnGKbJAVdkJjSM&tbnid=tr39wZGU-Bsj8M%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwhCKAwwDA..i&w=469&h=196&itg=1&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwhCKAwwDA&iact=mrc&uact=8
+
+https://github.com/ssloy/tinyrenderer/wiki/Lesson-4:-Perspective-projection
+
+https://stackoverflow.com/questions/18404890/how-to-build-perspective-projection-matrix-no-api
+
+https://en.wikipedia.org/wiki/3D_projection
 #endif

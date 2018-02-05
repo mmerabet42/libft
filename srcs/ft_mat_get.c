@@ -12,7 +12,7 @@
 
 #include "ft_math.h"
 
-int	*ft_mat_get(t_mat *mat, size_t x, size_t y)
+int	*ft_mat_get(const t_mat *mat, size_t x, size_t y)
 {
 	if (!mat || !mat->matrix)
 		return ((void *)0);

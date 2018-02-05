@@ -12,7 +12,7 @@
 
 #include "ft_math.h"
 
-int	*ft_vec_get(t_vec *a, size_t x)
+int	*ft_vec_get(const t_vec *a, size_t x)
 {
 	if (!a)
 		return (NULL);
