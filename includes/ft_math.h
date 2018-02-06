@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/04 21:59:25 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/06 21:46:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_mat				*ft_mat_idiv(int a, t_mat b, t_mat *res);
 t_mat				*ft_mat_calc(t_mat a, t_mat b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_calci(t_mat a, int b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_icalc(int a, t_mat b, t_mat *res, t_calcmode op);
-
+/*
 https://www.google.fr/imgres?imgurl=http%3A%2F%2Fwww.codinglabs.net%2Fpublic%2Fcontents%2Farticle_world_view_projection_matrix%2Fimages%2FperspMatrix.png&imgrefurl=http%3A%2F%2Fwww.codinglabs.net%2Farticle_world_view_projection_matrix.aspx&docid=E-4UDpZVSYLZNM&tbnid=SNxmHlIvBa14QM%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA..i&w=471&h=151&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA&iact=mrc&uact=8
 
 https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/building-basic-perspective-projection-matrix
@@ -142,5 +142,5 @@ https://github.com/ssloy/tinyrenderer/wiki/Lesson-4:-Perspective-projection
 
 https://stackoverflow.com/questions/18404890/how-to-build-perspective-projection-matrix-no-api
 
-https://en.wikipedia.org/wiki/3D_projection
+https://en.wikipedia.org/wiki/3D_projection*/
 #endif
