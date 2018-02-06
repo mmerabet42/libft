@@ -142,5 +142,7 @@ https://github.com/ssloy/tinyrenderer/wiki/Lesson-4:-Perspective-projection
 
 https://stackoverflow.com/questions/18404890/how-to-build-perspective-projection-matrix-no-api
 
-https://en.wikipedia.org/wiki/3D_projection*/
+https://en.wikipedia.org/wiki/3D_projection
+
+https://stackoverflow.com/questions/724219/how-to-convert-a-3d-point-into-2d-perspective-projection*/
 #endif
