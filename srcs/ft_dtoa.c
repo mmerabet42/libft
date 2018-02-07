@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:12:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/22 20:42:25 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:40:27 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char				*ft_ldtoa(long double n, int precision)
 	int			kprec;
 
 	kprec = 0;
-	firstp = (long long)(n + ft_ldtoa_adder(precision));
+	firstp = (long long)(n + (ft_ldtoa_adder(precision) * (n < 0 ? -1 : 1)));
 	secondp = (long double)(n - firstp) * (n < 0 ? -1 : 1);
 	cps[0] = ft_lltoa(firstp);
 	if (precision > 0)

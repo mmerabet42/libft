@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 18:03:46 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 19:20:06 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 16:57:54 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-int	*ft_vec_get(const t_vec *a, size_t x)
+float	*ft_vec_get(const t_vec *a, size_t x)
 {
 	if (!a)
 		return (NULL);

@@ -6,13 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:10:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/04 21:11:32 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:04:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-int	*ft_mat_get(const t_mat *mat, size_t x, size_t y)
+float	*ft_mat_get(const t_mat *mat, size_t x, size_t y)
 {
 	if (!mat || !mat->matrix)
 		return ((void *)0);

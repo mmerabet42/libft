@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 19:28:09 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/04 20:34:54 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:02:39 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_mat	*ft_mat_sub(t_mat a, t_mat b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_subi(t_mat a, int b, t_mat *res)
+t_mat	*ft_mat_subi(t_mat a, float b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;
@@ -46,7 +46,7 @@ t_mat	*ft_mat_subi(t_mat a, int b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_isub(int a, t_mat b, t_mat *res)
+t_mat	*ft_mat_isub(float a, t_mat b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;

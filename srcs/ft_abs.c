@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 13:36:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:27:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 18:03:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_abs(int n)
 	return (n < 0 ? -n : n);
 }
 
-double	ft_absf(double n)
+float	ft_fabs(float n)
 {
 	return (n < 0 ? -n : n);
 }

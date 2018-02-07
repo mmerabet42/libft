@@ -9,7 +9,7 @@ _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				handler_color.c \
 				perform_width.c proper_cast.c \
 
-_LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c \
+_LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c \
 			ft_atod.c ft_atoi.c ft_atol.c ft_atoll.c ft_atoui.c \
 			ft_atoul.c ft_atoull.c ft_dtoa.c ft_btree_balance.c \
 			ft_btree_copy.c ft_btree_erase.c ft_btree_dump.c ft_btree_root.c \

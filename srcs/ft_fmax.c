@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vec_dump.c                                      :+:      :+:    :+:   */
+/*   ft_fmax.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/02 16:02:40 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 17:33:05 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/02/07 18:00:20 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/02/07 18:02:47 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
-#include "ft_printf.h"
-#include <stdio.h>
 
-void	ft_vec_dump(const t_vec *vec)
+float	ft_fmax(float a, float b)
 {
-	size_t	i;
+	return (a > b ? a : b);
+}
 
-	if (!vec)
-		return ;
-	i = 0;
-	ft_printf("[");
-	while (i < vec->dimensions)
-	{
-		ft_printf("%f%s", vec->vector[i],
-				(i + 1 < vec->dimensions ? ", " : "]"));
-		++i;
-	}
+float	ft_fmin(float a, float b)
+{
+	return (a < b ? a : b);
 }

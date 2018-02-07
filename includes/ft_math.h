@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/06 21:46:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 18:14:02 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,26 @@ typedef double	(*t_calcfunc)(double a, double b);
 
 typedef struct		s_vec2
 {
-	int				x;
-	int				y;
+	float				x;
+	float				y;
 }					t_vec2;
 
 typedef struct		s_vec3
 {
-	int				x;
-	int				y;
-	int				z;
+	float			x;
+	float			y;
+	float			z;
 }					t_vec3;
 
 typedef struct		s_vec
 {
-	int				*vector;
+	float			*vector;
 	size_t			dimensions;
 }					t_vec;
 
 typedef struct		s_mat
 {
-	int				*matrix;
+	float			*matrix;
 	size_t			rows;
 	size_t			columns;
 }					t_mat;
@@ -49,7 +49,7 @@ typedef enum		e_calcmode
 }					t_calcmode;
 
 int					ft_abs(int n);
-double				ft_absf(double n);
+float				ft_fabs(float n);
 
 int					ft_pow(int x, int y);
 int					ft_sqrt(int n);
@@ -57,12 +57,15 @@ int					ft_sqrt(int n);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 
+float				ft_fmax(float a, float b);
+float				ft_fmin(float a, float b);
+
 unsigned int		ft_umax(unsigned int a, unsigned int b);
 unsigned int		ft_umin(unsigned int a, unsigned int b);
 
 t_vec				*ft_vec_new(size_t dimensions);
-t_vec				*ft_vec_newf(size_t dimensions, int *vector);
-t_vec				*ft_vec_newi(size_t dimensions, int scalar);
+t_vec				*ft_vec_newf(size_t dimensions, float *vector);
+t_vec				*ft_vec_newi(size_t dimensions, float scalar);
 t_vec				*ft_vec_newn(size_t dimensions, ...);
 t_vec				*ft_vec_zero(t_vec *vec);
 t_vec				*ft_vec_copy(t_vec *dst, t_vec *src);
@@ -73,31 +76,31 @@ void				ft_vec_dump(const t_vec *vec);
 
 t_vec				*ft_vec_opget(size_t dimensions, t_vec *res);
 
-int					*ft_vec_get(const t_vec *vec, size_t x);
+float				*ft_vec_get(const t_vec *vec, size_t x);
 
 t_vec				*ft_vec_add(t_vec a, t_vec b, t_vec *res);
-t_vec				*ft_vec_addi(t_vec a, int b, t_vec *res);
-t_vec				*ft_vec_iadd(int a, t_vec b, t_vec *res);
+t_vec				*ft_vec_addi(t_vec a, float b, t_vec *res);
+t_vec				*ft_vec_iadd(float a, t_vec b, t_vec *res);
 
 t_vec				*ft_vec_sub(t_vec a, t_vec b, t_vec *res);
-t_vec				*ft_vec_subi(t_vec a, int b, t_vec *res);
-t_vec				*ft_vec_isub(int a, t_vec b, t_vec *res);
+t_vec				*ft_vec_subi(t_vec a, float b, t_vec *res);
+t_vec				*ft_vec_isub(float a, t_vec b, t_vec *res);
 
 t_vec				*ft_vec_mult(t_vec a, t_vec b, t_vec *res);
-t_vec				*ft_vec_multi(t_vec a, int b, t_vec *res);
-t_vec				*ft_vec_imult(int a, t_vec b, t_vec *res);
+t_vec				*ft_vec_multi(t_vec a, float b, t_vec *res);
+t_vec				*ft_vec_imult(float a, t_vec b, t_vec *res);
 
 t_vec				*ft_vec_div(t_vec a, t_vec b, t_vec *res);
-t_vec				*ft_vec_divi(t_vec a, int b, t_vec *res);
-t_vec				*ft_vec_idiv(int a, t_vec b, t_vec *res);
+t_vec				*ft_vec_divi(t_vec a, float b, t_vec *res);
+t_vec				*ft_vec_idiv(float a, t_vec b, t_vec *res);
 
 t_vec				*ft_vec_calc(t_vec a, t_vec b, t_vec *res, t_calcmode op);
-t_vec				*ft_vec_calci(t_vec a, int b, t_vec *res, t_calcmode op);
-t_vec				*ft_vec_icalc(int a, t_vec b, t_vec *res, t_calcmode op);
+t_vec				*ft_vec_calci(t_vec a, float b, t_vec *res, t_calcmode op);
+t_vec				*ft_vec_icalc(float a, t_vec b, t_vec *res, t_calcmode op);
 
 t_mat				*ft_mat_new(size_t rows, size_t columns);
-t_mat				*ft_mat_newf(size_t rows, size_t columns, int *mat);
-t_mat				*ft_mat_newi(size_t rows, size_t columns, int scalar);
+t_mat				*ft_mat_newf(size_t rows, size_t columns, float *matrix);
+t_mat				*ft_mat_newi(size_t rows, size_t columns, float scalar);
 t_mat				*ft_mat_newn(size_t rows, size_t columns, ...);
 t_mat				*ft_mat_zero(t_mat *mat);
 t_mat				*ft_mat_copy(t_mat *dst, t_mat *src);
@@ -108,29 +111,29 @@ void				ft_mat_dump(const t_mat *mat);
 
 t_mat				*ft_mat_opget(size_t rows, size_t cols, t_mat *res);
 
-int					*ft_mat_get(const t_mat *mat, size_t x, size_t y);
+float				*ft_mat_get(const t_mat *mat, size_t x, size_t y);
 
 t_mat				*ft_mat_add(t_mat a, t_mat b, t_mat *res);
-t_mat				*ft_mat_addi(t_mat a, int b, t_mat *res);
-t_mat				*ft_mat_iadd(int a, t_mat b, t_mat *res);
+t_mat				*ft_mat_addi(t_mat a, float b, t_mat *res);
+t_mat				*ft_mat_iadd(float a, t_mat b, t_mat *res);
 
 t_mat				*ft_mat_sub(t_mat a, t_mat b, t_mat *res);
-t_mat				*ft_mat_subi(t_mat a, int b, t_mat *res);
-t_mat				*ft_mat_isub(int a, t_mat b, t_mat *res);
+t_mat				*ft_mat_subi(t_mat a, float b, t_mat *res);
+t_mat				*ft_mat_isub(float a, t_mat b, t_mat *res);
 
 t_mat				*ft_mat_mult(t_mat a, t_mat b, t_mat *res);
-t_mat				*ft_mat_multi(t_mat a, int b, t_mat *res);
-t_mat				*ft_mat_imult(int a, t_mat b, t_mat *res);
+t_mat				*ft_mat_multi(t_mat a, float b, t_mat *res);
+t_mat				*ft_mat_imult(float a, t_mat b, t_mat *res);
 t_vec				*ft_mat_multv(t_mat a, t_vec b, t_vec *res);
 t_vec				*ft_mat_vmult(t_vec a, t_mat b, t_vec *res);
 
 t_mat				*ft_mat_div(t_mat a, t_mat b, t_mat *res);
-t_mat				*ft_mat_divi(t_mat a, int b, t_mat *res);
-t_mat				*ft_mat_idiv(int a, t_mat b, t_mat *res);
+t_mat				*ft_mat_divi(t_mat a, float b, t_mat *res);
+t_mat				*ft_mat_idiv(float a, t_mat b, t_mat *res);
 
 t_mat				*ft_mat_calc(t_mat a, t_mat b, t_mat *res, t_calcmode op);
-t_mat				*ft_mat_calci(t_mat a, int b, t_mat *res, t_calcmode op);
-t_mat				*ft_mat_icalc(int a, t_mat b, t_mat *res, t_calcmode op);
+t_mat				*ft_mat_calci(t_mat a, float b, t_mat *res, t_calcmode op);
+t_mat				*ft_mat_icalc(float a, t_mat b, t_mat *res, t_calcmode op);
 /*
 https://www.google.fr/imgres?imgurl=http%3A%2F%2Fwww.codinglabs.net%2Fpublic%2Fcontents%2Farticle_world_view_projection_matrix%2Fimages%2FperspMatrix.png&imgrefurl=http%3A%2F%2Fwww.codinglabs.net%2Farticle_world_view_projection_matrix.aspx&docid=E-4UDpZVSYLZNM&tbnid=SNxmHlIvBa14QM%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA..i&w=471&h=151&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA&iact=mrc&uact=8
 

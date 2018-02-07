@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 14:44:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/04 21:28:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:10:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_mat	*ft_mat_new(size_t rows, size_t columns)
 	nmat->columns = columns;
 	nmat->rows = rows;
 	columns *= rows;
-	if (!(nmat->matrix = (int *)malloc(sizeof(int) * columns)))
+	if (!(nmat->matrix = (float *)malloc(sizeof(float) * columns)))
 	{
 		free(nmat);
 		return (NULL);
@@ -35,7 +35,7 @@ t_mat	*ft_mat_new(size_t rows, size_t columns)
 	return (nmat);
 }
 
-t_mat	*ft_mat_newf(size_t rows, size_t columns, int *mat)
+t_mat	*ft_mat_newf(size_t rows, size_t columns, float *matrix)
 {
 	t_mat	*nmat;
 
@@ -44,7 +44,8 @@ t_mat	*ft_mat_newf(size_t rows, size_t columns, int *mat)
 	nmat->columns = columns;
 	nmat->rows = rows;
 	columns *= rows;
-	if (!(nmat->matrix = (int *)ft_memdup((void *)mat, sizeof(int) * columns)))
+	if (!(nmat->matrix = (float *)ft_memdup((void *)matrix,
+					sizeof(float) * columns)))
 	{
 		free(nmat);
 		return (NULL);
@@ -52,7 +53,7 @@ t_mat	*ft_mat_newf(size_t rows, size_t columns, int *mat)
 	return (nmat);
 }
 
-t_mat	*ft_mat_newi(size_t rows, size_t columns, int scalar)
+t_mat	*ft_mat_newi(size_t rows, size_t columns, float scalar)
 {
 	t_mat	*nmat;
 	size_t	i;
@@ -62,7 +63,7 @@ t_mat	*ft_mat_newi(size_t rows, size_t columns, int scalar)
 	nmat->columns = columns;
 	nmat->rows = rows;
 	columns *= rows;
-	if (!(nmat->matrix = (int *)malloc(sizeof(int) * columns)))
+	if (!(nmat->matrix = (float *)malloc(sizeof(float) * columns)))
 	{
 		free(nmat);
 		return (NULL);
@@ -95,7 +96,7 @@ t_mat	*ft_mat_newn(size_t rows, size_t columns, ...)
 	nmat->columns = columns;
 	nmat->rows = rows;
 	columns *= rows;
-	if (!(nmat->matrix = (int *)malloc(sizeof(int) * columns)))
+	if (!(nmat->matrix = (float *)malloc(sizeof(float) * columns)))
 	{
 		free(nmat);
 		va_end(vp);
@@ -103,7 +104,7 @@ t_mat	*ft_mat_newn(size_t rows, size_t columns, ...)
 	}
 	i = 0;
 	while (i < columns)
-		nmat->matrix[i++] = va_arg(vp, int);
+		nmat->matrix[i++] = (float)va_arg(vp, double);
 	va_end(vp);
 	return (nmat);
 }

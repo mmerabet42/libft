@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 16:00:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/03 19:29:52 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:03:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_mat_dump(const t_mat *mat)
 		ft_printf("[");
 		while (x < mat->columns)
 		{
-			ft_printf("%*d%s", (maxs ? maxs[x] : 0), *ft_mat_get(mat, x, y),
+			ft_printf("%*f%s", (maxs ? maxs[x] : 0), *ft_mat_get(mat, x, y),
 				(x + 1 < mat->columns ? ", " : "]"));
 			if (x + 1 == mat->columns && y + 1 < mat->rows)
 				ft_printf("\n");
