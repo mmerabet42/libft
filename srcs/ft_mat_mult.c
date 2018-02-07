@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 17:55:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 21:27:50 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 {
 	size_t		i[3];
-	float		*tmp;
+	double		*tmp;
 
 	if (a.columns != b.rows || !(res = ft_mat_opget(a.rows, b.columns, res)))
 		return (NULL);
 	tmp = res->matrix;
 	if ((tmp == a.matrix || tmp == b.matrix) && !(res->matrix =
-				(float *)malloc(sizeof(float) * (a.rows * b.columns))))
+				(double *)malloc(sizeof(double) * (a.rows * b.columns))))
 		res->matrix = tmp;
 	i[0] = -1;
 	while (++i[0] < a.rows)
@@ -31,7 +31,7 @@ t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 		i[1] = -1;
 		while (++i[1] < b.columns)
 		{
-			*ft_mat_get(res, i[1], i[0]) = 0;
+			*ft_mat_get(res, i[1], i[0]) = 0.0;
 			i[2] = -1;
 			while (++i[2] < a.columns)
 				*ft_mat_get(res, i[1], i[0]) +=
@@ -43,7 +43,7 @@ t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_multi(t_mat a, float b, t_mat *res)
+t_mat	*ft_mat_multi(t_mat a, double b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;
@@ -60,7 +60,7 @@ t_mat	*ft_mat_multi(t_mat a, float b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_imult(float a, t_mat b, t_mat *res)
+t_mat	*ft_mat_imult(double a, t_mat b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;
@@ -80,7 +80,7 @@ t_mat	*ft_mat_imult(float a, t_mat b, t_mat *res)
 t_vec	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 {
 	size_t	i[2];
-	float	*tmp;
+	double	*tmp;
 
 	tmp = NULL;
 	if (a.columns != b.dimensions)
@@ -89,7 +89,7 @@ t_vec	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 	{
 		res->dimensions = a.rows;
 		tmp = res->vector;
-		if (!(res->vector = (float *)malloc(sizeof(float) * a.rows)))
+		if (!(res->vector = (double *)malloc(sizeof(double) * a.rows)))
 			res->vector = b.vector;
 	}
 	else
@@ -97,7 +97,7 @@ t_vec	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 	i[0] = -1;
 	while (++i[0] < a.rows)
 	{
-		res->vector[i[0]] = 0;
+		res->vector[i[0]] = 0.0;
 		i[1] = -1;
 		while (++i[1] < a.columns)
 			res->vector[i[0]] += *ft_mat_get(&a, i[1], i[0]) * b.vector[i[1]];
@@ -109,7 +109,7 @@ t_vec	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 t_vec	*ft_mat_vmult(t_vec a, t_mat b, t_vec *res)
 {
 	size_t	i[2];
-	float	*tmp;
+	double	*tmp;
 
 	tmp = NULL;
 	if (b.columns != a.dimensions)
@@ -118,7 +118,7 @@ t_vec	*ft_mat_vmult(t_vec a, t_mat b, t_vec *res)
 	{
 		res->dimensions = b.rows;
 		tmp = res->vector;
-		if (!(res->vector = (float *)malloc(sizeof(float) * b.rows)))
+		if (!(res->vector = (double *)malloc(sizeof(double) * b.rows)))
 			res->vector = a.vector;
 	}
 	else
@@ -126,7 +126,7 @@ t_vec	*ft_mat_vmult(t_vec a, t_mat b, t_vec *res)
 	i[0] = -1;
 	while (++i[0] < b.rows)
 	{
-		res->vector[i[0]] = 0;
+		res->vector[i[0]] = 0.0;
 		i[1] = -1;
 		while (++i[1] < b.columns)
 			res->vector[i[0]] += a.vector[i[1]] * *ft_mat_get(&b, i[1], i[0]);

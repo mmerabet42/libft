@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 16:21:30 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 17:00:24 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 21:19:44 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_mat	*ft_mat_opget(size_t rows, size_t columns, t_mat *res)
 	if (!res && !(res = ft_mat_new(rows, columns)))
 		return (NULL);
 	if (res->rows != rows && res->columns != columns)
-		if (!(res->matrix = (float *)malloc(sizeof(float) * (columns * rows))))
+		if (!(res->matrix = (double *)malloc(sizeof(double)
+						* (columns * rows))))
 			return (NULL);
 	res->rows = rows;
 	res->columns = columns;
@@ -44,7 +45,7 @@ t_mat	*ft_mat_add(t_mat a, t_mat b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_addi(t_mat a, float b, t_mat *res)
+t_mat	*ft_mat_addi(t_mat a, double b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;
@@ -60,7 +61,7 @@ t_mat	*ft_mat_addi(t_mat a, float b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_iadd(float a, t_mat b, t_mat *res)
+t_mat	*ft_mat_iadd(double a, t_mat b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;

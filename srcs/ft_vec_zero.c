@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 21:01:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 16:58:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 21:16:22 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec	*ft_vec_zero(t_vec *vec)
 	i = 0;
 	while (i < vec->dimensions)
 	{
-		vec->vector[i] = 0;
+		vec->vector[i] = 0.0;
 		++i;
 	}
 	return (vec);

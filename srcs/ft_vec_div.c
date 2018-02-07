@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 20:43:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 16:57:46 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/07 21:14:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vec	*ft_vec_div(t_vec a, t_vec b, t_vec *res)
 	return (res);
 }
 
-t_vec	*ft_vec_divi(t_vec a, float b, t_vec *res)
+t_vec	*ft_vec_divi(t_vec a, double b, t_vec *res)
 {
 	size_t	i;
 
@@ -42,7 +42,7 @@ t_vec	*ft_vec_divi(t_vec a, float b, t_vec *res)
 	return (res);
 }
 
-t_vec	*ft_vec_idiv(float a, t_vec b, t_vec *res)
+t_vec	*ft_vec_idiv(double a, t_vec b, t_vec *res)
 {
 	size_t	i;
 
