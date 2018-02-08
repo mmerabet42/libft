@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 16:08:11 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 21:13:32 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 17:07:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vec	*ft_vec_opget(size_t dimensions, t_vec *res)
 	if (!res && !(res = ft_vec_new(dimensions)))
 		return (NULL);
 	if (res->dimensions != dimensions)
-		if (!(res->vector = (double *)malloc(sizeof(double) * dimensions)))
+		if (!(res->vector = (float *)malloc(sizeof(float) * dimensions)))
 			return (NULL);
 	res->dimensions = dimensions;
 	return (res);
@@ -40,7 +40,7 @@ t_vec	*ft_vec_add(t_vec a, t_vec b, t_vec *res)
 	return (res);
 }
 
-t_vec	*ft_vec_addi(t_vec a, double b, t_vec *res)
+t_vec	*ft_vec_addi(t_vec a, float b, t_vec *res)
 {
 	size_t	i;
 
@@ -54,7 +54,7 @@ t_vec	*ft_vec_addi(t_vec a, double b, t_vec *res)
 	return (res);
 }
 
-t_vec	*ft_vec_iadd(double a, t_vec b, t_vec *res)
+t_vec	*ft_vec_iadd(float a, t_vec b, t_vec *res)
 {
 	size_t	i;
 

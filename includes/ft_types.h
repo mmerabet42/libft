@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:38 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 22:22:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 21:11:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ unsigned long		ft_atoul(const char *s);
 unsigned long long	ft_atoull(const char *s);
 double				ft_atod(const char *s);
 int					ft_atoi_base(const char *s, const char *base);
+int					ft_atoi_basec(const char *s, const char *base);
 long long			ft_atoll_base(const char *s, const char *base);
 
 char				*ft_itoa(int n);

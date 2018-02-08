@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 21:03:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 17:03:54 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:16:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_math.h"
+#include "ft_matrix.h"
 
 t_mat	*ft_mat_zero(t_mat *mat)
 {
@@ -23,7 +23,7 @@ t_mat	*ft_mat_zero(t_mat *mat)
 	size = mat->rows * mat->columns;
 	while (i < size)
 	{
-		mat->matrix[i] = 0;
+		mat->matrix[i] = 0.0;
 		++i;
 	}
 	return (mat);

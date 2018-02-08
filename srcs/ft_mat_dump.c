@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 16:00:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 17:03:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:04:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_math.h"
+#include "ft_matrix.h"
 #include "ft_types.h"
 #include "ft_printf.h"
 #include <stdlib.h>

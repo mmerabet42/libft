@@ -6,11 +6,11 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 19:28:09 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 21:19:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:14:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_math.h"
+#include "ft_matrix.h"
 
 t_mat	*ft_mat_sub(t_mat a, t_mat b, t_mat *res)
 {
@@ -30,7 +30,7 @@ t_mat	*ft_mat_sub(t_mat a, t_mat b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_subi(t_mat a, double b, t_mat *res)
+t_mat	*ft_mat_subi(t_mat a, float b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;
@@ -46,7 +46,7 @@ t_mat	*ft_mat_subi(t_mat a, double b, t_mat *res)
 	return (res);
 }
 
-t_mat	*ft_mat_isub(double a, t_mat b, t_mat *res)
+t_mat	*ft_mat_isub(float a, t_mat b, t_mat *res)
 {
 	size_t	i;
 	size_t	size;

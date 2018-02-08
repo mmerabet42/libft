@@ -6,12 +6,15 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/21 16:09:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 19:51:00 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "get_next_line.h"
+#include "ft_list.h"
+#include "ft_mem.h"
+#include "ft_str.h"
 
 static t_fd	*get_fd(t_list **lst, int fd)
 {

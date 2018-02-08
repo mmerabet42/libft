@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/19 17:44:32 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 20:03:15 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct		s_list
 	struct s_list	*next;
 	struct s_list	*parent;
 }					t_list;
+
+t_list				*ft_strsplit_lst(const char *s, char sep);
+t_list				*ft_strsplitstr_lst(const char *s, const char *sep);
 
 /*
 ** Linked list creations and deletions

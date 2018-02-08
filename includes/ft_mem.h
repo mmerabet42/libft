@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:03 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/14 18:36:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 20:45:25 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void				*ft_memjoin(const void *a,
 							const void *b,
 							size_t bn);
 void				*ft_memjoin_clr(void *a,
+							size_t an,
+							void *b,
+							size_t bn);
+void				*ft_memjoin_clr2(void *a,
 							size_t an,
 							void *b,
 							size_t bn);

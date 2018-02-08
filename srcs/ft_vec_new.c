@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:51:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/07 21:16:16 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:01:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec	*ft_vec_new(size_t dimensions)
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
 	vec->dimensions = dimensions;
-	if (!(vec->vector = (double *)ft_memalloc(sizeof(double) * dimensions)))
+	if (!(vec->vector = (float *)ft_memalloc(sizeof(float) * dimensions)))
 	{
 		free(vec);
 		return (NULL);
@@ -29,15 +29,15 @@ t_vec	*ft_vec_new(size_t dimensions)
 	return (vec);
 }
 
-t_vec	*ft_vec_newf(size_t dimensions, double *vector)
+t_vec	*ft_vec_newf(size_t dimensions, float *vector)
 {
 	t_vec	*vec;
 
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
 	vec->dimensions = dimensions;
-	if (!(vec->vector = (double *)ft_memdup((void *)vector,
-					sizeof(double) * dimensions)))
+	if (!(vec->vector = (float *)ft_memdup((void *)vector,
+					sizeof(float) * dimensions)))
 	{
 		free(vec);
 		return (NULL);
@@ -45,7 +45,7 @@ t_vec	*ft_vec_newf(size_t dimensions, double *vector)
 	return (vec);
 }
 
-t_vec	*ft_vec_newi(size_t dimensions, double scalar)
+t_vec	*ft_vec_newi(size_t dimensions, float scalar)
 {
 	t_vec	*vec;
 	size_t	i;
@@ -53,7 +53,7 @@ t_vec	*ft_vec_newi(size_t dimensions, double scalar)
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
 	vec->dimensions = dimensions;
-	if (!(vec->vector = (double *)malloc(sizeof(double) * dimensions)))
+	if (!(vec->vector = (float *)malloc(sizeof(float) * dimensions)))
 	{
 		free(vec);
 		return (NULL);
@@ -76,7 +76,7 @@ t_vec	*ft_vec_newn(size_t dimensions, ...)
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
 		return (NULL);
 	vec->dimensions = dimensions;
-	if (!(vec->vector = (double *)malloc(sizeof(double) * dimensions)))
+	if (!(vec->vector = (float *)malloc(sizeof(float) * dimensions)))
 	{
 		free(vec);
 		return (NULL);
@@ -85,7 +85,7 @@ t_vec	*ft_vec_newn(size_t dimensions, ...)
 	i = 0;
 	while (i < dimensions)
 	{
-		vec->vector[i] = va_arg(vp, double);
+		vec->vector[i] = (float)va_arg(vp, double);
 		++i;
 	}
 	va_end(vp);

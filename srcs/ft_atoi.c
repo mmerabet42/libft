@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:00:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 20:38:50 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/08 21:10:23 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,44 @@ int	ft_atoi_base(const char *s, const char *base)
 		sign = -1;
 	while ((pos = ft_strchr_pos(base, *s++)) != -1)
 		nb += pos * ft_pow(baselen, --i);
+	return (nb * sign);
+}
+
+static void	getc_lol(char c, char s[3])
+{
+	s[0] = c;
+	if (ft_isupper(c))
+		s[1] = (char)ft_tolower(c);
+	else if (ft_islower(c))
+		s[1] = (char)ft_toupper(c);
+	else
+		s[1] = c;
+	s[2] = '\0';
+}
+
+int	ft_atoi_basec(const char *s, const char *base)
+{
+	int		nb;
+	int		baselen;
+	int		sign;
+	int		is[2];
+	char	si[3];
+
+	if (!s || !base)
+		return (0);
+	baselen = ft_strlen(base);
+	is[0] = ft_strlen(s);
+	nb = 0;
+	sign = 1;
+	while (ft_isspace(*s))
+		++s;
+	if ((*s == '+' || *s == '-') && *s++ == '-')
+		sign = -1;
+	getc_lol(*s, si);
+	while ((is[1] = ft_strpbrk_pos(base, si)) != -1)
+	{
+		nb += is[1] * ft_pow(baselen, --is[0]);
+		getc_lol(*++s, si);
+	}
 	return (nb * sign);
 }
