@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 18:13:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/09 22:36:33 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,30 @@
 
 # include <string.h>
 
+# define VX vector[0]
+# define VY vector[1]
+# define VZ vector[2]
+# define VW vector[3]
+
 typedef struct		s_vec2
 {
-	float				x;
-	float				y;
+	int				x;
+	int				y;
 }					t_vec2;
 
 typedef struct		s_vec3
 {
-	int				x;
-	int				y;
-	int				z;
+	float			x;
+	float			y;
+	float			z;
 }					t_vec3;
+
+typedef struct		s_vec3f
+{
+	float			x;
+	float			y;
+	float			z;
+}					t_vec3f;
 
 typedef struct		s_vec4
 {

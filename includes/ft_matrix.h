@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:00:28 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 18:47:59 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/09 22:22:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ t_mat				*ft_mat_opget(size_t rows, size_t cols, t_mat *res);
 
 float				*ft_mat_get(const t_mat *mat, size_t x, size_t y);
 
+/*
+** MATRIX ARITHMETICS
+*/
+
 t_mat				*ft_mat_add(t_mat a, t_mat b, t_mat *res);
 t_mat				*ft_mat_addi(t_mat a, float b, t_mat *res);
 t_mat				*ft_mat_iadd(float a, t_mat b, t_mat *res);
@@ -58,5 +62,14 @@ t_mat				*ft_mat_idiv(float a, t_mat b, t_mat *res);
 t_mat				*ft_mat_calc(t_mat a, t_mat b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_calci(t_mat a, float b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_icalc(float a, t_mat b, t_mat *res, t_calcmode op);
+
+/*
+** MATRIX TRANSFORMS
+*/
+
+t_mat				*ft_mat_rotatex(float angle);
+t_mat				*ft_mat_rotatey(float angle);
+t_mat				*ft_mat_rotatez(float angle);
+t_mat				*ft_mat_rotate(t_vec eulerAngles);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:38:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 20:27:33 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/09 19:24:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*ft_memjoin_clr2(void *a,
 	if (a)
 		ft_memcpy(s, a, an);
 	if (b)
-		ft_memcpy(s + an, b, bn);
+		ft_memcpy((char *)(s + an), b, bn);
 	free(a);
 	free(b);
 	return (s);
