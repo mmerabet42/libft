@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:51:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 18:01:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/11 20:46:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ t_vec	*ft_vec_newn(size_t dimensions, ...)
 	va_start(vp, dimensions);
 	i = 0;
 	while (i < dimensions)
-	{
-		vec->vector[i] = (float)va_arg(vp, double);
-		++i;
-	}
+		vec->vector[i++] = (float)va_arg(vp, double);
 	va_end(vp);
 	return (vec);
 }
