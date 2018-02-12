@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 21:04:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/11 18:53:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:57:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,6 @@ t_mat	*ft_mat_rotate(t_vec eulerAngles)
 	ft_mat_del(&roty);
 	ft_mat_del(&rotz);
 	return (res);
-/*
-	t_vec3f	c;
-	t_vec3f	s;
-
-	if (!eulerAngles.vector || eulerAngles.dimensions < 4)
-		return (NULL);
-	c.x = cosf(eulerAngles.vector[0] * M_PI / 180.f);
-	c.y = cosf(eulerAngles.vector[1] * M_PI / 180.f);
-	c.z = cosf(eulerAngles.vector[2] * M_PI / 180.F);
-	s.x = sinf(eulerAngles.vector[0] * M_PI / 180.f);
-	s.y = sinf(eulerAngles.vector[1] * M_PI / 180.f);
-	s.z = sinf(eulerAngles.vector[2] * M_PI / 180.f);
-	return (ft_mat_newn(3, 3,
-			c.z * c.y, c.z * s.y * s.x - s.z * c.x, c.z * s.y * c.x + s.z * s.x,
-			s.z * c.y, s.z * s.y * s.x + c.z * c.x, s.z * s.y * c.x - c.z * s.x,
-			-s.y, c.y * s.x, c.y * c.x));*/
 }
 
 t_mat	*ft_mat_scale(t_vec scale)
