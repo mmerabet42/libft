@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:24:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 18:14:01 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:58:09 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_mat	*ft_mat_mult(t_mat a, t_mat b, t_mat *res)
 		i[1] = -1;
 		while (++i[1] < b.columns)
 		{
-			*ft_mat_get(res, i[1], i[0]) = 0.0;
+			*ft_mat_get(res, i[1], i[0]) = 0.f;
 			i[2] = -1;
 			while (++i[2] < a.columns)
 				*ft_mat_get(res, i[1], i[0]) +=
@@ -97,7 +97,7 @@ t_vec	*ft_mat_multv(t_mat a, t_vec b, t_vec *res)
 	i[0] = -1;
 	while (++i[0] < a.rows)
 	{
-		res->vector[i[0]] = 0.0;
+		res->vector[i[0]] = 0.f;
 		i[1] = -1;
 		while (++i[1] < a.columns)
 			res->vector[i[0]] += *ft_mat_get(&a, i[1], i[0]) * b.vector[i[1]];
@@ -126,7 +126,7 @@ t_vec	*ft_mat_vmult(t_vec a, t_mat b, t_vec *res)
 	i[0] = -1;
 	while (++i[0] < b.rows)
 	{
-		res->vector[i[0]] = 0.0;
+		res->vector[i[0]] = 0.f;
 		i[1] = -1;
 		while (++i[1] < b.columns)
 			res->vector[i[0]] += a.vector[i[1]] * *ft_mat_get(&b, i[1], i[0]);
