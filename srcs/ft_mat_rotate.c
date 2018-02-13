@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 21:04:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/12 16:57:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:15:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,16 @@ t_mat	*ft_mat_translate(t_vec translate)
 				0.f, 1.f, 0.f, translate.vector[1],
 				0.f, 0.f, 1.f, translate.vector[2],
 				0.f, 0.f, 0.f, 1.f));
+}
+
+t_mat	*ft_mat_projection(float fovy, float aspect, float near, float far)
+{
+	float	tfovy;
+
+	tfovy = tan((fovy * M_PI / 180.f) / 2.f);
+	return (ft_mat_newn(4, 4,
+				1.f / (tfovy * aspect), 0.f, 0.f, 0.f,
+				0.f, 1.f / tfovy, 0.f, 0.f,
+				0.f, 0.f, (far + near) / (near - far), (2 * near * far) / (near * far),
+				0.f, 0.f, -1.f, 0.f));
 }

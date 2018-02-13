@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:00:28 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/10 22:54:09 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:15:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ t_mat				*ft_mat_rotate(t_vec eulerAngles);
 t_mat				*ft_mat_scale(t_vec scale);
 
 t_mat				*ft_mat_translate(t_vec translate);
+
+t_mat				*ft_mat_projection(float fovy, float aspect, float near,
+									float far);
 
 #endif
