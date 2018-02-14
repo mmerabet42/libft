@@ -108,3 +108,52 @@ t_mat	*ft_mat_projection(float fovy, float aspect, float near, float far)
 				0.f, 0.f, -((far + near) / (far - near)), -((2.f * near * far) / (far - near)),
 				0.f, 0.f, -1.f, 0.f));
 }
+
+GLM_FUNC_QUALIFIER tmat4x4<T, defaultp> perspectiveRH(T fovy, T aspect, T zNear, T zFar)
+{
+	assert(abs(aspect - std::numeric_limits<T>::epsilon()) > static_cast<T>(0));
+	
+	T const tanHalfFovy = tan(fovy / static_cast<T>(2));
+
+	tmat4x4<T, defaultp> Result(static_cast<T>(0));
+	Result[0][0] = static_cast<T>(1) / (aspect * tanHalfFovy);
+	Result[1][1] = static_cast<T>(1) / (tanHalfFovy);
+	Result[2][3] = - static_cast<T>(1);
+
+#	if GLM_DEPTH_CLIP_SPACE == GLM_DEPTH_ZERO_TO_ONE
+		Result[2][2] = zFar / (zNear - zFar);
+		Result[3][2] = -(zFar * zNear) / (zFar - zNear);
+#	else
+		Result[2][2] = - (zFar + zNear) / (zFar - zNear);
+		Result[3][2] = - (static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
+#	endif
+	
+	return Result;
+}
+
+GLM_FUNC_QUALIFIER tmat4x4<T, P> lookAtRH
+(
+	tvec3<T, P> const & eye,
+	tvec3<T, P> const & center,
+	tvec3<T, P> const & up
+)
+{
+	tvec3<T, P> const f(normalize(center - eye));
+	tvec3<T, P> const s(normalize(cross(f, up)));
+	tvec3<T, P> const u(cross(s, f));
+
+	tmat4x4<T, P> Result(1);
+	Result[0][0] = s.x;
+	Result[1][0] = s.y;
+	Result[2][0] = s.z;
+	Result[0][1] = u.x;
+	Result[1][1] = u.y;
+	Result[2][1] = u.z;
+	Result[0][2] =-f.x;
+	Result[1][2] =-f.y;
+	Result[2][2] =-f.z;
+	Result[3][0] =-dot(s, eye);
+	Result[3][1] =-dot(u, eye);
+	Result[3][2] = dot(f, eye);
+	return Result;
+}
