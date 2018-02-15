@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/12 16:17:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/15 21:59:02 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ typedef enum		e_calcmode
 	OP_ADD, OP_SUB, OP_MULT, OP_DIV
 }					t_calcmode;
 
+void				ft_hextorgba(int color, unsigned char rgba[4]);
+void				ft_hextorgb(int color, unsigned char rgb[3]);
+
 int					ft_abs(int n);
 float				ft_fabs(float n);
 
@@ -83,7 +86,15 @@ t_vec				*ft_vec_copy(t_vec *dst, t_vec *src);
 t_vec				*ft_vec_dup(t_vec *src);
 void				ft_vec_del(t_vec **vec);
 
+t_vec				*ft_vec_cross(t_vec a, t_vec b, t_vec *res);
+float				ft_vec_dot(t_vec *a, t_vec *b);
+
+t_vec				*ft_vec_normalize(t_vec a, t_vec *res);
+float				ft_vec_length(t_vec *vec);
+float				ft_vec_lengthb(t_vec *vec);
+
 void				ft_vec_dump(const t_vec *vec);
+void				ft_vec_dumpn(const t_vec *vec, int precision);
 
 t_vec				*ft_vec_opget(size_t dimensions, t_vec *res);
 

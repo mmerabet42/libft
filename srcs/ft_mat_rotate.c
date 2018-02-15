@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 21:04:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/13 22:43:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/15 22:20:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,42 @@ t_mat	*ft_mat_translate(t_vec translate)
 				0.f, 0.f, 0.f, 1.f));
 }
 
-t_mat	*ft_mat_projection(float fovy, float aspect, float near, float far)
+t_mat	*ft_mat_perspective(float fovy, float aspect, float near, float far)
 {
 	float	tfovy;
 
 	tfovy = tan((fovy) / 2.f);
 	return (ft_mat_newn(4, 4,
-				1.f / (tfovy * aspect), 0.f, 0.f, 0.f,
+				1.f / (aspect * tfovy), 0.f, 0.f, 0.f,
 				0.f, 1.f / tfovy, 0.f, 0.f, 0.f,
-				0.f, 0.f, -((far + near) / (far - near)), -((2.f * near * far) / (far - near)),
-				0.f, 0.f, -1.f, 0.f));
+				0.f, 0.f, -(far + near) / (far - near), -1.f,
+				0.f, 0.f, -(2.f * far * near) / (far - near), 0.f));
 }
 
+t_mat	*ft_mat_lookat(t_vec eye, t_vec center, t_vec up)
+{
+	t_vec	*f;
+	t_vec	*s;
+	t_vec	*u;
+	t_mat	*mat;
+
+	f = ft_vec_sub(center, eye, NULL);
+	ft_vec_normalize(*f, f);
+	s = ft_vec_cross(*f, up, NULL);
+	ft_vec_normalize(*s, s);
+	u = ft_vec_cross(*s, *f, NULL);
+
+	mat = ft_mat_newn(4, 4,
+			s->vector[0], u->vector[0], -f->vector[0], 1.0f,
+			s->vector[1], u->vector[1], -f->vector[1], 1.0f,
+			s->vector[2], u->vector[2], -f->vector[2], 1.0f,
+			-ft_vec_dot(s, &eye), -ft_vec_dot(u, &eye), ft_vec_dot(f, &eye));
+	ft_vec_del(&f);
+	ft_vec_del(&s);
+	ft_vec_del(&u);
+	return (mat);
+}
+/*
 GLM_FUNC_QUALIFIER tmat4x4<T, defaultp> perspectiveRH(T fovy, T aspect, T zNear, T zFar)
 {
 	assert(abs(aspect - std::numeric_limits<T>::epsilon()) > static_cast<T>(0));
@@ -156,4 +180,4 @@ GLM_FUNC_QUALIFIER tmat4x4<T, P> lookAtRH
 	Result[3][1] =-dot(u, eye);
 	Result[3][2] = dot(f, eye);
 	return Result;
-}
+}*/

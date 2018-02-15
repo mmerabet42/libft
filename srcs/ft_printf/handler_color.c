@@ -6,12 +6,15 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/10 22:44:15 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/15 22:17:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "handlers.h"
 #include "ft_str.h"
+#include "ft_printf.h"
+#include "ft_types.h"
+#include "ft_math.h"
 
 static const t_color_attr	g_colors[] = {
 	{"black", "\e[30m", "\e[40m"}, {"red", "\e[31m", "\e[41m"},
@@ -31,9 +34,18 @@ static const size_t		g_colors_n = (sizeof(g_colors) / sizeof(t_color_attr));
 
 static char			*get_color(char *tcolor, int fb)
 {
-	size_t	i;
+	static char		*str;
+	size_t			i;
+	unsigned char	rgb[3];
 
 	i = 0;
+	if (ft_strnequ(tcolor, "0x", 2) || ft_strnequ(tcolor, "0X", 2))
+	{
+		ft_hextorgb(ft_atoi_basec(tcolor + 2, FT_HEX), rgb);
+		ft_printf_s(&str, "\e[%s;2;%hhu;%hhu;%hhum", (fb ? "48" : "38"),
+				rgb[0], rgb[1], rgb[2]);
+		return (str);
+	}
 	while (i < g_colors_n)
 	{
 		if (ft_strequ(g_colors[i].name, tcolor))

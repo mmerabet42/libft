@@ -9,7 +9,7 @@ _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				handler_color.c \
 				perform_width.c proper_cast.c \
 
-_LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c \
+_LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_atod.c ft_atoi.c ft_atol.c ft_atoll.c ft_atoui.c \
 			ft_atoul.c ft_atoull.c ft_dtoa.c ft_btree_balance.c \
 			ft_btree_copy.c ft_btree_erase.c ft_btree_dump.c ft_btree_root.c \
@@ -47,7 +47,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c \
 			ft_mat_sub.c ft_mat_div.c ft_mat_calc.c ft_mat_zero.c \
 			ft_mat_rotate.c \
 			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c ft_vec_get.c \
-			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c \
+			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c ft_vec_normalize.c \
 
 SRCD		=	srcs
 ICLD		=	includes

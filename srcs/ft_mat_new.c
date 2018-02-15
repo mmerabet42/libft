@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 14:44:01 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 18:03:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/02/15 16:26:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_mat	*ft_mat_new(size_t rows, size_t columns)
 	}
 	i = 0;
 	while (i < columns)
-		nmat->matrix[i++] = 0.0;
+		nmat->matrix[i++] = 0.f;
 	return (nmat);
 }
 
@@ -66,7 +66,7 @@ t_mat	*ft_mat_newi(size_t rows, size_t columns, float scalar)
 	if (!(nmat->matrix = (float *)malloc(sizeof(float) * columns)))
 	{
 		free(nmat);
-		return (NULL);
+		return (nmat);
 	}
 	i = 0;
 	while (i < columns)
@@ -75,7 +75,7 @@ t_mat	*ft_mat_newi(size_t rows, size_t columns, float scalar)
 				|| nmat->columns != nmat->rows)
 			nmat->matrix[i] = scalar;
 		else
-			nmat->matrix[i] = 0.0;
+			nmat->matrix[i] = 0.0f;
 		++i;
 	}
 	return (nmat);
@@ -87,22 +87,18 @@ t_mat	*ft_mat_newn(size_t rows, size_t columns, ...)
 	t_mat	*nmat;
 	size_t	i;
 
-	va_start(vp, columns);
 	if (!(nmat = (t_mat *)malloc(sizeof(t_mat))))
-	{
-		va_end(vp);
 		return (NULL);
-	}
 	nmat->columns = columns;
 	nmat->rows = rows;
 	columns *= rows;
 	if (!(nmat->matrix = (float *)malloc(sizeof(float) * columns)))
 	{
 		free(nmat);
-		va_end(vp);
-		return (NULL);
+		return (nmat);
 	}
 	i = 0;
+	va_start(vp, columns);
 	while (i < columns)
 		nmat->matrix[i++] = (float)va_arg(vp, double);
 	va_end(vp);
