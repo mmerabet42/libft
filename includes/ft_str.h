@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 20:57:23 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/07 19:09:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char				*ft_strafterstr(const char *s, const char *a);
 char				*ft_strafter(const char *s, char a);
 char				*ft_strbeforestr(const char *s, const char *a);
 char				*ft_strbefore(const char *s, char a);
+char				*ft_strbetween(const char *s, char a, char b);
 
 int					ft_strmatch(const char *str, const char *match);
 
