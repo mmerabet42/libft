@@ -93,3 +93,14 @@ char		**ft_strsplitstr(const char *s, const char *sep)
 	}
 	return (t);
 }
+
+size_t		ft_tabsize(const char **tab)
+{
+	size_t	i;
+
+	if (!tab)
+		return (0);
+	i = 0;
+	while (*tab++)
+		++i;
+}

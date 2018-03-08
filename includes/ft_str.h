@@ -67,6 +67,7 @@ char				*ft_strtrim(const char *s);
 char				*ft_strtrim_clr(char *s);
 char				**ft_strsplit(const char *s, char sep);
 char				**ft_strsplitstr(const char *s, const char *sep);
+size_t				ft_tabsize(const char **tab);
 int					ft_strcount(const char *s, char a);
 int					ft_strcountstr(const char *s, const char *a);
 char				*ft_strrep(const char *s, char a, char b);
