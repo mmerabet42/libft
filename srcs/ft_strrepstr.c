@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 16:57:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 21:51:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/08 21:45:14 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char		*ft_strrepstr_clr(char *s, const char *a, const char *b)
 {
 	char	*snew;
 	char	*pos;
+	char	*it;
 	int		lens[3];
 
 	ft_setlens(s, a, b, lens);
@@ -59,17 +60,18 @@ char		*ft_strrepstr_clr(char *s, const char *a, const char *b)
 		return (NULL);
 	snew[lens[2]] = '\0';
 	pos = ft_strstr(s, a);
-	while (*s)
+	it = s;
+	while (*it)
 	{
-		if (s == pos)
+		if (it == pos)
 		{
 			ft_strcpy(snew, b);
 			snew += lens[1];
-			s += lens[0];
-			pos = ft_strstr(s, a);
+			it += lens[0];
+			pos = ft_strstr(it, a);
 		}
 		else
-			*snew++ = *s++;
+			*snew++ = *it++;
 	}
 	free(s);
 	return (snew - lens[2]);
