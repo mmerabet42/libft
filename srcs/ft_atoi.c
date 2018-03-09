@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:00:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 21:10:23 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/09 16:56:58 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_str.h"
 #include "ft_math.h"
 
-int	ft_atoi(const char *s)
+int			ft_atoi(const char *s)
 {
 	int					nb;
 	int					sign;
@@ -39,7 +39,7 @@ int	ft_atoi(const char *s)
 	return (nb * sign);
 }
 
-int	ft_atoi_base(const char *s, const char *base)
+int			ft_atoi_base(const char *s, const char *base)
 {
 	int	nb;
 	int	baselen;
@@ -74,7 +74,7 @@ static void	getc_lol(char c, char s[3])
 	s[2] = '\0';
 }
 
-int	ft_atoi_basec(const char *s, const char *base)
+int			ft_atoi_basec(const char *s, const char *base)
 {
 	int		nb;
 	int		baselen;

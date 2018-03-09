@@ -6,23 +6,22 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:05:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/07 18:54:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/09 17:05:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
-#include "ft_printf.h"
 
 char	*ft_strbetween(const char *s, char a, char b)
 {
 	char	*res;
+	char	olds;
 	size_t	r;
 
-	if (!s)
+	if (!s || !(res = ft_strnew(0)))
 		return (NULL);
-	res = ft_strnew(0);
 	r = 0;
-	while (*s)
+	while ((olds = *s))
 	{
 		if (*s == b && r > 0)
 			if (--r == 0)
@@ -34,7 +33,7 @@ char	*ft_strbetween(const char *s, char a, char b)
 			if (!(res = ft_strjoinc_clr(res, *s)))
 				return (NULL);
 		}
-		if (*s == a)
+		if (*s == a && olds != '\\')
 			++r;
 		++s;
 	}
