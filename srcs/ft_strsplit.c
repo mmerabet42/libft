@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 23:09:09 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/08 20:14:35 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/10 20:12:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		**ft_strsplitstr(const char *s, const char *sep)
 	return (t);
 }
 
-size_t		ft_tabsize(const char **tab)
+size_t		ft_tabsize(char **tab)
 {
 	size_t	i;
 

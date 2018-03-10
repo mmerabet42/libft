@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/08 21:52:17 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/10 20:00:04 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char				*ft_strtrim(const char *s);
 char				*ft_strtrim_clr(char *s);
 char				**ft_strsplit(const char *s, char sep);
 char				**ft_strsplitstr(const char *s, const char *sep);
-size_t				ft_tabsize(const char **tab);
+size_t				ft_tabsize(char **tab);
 int					ft_strcount(const char *s, char a);
 int					ft_strcountstr(const char *s, const char *a);
 char				*ft_strrep(const char *s, char a, char b);
