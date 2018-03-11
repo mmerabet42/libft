@@ -17,31 +17,41 @@
 # include <wctype.h>
 
 size_t				ft_strlen(const char *s);
+
 char				*ft_strdup(const char *s);
 char				*ft_strndup(const char *s, size_t n);
+char				*ft_strdup_e(const char *s);
+char				*ft_strndup_e(const char *s, size_t n);
 char				*ft_strmdup(const char *s, size_t n);
+
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
+
 char				*ft_strcat(char *a, const char *b);
 char				*ft_strcatc(char *a, char b);
 char				*ft_strncat(char *a, const char *b, size_t n);
 size_t				ft_strlcat(char *a, const char *b, size_t n);
+
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *a, const char *b);
 char				*ft_strnstr(const char *a, const char *b, size_t n);
 char				*ft_strpbrk(const char *s, const char *charset);
 int					ft_strpbrk_pos(const char *s, const char *charset);
+
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);
+
 char				*ft_strnchr(const char *s, int c, size_t n);
 char				*ft_strnrchr(const char *s, int c, size_t n);
 char				*ft_strrstr(const char *a, const char *b);
 char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
 int					ft_strstr_pos(const char *a, const char *b);
+
 char				*ft_strrepeat(const char *s, int n);
 char				*ft_strrepeat_clr(char *s, int n);
+
 char				*ft_revstr(char *a);
 char				*ft_revnstr(char *a, size_t n);
 void				ft_swap(char *a, char *b);

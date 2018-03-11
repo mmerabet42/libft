@@ -24,7 +24,7 @@ void	*ft_memjoin(const void *a,
 	if (a)
 		ft_memcpy(s, a, an);
 	if (b)
-		ft_memcpy((void *)((char *)s + an), b, bn);
+		ft_memcpy((void *)((char *)s + (a ? an : 0)), b, bn);
 	return (s);
 }
 
@@ -35,12 +35,8 @@ void	*ft_memjoin_clr(void *a,
 {
 	void	*s;
 
-	if (!(s = malloc((a ? an : 0) + (b ? bn : 0))))
+	if (!(s = ft_memjoin(a, an, b, bn)))
 		return (NULL);
-	if (a)
-		ft_memcpy(s, a, an);
-	if (b)
-		ft_memcpy((void *)((char *)s + an), b, bn);
 	free(a);
 	return (s);
 }
@@ -52,12 +48,8 @@ void	*ft_memjoin_clr2(void *a,
 {
 	void	*s;
 
-	if (!(s = malloc((a ? an : 0) + (b ? bn : 0))))
+	if (!(s = ft_memjoin(a, an, b, bn)))
 		return (NULL);
-	if (a)
-		ft_memcpy(s, a, an);
-	if (b)
-		ft_memcpy((void *)((char *)s + an), b, bn);
 	free(a);
 	free(b);
 	return (s);

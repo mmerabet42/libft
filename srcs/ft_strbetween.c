@@ -28,7 +28,7 @@ char	*ft_strbetween(const char *s, char a, char b)
 				return (res);
 		if (r > 0)
 		{
-			if (*s == '\\')
+			if (*s == '\\' && (*(s + 1) == a || *(s + 1) == b))
 				++s;
 			if (!(res = ft_strjoinc_clr(res, *s)))
 				return (NULL);
