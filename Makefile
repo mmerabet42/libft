@@ -25,10 +25,10 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_itoa.c ft_ltoa.c ft_lltoa.c ft_uitoa.c ft_ultoa.c ft_ulltoa.c \
 			ft_lstatpos.c ft_lstcopy.c ft_lstend.c ft_lstfind.c ft_lstiter.c \
 			ft_lstmap.c ft_lstnew.c ft_lstpush.c ft_lstsize.c ft_lstcount.c \
-			ft_lsterase.c ft_lsterase_all.c ft_lstswap.c ft_lstsort.c ft_strsplit_lst.c \
-			ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdup.c \
+			ft_lsterase.c ft_lsterase_all.c ft_lstswap.c ft_lstsort.c \
+			ft_strsplit_lst.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdup.c \
 			ft_memalloc.c ft_memset.c ft_memjoin.c ft_memstr.c \
-			ft_putchar.c ft_putdouble.c ft_putendl.c  ft_putnbr.c \
+			ft_putchar.c ft_putdouble.c ft_putendl.c  ft_putnbr.c ft_getch.c \
 			ft_putptr.c ft_putstr.c ft_putullong_base.c ft_putunbr.c \
 			ft_revstr.c ft_strafter.c ft_strbefore.c ft_strcat.c ft_strchr.c \
 			ft_strclr.c ft_strcmp.c ft_strcount.c  ft_strcpy.c ft_strdup.c \
