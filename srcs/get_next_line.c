@@ -46,8 +46,7 @@ static int	inner_get_next_delim(t_fd *fd, char **l, const char *delim, int n)
 		if ((bread = ft_memstr_pos(fd->buffer, fd->len, delim, n)) == -1)
 			bread = fd->len;
 		fd->buffer[bread] = '\0';
-		*l = (*l ? ft_memjoin_clr(*l, len, fd->buffer, bread + 1)
-				: ft_memdup(fd->buffer, bread + 1));
+		*l = ft_memjoin_clr(*l, len, fd->buffer, bread + 1);
 		if (bread < fd->len)
 		{
 			fd->len -= bread + 1;

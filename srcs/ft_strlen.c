@@ -22,3 +22,30 @@ size_t	ft_strlen(const char *s)
 			++i;
 	return (i);
 }
+
+size_t	ft_strlen_e(const char *s)
+{
+	size_t	i;
+	int		n;
+
+	i = 0;
+	n = 1;
+	if (s)
+	{
+		while (*s)
+		{
+			if (*s == '\\' && n)
+			{
+				++s;
+				n = 0;
+			}
+			else
+			{
+				n = 1;
+				++i;
+				++s;
+			}
+		}
+	}
+	return (i);
+}

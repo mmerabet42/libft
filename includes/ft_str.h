@@ -17,12 +17,13 @@
 # include <wctype.h>
 
 size_t				ft_strlen(const char *s);
+size_t				ft_strlen_e(const char *s);
 
 char				*ft_strdup(const char *s);
 char				*ft_strndup(const char *s, size_t n);
+char				*ft_strmdup(const char *s, size_t n);
 char				*ft_strdup_e(const char *s);
 char				*ft_strndup_e(const char *s, size_t n);
-char				*ft_strmdup(const char *s, size_t n);
 
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
