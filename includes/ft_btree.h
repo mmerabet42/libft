@@ -27,12 +27,6 @@ typedef int		(*t_cmpfunc)(const void *, const void *, size_t);
 ** A binary tree node.
 */
 
-typedef struct		s_pair
-{
-	void			*first;
-	void			*second;
-}					t_pair;
-
 typedef struct		s_btree
 {
 	void			*content;

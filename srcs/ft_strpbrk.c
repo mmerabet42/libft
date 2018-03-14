@@ -40,3 +40,30 @@ int		ft_strpbrk_pos(const char *s, const char *charset)
 	}
 	return (-1);
 }
+
+int		ft_strpbrkl_pos(const char *s, const char *charset)
+{
+	int	i;
+	int	n;
+
+	if (!s || !charset)
+		return (-1);
+	i = 0;
+	n = 1;
+	while (s[i])
+	{
+		if (s[i] == '\\' && n)
+		{
+			++i;
+			n = 0;
+		}
+		else
+		{
+			if (n && ft_strchr(charset, s[i]))
+				return (i);
+			n = 1;
+			++i;
+		}
+	}
+	return (-1);
+}

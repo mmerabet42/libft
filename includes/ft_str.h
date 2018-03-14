@@ -16,14 +16,24 @@
 # include <stdlib.h>
 # include <wctype.h>
 
+typedef struct		s_pair
+{
+	void			*first;
+	void			*second;
+}					t_pair;
+
 size_t				ft_strlen(const char *s);
-size_t				ft_strlen_e(const char *s);
+size_t				ft_strlenl(const char *s);
+size_t				ft_strlenk(const char *s);
 
 char				*ft_strdup(const char *s);
 char				*ft_strndup(const char *s, size_t n);
 char				*ft_strmdup(const char *s, size_t n);
-char				*ft_strdup_e(const char *s);
-char				*ft_strndup_e(const char *s, size_t n);
+
+char				*ft_strdupl(const char *s);
+char				*ft_strndupl(const char *s, size_t n);
+char				*ft_strdupk(const char *s);
+char				*ft_strndupk(const char *s, size_t n);
 
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
@@ -39,6 +49,7 @@ char				*ft_strstr(const char *a, const char *b);
 char				*ft_strnstr(const char *a, const char *b, size_t n);
 char				*ft_strpbrk(const char *s, const char *charset);
 int					ft_strpbrk_pos(const char *s, const char *charset);
+int					ft_strpbrkl_pos(const char *s, const char *charset);
 
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);

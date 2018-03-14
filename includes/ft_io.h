@@ -20,6 +20,7 @@
 void				ft_putchar(char c);
 void				ft_putnchar(char c, size_t n);
 void				ft_putstr(const char *s);
+void				ft_putstrl(const char *s);
 void				ft_putnstr(const char *s, size_t n);
 void				ft_putendl(const char *s);
 void				ft_putnendl(const char *s, size_t n);
@@ -34,6 +35,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putnchar_fd(char c, size_t n, int fd);
 void				ft_putstr_fd(const char *s, int fd);
 void				ft_putnstr_fd(const char *s, size_t n, int fd);
+void				ft_putnstrl_fd(const char *s, size_t n, int fd);
 void				ft_putendl_fd(const char *s, int fd);
 void				ft_putnendl_fd(const char *s, size_t n, int fd);
 void				ft_putnbr_fd(int n, int fd);
