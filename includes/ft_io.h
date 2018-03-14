@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:53 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/12 18:49:00 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:39:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void				ft_putptr_fd(void *ptr, int fd);
 void				ft_putdouble_fd(double n, int precision, int fd);
 
 int					ft_getch(void);
+int					ft_getwch(void);
 
 #endif

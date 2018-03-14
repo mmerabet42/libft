@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/08 20:03:15 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:17:58 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int					ft_lstcountm(t_list *lst,
 
 size_t				ft_lstsize(t_list *lst);
 t_list				*ft_lstend(t_list *lst);
+t_list				*ft_lstparent(t_list *lst);
 t_list				*ft_lstcopy(t_list *lst);
 t_list				*ft_lstcopyone(t_list *lst);
 void				ft_lstswap(t_list *a, t_list *b);

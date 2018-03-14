@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 22:49:13 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/15 22:17:53 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:37:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static const t_color_attr	g_colors[] = {
 	{"black", "\e[30m", "\e[40m"}, {"red", "\e[31m", "\e[41m"},
 	{"green", "\e[32m", "\e[42m"}, {"yellow", "\e[33m", "\e[43m"},
 	{"blue", "\e[34m", "\e[44m"}, {"magenta", "\e[35m", "\e[45m"},
-	{"cyan", "\e[36m", "\e[46m"}, {"lgray", "\e[37m", "\e[47m"},
-	{"dgray", "\e[90m", "\e[100m"}, {"lred", "\e[91m", "\e[101m"},
+	{"cyan", "\e[36m", "\e[46m"}, {"lgrey", "\e[37m", "\e[47m"},
+	{"dgrey", "\e[90m", "\e[100m"}, {"lred", "\e[91m", "\e[101m"},
 	{"lgreen", "\e[92m", "\e[102m"}, {"lyellow", "\e[93m", "\e[103m"},
 	{"lblue", "\e[94m", "\e[104m"}, {"lmagenta", "\e[95m", "\e[105m"},
 	{"lcyan", "\e[96m", "\e[106m"}, {"white", "\e[97m", "\e[107m"},
