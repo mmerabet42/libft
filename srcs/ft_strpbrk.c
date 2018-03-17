@@ -67,3 +67,12 @@ int		ft_strpbrkl_pos(const char *s, const char *charset)
 	}
 	return (-1);
 }
+
+char	*ft_strpbrkl(const char *s, const char *charset)
+{
+	int	i;
+
+	if ((i = ft_strpbrkl_pos(s, charset)) == -1)
+		return (NULL);
+	return ((char *)s + i);
+}

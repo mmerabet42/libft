@@ -12,15 +12,16 @@
 
 #include "ft_str.h"
 
-char	*ft_strbetween(const char *s, char a, char b)
+char	*ft_strbetweenl(const char *s, char a, char b)
 {
 	char	*res;
 	char	olds;
 	size_t	r;
 
-	if (!s || !(res = ft_strnew(0)))
+	if (!s)
 		return (NULL);
 	r = 0;
+	res = NULL;
 	while ((olds = *s))
 	{
 		if (*s == b && r > 0)
@@ -34,6 +35,29 @@ char	*ft_strbetween(const char *s, char a, char b)
 				return (NULL);
 		}
 		if (*s == a && olds != '\\')
+			++r;
+		++s;
+	}
+	return (res);
+}
+
+char	*ft_strbetween(const char *s, char a, char b)
+{
+	char	*res;
+	size_t	r;
+
+	if (!s || !(res = ft_strnew(0)))
+		return (NULL);
+	r = 0;
+	while (*s)
+	{
+		if (*s == b && r > 0)
+			if (--r == 0)
+				return (res);
+		if (r > 0)
+			if (!(res = ft_strjoinc_clr(res, *s)))
+				return (NULL);
+		if (*s == a)
 			++r;
 		++s;
 	}

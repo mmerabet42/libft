@@ -102,6 +102,7 @@ char				*ft_strafter(const char *s, char a);
 char				*ft_strbeforestr(const char *s, const char *a);
 char				*ft_strbefore(const char *s, char a);
 char				*ft_strbetween(const char *s, char a, char b);
+char				*ft_strbetweenl(const char *s, char a, char b);
 
 int					ft_strmatch(const char *str, const char *match);
 
