@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra
 
 _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				ft_printf_parser.c ft_printf_format.c ft_init_formats.c \
@@ -49,57 +49,54 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c ft_vec_get.c \
 			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c ft_vec_normalize.c \
 
-SRCD		=	srcs
+SRCD		=	srcs/
 ICLD		=	includes
-LIBFTS		=	$(addprefix $(SRCD)/,$(_LIBFTS))
+LIBFTS		=	$(addprefix $(SRCD),$(_LIBFTS))
 _LIBFTO		=	$(_LIBFTS:.c=.o)
 LIBFTO		=	$(LIBFTS:.c=.o)
 
-PRINTFD		=	$(SRCD)/ft_printf
-PRINTFS		=	$(addprefix $(PRINTFD)/,$(_PRINTFS))
+PRINTFD		=	$(SRCD)ft_printf/
+PRINTFS		=	$(addprefix $(PRINTFD),$(_PRINTFS))
 _PRINTFO	=	$(_PRINTFS:.c=.o)
 PRINTFO		=	$(PRINTFS:.c=.o)
 
 SRCS		=	$(LIBFTS) $(PRINTFS)
 _OBJS		=	$(_LIBFTO) $(_PRINTFO)
-OBJD		=	objs
+OBJD		=	objs/
 OBJS		=	$(LIBFTO) $(PRINTFO)
-OBJB		=	$(addprefix $(OBJD)/,$(_OBJS))
+OBJB		=	$(addprefix $(OBJD),$(_OBJS))
 
 # COLORS
-_GREY=\x1b[30m
-_RED=\x1b[38;2;0;255;145m
-_GREEN=\x1b[32m
-_YELLOW=\x1b[33m
-_BLUE=\x1b[34m
-_PURPLE=\x1b[35m
-_CYAN=\x1b[36m
-_WHITE=\x1b[37m
-_END=\x1b[0m
-_SUCCESS=$(_RED)
-
-.PHONY: all clean fclean re
+CRED=\x1b[91m
+CGREEN=\x1b[38;2;0;255;145m
+CEND=\x1b[0m
 
 all: $(NAME)
 
-$(NAME): $(SRCS)
-	@echo "$(_RED)Compiling$(_END) $(NAME)$(_RED)...$(_END)"
-	@$(CC) -c $(CFLAGS) $(SRCS) -I$(ICLD)
-	@mkdir -p objs
-	@mv $(_OBJS) $(OBJD)/
+$(NAME): $(OBJB)
+	@printf "\r\e[K$(CGREEN)Creating library$(CEND): $(NAME)\n"
 	@ar rc $(NAME) $(OBJB)
 	@ranlib $(NAME)
-	@echo  "$(NAME) : $(_SUCCESS)done$(_END)"
+	@echo  "$(NAME): $(CGREEN)done$(CEND)"
 
-%.c:
-	;
+$(OBJD)%.o: $(SRCD)%.c
+	@printf "\r\e[K$(CGREEN)Compiling$(CEND): $@"
+	@mkdir -p $(OBJD)
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
+
+$(OBJD)%.o: $(PRINTFD)%.c
+	@printf "\r\e[K$(CGREEN)Compiling$(CEND): $@"
+	@mkdir -p $(OBJD)
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
 
 clean:
-	@/bin/rm -f $(OBJB)
-	@echo "$(NAME) clean: $(_RED)done$(_END)"
+	@rm -f $(OBJB)
+	@echo "$(CRED)Cleaning$(CEND): $(NAME)"
 
 fclean: clean
-	@/bin/rm -f $(NAME)
-	@echo "$(NAME) fclean: $(_RED)done$(_END)"
+	@rm -f $(NAME)
+	@echo "$(CRED)Full cleaning$(CEND): $(NAME)"
 
 re: fclean all
+
+.PHONY: all clean fclean re

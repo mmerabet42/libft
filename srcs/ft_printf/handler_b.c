@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 14:48:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:35:22 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:58:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 char	*handler_b(va_list lst, t_printf_params params)
 {
-	char				*str;
+	char	*str;
 
 	str = ft_ulltoa_cbase(proper_cast_u(lst, params), FT_BIN);
 	return (perform_width(pad_zeroes(str, &params), &params));
