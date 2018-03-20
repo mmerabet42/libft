@@ -77,13 +77,13 @@ static char	checkescseq(const char **s)
 		{
 			while (*++(*s) && ft_strchr(FT_HEX, ft_tolower(**s)) && j < 2)
 				cs[j++] = **s;
-			return ((char)ft_atoi_basec(FT_HEX, cs));
+			return ((char)ft_atoi_basec(cs, FT_HEX));
 		}
 		else if (ft_strchr(FT_OCT, **s) && (cs[j++] = **s))
 		{
 			while (*++(*s) && ft_strchr(FT_OCT, **s) && j < 3)
 				cs[j++] = **s;
-			return ((char)ft_atoi_basec(FT_OCT, cs));
+			return ((char)ft_atoi_basec(cs, FT_OCT));
 		}
 	}
 	return (*(*s)++);

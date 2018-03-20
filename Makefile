@@ -67,25 +67,25 @@ OBJS		=	$(LIBFTO) $(PRINTFO)
 OBJB		=	$(addprefix $(OBJD),$(_OBJS))
 
 # COLORS
-CRED=\x1b[91m
-CGREEN=\x1b[38;2;0;255;145m
-CEND=\x1b[0m
+CRED=\033[91m
+CGREEN=\033[38;2;0;255;145m
+CEND=\033[0m
 
 all: $(NAME)
 
 $(NAME): $(OBJB)
-	@printf "\r\e[K$(CGREEN)Creating library$(CEND): $(NAME)\n"
+	@printf "\r\033[K$(CGREEN)Creating library$(CEND): $(NAME)\n"
 	@ar rc $(NAME) $(OBJB)
 	@ranlib $(NAME)
 	@echo  "$(NAME): $(CGREEN)done$(CEND)"
 
 $(OBJD)%.o: $(SRCD)%.c
-	@printf "\r\e[K$(CGREEN)Compiling$(CEND): $@"
+	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $@"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
 
 $(OBJD)%.o: $(PRINTFD)%.c
-	@printf "\r\e[K$(CGREEN)Compiling$(CEND): $@"
+	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $@"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
 
