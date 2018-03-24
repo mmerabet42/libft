@@ -49,8 +49,13 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c ft_vec_get.c \
 			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c ft_vec_normalize.c \
 
+_ICLDS		= libft.h ft_str.h ft_io.h ft_mem.h ft_list.h ft_btree.h ft_math.h \
+			ft_printf.h ft_time.h get_next_line.h ft_event.h ft_matrix.h \
+			ft_printf_ext.h ft_types.h handlers.h
+
 SRCD		=	srcs/
-ICLD		=	includes
+ICLD		=	includes/
+ICLDS		=	$(addprefix $(ICLD),$(_ICLDS))
 LIBFTS		=	$(addprefix $(SRCD),$(_LIBFTS))
 _LIBFTO		=	$(_LIBFTS:.c=.o)
 LIBFTO		=	$(LIBFTS:.c=.o)
@@ -73,7 +78,7 @@ CEND=\033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJB)
+$(NAME): $(ICLDS) $(OBJB)
 	@printf "\r\033[K$(CGREEN)Creating library$(CEND): $(NAME)\n"
 	@ar rc $(NAME) $(OBJB)
 	@ranlib $(NAME)

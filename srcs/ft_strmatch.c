@@ -27,8 +27,7 @@ int			ft_strmatch(const char *str, const char *match)
 	{
 		if (*match == '*')
 		{
-			++match;
-			if (*match == '*')
+			if (*++match == '*')
 			{
 				if (!check_char(&str, &match))
 					return (0);
