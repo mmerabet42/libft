@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/10 20:00:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:02:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char				*ft_strnstr(const char *a, const char *b, size_t n);
 char				*ft_strpbrk(const char *s, const char *charset);
 int					ft_strpbrk_pos(const char *s, const char *charset);
 int					ft_strpbrkl_pos(const char *s, const char *charset);
+int					ft_strpbrkstr(const char *a, const char *strset);
 
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);

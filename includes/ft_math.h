@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:41:25 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/15 21:59:02 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/25 16:12:36 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,20 +120,4 @@ t_vec				*ft_vec_calc(t_vec a, t_vec b, t_vec *res, t_calcmode op);
 t_vec				*ft_vec_calci(t_vec a, float b, t_vec *res, t_calcmode op);
 t_vec				*ft_vec_icalc(float a, t_vec b, t_vec *res, t_calcmode op);
 
-/*
-https://www.google.fr/imgres?imgurl=http%3A%2F%2Fwww.codinglabs.net%2Fpublic%2Fcontents%2Farticle_world_view_projection_matrix%2Fimages%2FperspMatrix.png&imgrefurl=http%3A%2F%2Fwww.codinglabs.net%2Farticle_world_view_projection_matrix.aspx&docid=E-4UDpZVSYLZNM&tbnid=SNxmHlIvBa14QM%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA..i&w=471&h=151&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwg-KAgwCA&iact=mrc&uact=8
-
-https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/building-basic-perspective-projection-matrix
-
-https://www.google.fr/imgres?imgurl=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2Foriginals%2Fff%2Fb3%2F2b%2Fffb32b24d885ae08b02e16345f7a4b30.jpg&imgrefurl=https%3A%2F%2Fwww.pinterest.fr%2Fpin%2F383580093238051605%2F&docid=DnGKbJAVdkJjSM&tbnid=tr39wZGU-Bsj8M%3A&vet=10ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwhCKAwwDA..i&w=469&h=196&itg=1&bih=623&biw=1366&q=perspective%20matrix&ved=0ahUKEwiukan1y43ZAhVGe8AKHeEbBP0QMwhCKAwwDA&iact=mrc&uact=8
-
-https://github.com/ssloy/tinyrenderer/wiki/Lesson-4:-Perspective-projection
-
-https://stackoverflow.com/questions/18404890/how-to-build-perspective-projection-matrix-no-api
-
-https://en.wikipedia.org/wiki/3D_projection
-
-https://stackoverflow.com/questions/724219/how-to-convert-a-3d-point-into-2d-perspective-projection
-
-http://www.flipcode.com/archives/Plotting_A_3D_Point_On_A_2D_Screen.shtml*/
 #endif

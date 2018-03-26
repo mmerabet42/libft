@@ -1,8 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdupl.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/25 16:23:41 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/03/25 16:24:10 by mmerabet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_str.h"
 #include "ft_mem.h"
 #include "ft_types.h"
 
-char	*ft_strdupl(const char *s)
+static t_pair	g_escseq[] = {
+	{"n", "\n"}, {"t", "\t"}, {"b", "\b"}, {"a", "\a"}, {"f", "\f"},
+	{"r", "\r"}, {"v", "\v"}, {"e", "\e"}
+};
+static int		g_escseq_n = sizeof(g_escseq) / sizeof(t_pair);
+
+char		*ft_strdupl(const char *s)
 {
 	size_t	i;
 	int		n;
@@ -28,7 +46,7 @@ char	*ft_strdupl(const char *s)
 	return (str);
 }
 
-char	*ft_strndupl(const char *s, size_t n)
+char		*ft_strndupl(const char *s, size_t n)
 {
 	size_t	i;
 	size_t	j;
@@ -53,12 +71,6 @@ char	*ft_strndupl(const char *s, size_t n)
 	}
 	return (str);
 }
-
-static t_pair	g_escseq[] = {
-	{"n", "\n"}, {"t", "\t"}, {"b", "\b"}, {"a", "\a"}, {"f", "\f"},
-	{"r", "\r"}, {"v", "\v"}, {"e", "\e"}
-};
-static int		g_escseq_n = sizeof(g_escseq) / sizeof(t_pair);
 
 static char	checkescseq(const char **s)
 {
@@ -89,7 +101,7 @@ static char	checkescseq(const char **s)
 	return (*(*s)++);
 }
 
-char	*ft_strdupk(const char *s)
+char		*ft_strdupk(const char *s)
 {
 	size_t	i;
 	char	*str;

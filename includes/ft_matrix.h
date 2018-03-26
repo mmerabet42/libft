@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:00:28 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/15 16:30:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/25 16:15:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_mat				*ft_mat_icalc(float a, t_mat b, t_mat *res, t_calcmode op);
 t_mat				*ft_mat_rotatex(float angle);
 t_mat				*ft_mat_rotatey(float angle);
 t_mat				*ft_mat_rotatez(float angle);
-t_mat				*ft_mat_rotate(t_vec eulerAngles);
+t_mat				*ft_mat_rotate(t_vec eulerangles);
 
 t_mat				*ft_mat_scale(t_vec scale);
 

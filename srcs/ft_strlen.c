@@ -6,14 +6,20 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:42:54 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 21:44:18 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/25 16:19:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 #include "ft_types.h"
 
-size_t	ft_strlen(const char *s)
+static t_pair	g_escseq[] = {
+	{"n", "\n"}, {"t", "\t"}, {"b", "\b"}, {"a", "\a"}, {"f", "\f"},
+	{"r", "\r"}, {"v", "\v"}, {"e", "\e"}
+};
+static int		g_escseq_n = sizeof(g_escseq) / sizeof(t_pair);
+
+size_t		ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -24,7 +30,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-size_t	ft_strlenl(const char *s)
+size_t		ft_strlenl(const char *s)
 {
 	size_t	i;
 	int		n;
@@ -50,20 +56,14 @@ size_t	ft_strlenl(const char *s)
 	return (i);
 }
 
-static t_pair	g_escseq[] = {
-	{"n", "\n"}, {"t", "\t"}, {"b", "\b"}, {"a", "\a"}, {"f", "\f"},
-	{"r", "\r"}, {"v", "\v"}, {"e", "\e"}
-};
-static int		g_escseq_n = sizeof(g_escseq) / sizeof(t_pair);
-
 static int	checkescseq(const char **s)
 {
 	int	j;
-	
+
 	j = -1;
 	while (++j < g_escseq_n)
 		if (**s == *(char *)g_escseq[j].first && (*s)++)
-			break;
+			break ;
 	if (j == g_escseq_n)
 	{
 		j = 0;

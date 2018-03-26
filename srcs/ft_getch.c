@@ -6,14 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 18:48:16 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/14 16:48:49 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/25 16:20:08 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 #include <stdlib.h>
 
-int ft_getch(void)
+int	ft_getch(void)
 {
 	int				r;
 	unsigned char	c;
@@ -27,7 +27,8 @@ int	ft_getwch(void)
 {
 	int	c;
 
-	if (((c = ft_getch()) <= 0x7f && MB_CUR_MAX >= 1) || (c <= 0xff && MB_CUR_MAX == 1))
+	if (((c = ft_getch()) <= 0x7f && MB_CUR_MAX >= 1)
+			|| (c <= 0xff && MB_CUR_MAX == 1))
 		return (c);
 	else if (c <= 0x7ff && MB_CUR_MAX >= 2)
 		return (c | ft_getch());
