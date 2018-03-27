@@ -23,7 +23,7 @@ int	ft_strpbrkstr(const char *a, const char *strset)
 			return (ft_strlen(strset));
 		else if (pos != -1 && ft_strnequ(strset, a, pos))
 			return (pos);
-		strset += (pos == -1 ? ft_strlen(strset) : pos + 1);
+		strset += (pos == -1 ? ft_strlen(strset) : (size_t)(pos + 1));
 	}
 	return (0);
 }
