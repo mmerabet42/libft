@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/26 19:02:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/27 20:38:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int					ft_strforeach(const char *s, int (*f)(char c));
 
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **ap);
-void				ft_strclr(char *s);
+char				*ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char *s, char (*f)(char));

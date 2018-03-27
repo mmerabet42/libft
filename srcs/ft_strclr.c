@@ -6,15 +6,16 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:22:00 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 20:53:24 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/27 20:40:22 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 #include "ft_mem.h"
 
-void	ft_strclr(char *s)
+char	*ft_strclr(char *s)
 {
 	if (s)
 		ft_bzero((void *)s, ft_strlen(s));
+	return (s);
 }
