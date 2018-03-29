@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 20:00:41 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/09 16:56:58 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/29 17:23:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int			ft_atoi(const char *s)
 	int					sign;
 	unsigned long long	max;
 
+	if (!s)
+		return (0);
 	nb = 0;
 	max = 0;
 	sign = 1;

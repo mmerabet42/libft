@@ -78,18 +78,18 @@ CEND=\033[0m
 
 all: $(NAME)
 
-$(NAME): $(ICLDS) $(OBJB)
+$(NAME): $(OBJB)
 	@printf "\r\033[K$(CGREEN)Creating library$(CEND): $(NAME)\n"
 	@ar rc $(NAME) $(OBJB)
 	@ranlib $(NAME)
 	@echo  "$(NAME): $(CGREEN)done$(CEND)"
 
-$(OBJD)%.o: $(SRCD)%.c
+$(OBJD)%.o: $(SRCD)%.c $(ICLDS)
 	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $@"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
 
-$(OBJD)%.o: $(PRINTFD)%.c
+$(OBJD)%.o: $(PRINTFD)%.c $(ICLDS)
 	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $@"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(ICLD)
