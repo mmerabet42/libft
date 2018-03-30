@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/29 14:39:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/03/30 18:54:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					ft_strncmp(const char *a, const char *b, size_t n);
 
 char				*ft_strnchr(const char *s, int c, size_t n);
 char				*ft_strnrchr(const char *s, int c, size_t n);
-int					ft_strnrch_pos(const char *s, int c, size_t n);
+int					ft_strnrchr_pos(const char *s, int c, size_t n);
 char				*ft_strrstr(const char *a, const char *b);
 char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
