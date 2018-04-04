@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/14 18:17:58 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/04 18:59:40 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,13 @@ t_list				*ft_strsplitstr_lst(const char *s, const char *sep);
 t_list				*ft_lstnew(const void *content, size_t content_size);
 t_list				*ft_lstcreate(void *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelone_d(t_list **alst,
+							void (*del)(void *, size_t, void *),
+							void *data);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel_d(t_list **alst,
+							void (*del)(void *, size_t, void *),
+							void *data);
 
 /*
 ** Linked list insertions and removals.
@@ -58,7 +64,13 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 
 void				ft_lstadd(t_list **alst, t_list *elem);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+void				ft_lstiter_d(t_list *lst,
+							void (*f)(t_list *elem, void *data),
+							void *data);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+t_list				*ft_lstmap_d(t_list *lst,
+							t_list *(*f)(t_list *elem, void *data),
+							void *data);
 t_list				*ft_lstpush(t_list *lst, t_list *elem);
 void				ft_lstpushfront(t_list **alst, t_list *elem);
 

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:31:55 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/30 18:03:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/04 18:43:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,4 @@ t_list	*ft_lstcreate(void *content, size_t content_size)
 		lst->content_size = (content ? content_size : 0);
 	}
 	return (lst);
-}
-
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
-{
-	t_list	*nxt;
-
-	nxt = (alst && *alst ? (*alst)->next : NULL);
-	ft_lstdelone(alst, del);
-	if (nxt)
-		ft_lstdel(&nxt, del);
-}
-
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
-{
-	if (alst && *alst)
-	{
-		if (del)
-			del((*alst)->content, (*alst)->content_size);
-		ft_memdel((void **)alst);
-	}
 }

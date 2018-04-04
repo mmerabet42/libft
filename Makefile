@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				ft_printf_parser.c ft_printf_format.c ft_init_formats.c \
@@ -27,7 +27,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_lstmap.c ft_lstnew.c ft_lstpush.c ft_lstsize.c ft_lstcount.c \
 			ft_lsterase.c ft_lsterase_all.c ft_lstswap.c ft_lstsort.c \
 			ft_strsplit_lst.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdup.c \
-			ft_memalloc.c ft_memset.c ft_memjoin.c ft_memstr.c \
+			ft_memalloc.c ft_memset.c ft_memjoin.c ft_memstr.c ft_lstdel.c \
 			ft_putchar.c ft_putdouble.c ft_putendl.c  ft_putnbr.c ft_getch.c \
 			ft_putptr.c ft_putstr.c ft_putullong_base.c ft_putunbr.c \
 			ft_revstr.c ft_strafter.c ft_strbefore.c ft_strcat.c ft_strchr.c \

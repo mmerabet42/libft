@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:48:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 20:43:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/04 18:46:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strcat(char *a, const char *b)
 	size_t	i;
 
 	if (!a || !b)
-		return (NULL);
+		return (a);
 	i = ft_strlen(a);
 	while (*b)
 		a[i++] = *b++;
@@ -27,6 +27,8 @@ char	*ft_strcat(char *a, const char *b)
 
 char	*ft_strcatc(char *a, char b)
 {
+	if (!a)
+		return (NULL);
 	a[ft_strlen(a)] = b;
 	return (a);
 }
@@ -37,6 +39,8 @@ size_t	ft_strlcat(char *a, const char *b, size_t n)
 	size_t	blen;
 	size_t	i;
 
+	if (!a || !b)
+		return (0);
 	alen = ft_strlen(a);
 	blen = ft_strlen(b);
 	if (n <= alen)
@@ -53,6 +57,8 @@ char	*ft_strncat(char *a, const char *b, size_t n)
 	size_t	i;
 	size_t	j;
 
+	if (!a || !b)
+		return (a);
 	i = ft_strlen(a);
 	j = 0;
 	while (j < n && b[j])
