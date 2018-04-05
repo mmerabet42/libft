@@ -53,6 +53,10 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel_d(t_list **alst,
 							void (*del)(void *, size_t, void *),
 							void *data);
+void				ft_lstdelv(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelv_d(t_list **alst,
+							void (*del)(void *, size_t, void *),
+							void *data);
 
 /*
 ** Linked list insertions and removals.

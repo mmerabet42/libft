@@ -43,3 +43,25 @@ t_list	*ft_lstcreate(void *content, size_t content_size)
 	}
 	return (lst);
 }
+
+void	ft_lstdelv(t_list **alst, void (*del)(void *, size_t))
+{
+	t_list	*nxt;
+
+	nxt = (alst && *alst ? (*alst)->parent : NULL);
+	ft_lstdelone(alst, del);
+	if (nxt)
+		ft_lstdelv(&nxt, del);
+}
+
+void	ft_lstdelv_d(t_list **alst, void (*del)(void *, size_t, void *),
+		void *data)
+{
+	t_list	*nxt;
+
+	nxt = (alst && *alst ? (*alst)->parent : NULL);
+	ft_lstdelone_d(alst, del, data);
+	if (nxt)
+		ft_lstdelv_d(&nxt, del, data);
+}
+
