@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/02 20:53:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/05 15:57:58 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,14 @@ int					ft_strnrpbrk_pos(const char *s,
 								const char *charset,
 								size_t n);
 int					ft_strpbrkl_pos(const char *s, const char *charset);
-int					ft_strpbrkstr(const char *a, const char *strset);
+int					ft_strpbrkstr_len(const char *a, const char *strset);
+int					ft_strpbrkstrl_len(const char *a, const char *strset);
 
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);
+
+int					ft_strequl(const char *a, const char *b);
+int					ft_strnequl(const char *a, const char *b, size_t n);
 
 char				*ft_strnchr(const char *s, int c, size_t n);
 char				*ft_strnrchr(const char *s, int c, size_t n);
@@ -111,6 +115,7 @@ char				*ft_strbetween(const char *s, char a, char b);
 char				*ft_strbetweenl(const char *s, char a, char b);
 
 int					ft_strmatch(const char *str, const char *match);
+int					ft_strmatchg(const char *str, const char *match);
 
 int					ft_wcharlen(wchar_t wc);
 char				*ft_getwchar(wchar_t wc);

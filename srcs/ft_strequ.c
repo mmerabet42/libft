@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:36:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/19 21:37:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/05 15:16:11 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,37 @@ int	ft_strnequ(const char *a, const char *b, size_t n)
 	while (n-- && (*a || *b))
 		if (*a++ != *b++)
 			return (0);
+	return (1);
+}
+
+int	ft_strequl(const char *a, const char *b)
+{
+	if (!a || !b)
+		return (0);
+	while (*a || *b)
+	{
+		if (*a == '\\' && *++a)
+			++a;
+		if (*b == '\\' && *++b)
+			++b;
+		if (*a++ != *b++)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_strnequl(const char *a, const char *b, size_t n)
+{
+	if (!a || !b)
+		return (0);
+	while (n-- && (*a || *b))
+	{
+		if (*a == '\\' && *++a)
+			++a;
+		if (*b == '\\' && *++b)
+			++b;
+		if (*a++ != *b++)
+			return (0);
+	}
 	return (1);
 }
