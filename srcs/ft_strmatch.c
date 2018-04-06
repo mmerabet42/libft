@@ -13,12 +13,46 @@
 #include "ft_str.h"
 #include "ft_printf.h"
 
-static int	check_char(const char **str, const char **match)
+static int	check_chari(char c, const char *match)
 {
-	if (**str != **match)
-		return (0);
-	++(*str);
-	++(*match);
+	char	*til;
+	int		pos;
+
+	pos = ft_strchr_pos(match, '*');
+	if (!(til = ft_strnchr(match, '-', (size_t)pos))
+			&& ft_strnchr(match, c, pos))
+		return (1);
+	else
+		while (*match != '-' && *++til != '*')
+			if (c >= *match++ && c <= *til)
+				return (1);
+	return (0);
+	
+}
+
+static int	check_char(const char **str, const char **match, int mode)
+{
+	int	pos;
+
+	if (mode)
+	{
+		pos = ft_strchr_pos(*match, '*');
+		if (!check_chari(**str, *match))
+		{
+			*match += pos + 1;
+			return (0);
+		}
+		while (check_chari(**str, *match) && **str != *(*match + pos + 1))
+			++(*str);
+		*match += pos + 1;
+	}
+	else
+	{
+		if (**str != **match)
+			return (0);
+		++(*str);
+		++(*match);
+	}
 	return (1);
 }
 
@@ -30,7 +64,7 @@ int			ft_strmatch(const char *str, const char *match)
 		{
 			if (*(match + 1) == '\\')
 			{
-				if (!check_char(&str, &match))
+				if (!check_char(&str, &match, 0))
 					return (0);
 				++match;
 				continue ;
@@ -42,102 +76,61 @@ int			ft_strmatch(const char *str, const char *match)
 			if (!*str)
 				return (0);
 		}
-		else if (!check_char(&str, &match))
+		else if (!check_char(&str, &match, 0))
 			return (0);
 	}
 	return (*str ? 0 : 1);
 }
 
-static int	check_fulli(char c, const char *match)
+static int	check_ext(const char **str, const char **match, int *lookup)
 {
-	char	*til;
-	int		pos;
-
-	pos = ft_strchr_pos(match, '*');
-	if (!(til = ft_strnchr(match, '-', (size_t)pos))
-			&& ft_strnchr(match, c, pos))
-		return (1);
-	else
+	if (*(*match + 1) == '\\')
 	{
-		
-	}
-	return (0);
-	
-}
-
-static int	check_full(const char **str, const char **match)
-{
-	int	pos;
-
-	pos = ft_strchr_pos(*match, '*');
-	if (!check_fulli(**str, *match))
-	{
-		*match += pos + 1;
-		return (0);
-	}
-	while (check_fulli(**str, *match))
-		++(*str);
-	*match += pos + 1;
-	return (1);
-/*	char	*til;
-	int		pos;
-
-	pos = ft_strchr_pos(*match, '*');
-	if (!(til = ft_strnchr(*match, '-', (size_t)pos)))
-	{
-		ft_printf("Test: %c '%.*s'\n", **str, pos, *match);
-		if (!ft_strnchr(*match, **str, pos))
-		{
-			*match += pos + 1;
+		if (!check_char(str, match, 0))
 			return (0);
-		}
-		while (ft_strnchr(*match, **str, pos))
-			++(*str);
+		++(*match);
+		return (2);
 	}
-	*match += pos + 1;
-	return (1);*/
+	else if (*(*match + 1) == '*')
+	{
+		if (*(*match + 2) == '*')
+			*lookup = 1;
+		else if ((*match += 2))
+		{
+			if (!check_char(str, match, 1))
+				return (0);
+			return (2);
+		}
+	}
+	if (!*++(*match))
+		return (1);
+	return (3);
 }
 
 int			ft_strmatchg(const char *str, const char *match)
 {
-	int	nextlookup;
+	int	lookup;
+	int	c;
 
 	while (*match)
 	{
-		nextlookup = 0;
+		lookup = 0;
 		if (*match == '*')
 		{
-			if (*(match + 1) == '\\')
-			{
-				if (!check_char(&str, &match))
-					return (0);
-				++match;
+			if ((c = check_ext(&str, &match, &lookup)) < 2)
+				return (c);
+			else
 				continue ;
-			}
-			else if (*(match + 1) == '*')
-			{
-				if (*(match + 2) == '*')
-					nextlookup = 1;
-				else
-				{
-					match += 2;
-					if (!check_full(&str, &match))
-						return (0);
-					continue ;
-				}
-			}
-			if (!*++match)
-				return (1);
 			while (*str && *str != *match)
 			{
-				if (nextlookup && check_fulli(*str, match + 2))
+				if (lookup && check_chari(*str, match + 2))
 					break ;
 				++str;
 			}
 			if (!*str)
 				return (0);
 		}
-		else if (!check_char(&str, &match))
+		else if (!check_char(&str, &match, 0))
 			return (0);
 	}
 	return (*str ? 0 : 1);
