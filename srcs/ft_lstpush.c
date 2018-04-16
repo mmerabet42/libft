@@ -22,6 +22,18 @@ t_list	*ft_lstpush(t_list *lst, t_list *elem)
 	return (elem);
 }
 
+t_list	*ft_lstpush_p(t_list **lst, t_list *elem)
+{
+	t_list	*tmp;
+
+	if (!lst)
+		return (NULL);
+	tmp = ft_lstpush(*lst, elem);
+	if (!*lst)
+		*lst = tmp;
+	return (tmp);
+}
+
 void	ft_lstpushfront(t_list **alst, t_list *elem)
 {
 	t_list	*lst_end;

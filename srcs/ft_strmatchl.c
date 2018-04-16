@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdup.c                                        :+:      :+:    :+:   */
+/*   ft_strmatchl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 15:42:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 15:33:13 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/04/16 16:09:42 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/04/16 16:09:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_str.h"
 
-void	*ft_memdup(const void *s, size_t n)
+int			ft_strmatchl(const char *str, const char *match)
 {
-	void	*mem;
+	char	*strl;
+	int		ret;
 
-	if (s && (mem = malloc(n)))
-		return (ft_memcpy(mem, s, n));
-	return (NULL);
-}
-
-int		ft_memdel(void **ap)
-{
-	if (ap && *ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
-	return (1);
+	if (!str || !match || !(strl = ft_strdupli(str)))
+		return (0);
+	ret = ft_strmatch(strl, match);
+	free(strl);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/05 15:57:58 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:59:55 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_pair
 size_t				ft_strlen(const char *s);
 size_t				ft_strlenl(const char *s);
 size_t				ft_strlenk(const char *s);
+size_t				ft_strlenli(const char *s);
 
 char				*ft_strdup(const char *s);
 char				*ft_strndup(const char *s, size_t n);
@@ -34,6 +35,8 @@ char				*ft_strdupl(const char *s);
 char				*ft_strndupl(const char *s, size_t n);
 char				*ft_strdupk(const char *s);
 char				*ft_strndupk(const char *s, size_t n);
+char				*ft_strdupli(const char *s);
+char				*ft_strndupli(const char *s, size_t n);
 
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
@@ -44,6 +47,8 @@ char				*ft_strncat(char *a, const char *b, size_t n);
 size_t				ft_strlcat(char *a, const char *b, size_t n);
 
 char				*ft_strchr(const char *s, int c);
+char				*ft_strchrl(const char *s, int c);
+char				*ft_strchrln(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *a, const char *b);
 char				*ft_strnstr(const char *a, const char *b, size_t n);
@@ -53,8 +58,12 @@ int					ft_strnrpbrk_pos(const char *s,
 								const char *charset,
 								size_t n);
 int					ft_strpbrkl_pos(const char *s, const char *charset);
+char				*ft_strpbrkl(const char *s, const char *charset);
 int					ft_strpbrkstr_len(const char *a, const char *strset);
 int					ft_strpbrkstrl_len(const char *a, const char *strset);
+int					ft_strpbrkstr_pos(const char *a, const char *strset);
+int					ft_strpbrkstrl_pos(const char *a, const char *strset);
+int					ft_strequbeg(const char *a, const char *b);
 
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);
@@ -63,11 +72,16 @@ int					ft_strequl(const char *a, const char *b);
 int					ft_strnequl(const char *a, const char *b, size_t n);
 
 char				*ft_strnchr(const char *s, int c, size_t n);
+char				*ft_strnchrl(const char *s, int c, size_t n);
+char				*ft_strnchrln(const char *s, int c, size_t n);
+int					ft_strnchrl_pos(const char *s, int c, size_t n);
+int					ft_strnchrln_pos(const char *s, int c, size_t n);
 char				*ft_strnrchr(const char *s, int c, size_t n);
 int					ft_strnrchr_pos(const char *s, int c, size_t n);
 char				*ft_strrstr(const char *a, const char *b);
 char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
+int					ft_strchrl_pos(const char *a, int b);
 int					ft_strstr_pos(const char *a, const char *b);
 
 char				*ft_strrepeat(const char *s, int n);
@@ -114,8 +128,22 @@ char				*ft_strbefore(const char *s, char a);
 char				*ft_strbetween(const char *s, char a, char b);
 char				*ft_strbetweenl(const char *s, char a, char b);
 
+typedef struct		s_mchi
+{
+	char			*str;
+	int				type;
+	int				len;
+	int				t;
+	int				whatever;
+	struct s_mchi	*next;
+}					t_mchi;
+
+extern int			g_iread;
+
+int					ft_strmatch_old(const char *str, const char *match);
 int					ft_strmatch(const char *str, const char *match);
-int					ft_strmatchg(const char *str, const char *match);
+int					ft_strmatchl(const char *str, const char *match);
+int					ft_strtks(const char *str, t_mchi *tks);
 
 int					ft_wcharlen(wchar_t wc);
 char				*ft_getwchar(wchar_t wc);

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:31:55 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/04 18:43:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:04:00 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	ft_lstdelv(t_list **alst, void (*del)(void *, size_t))
 		ft_lstdelv(&nxt, del);
 }
 
-void	ft_lstdelv_d(t_list **alst, void (*del)(void *, size_t, void *),
-		void *data)
+void	ft_lstdelv_d(t_list **alst, t_delfunc_d del, void *data)
 {
 	t_list	*nxt;
 
@@ -64,4 +63,3 @@ void	ft_lstdelv_d(t_list **alst, void (*del)(void *, size_t, void *),
 	if (nxt)
 		ft_lstdelv_d(&nxt, del, data);
 }
-

@@ -56,6 +56,29 @@ size_t		ft_strlenl(const char *s)
 	return (i);
 }
 
+size_t		ft_strlenli(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		if (*s == '\\')
+		{
+			if (*++s)
+				++s;
+		}
+		else
+		{
+			++i;
+			++s;
+		}
+	}
+	return (i);
+}
+
 static int	checkescseq(const char **s)
 {
 	int	j;

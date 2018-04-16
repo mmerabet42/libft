@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:02:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/05 21:31:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:55:56 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,29 @@ static int	check_chari(char c, const char *match)
 {
 	char	*til;
 	int		pos;
+	int		pos1;
 
-	pos = ft_strchr_pos(match, '*');
-	if (!(til = ft_strnchr(match, '-', (size_t)pos))
-			&& ft_strnchr(match, c, pos))
-		return (1);
-	else
-		while (*match != '-' && *++til != '*')
-			if (c >= *match++ && c <= *til)
+	pos = ft_strpbrkl_pos(match, "]");
+	if ((pos1 = ft_strnchrl_pos(match, '-', (size_t)pos)) == -1)
+	{
+		til = ft_strndupl(match, pos);
+		pos = ft_strchr_pos(til, c);
+		free(til);
+		return (pos == -1 ? 0 : 1);
+	}
+	else if ((til = (char *)&match[pos1 + 1]))
+	{
+		while (++pos1 < pos)
+		{
+			match += (*match == '\\' && ++pos1 ? 1 : 0);
+			til += (*til == '\\' ? 1 : 0);
+			if (c >= *match && c <= *til)
 				return (1);
+			++match;
+			++til;
+		}
+	}
 	return (0);
-	
 }
 
 static int	check_char(const char **str, const char **match, int mode)
@@ -36,7 +48,7 @@ static int	check_char(const char **str, const char **match, int mode)
 
 	if (mode)
 	{
-		pos = ft_strchr_pos(*match, '*');
+		pos = ft_strpbrkl_pos(*match, "]");
 		if (!check_chari(**str, *match))
 		{
 			*match += pos + 1;
@@ -48,7 +60,7 @@ static int	check_char(const char **str, const char **match, int mode)
 	}
 	else
 	{
-		if (**str != **match)
+		if (((**match == '\\' && ++(*match)) || **match) && **str != **match)
 			return (0);
 		++(*str);
 		++(*match);
@@ -56,58 +68,36 @@ static int	check_char(const char **str, const char **match, int mode)
 	return (1);
 }
 
-int			ft_strmatch(const char *str, const char *match)
-{
-	while (*match)
-	{
-		if (*match == '*')
-		{
-			if (*(match + 1) == '\\')
-			{
-				if (!check_char(&str, &match, 0))
-					return (0);
-				++match;
-				continue ;
-			}
-			if (!*++match)
-				return (1);
-			while (*str && *str != *match)
-				++str;
-			if (!*str)
-				return (0);
-		}
-		else if (!check_char(&str, &match, 0))
-			return (0);
-	}
-	return (*str ? 0 : 1);
-}
-
 static int	check_ext(const char **str, const char **match, int *lookup)
 {
-	if (*(*match + 1) == '\\')
+	if (*(*match + 1) == '[')
 	{
-		if (!check_char(str, match, 0))
+		*match += 2;
+		if (!check_char(str, match, 1))
 			return (0);
-		++(*match);
 		return (2);
 	}
-	else if (*(*match + 1) == '*')
-	{
-		if (*(*match + 2) == '*')
-			*lookup = 1;
-		else if ((*match += 2))
-		{
-			if (!check_char(str, match, 1))
-				return (0);
-			return (2);
-		}
-	}
+	else if (*(*match + 1) == '*' && *(*match + 2) == '[')
+		*lookup = 1;
+	else if (*(*match + 1) == '\\')
+		++(*match);
 	if (!*++(*match))
 		return (1);
 	return (3);
 }
 
-int			ft_strmatchg(const char *str, const char *match)
+static int	fakefunc(const char **str, const char *match)
+{
+	while (**str && **str != *match)
+	{
+		if (lookup && check_chari(**str, match + 2))
+			return (0);
+		++(*str);
+	}
+	return (1);
+}
+
+int			ft_strmatch_old(const char *str, const char *match)
 {
 	int	lookup;
 	int	c;
@@ -115,22 +105,20 @@ int			ft_strmatchg(const char *str, const char *match)
 	while (*match)
 	{
 		lookup = 0;
-		if (*match == '*')
+		if (*match == '\\' && !check_char(&str, &match, 0))
+			return (0);
+		else if (*match == '*')
 		{
 			if ((c = check_ext(&str, &match, &lookup)) < 2)
 				return (c);
-			else
+			else if (c == 2)
 				continue ;
-			while (*str && *str != *match)
-			{
-				if (lookup && check_chari(*str, match + 2))
-					break ;
-				++str;
-			}
+			if (!fakefunc(&str, match))
+				break ;
 			if (!*str)
 				return (0);
 		}
-		else if (!check_char(&str, &match, 0))
+		else if (*match != '\\' && !check_char(&str, &match, 0))
 			return (0);
 	}
 	return (*str ? 0 : 1);
