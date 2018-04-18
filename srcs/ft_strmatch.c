@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 16:02:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 21:55:56 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/18 14:27:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	check_ext(const char **str, const char **match, int *lookup)
 	return (3);
 }
 
-static int	fakefunc(const char **str, const char *match)
+static int	fakefunc(const char **str, const char *match, int lookup)
 {
 	while (**str && **str != *match)
 	{
@@ -113,7 +113,7 @@ int			ft_strmatch_old(const char *str, const char *match)
 				return (c);
 			else if (c == 2)
 				continue ;
-			if (!fakefunc(&str, match))
+			if (!fakefunc(&str, match, lookup))
 				break ;
 			if (!*str)
 				return (0);

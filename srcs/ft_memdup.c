@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:42:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 15:33:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/04/18 17:37:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memdup(const void *s, size_t n)
 
 	if (s && (mem = malloc(n)))
 		return (ft_memcpy(mem, s, n));
-	return (NULL);
+	return (ft_memalloc(n));
 }
 
 int		ft_memdel(void **ap)
