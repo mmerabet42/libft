@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:03 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 15:33:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/19 18:38:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ int					ft_memstr_pos(const void *a,
 int					ft_memcmp(const void *a, const void *b, size_t n);
 int					ft_memccmp(const void *a, const void *b, int c, size_t n);
 void				*ft_memalloc(size_t size);
-int					ft_memdel(void **ap);
+void				**ft_memdel(void **ap);
 void				*ft_memjoin(const void *a,
 							size_t an,
 							const void *b,
 							size_t bn);
 void				*ft_memjoin_clr(void *a,
+							size_t an,
+							void *b,
+							size_t bn);
+void				*ft_memjoin_clr1(void *a,
 							size_t an,
 							void *b,
 							size_t bn);

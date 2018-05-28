@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 17:35:02 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 21:59:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/22 20:44:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int		getlen(const char *s, int t, t_mchi *mchi)
 			mchi->t = (s[t + 1] == '<' ? 2 : 3);
 		else if (s[t + 1] == '=')
 			mchi->t = 1;
+		else if (s[t + 1] == 'b')
+			mchi->type = 3;
 		else
 		{
 			mchi->len = (ft_isdigit(s[t + 1]) ? (int)ft_atoui(&s[t + 1]) : -1);
@@ -64,19 +66,6 @@ static t_mchi	*newmchi(const char **s, int len, int t)
 	return (mchi);
 }
 
-static void		freemchi(t_mchi *head)
-{
-	t_mchi	*tmp;
-
-	while (head)
-	{
-		tmp = head->next;
-		ft_memdel((void **)&head->str);
-		ft_memdel((void **)&head);
-		head = tmp;
-	}
-}
-
 static t_mchi	*addmchi(t_mchi **head, t_mchi *nw)
 {
 	t_mchi	*tail;
@@ -89,14 +78,13 @@ static t_mchi	*addmchi(t_mchi **head, t_mchi *nw)
 	return (tail->next = nw);
 }
 
-int				ft_strmatch(const char *str, const char *match)
+t_mchi			*ft_getmchi(const char *match)
 {
 	t_mchi	*head;
 	int		pos;
 	int		len;
 
 	head = NULL;
-	(void)str;
 	while (*match)
 	{
 		if ((pos = ft_strpbrkl_pos(match, "*")) == -1)
@@ -110,7 +98,18 @@ int				ft_strmatch(const char *str, const char *match)
 		else
 			match += len;
 	}
-	pos = ft_strtks(str, head);
-	freemchi(head);
-	return (pos);
+	return (head);
+}
+
+void			ft_delmchi(t_mchi *head)
+{
+	t_mchi	*tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		ft_memdel((void **)&head->str);
+		ft_memdel((void **)&head);
+		head = tmp;
+	}
 }

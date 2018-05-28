@@ -6,13 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 14:38:37 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/19 20:39:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/18 14:45:50 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_types.h"
 #include "ft_str.h"
 #include "ft_math.h"
+#include "ft_printf.h"
 
 int		ft_intlen(int n)
 {
@@ -32,7 +33,7 @@ char	*ft_itoa(int n)
 
 	isneg = (n < 0) ? 1 : 0;
 	i = ft_intlen(n);
-	if ((str = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
+	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	str[i] = '\0';
 	while (i > 0)

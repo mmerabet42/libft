@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 23:02:14 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/15 16:36:05 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/04 22:04:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_fd	*get_fd(t_list **lst, int fd)
 		if (*lst == NULL)
 			*lst = lst_fd;
 	}
-	return ((t_fd *)lst_fd->content);
+	return (lst_fd ? (t_fd *)lst_fd->content : NULL);
 }
 
 static int	inner_get_next_delim(t_fd *fd, char **l, const char *delim, int n)

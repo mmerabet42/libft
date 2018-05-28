@@ -21,12 +21,12 @@ void	*ft_memdup(const void *s, size_t n)
 	return (ft_memalloc(n));
 }
 
-int		ft_memdel(void **ap)
+void	**ft_memdel(void **ap)
 {
 	if (ap && *ap)
 	{
 		free(*ap);
 		*ap = NULL;
 	}
-	return (1);
+	return (ap);
 }

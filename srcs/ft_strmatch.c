@@ -1,125 +1,118 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmatch.c                                      :+:      :+:    :+:   */
+/*   ft_strmatchl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/11 16:02:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/18 14:27:26 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/04/16 16:09:42 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/05/14 18:42:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
-#include "ft_printf.h"
+#include "ft_mem.h"
 
-static int	check_chari(char c, const char *match)
+int	ft_strmatchl(const char *str, const char *match)
 {
-	char	*til;
-	int		pos;
-	int		pos1;
+	char	*strl;
+	int		ret;
+	int		i;
 
-	pos = ft_strpbrkl_pos(match, "]");
-	if ((pos1 = ft_strnchrl_pos(match, '-', (size_t)pos)) == -1)
+	if (!str || !match || !(strl = ft_strdupli(str)))
+		return (0);
+	ret = ft_strmatch(strl, match);
+	if (ret)
 	{
-		til = ft_strndupl(match, pos);
-		pos = ft_strchr_pos(til, c);
-		free(til);
-		return (pos == -1 ? 0 : 1);
-	}
-	else if ((til = (char *)&match[pos1 + 1]))
-	{
-		while (++pos1 < pos)
+		i = 0;
+		while (i < g_iread)
 		{
-			match += (*match == '\\' && ++pos1 ? 1 : 0);
-			til += (*til == '\\' ? 1 : 0);
-			if (c >= *match && c <= *til)
-				return (1);
-			++match;
-			++til;
+			if (str[i] == '\\')
+			{
+				if (str[++i])
+					++g_iread;
+				++g_iread;
+			}
+			++i;
 		}
+	}
+	free(strl);
+	return (ret);
+}
+
+int	ft_strnmatchl(const char *str, const char *match, int n)
+{
+	char	*strl;
+	int		ret;
+	int		i;
+
+	if (!str || !match || !(strl = ft_strdupli(str)))
+		return (0);
+	ret = ft_strnmatch(strl, match, n);
+	if (ret)
+	{
+		i = 0;
+		while (i < g_iread)
+		{
+			if (str[i] == '\\')
+			{
+				if (str[++i])
+					++g_iread;
+				++g_iread;
+			}
+			++i;
+		}
+	}
+	free(strl);
+	return (ret);
+}
+
+int	ft_strmatch(const char *str, const char *match)
+{
+	int		ret;
+	t_mchi	*head;
+
+	if (!str || !match || !(head = ft_getmchi(match)))
+		return (0);
+	ret = ft_strtks(str, head);
+	ft_delmchi(head);
+	return (ret);
+}
+
+int	ft_strnmatch(const char *str, const char *match, int n)
+{
+	int		ret;
+	t_mchi	*head;
+
+	if (!str || !match || !(head = ft_getmchi(match)))
+		return (0);
+	ret = ft_strntks(str, head, n);
+	ft_delmchi(head);
+	return (ret);
+}
+
+int	ft_strmatch_x(const char *a, const char *strset)
+{
+	int		pos;
+	int		len;
+	char	*tmp;
+
+	if (!strset || !a)
+		return (0);
+	while (*strset)
+	{
+		if (!(pos = ft_strchrl_pos(strset, ':')))
+		{
+			++strset;
+			continue ;
+		}
+		len = (pos == -1 ? (int)ft_strlen(strset) : pos);
+		if (!(tmp = ft_strndup(strset, len)))
+			return (0);
+		if (ft_strmatch(a, tmp) && ft_memdel((void **)&tmp))
+			return (g_iread);
+		ft_memdel((void **)&tmp);
+		strset += (pos == -1 ? ft_strlen(strset) : (size_t)(pos + 1));
 	}
 	return (0);
-}
-
-static int	check_char(const char **str, const char **match, int mode)
-{
-	int	pos;
-
-	if (mode)
-	{
-		pos = ft_strpbrkl_pos(*match, "]");
-		if (!check_chari(**str, *match))
-		{
-			*match += pos + 1;
-			return (0);
-		}
-		while (check_chari(**str, *match) && **str != *(*match + pos + 1))
-			++(*str);
-		*match += pos + 1;
-	}
-	else
-	{
-		if (((**match == '\\' && ++(*match)) || **match) && **str != **match)
-			return (0);
-		++(*str);
-		++(*match);
-	}
-	return (1);
-}
-
-static int	check_ext(const char **str, const char **match, int *lookup)
-{
-	if (*(*match + 1) == '[')
-	{
-		*match += 2;
-		if (!check_char(str, match, 1))
-			return (0);
-		return (2);
-	}
-	else if (*(*match + 1) == '*' && *(*match + 2) == '[')
-		*lookup = 1;
-	else if (*(*match + 1) == '\\')
-		++(*match);
-	if (!*++(*match))
-		return (1);
-	return (3);
-}
-
-static int	fakefunc(const char **str, const char *match, int lookup)
-{
-	while (**str && **str != *match)
-	{
-		if (lookup && check_chari(**str, match + 2))
-			return (0);
-		++(*str);
-	}
-	return (1);
-}
-
-int			ft_strmatch_old(const char *str, const char *match)
-{
-	int	lookup;
-	int	c;
-
-	while (*match)
-	{
-		lookup = 0;
-		if (*match == '\\' && !check_char(&str, &match, 0))
-			return (0);
-		else if (*match == '*')
-		{
-			if ((c = check_ext(&str, &match, &lookup)) < 2)
-				return (c);
-			else if (c == 2)
-				continue ;
-			if (!fakefunc(&str, match, lookup))
-				break ;
-			if (!*str)
-				return (0);
-		}
-		else if (*match != '\\' && !check_char(&str, &match, 0))
-			return (0);
-	}
-	return (*str ? 0 : 1);
 }

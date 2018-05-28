@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 20:56:04 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/02/14 23:29:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/04 16:46:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*handler_s(va_list lst, t_printf_params params)
 		return (handler_s_m(lst, params));
 	gs = (char *)va_arg(lst, char *);
 	if (!gs)
-		gs = "(null)";
+		gs = (params.flags[J_MOD] ? "" : "(null)");
 	if (params.precision_spec && params.precision == 0)
 		return (ft_strnew(0));
 	slen = ft_strlen(gs);
@@ -57,6 +57,8 @@ char		*handler_s_m(va_list lst, t_printf_params params)
 	if (!(gs = get_proper_gs(ws, &params)) && ws)
 		return (NULL);
 	str = (gs ? gs : "(null)");
+	if (!gs && params.flags[J_MOD])
+		str = "";
 	slen = ft_strlen(str);
 	if (params.precision_spec && params.precision < slen)
 		slen = params.precision;

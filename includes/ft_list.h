@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 22:05:17 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:08:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ typedef int	(*t_cmpfunc)(const void *, const void *, size_t);
 
 # endif
 
+# ifndef FT_DELFUNC_T
+#  define FT_DELFUNC_T
+
+typedef void	(*t_delfunc)(void *, size_t);
 typedef void	(*t_delfunc_d)(void *, size_t, void *);
+
+# endif
 
 /*
 ** A linked list node.
@@ -47,13 +53,11 @@ t_list				*ft_strsplitstr_lst(const char *s, const char *sep);
 
 t_list				*ft_lstnew(const void *content, size_t content_size);
 t_list				*ft_lstcreate(void *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelone(t_list **alst, t_delfunc del);
 void				ft_lstdelone_d(t_list **alst, t_delfunc_d del, void *data);
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel_d(t_list **alst,
-							void (*del)(void *, size_t, void *),
-							void *data);
-void				ft_lstdelv(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, t_delfunc del);
+void				ft_lstdel_d(t_list **alst, t_delfunc_d del, void *data);
+void				ft_lstdelv(t_list **alst, t_delfunc del);
 void				ft_lstdelv_d(t_list **alst, t_delfunc_d del, void *data);
 
 /*

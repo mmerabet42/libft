@@ -6,14 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 18:43:57 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/18 14:11:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/18 17:33:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 #include "ft_mem.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstdel(t_list **alst, t_delfunc del)
 {
 	t_list	*nxt;
 
@@ -43,7 +43,7 @@ void	ft_lstdelone_d(t_list **alst, t_delfunc_d del, void *data)
 	}
 }
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstdelone(t_list **alst, t_delfunc del)
 {
 	if (alst && *alst)
 	{

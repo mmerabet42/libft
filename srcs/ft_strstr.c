@@ -84,3 +84,26 @@ int		ft_strstr_pos(const char *a, const char *b)
 	}
 	return (-1);
 }
+
+int		ft_strstrl_pos(const char *a, const char *b)
+{
+	int		pos;
+	size_t	j;
+
+	if (!a || !b)
+		return (-1);
+	pos = 0;
+	while (a[pos])
+	{
+		if (a[pos] == '\\' && ++pos)
+			if (!a[pos++])
+				return (-1);
+		j = 0;
+		while (b[j] && a[pos + j] && (b[j] == a[pos + j]))
+			++j;
+		if (b[j] == '\0')
+			return (pos);
+		++pos;
+	}
+	return (-1);
+}

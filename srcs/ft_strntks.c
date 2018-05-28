@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtks.c                                        :+:      :+:    :+:   */
+/*   ft_strntks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/16 21:27:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/05/24 20:59:40 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/04/30 18:40:49 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/05/28 16:13:22 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 #include "ft_mem.h"
+#include "ft_printf.h"
 
 int				g_iread;
 
-static int		ckmi(const char *str, t_mchi *mchi)
+static int		checkmchi(const char *str, t_mchi *mchi)
 {
 	int		i;
 	int		pos;
@@ -36,21 +37,23 @@ static int		ckmi(const char *str, t_mchi *mchi)
 				return (1);
 		}
 	}
-	else if (mchi->type == 3 && checkwild3(&str, mchi, NULL, 0) == 1)
-		return (1);
 	return (0);
 }
 
-static int		checkwild1(const char **str, t_mchi *cur, t_mchi *nxt)
+static int		checkwild1(const char **str, t_mchi *cur, t_mchi *nxt, int n)
 {
 	int	i;
 
 	i = 0;
 	while (**str && (cur->t == 1 || (cur->t == 3 && i <= cur->len)
-				|| !ckmi(*str, nxt)))
+				|| !checkmchi(*str, nxt)))
 	{
 		++i;
-		++g_iread;
+		if (n >= 0 && ++g_iread >= n)
+		{
+			return ((cur->t == 3 && i <= cur->len)
+						|| (cur->t == 1 && i < cur->len) ? -1 : 2);
+		}
 		++(*str);
 		if ((cur->t < 3 && cur->len == 0) || (cur->t == 1 && i == cur->len)
 				|| (cur->t == 2 && i == cur->len - 1))
@@ -63,19 +66,25 @@ static int		checkwild1(const char **str, t_mchi *cur, t_mchi *nxt)
 	return (0);
 }
 
-static int		checkwild2(const char **str, t_mchi *cur, t_mchi *nxt)
+static int		checkwild2(const char **str, t_mchi *cur, t_mchi *nxt, int n)
 {
 	int	i;
 
 	i = 0;
-	while (**str && ckmi(*str, cur))
+	while (**str && checkmchi(*str, cur))
 	{
-		if (((cur->t == 2 || (cur->t == 3 && i > cur->len)) && ckmi(*str, nxt))
-			|| ((cur->t < 3 && cur->len == 0) || (cur->t == 1 && i == cur->len)
-				|| (cur->t == 2 && i == cur->len - 1)))
+		if ((cur->t == 2 || (cur->t == 3 && i > cur->len))
+				&& checkmchi(*str, nxt))
+			return (1);
+		if ((cur->t < 3 && cur->len == 0) || (cur->t == 1 && i == cur->len)
+				|| (cur->t == 2 && i == cur->len - 1))
 			return (1);
 		++i;
-		++g_iread;
+		if (n >= 0 && ++g_iread >= n)
+		{
+			return ((cur->t == 3 && i <= cur->len)
+					|| (cur->t == 1 && i < cur->len) ? -1 : 2);
+		}
 		++(*str);
 	}
 	if (cur->t == 3)
@@ -85,36 +94,34 @@ static int		checkwild2(const char **str, t_mchi *cur, t_mchi *nxt)
 	return (0);
 }
 
-static int		checktype(const char **str, t_mchi *cur, t_mchi *nxt)
+static int		checktype(const char **str, t_mchi *cur, t_mchi *nxt, int n)
 {
 	int	ret;
 
 	if (cur->type == 1)
 	{
-		if ((!nxt && cur->len == -1) || (nxt && nxt->whatever))
+		if ((!nxt && cur->len == -1) || nxt->whatever)
 			return (1);
-		if ((ret = checkwild1(str, cur, nxt)) == 1)
+		if ((ret = checkwild1(str, cur, nxt, n)) == 1)
 			return (2);
-		else if (ret == -1)
-			return (0);
+		else if (ret == -1 || ret == 2)
+			return (ret == -1 ? 0 : 1);
 	}
 	else if (cur->type == 2)
 	{
-		if (!ckmi((*str), cur))
+		if (!checkmchi((*str), cur))
 			return (0);
-		if ((ret = checkwild2(str, cur, nxt)) == 1)
+		if ((ret = checkwild2(str, cur, nxt, n)) == 1)
 			return (2);
-		else if (ret == -1)
-			return (0);
+		else if (ret == -1 || ret == 2)
+			return (ret == -1 ? 0 : 1);
 	}
-	else if (cur->type == 3 && (ret = checkwild3(str, cur, nxt, 1)))
-		return (ret == -1 ? 0 : 2);
 	if (!*str && nxt && nxt->type == 1 && nxt->len == -1)
 		return (1);
 	return (2);
 }
 
-int				ft_strtks(const char *str, t_mchi *mchi)
+int				ft_strntks(const char *str, t_mchi *mchi, int n)
 {
 	int		len;
 
@@ -123,13 +130,16 @@ int				ft_strtks(const char *str, t_mchi *mchi)
 	{
 		if (mchi->type == 0)
 		{
-			len = ft_strlen(mchi->str);
+			if ((len = ft_strlen(mchi->str)) > n - g_iread)
+				len = n - g_iread;
 			if (!ft_strnequ(str, mchi->str, len))
 				return (0);
 			str += len;
 			g_iread += len;
+			if (n >= 0 && g_iread >= n && (g_iread = n))
+				return (1);
 		}
-		else if ((len = checktype(&str, mchi, mchi->next)) != 2)
+		else if ((len = checktype(&str, mchi, mchi->next, n)) != 2)
 			return (len);
 		mchi = mchi->next;
 	}

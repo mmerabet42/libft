@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:43:23 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/19 18:04:14 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/18 17:27:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 #  define FT_CMPFUNC_T
 
 typedef int		(*t_cmpfunc)(const void *, const void *, size_t);
+
+# endif
+
+# ifndef FT_DELFUNC_T
+#  define FT_DELFUNC_T
+
+typedef void	(*t_delfunc)(void *, size_t);
+typedef void	(*t_delfunc_d)(void *, size_t, void *);
 
 # endif
 
@@ -54,8 +62,8 @@ typedef struct		s_ptrpos
 
 t_btree				*ft_btree_new(const void *content, size_t content_size);
 t_btree				*ft_btree_create(void *content, size_t content_size);
-void				ft_btree_delone(t_btree **abt, void (*del)(void *, size_t));
-void				ft_btree_del(t_btree **abt, void (*del)(void *, size_t));
+void				ft_btree_delone(t_btree **abt, t_delfunc del);
+void				ft_btree_del(t_btree **abt, t_delfunc del);
 
 /*
 ** Binary tree insertions and removals.
@@ -318,5 +326,6 @@ void				ft_btree_dumpf(t_btree *bt, void (*f)(t_btree *));
 
 t_btree				*ft_btree_move(t_btree *bt, t_btree *elem);
 t_btree				*ft_btree_disconnect(t_btree *bt);
+t_btree				*ft_btree_connect(t_btree *a, t_btree *b, int lr);
 
 #endif

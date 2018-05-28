@@ -6,11 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:05:05 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/03/09 17:05:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/02 21:10:48 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
+#include "ft_types.h"
+#include "ft_mem.h"
 
 char	*ft_strbetweenl(const char *s, char a, char b)
 {

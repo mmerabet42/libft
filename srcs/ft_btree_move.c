@@ -72,3 +72,15 @@ t_btree			*ft_btree_disconnect(t_btree *bt)
 	bt->parent = NULL;
 	return (bt);
 }
+
+t_btree			*ft_btree_connect(t_btree *a, t_btree *b, int lr)
+{
+	if (!a || !b || !lr)
+		return (NULL);
+	if (lr < 0)
+		a->left = b;
+	else if (lr > 0)
+		a->right = b;
+	b->parent = a;
+	return (a);
+}

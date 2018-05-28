@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:42:15 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/16 21:59:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/24 21:01:37 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,33 @@ int					ft_strnrpbrk_pos(const char *s,
 								size_t n);
 int					ft_strpbrkl_pos(const char *s, const char *charset);
 char				*ft_strpbrkl(const char *s, const char *charset);
+int					ft_strnpbrkl_pos(const char *s,
+								const char *charset,
+								size_t n);
+char				*ft_strnpbrkl(const char *s,
+								const char *charset,
+								size_t n);
 int					ft_strpbrkstr_len(const char *a, const char *strset);
 int					ft_strpbrkstrl_len(const char *a, const char *strset);
 int					ft_strpbrkstr_pos(const char *a, const char *strset);
 int					ft_strpbrkstrl_pos(const char *a, const char *strset);
+int					ft_strnpbrkstr_len(const char *a, const char *strset,
+									int n);
+int					ft_strnpbrkstrl_len(const char *a, const char *strset,
+									int n);
+int					ft_strnpbrkstr_pos(const char *a, const char *strset,
+									int n);
+int					ft_strnpbrkstrl_pos(const char *a, const char *strset,
+									int n);
 int					ft_strequbeg(const char *a, const char *b);
 
 int					ft_strcmp(const char *a, const char *b);
 int					ft_strncmp(const char *a, const char *b, size_t n);
 
+int					ft_strequ(const char *a, const char *b);
 int					ft_strequl(const char *a, const char *b);
 int					ft_strnequl(const char *a, const char *b, size_t n);
+int					ft_strequ_x(const char *a, const char *strset);
 
 char				*ft_strnchr(const char *s, int c, size_t n);
 char				*ft_strnchrl(const char *s, int c, size_t n);
@@ -78,11 +94,13 @@ int					ft_strnchrl_pos(const char *s, int c, size_t n);
 int					ft_strnchrln_pos(const char *s, int c, size_t n);
 char				*ft_strnrchr(const char *s, int c, size_t n);
 int					ft_strnrchr_pos(const char *s, int c, size_t n);
+int					ft_strrchr_pos(const char *s, int c);
 char				*ft_strrstr(const char *a, const char *b);
 char				*ft_strnrstr(const char *a, const char *b, size_t n);
 int					ft_strchr_pos(const char *a, int b);
 int					ft_strchrl_pos(const char *a, int b);
 int					ft_strstr_pos(const char *a, const char *b);
+int					ft_strstrl_pos(const char *a, const char *b);
 
 char				*ft_strrepeat(const char *s, int n);
 char				*ft_strrepeat_clr(char *s, int n);
@@ -127,6 +145,24 @@ char				*ft_strbeforestr(const char *s, const char *a);
 char				*ft_strbefore(const char *s, char a);
 char				*ft_strbetween(const char *s, char a, char b);
 char				*ft_strbetweenl(const char *s, char a, char b);
+char				*ft_strbetweenstr(const char *s,
+									const char *a,
+									const char *b);
+int					ft_strbetweenps(char **s, const char *a, const char *b);
+char				*ft_strbetweenstr_ext(const char *s,
+									const char *ext);
+int					ft_strbetweenps_ext(char **s, const char *ext);
+
+typedef struct		s_pairint
+{
+	char			*ext;
+	char			*a;
+	char			*b;
+	int				len;
+	int				la;
+	int				lb;
+	char			tmp;
+}					t_pairint;
 
 typedef struct		s_mchi
 {
@@ -140,10 +176,23 @@ typedef struct		s_mchi
 
 extern int			g_iread;
 
+t_mchi				*ft_getmchi(const char *match);
+void				ft_delmchi(t_mchi *head);
+
 int					ft_strmatch_old(const char *str, const char *match);
 int					ft_strmatch(const char *str, const char *match);
 int					ft_strmatchl(const char *str, const char *match);
+int					ft_strmatch_x(const char *a, const char *strset);
 int					ft_strtks(const char *str, t_mchi *tks);
+
+int					ft_strnmatch(const char *str, const char *match, int n);
+int					ft_strnmatchl(const char *str, const char *match, int n);
+int					ft_strntks(const char *str, t_mchi *tks, int n);
+
+int					checkwild3(const char **str,
+							t_mchi *cur,
+							t_mchi *nxt,
+							int n);
 
 int					ft_wcharlen(wchar_t wc);
 char				*ft_getwchar(wchar_t wc);

@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				ft_printf_parser.c ft_printf_format.c ft_init_formats.c \
@@ -36,16 +36,16 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_strlen.c ft_strrepeat.c ft_strmap.c ft_strnew.c ft_strmatch.c \
 			ft_strnrchr.c ft_strnrstr.c ft_strrep.c ft_strrepstr.c \
 			ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_swap.c \
-			ft_strpbrk.c ft_strbetween.c ft_strnrpbrk.c ft_strtks.c ft_strmatch2.c \
+			ft_strpbrk.c ft_strbetween.c ft_strnpbrk.c ft_strtks.c ft_getmchi.c \
 			ft_strforeach.c ft_swapptr.c ft_tobase.c ft_tolower.c ft_toupper.c \
 			ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_getwstr.c \
 			ft_event_new.c ft_event_add.c ft_event_trigger.c ft_event_clean.c \
-			ft_pevent_new.c ft_pevent_add.c ft_pevent_remove.c \
-			ft_pevent_trigger.c ft_pevent_clean.c ft_strchrln.c \
-			get_next_line.c ft_timefnew.c ft_strdupl.c ft_strpbrkstr.c \
+			ft_pevent_new.c ft_pevent_add.c ft_pevent_remove.c ft_strbetweenps.c \
+			ft_pevent_trigger.c ft_pevent_clean.c ft_strchrln.c ft_strmatch_old.c \
+			get_next_line.c ft_timefnew.c ft_strdupl.c ft_strpbrkstr.c ft_strnpbrkstr.c \
 			ft_mat_new.c ft_mat_dump.c ft_mat_add.c ft_mat_get.c ft_mat_mult.c \
-			ft_mat_sub.c ft_mat_div.c ft_mat_calc.c ft_mat_zero.c \
-			ft_mat_rotate.c ft_mat_transform.c ft_strmatchl.c \
+			ft_mat_sub.c ft_mat_div.c ft_mat_calc.c ft_mat_zero.c ft_strbetweenps_ext.c \
+			ft_mat_rotate.c ft_mat_transform.c ft_strmatch.c ft_strntks.c \
 			ft_vec_new.c ft_vec_dump.c ft_vec_add.c ft_vec_mult.c ft_vec_get.c \
 			ft_vec_sub.c ft_vec_div.c ft_vec_calc.c ft_vec_zero.c ft_vec_normalize.c \
 

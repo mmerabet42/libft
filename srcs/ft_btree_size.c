@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 14:25:59 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/11 16:12:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:44:14 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ size_t	ft_btree_depth(t_btree *bt)
 {
 	if (bt)
 	{
-		return (1 +
-				ft_max(ft_btree_depth(bt->left), ft_btree_depth(bt->right)));
+		return (1 + ft_max(ft_btree_depth(bt->left),
+					ft_btree_depth(bt->right)));
 	}
 	return (0);
 }

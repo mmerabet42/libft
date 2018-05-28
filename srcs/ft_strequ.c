@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 22:36:07 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/04/05 15:16:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:09:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,24 @@ int	ft_strnequl(const char *a, const char *b, size_t n)
 			return (0);
 	}
 	return (1);
+}
+
+int	ft_strequ_x(const char *a, const char *strset)
+{
+	int	pos;
+	int	len;
+
+	while (*strset)
+	{
+		if (!(pos = ft_strchrl_pos(strset, ':')))
+		{
+			++strset;
+			continue ;
+		}
+		len = (pos == -1 ? (int)ft_strlen(strset) : pos);
+		if (ft_strnequ(a, strset, len))
+			return (1);
+		strset += (pos == -1 ? ft_strlen(strset) : (size_t)(pos + 1));
+	}
+	return (0);
 }
