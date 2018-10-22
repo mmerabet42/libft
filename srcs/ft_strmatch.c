@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmatchl.c                                     :+:      :+:    :+:   */
+/*   ft_strmatch.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/16 16:09:42 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/05/14 18:42:34 by mmerabet         ###   ########.fr       */
+/*   Created: 2018/07/07 16:10:20 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/07/21 21:20:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,80 +15,22 @@
 
 int	ft_strmatchl(const char *str, const char *match)
 {
-	char	*strl;
-	int		ret;
-	int		i;
-
-	if (!str || !match || !(strl = ft_strdupli(str)))
-		return (0);
-	ret = ft_strmatch(strl, match);
-	if (ret)
-	{
-		i = 0;
-		while (i < g_iread)
-		{
-			if (str[i] == '\\')
-			{
-				if (str[++i])
-					++g_iread;
-				++g_iread;
-			}
-			++i;
-		}
-	}
-	free(strl);
-	return (ret);
+	return (ft_strmatch_opt(str, match, RGX_BKSLSH));
 }
 
 int	ft_strnmatchl(const char *str, const char *match, int n)
 {
-	char	*strl;
-	int		ret;
-	int		i;
-
-	if (!str || !match || !(strl = ft_strdupli(str)))
-		return (0);
-	ret = ft_strnmatch(strl, match, n);
-	if (ret)
-	{
-		i = 0;
-		while (i < g_iread)
-		{
-			if (str[i] == '\\')
-			{
-				if (str[++i])
-					++g_iread;
-				++g_iread;
-			}
-			++i;
-		}
-	}
-	free(strl);
-	return (ret);
+	return (ft_strnmatch_opt(str, match, n, RGX_BKSLSH));
 }
 
 int	ft_strmatch(const char *str, const char *match)
 {
-	int		ret;
-	t_mchi	*head;
-
-	if (!str || !match || !(head = ft_getmchi(match)))
-		return (0);
-	ret = ft_strtks(str, head);
-	ft_delmchi(head);
-	return (ret);
+	return (ft_strmatch_opt(str, match, 0));
 }
 
 int	ft_strnmatch(const char *str, const char *match, int n)
 {
-	int		ret;
-	t_mchi	*head;
-
-	if (!str || !match || !(head = ft_getmchi(match)))
-		return (0);
-	ret = ft_strntks(str, head, n);
-	ft_delmchi(head);
-	return (ret);
+	return (ft_strnmatch_opt(str, match, n, 0));
 }
 
 int	ft_strmatch_x(const char *a, const char *strset)

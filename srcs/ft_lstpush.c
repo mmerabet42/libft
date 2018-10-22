@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 19:08:24 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/01/19 17:43:29 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:32:32 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,22 @@ t_list	*ft_lstpush_p(t_list **lst, t_list *elem)
 	return (tmp);
 }
 
-void	ft_lstpushfront(t_list **alst, t_list *elem)
+int		ft_lstpush_pi(t_list **lst, t_list *elem)
 {
 	t_list	*lst_end;
+	int		i;
 
-	if (alst && elem)
+	if (!lst)
+		return (-1);
+	i = 0;
+	if (!(lst_end = *lst))
 	{
-		lst_end = ft_lstend(elem);
-		if ((lst_end->next = *alst))
-			(*alst)->parent = lst_end;
-		*alst = elem;
+		*lst = elem;
+		return (i);
 	}
-}
-
-void	ft_lstadd(t_list **alst, t_list *elem)
-{
-	if (alst && elem)
-	{
-		if ((elem->next = *alst))
-			(*alst)->parent = elem;
-		*alst = elem;
-	}
+	while (++i && lst_end->next)
+		lst_end = lst_end->next;
+	if ((lst_end->next = elem))
+		elem->parent = lst_end;
+	return (i);
 }

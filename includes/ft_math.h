@@ -66,6 +66,8 @@ int					ft_abs(int n);
 float				ft_fabs(float n);
 
 int					ft_pow(int x, int y);
+long long			ft_powl(long long x, long long y);
+double				ft_dpow(double x, int y);
 int					ft_sqrt(int n);
 
 int					ft_max(int a, int b);

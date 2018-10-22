@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 13:58:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/20 21:44:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/09/12 21:53:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ t_btree	*ft_btree_searchf(t_btree *bt,
 {
 	int	cmp_n;
 
-	if (!bt)
+	if (!cmp)
 		return (NULL);
-	cmp_n = cmp(bt->content, content, content_size);
-	if (cmp_n == 0)
-		return (bt);
-	bt = (cmp_n < 0 ? bt->right : bt->left);
-	return (ft_btree_searchf(bt, content, content_size, cmp));
-}
-
-t_btree	*ft_btree_search(t_btree *bt, const void *content, size_t content_size)
-{
-	return (ft_btree_searchf(bt, content, content_size, ft_memcmp));
+	while (bt)
+	{
+		cmp_n = cmp(bt->content, content, content_size);
+		if (cmp_n == 0)
+			return (bt);
+		bt = (cmp_n < 0 ? bt->right : bt->left);
+	}
+	return (bt);
 }
 
 t_btree	*ft_btree_searchm(t_btree *bt,
@@ -43,8 +41,17 @@ t_btree	*ft_btree_searchm(t_btree *bt,
 
 	if (!bt)
 		return (NULL);
-	if ((cmp_n = ft_memcmp(bt->content + pstart, content + pstart, plen)) == 0)
-		return (bt);
-	bt = (cmp_n < 0 ? bt->right : bt->left);
-	return (ft_btree_searchm(bt, content, pstart, plen));
+	while (bt)
+	{
+		cmp_n = ft_memcmp(bt->content + pstart, content + pstart, plen);
+		if (!cmp_n)
+			return (bt);
+		bt = (cmp_n < 0 ? bt->right : bt->left);
+	}
+	return (bt);
+}
+
+t_btree	*ft_btree_search(t_btree *bt, const void *content, size_t content_size)
+{
+	return (ft_btree_searchf(bt, content, content_size, ft_memcmp));
 }

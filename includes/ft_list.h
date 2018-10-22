@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:39:12 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/05/28 16:08:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:39:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # ifndef FT_CMPFUNC_T
 #  define FT_CMPFUNC_T
 
-typedef int	(*t_cmpfunc)(const void *, const void *, size_t);
+typedef int			(*t_cmpfunc)(const void *, const void *, size_t);
 
 # endif
 
 # ifndef FT_DELFUNC_T
 #  define FT_DELFUNC_T
 
-typedef void	(*t_delfunc)(void *, size_t);
-typedef void	(*t_delfunc_d)(void *, size_t, void *);
+typedef void		(*t_delfunc)(void *, size_t);
+typedef void		(*t_delfunc_d)(void *, size_t, void *);
+
+void				content_delfunc(void *a, size_t b);
 
 # endif
 
@@ -43,6 +45,7 @@ typedef struct		s_list
 }					t_list;
 
 t_list				*ft_strsplit_lst(const char *s, char sep);
+t_list				*ft_strsplitpbrk_lst(const char *s, const char *seps);
 t_list				*ft_strsplitstr_lst(const char *s, const char *sep);
 
 /*
@@ -79,7 +82,10 @@ t_list				*ft_lstmap_d(t_list *lst,
 							void *data);
 t_list				*ft_lstpush(t_list *lst, t_list *elem);
 t_list				*ft_lstpush_p(t_list **lst, t_list *elem);
+int					ft_lstpush_pi(t_list **lst, t_list *elem);
 void				ft_lstpushfront(t_list **alst, t_list *elem);
+t_list				*ft_lstinsert(t_list **alst, t_list *elem, int invert);
+t_list				*ft_lstconnect(t_list *a, t_list *b);
 
 t_list				*ft_lsterase(t_list **alst,
 							const void *content,
@@ -92,6 +98,7 @@ t_list				*ft_lsterasem(t_list **alst,
 							const void *content,
 							size_t pstart,
 							size_t plen);
+t_list				*ft_lstextract(t_list **alst, t_list *node);
 
 /*
 ** Return a linked list storing all removed nodes containing 'content' from the

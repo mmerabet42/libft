@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 14:19:51 by mmerabet          #+#    #+#             */
-/*   Updated: 2017/12/21 16:20:01 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/09/12 21:48:06 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_btree	*ft_btree_left(t_btree *bt)
 {
-	if (bt && bt->left)
-		return (ft_btree_left(bt->left));
+	while (bt && bt->left)
+		bt = bt->left;
 	return (bt);
 }
 

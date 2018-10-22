@@ -12,7 +12,7 @@
 
 #include "ft_str.h"
 
-int	ft_strforeach(const char *s, int (*f)(char))
+int	ft_strforeach(const char *s, int (*f)(int))
 {
 	if (!s || !f)
 		return (0);
