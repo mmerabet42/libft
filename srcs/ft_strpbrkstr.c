@@ -28,7 +28,7 @@ int	ft_strpbrkstr_len(const char *a, const char *strset)
 		if (!(pos = ft_strchrl_pos(strset, ':')) && ++strset)
 			continue ;
 		len = (pos == -1 ? (int)ft_strlen(strset) : pos);
-		if (ft_strnmatch_opt(a, strset, len, RGX_END | RGX_N))
+		if (ft_strnmatch_opt(a, strset, len, RGX_NEND | RGX_N))
 		{
 			if (curs[1] == g_explicitlev)
 				curs[0] = ft_min(g_iread, curs[0]);
@@ -56,7 +56,7 @@ int	ft_strpbrkstrl_len(const char *a, const char *strset)
 		if (!(pos = ft_strchrl_pos(strset, ':')) && ++strset)
 			continue ;
 		len = (pos == -1 ? (int)ft_strlen(strset) : pos);
-		if (ft_strnmatch_opt(a, strset, len, RGX_END | RGX_N | RGX_BKSLSH))
+		if (ft_strnmatch_opt(a, strset, len, RGX_NEND | RGX_N | RGX_BKSLSH))
 		{
 			if (curs[1] == g_explicitlev)
 				curs[0] = ft_min(g_iread, curs[0]);

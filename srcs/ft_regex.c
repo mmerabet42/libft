@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#include "ft_regex.h"
 #include "ft_mem.h"
 #include "ft_types.h"
 #include "ft_math.h"
 #include "ft_printf.h"
-#include "ft_list.h"
-#include <stdarg.h>
 
 int			regex_pos(t_regex_info *rgxi)
 {
@@ -57,6 +55,8 @@ static void	get_args(t_regex_info *rgxi, va_list vp)
 		if (rgxi->flags & RGX_ID)
 			rgxi->id = va_arg(vp, int *);
 	}
+	if (rgxi->flags & RGX_DATA)
+		rgxi->data = va_arg(vp, void *);
 	if (rgxi->flags & RGX_VAR)
 		rgxi->vars = va_arg(vp, int *);
 	va_end(vp);

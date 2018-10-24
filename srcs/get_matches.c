@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#include "ft_regex.h"
 
 static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs,
 				t_list **head, int zero)

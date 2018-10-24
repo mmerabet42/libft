@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_str.h"
-#include "ft_printf.h"
+#include "ft_regex.h"
 
 static int	bracket_start(const char *str)
 {

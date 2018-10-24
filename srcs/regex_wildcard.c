@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_regex.h"
 #include "ft_str.h"
 #include "ft_mem.h"
-#include "ft_types.h"
-#include "ft_printf.h"
 
 static void	fill_info(t_regex_info *rgxi, t_regex_rule *r, int jmp, int ret)
 {

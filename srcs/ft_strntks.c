@@ -145,7 +145,7 @@ int				ft_strntks(const char *str, t_mchi *mchi, int n, int option)
 	}
 	if (!*str && mchi && mchi->whatever)
 		return (1);
-	if (*str && !mchi && (option & RGX_END))
+	if (*str && !mchi && (option & RGX_NEND))
 		return (1);
 	return (*str || mchi ? 0 : 1);
 }

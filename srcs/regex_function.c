@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_regex.h"
 #include "ft_str.h"
-#include "ft_types.h"
 #include "ft_math.h"
-#include "ft_mem.h"
-#include "ft_printf.h"
 
 static int			default_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {

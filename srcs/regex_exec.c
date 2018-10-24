@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_regex.h"
 #include "ft_str.h"
 
 static int	regex_modulus(t_regex_info *rgxi)

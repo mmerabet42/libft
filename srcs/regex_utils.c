@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_regex.h"
 #include "ft_str.h"
 #include "ft_mem.h"
 #include "ft_types.h"

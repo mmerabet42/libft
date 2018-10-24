@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_regex.h"
 #include "ft_str.h"
-#include "ft_mem.h"
-#include "ft_printf.h"
 
 static int	loop_return(t_regex_info *rg, t_regex_info *t,
 		t_regex_rule *r, int ret)
