@@ -5,7 +5,8 @@
 ## Installation
 
 ```bash
-$> git clone https://github.com/mmerabet42/libft.git
+$> git clone https://github.com/mmerabet42/libft.git libft
+$> cd libft
 $> make
 ```
 
