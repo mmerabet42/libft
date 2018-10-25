@@ -6,12 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:27:49 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/25 19:59:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_str.h"
+#include "ft_types.h"
+#include "ft_printf.h"
 
 static int	regex_modulus(t_regex_info *rgxi)
 {
@@ -73,9 +75,10 @@ static int	regex_equ(t_regex_info *rgxi)
 		return (-1);
 	while (rgxi->regex[i] && rgxi->str[i])
 	{
-		if (rgxi->regex[i] == '*' || rgxi->regex[i] == '?')
+		if (rgxi->regex[i] == '*' || rgxi->regex[i] == '?'
+				|| ((rgxi->flags & RGX_READABLE) && rgxi->regex[i] == ' '))
 			return (i);
-		else if (rgxi->regex[i] != rgxi->str[i])
+		if (rgxi->regex[i] != rgxi->str[i])
 			return (-1);
 		++i;
 	}
@@ -93,6 +96,13 @@ int			regex_exec(t_regex_info *regex_info)
 	regex_info->cid = 0;
 	while (*regex_info->regex)
 	{
+		if (*regex_info->regex == ' ')
+		{
+			while (*regex_info->regex == ' ')
+				++regex_info->regex;
+			if (!*regex_info->regex)
+				break ;
+		}
 		if ((pos = special_char(*regex_info->regex, regex_info)) == 0)
 			continue;
 		else if (pos != -2)

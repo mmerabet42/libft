@@ -17,6 +17,7 @@
 # define RGX_FREE (1 << 9)
 # define RGX_ID (1 << 10)
 # define RGX_DATA (1 << 11)
+# define RGX_READABLE (1 << 12)
 
 enum				e_regex_condtion
 {
