@@ -80,10 +80,7 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	regex_info.len_param = 5;
 	get_args(&regex_info, vp);
 	if (regex_info.matches)
-	{
-		regex_info.flags |= (RGX_POS | RGX_END | RGX_ID);
 		return (get_matches(&regex_info));
-	}
 	return (regex_pos(&regex_info));
 }
 

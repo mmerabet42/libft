@@ -12,8 +12,7 @@
 
 #include "ft_regex.h"
 
-static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs,
-				t_list **head, int zero)
+static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 {
 	int	i;
 
@@ -23,22 +22,23 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs,
 		matchs[1].len = matchs[0].pos + (zero ? 1 : 0);
 		matchs[1].str = matchs[1].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
-		ft_lstpush_p(head, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+		if (rgxi->matches)
+			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
 		++i;
 	}
 	matchs[0].pos += matchs[1].pos;
 	if (rgxi->flags & RGX_GLOBAL)
 	{
 		matchs[0].str = matchs[0].str_begin + matchs[0].pos;
-		ft_lstpush_p(head, ft_lstnew(&matchs[0], sizeof(t_regex_match)));
+		if (rgxi->matches)
+			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[0], sizeof(t_regex_match)));
 		matchs[0].id = 0;
 		++i;
 	}
 	return (i);
 }
 
-static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs,
-				t_list **head)
+static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs)
 {
 	int	i;
 	int	zero;
@@ -47,7 +47,7 @@ static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs,
 	zero = 0;
 	while ((matchs[0].len = regex_pos(rgxi)) != -1)
 	{
-		i += add_matches(rgxi, matchs, head, zero);
+		i += add_matches(rgxi, matchs, zero);
 		zero = (!matchs[0].len ? 1 : 0);
 		matchs[1].pos = matchs[0].pos + (!matchs[0].len ? 1 : matchs[0].len);
 		if (!*(matchs[0].str_begin + matchs[0].pos)
@@ -61,29 +61,27 @@ static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs,
 
 int			get_matches(t_regex_info *rgxi)
 {
-	t_list			*head;
 	t_regex_match	matchs[2];
 	int				i;
 
+	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID);
 	rgxi->pos = &(matchs[0].pos);
 	rgxi->id = &(matchs[0].id);
 	matchs[0].str_begin = rgxi->str;
 	matchs[1].str_begin = rgxi->str;
-	head = NULL;
+	if (rgxi->matches)
+		*rgxi->matches = NULL;
 	i = 0;
 	matchs[1].pos = 0;
-	i = loop_matches(rgxi, matchs, &head);
+	i = loop_matches(rgxi, matchs);
 	if ((rgxi->flags & RGX_UGLOBAL) && matchs[0].len == -1)
 	{
 		matchs[1].len = matchs[0].pos;
 		matchs[1].str = matchs[0].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
-		ft_lstpush_p(&head, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+		if (rgxi->matches)
+			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
 		++i;
 	}
-	if (rgxi->matches)
-		*rgxi->matches = head;
-	else
-		ft_lstdel(&head, content_delfunc);
 	return (i);
 }

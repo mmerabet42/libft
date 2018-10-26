@@ -81,24 +81,27 @@ static int	get_global(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *r)
 	char	*str;
 	char	*rgx;
 	int		res;
-	int		n;
 
-	(void)t;
 	if (!(rgx = ft_strndup(r->arg + 4, r->len_arg - 4)))
 		return (-1);
-	n = -1;
-	res = 0;
 	str = NULL;
-	if (r->rule[2] != '-')
-		str = ft_strndup(rgxi->str, regex_variable(rgxi, &r->rule[2]));
+	if (r->arg[2] != '-')
+		str = ft_strndup(rgxi->str, regex_variable(rgxi, &r->arg[2]));
 	else
 		str = ft_strdup(rgxi->str);
 	if (!str && ft_memdel((void **)&rgx))
 		return (-1);
-	ft_printf("rgx: '%s', str: '%s'\n", rgx, str);
+	*t = *rgxi;
+	t->rgx_begin = rgx;
+	t->regex = rgx;
+	t->str_begin = str;
+	t->str = str;
+	t->matches = NULL;
+	t->flags = RGX_GLOBAL;
+	res = get_matches(t);
 	free(rgx);
 	free(str);
-	return (-1);
+	return (res);
 }
 
 int			expr_rgx(t_regex_info *rgxi, t_regex_rule *rule)
