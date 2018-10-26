@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/25 19:59:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/26 16:27:27 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	special_char(char c, t_regex_info *rgxi)
 {
 	int	pos;
 
-	if (ft_isspace(*rgxi->regex))
+	if ((rgxi->flags & RGX_READABLE) && ft_isspace(*rgxi->regex))
 	{
 		while (ft_isspace(*rgxi->regex))
 			++rgxi->regex;
