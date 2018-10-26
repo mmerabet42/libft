@@ -45,7 +45,7 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		return (-1);
 	regex_init(&rgxi2, ptr + 1, rgxi->str);
 	rgxi2.str_begin = rgxi->str_begin;
-	rgxi2.flags = rgxi->flags | RGX_END;
+	rgxi2.flags = (RGX_END | (rule->func->flags & RGX_READABLE));
 	rgxi2.param = rule->arg;
 	rgxi2.len_param = rule->len_arg;
 	rgxi2.vars = rgxi->vars;
@@ -64,7 +64,7 @@ static int			regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		return (-1);
 	rgxi2 = *rgxi;
 	rgxi2.len = 0;
-	rgxi2.flags = RGX_END;
+	rgxi2.flags = (RGX_END | (rgxi->flags & RGX_READABLE));
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = str;
 	ret = regex_exec(&rgxi2);
@@ -81,44 +81,45 @@ static int			regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 }
 
 static t_regex_func	g_regexfs[] = {
-	{"DEFAULT", default_rgx, 0},
-	{"OTHER", other_rgx, 0},
-	{"^", delim_rgx, 0},
-	{"$", delim_rgx, 0},
-	{"^n", delim_rgx, 0},
-	{"$n", delim_rgx, 0},
-	{"or", cond_rgx, 0},
-	{"and", cond_rgx, 0},
-	{"ror", cond_rgx, 0},
-	{"!", regex_rgx, 0},
-	{",", regex_rgx, 0},
-	{";", regex_rgx, 0},
-	{"R", recursive_rgx, 0},
-	{"E", expr_rgx, 0},
-	{"X", regex_rgx, 0},
-	{"^w", bnd_rgx, 0},
-	{"$w", bnd_rgx, 0},
+	{"DEFAULT", default_rgx, 0, 0},
+	{"OTHER", other_rgx, 0, 0},
+	{"^", delim_rgx, 0, 0},
+	{"$", delim_rgx, 0, 0},
+	{"^n", delim_rgx, 0, 0},
+	{"$n", delim_rgx, 0, 0},
+	{"or", cond_rgx, 0, 0},
+	{"and", cond_rgx, 0, 0},
+	{"ror", cond_rgx, 0, 0},
+	{"!", regex_rgx, 0, 0},
+	{",", regex_rgx, 0, 0},
+	{";", regex_rgx, 0, 0},
+	{"R", recursive_rgx, 0, 0},
+	{"E", expr_rgx, 0, 0},
+	{"X", regex_rgx, 0, 0},
+	{"^w", bnd_rgx, 0, 0},
+	{"$w", bnd_rgx, 0, 0},
 
-	{"upper:?[A-Z]", NULL, 0},
-	{"lower:?[a-z]", NULL, 0},
-	{"digit:?[0-9]", NULL, 0},
-	{"alpha:?[a-zA-Z]", NULL, 0},
-	{"alnum:?[a-zA-Z0-9]", NULL, 0},
-	{"punct:?[?![@alnum]&?![@space]@and]", NULL, 0},
-	{"word:?[a-zA-Z0-9_]", NULL, 0},
-	{"space:?[ \f\n\t\r\v]", NULL, 0},
-	{"int:*[@space?]?[+-@?]*[0-9]", NULL, 0},
-	{"nint:?[+-@?]*[0-9]", NULL, 0},
-	{"uint:*[@space?]*[0-9]", NULL, 0},
-	{"getint", getint_rgx, 0},
+	{"upper:?[A-Z]", NULL, 0, 0},
+	{"lower:?[a-z]", NULL, 0, 0},
+	{"digit:?[0-9]", NULL, 0, 0},
+	{"alpha:?[a-zA-Z]", NULL, 0, 0},
+	{"alnum:?[a-zA-Z0-9]", NULL, 0, 0},
+	{"punct:?[?![@alnum]&?![@space]@and]", NULL, 0, 0},
+	{"word:?[a-zA-Z0-9_]", NULL, 0, 0},
+	{"space:?[ \f\n\t\r\v]", NULL, 0, 0},
+	{"int:*[@space?]?[+-@?]*[0-9]", NULL, 0, 0},
+	{"nint:?[+-@?]*[0-9]", NULL, 0, 0},
+	{"uint:*[@space?]*[0-9]", NULL, 0, 0},
+	{"getint", getint_rgx, 0, 0},
 
-	{"print", print_rgx, 0},
-	{"case", case_rgx, 0},
-	{"return", print_rgx, 0},
-	{"debug", debug_rgx, 0},
-	{"set%", case_rgx, 0},
-	{"equ:%_", NULL, 0},
-	{"inf:?[@inf]", NULL, 0},
+	{"print", print_rgx, 0, 0},
+	{"case", case_rgx, 0, 0},
+	{"return", print_rgx, 0, 0},
+	{"debug", debug_rgx, 0, 0},
+	{"%", modulus_rgx, 0, 0},
+	{"set%", modulus_rgx, 0, 0},
+	{"equ:?[@%]", NULL, 0, 0},
+	{"inf:?[@inf]", NULL, 0, 0},
 };
 static size_t		g_regex_len = (sizeof(g_regexfs) / sizeof(t_regex_func));
 

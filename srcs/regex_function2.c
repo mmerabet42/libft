@@ -73,3 +73,27 @@ int	recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	tmp.flags = RGX_END;
 	return (regex_exec(&tmp));
 }
+
+int	modulus_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+{
+	int	i;
+
+	if (*rule->rule == 's')
+	{
+		rgxi->param = rule->arg;
+		rgxi->len_param = rule->len_arg;
+		rgxi->param_i = 0;
+	}
+	else
+	{
+		i = 0;
+		while (i < rgxi->len_param)
+		{
+			if (rgxi->str[i] != rgxi->param[i])
+				return (-1);
+			++i;
+		}
+		return (i);
+	}
+	return (0);
+}

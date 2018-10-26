@@ -18,6 +18,7 @@
 # define RGX_ID (1 << 10)
 # define RGX_DATA (1 << 11)
 # define RGX_READABLE (1 << 12)
+# define RGX_FLAG_NUM 13
 
 enum				e_regex_condtion
 {
@@ -39,7 +40,7 @@ typedef struct		s_regex_rule
 	int				neg;
 	int				i;
 }					t_regex_rule;
-
+#include "ft_printf.h"
 typedef struct		s_regex_info
 {
 	const char		*param;
@@ -77,8 +78,10 @@ struct				s_regex_func
 	const char		*name;
 	t_regex_funcptr	func;
 	int				id;
+	int				flags;
 };
 
+int					modulus_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					case_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					delim_rgx(t_regex_info *rgxi, t_regex_rule *rule);

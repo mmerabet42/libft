@@ -34,13 +34,6 @@ int			case_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	int	i;
 
-	if (ft_strnequ(rule->rule, "set%", rule->len_rule))
-	{
-		rgxi->param = rule->arg;
-		rgxi->len_param = rule->len_arg;
-		rgxi->param_i = 0;
-		return (0);
-	}
 	i = -1;
 	while (++i < rule->len_arg && rgxi->str[i])
 		if (ft_tolower(rule->arg[i]) != ft_tolower(rgxi->str[i]))
@@ -92,7 +85,7 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	rgxi2 = *rgxi;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = rgxi->rgx_begin;
-	rgxi2.flags = RGX_END;
+	rgxi2.flags = (RGX_END | (rgxi->flags & RGX_READABLE));
 	rgxi2.len = 0;
 	ret = regex_exec(&rgxi2);
 	free(str);

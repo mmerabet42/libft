@@ -52,6 +52,7 @@ int		manage_rules(const char *str, t_list **rules, int flags, va_list vp)
 	{
 		func.func = va_arg(vp, t_regex_funcptr);
 		func.id = ((flags & RGX_ID) ? va_arg(vp, int) : (int)ft_lstsize(*rules) + 1);
+		func.flags = (flags & ~(RGX_ID | RGX_ADD));
 		if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
 			return (-1);
 		ft_lstpushfront(rules, nw);

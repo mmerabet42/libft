@@ -109,14 +109,18 @@ static int	regex_once(t_regex_info *rgxi, t_regex_rule *rule)
 
 int			regex_start(t_regex_info *rgxi, t_regex_rule *rule)
 {
+	t_regex_func	*tmp;
+
 	if (!rule->func)
 		return (-1);
 	else if (!rule->func->func)
 	{
+		tmp = rule->func;
 		rule->rule = rule->func->name;
 		rule->len_rule = ft_strlen(rule->rule);
 		if (!(rule->func = get_regex_func("OTHER", 5, NULL)))
 			return (-1);
+		rule->func->flags = tmp->flags;
 	}
 	if (rule->type == '*')
 	{
