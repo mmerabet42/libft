@@ -6,13 +6,14 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:29:22 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/26 20:31:00 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_str.h"
 #include "ft_types.h"
+#include "ft_mem.h"
 
 int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
@@ -75,6 +76,31 @@ static int	fake_regex(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *rule)
 	return (r);
 }
 
+static int	get_global(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *r)
+{
+	char	*str;
+	char	*rgx;
+	int		res;
+	int		n;
+
+	(void)t;
+	if (!(rgx = ft_strndup(r->arg + 4, r->len_arg - 4)))
+		return (-1);
+	n = -1;
+	res = 0;
+	str = NULL;
+	if (r->rule[2] != '-')
+		str = ft_strndup(rgxi->str, regex_variable(rgxi, &r->rule[2]));
+	else
+		str = ft_strdup(rgxi->str);
+	if (!str && ft_memdel((void **)&rgx))
+		return (-1);
+	ft_printf("rgx: '%s', str: '%s'\n", rgx, str);
+	free(rgx);
+	free(str);
+	return (-1);
+}
+
 int			expr_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	int				r;
@@ -94,7 +120,7 @@ int			expr_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 			ret = r;
 	}
 	else
-		r = get_result(rgxi, rule);
+		r = (rule->arg[1] == ',' ? get_global(rgxi, &tmp, rule) : get_result(rgxi, rule));
 	if (rule->arg[0] == '0')
 		return (r ? 0 : -1);
 	if (ft_isupper(rule->arg[0]))

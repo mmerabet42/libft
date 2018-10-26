@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 17:43:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:54:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/26 19:55:03 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ int			get_matches(t_regex_info *rgxi)
 		ft_lstpush_p(&head, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
 		++i;
 	}
-	*rgxi->matches = head;
+	if (rgxi->matches)
+		*rgxi->matches = head;
+	else
+		ft_lstdel(&head, content_delfunc);
 	return (i);
 }
