@@ -111,6 +111,7 @@ static t_regex_func	g_regexfs[] = {
 	{"nint:?[+-@?]*[0-9]", NULL, 0, 0},
 	{"uint:*[@space?]*[0-9]", NULL, 0, 0},
 	{"getint", getint_rgx, 0, 0},
+	{"ngetint", getint_rgx, 0, 0},
 
 	{"print", print_rgx, 0, 0},
 	{"case", case_rgx, 0, 0},

@@ -37,7 +37,11 @@ int	getint_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	int	i;
 	int	n;
 
-	ret = ft_regex(RGX_END, "?[@nint]", rgxi->str);
+	ret = 0;
+	if (*rule->rule == 'n')
+		ret = ft_regex(RGX_END, "?[@nint]", rgxi->str);
+	else
+		ret = ft_regex(RGX_END, "?[@int]", rgxi->str);
 	if (!ft_isalpha(rule->arg[0]))
 		return (ret);
 	n = (ret == -1 ? 0 : ft_atoi(rgxi->str));

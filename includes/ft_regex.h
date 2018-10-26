@@ -10,15 +10,15 @@
 # define RGX_POS (1 << 3)
 # define RGX_GLOBAL (1 << 4)
 # define RGX_UGLOBAL (1 << 5)
-# define RGX_VAR (1 << 5)
-# define RGX_ADD (1 << 6)
-# define RGX_GET (1 << 7)
-# define RGX_CLEAN (1 << 8)
-# define RGX_FREE (1 << 9)
-# define RGX_ID (1 << 10)
-# define RGX_DATA (1 << 11)
-# define RGX_READABLE (1 << 12)
-# define RGX_FLAG_NUM 13
+# define RGX_VAR (1 << 6)
+# define RGX_ADD (1 << 7)
+# define RGX_GET (1 << 8)
+# define RGX_CLEAN (1 << 9)
+# define RGX_FREE (1 << 10)
+# define RGX_ID (1 << 11)
+# define RGX_DATA (1 << 12)
+# define RGX_READABLE (1 << 13)
+# define RGX_FLAG_NUM 14
 
 enum				e_regex_condtion
 {
