@@ -2,7 +2,7 @@
 
 **libft** is a library of C functions.
 
-It is the very first project in the Ecole 42 cursus. The library might and is supposed to grow thoughout my progress in the cursus. And because this library is about reinventing the wheel we make sure of reinventing it only once.
+It is the very first project in the Ecole 42 cursus. The library might and is supposed to grow thoughout my progress in the cursus. And because this library is about reinventing the wheel we make sure of reinventing it only once, and using that same wheel for all of our projects.
 
 ## Installation
 
