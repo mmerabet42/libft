@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:33:48 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:37:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,11 @@ int			regex_start(t_regex_info *rgxi, t_regex_rule *rule)
 		return (-1);
 	else if (!rule->func->func)
 	{
-		tmp = rule->func;
 		rule->rule = rule->func->name;
 		rule->len_rule = ft_strlen(rule->rule);
-		if (!(rule->func = get_regex_func("OTHER", 5, NULL)))
+		if (!(tmp = get_regex_func("OTHER", 5, NULL)))
 			return (-1);
-		rule->func->flags = tmp->flags;
+		rule->func->func = tmp->func;
 	}
 	if (rule->type == '*')
 	{

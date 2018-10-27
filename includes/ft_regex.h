@@ -2,6 +2,7 @@
 # define FT_REGEX_H
 
 # include "ft_list.h"
+# include "ft_printf.h"
 # include <stdarg.h>
 
 # define RGX_END (1 << 0)
@@ -18,7 +19,8 @@
 # define RGX_ID (1 << 11)
 # define RGX_DATA (1 << 12)
 # define RGX_READABLE (1 << 13)
-# define RGX_FLAG_NUM 14
+# define RGX_GROUPS (1 << 14)
+# define RGX_FLAG_NUM 15
 
 enum				e_regex_condtion
 {
@@ -40,7 +42,7 @@ typedef struct		s_regex_rule
 	int				neg;
 	int				i;
 }					t_regex_rule;
-#include "ft_printf.h"
+
 typedef struct		s_regex_info
 {
 	const char		*param;
@@ -60,8 +62,16 @@ typedef struct		s_regex_info
 	int				cid;
 	int				*id;
 	void			*data;
+	t_list			**groups;
 	t_list			**matches;
 }					t_regex_info;
+
+typedef struct		s_regex_group
+{
+	const char		*str;
+	int				pos;
+	int				len;
+}					t_regex_group;
 
 typedef struct		s_regex_match
 {
@@ -70,12 +80,14 @@ typedef struct		s_regex_match
 	int				pos;
 	int				len;
 	int				id;
+	t_list			*groups;
 }					t_regex_match;
 
 typedef int	(*t_regex_funcptr)(t_regex_info *regex_info, t_regex_rule *rule);
 struct				s_regex_func
 {
 	const char		*name;
+	const char		*regex;
 	t_regex_funcptr	func;
 	int				id;
 	int				flags;

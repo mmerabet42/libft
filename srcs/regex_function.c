@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/26 16:27:39 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/27 18:18:11 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ static int			default_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 
 static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
-	char			*ptr;
 	t_regex_info	rgxi2;
 
-	if (!(ptr = ft_strchr(rule->rule, ':')))
-		return (-1);
-	regex_init(&rgxi2, ptr + 1, rgxi->str);
+
+	regex_init(&rgxi2, rule->func->regex, rgxi->str);
 	rgxi2.str_begin = rgxi->str_begin;
 	rgxi2.flags = (RGX_END | (rule->func->flags & RGX_READABLE));
 	rgxi2.param = rule->arg;
@@ -81,46 +79,46 @@ static int			regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 }
 
 static t_regex_func	g_regexfs[] = {
-	{"DEFAULT", default_rgx, 0, 0},
-	{"OTHER", other_rgx, 0, 0},
-	{"^", delim_rgx, 0, 0},
-	{"$", delim_rgx, 0, 0},
-	{"^n", delim_rgx, 0, 0},
-	{"$n", delim_rgx, 0, 0},
-	{"or", cond_rgx, 0, 0},
-	{"and", cond_rgx, 0, 0},
-	{"ror", cond_rgx, 0, 0},
-	{"!", regex_rgx, 0, 0},
-	{",", regex_rgx, 0, 0},
-	{";", regex_rgx, 0, 0},
-	{"R", recursive_rgx, 0, 0},
-	{"E", expr_rgx, 0, 0},
-	{"X", regex_rgx, 0, 0},
-	{"^w", bnd_rgx, 0, 0},
-	{"$w", bnd_rgx, 0, 0},
+	{"DEFAULT", NULL, default_rgx, 0, 0},
+	{"OTHER", NULL, other_rgx, 0, 0},
+	{"^", NULL, delim_rgx, 0, 0},
+	{"$", NULL, delim_rgx, 0, 0},
+	{"^n", NULL, delim_rgx, 0, 0},
+	{"$n", NULL, delim_rgx, 0, 0},
+	{"^w", NULL, bnd_rgx, 0, 0},
+	{"$w", NULL, bnd_rgx, 0, 0},
+	{"or", NULL, cond_rgx, 0, 0},
+	{"and", NULL, cond_rgx, 0, 0},
+	{"ror", NULL, cond_rgx, 0, 0},
+	{"!", NULL, regex_rgx, 0, 0},
+	{",", NULL, regex_rgx, 0, 0},
+	{";", NULL, regex_rgx, 0, 0},
+	{"R", NULL, recursive_rgx, 0, 0},
+	{"E", NULL, expr_rgx, 0, 0},
+	{"X", NULL, regex_rgx, 0, 0},
 
-	{"upper:?[A-Z]", NULL, 0, 0},
-	{"lower:?[a-z]", NULL, 0, 0},
-	{"digit:?[0-9]", NULL, 0, 0},
-	{"alpha:?[a-zA-Z]", NULL, 0, 0},
-	{"alnum:?[a-zA-Z0-9]", NULL, 0, 0},
-	{"punct:?[?![@alnum]&?![@space]@and]", NULL, 0, 0},
-	{"word:?[a-zA-Z0-9_]", NULL, 0, 0},
-	{"space:?[ \f\n\t\r\v]", NULL, 0, 0},
-	{"int:*[@space?]?[+-@?]*[0-9]", NULL, 0, 0},
-	{"nint:?[+-@?]*[0-9]", NULL, 0, 0},
-	{"uint:*[@space?]*[0-9]", NULL, 0, 0},
-	{"getint", getint_rgx, 0, 0},
-	{"ngetint", getint_rgx, 0, 0},
+	{"upper", "?[A-Z]", NULL, 0, 0},
+	{"lower", "?[a-z]", NULL, 0, 0},
+	{"digit", "?[0-9]", NULL, 0, 0},
+	{"alpha", "?[a-zA-Z]", NULL, 0, 0},
+	{"alnum", "?[a-zA-Z0-9]", NULL, 0, 0},
+	{"punct", "?[?![@alnum]&?![@space]@and]", NULL, 0, 0},
+	{"word", "?[a-zA-Z0-9_]", NULL, 0, 0},
+	{"space", "?[ \f\n\t\r\v]", NULL, 0, 0},
+	{"int", "*[@space?]?[+-@?]*[0-9]", NULL, 0, 0},
+	{"nint", "?[+-@?]*[0-9]", NULL, 0, 0},
+	{"uint", "*[@space?]*[0-9]", NULL, 0, 0},
+	{"getint", NULL, getint_rgx, 0, 0},
+	{"ngetint", NULL, getint_rgx, 0, 0},
 
-	{"print", print_rgx, 0, 0},
-	{"case", case_rgx, 0, 0},
-	{"return", print_rgx, 0, 0},
-	{"debug", debug_rgx, 0, 0},
-	{"%", modulus_rgx, 0, 0},
-	{"set%", modulus_rgx, 0, 0},
-	{"equ:?[@%]", NULL, 0, 0},
-	{"inf:?[@inf]", NULL, 0, 0},
+	{"print", NULL, print_rgx, 0, 0},
+	{"case", NULL, case_rgx, 0, 0},
+	{"return", NULL, print_rgx, 0, 0},
+	{"debug", NULL, debug_rgx, 0, 0},
+	{"%", NULL, modulus_rgx, 0, 0},
+	{"set%", NULL, modulus_rgx, 0, 0},
+	{"equ", "?[@%]", NULL, 0, 0},
+	{"inf", "?[@inf]", NULL, 0, 0},
 };
 static size_t		g_regex_len = (sizeof(g_regexfs) / sizeof(t_regex_func));
 
@@ -135,10 +133,7 @@ t_regex_func		*get_regex_func(const char *name, int len_rule,
 	i = 0;
 	while (i < g_regex_len)
 	{
-		if (!g_regexfs[i].func)
-			len = ft_strchr_pos(g_regexfs[i].name, ':');
-		else
-			len = ft_strlen(g_regexfs[i].name);
+		len = ft_strlen(g_regexfs[i].name);
 		if (ft_strnequ(name, g_regexfs[i].name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
@@ -162,10 +157,7 @@ t_regex_func		*get_regex_rule(const char *name, int len_rule,
 	while (rules)
 	{
 		func = (t_regex_func *)rules->content;
-		if (!func->func)
-			len = ft_strchr_pos(func->name, ':');
-		else
-			len = ft_strlen(func->name);
+		len = ft_strlen(func->name);
 		if (ft_strnequ(name, func->name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
