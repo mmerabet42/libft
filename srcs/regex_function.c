@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/27 18:18:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/28 16:09:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int			default_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_regex_info	rgxi2;
-
 
 	regex_init(&rgxi2, rule->func->regex, rgxi->str);
 	rgxi2.str_begin = rgxi->str_begin;
@@ -105,6 +104,7 @@ static t_regex_func	g_regexfs[] = {
 	{"punct", "?[?![@alnum]&?![@space]@and]", NULL, 0, 0},
 	{"word", "?[a-zA-Z0-9_]", NULL, 0, 0},
 	{"space", "?[ \f\n\t\r\v]", NULL, 0, 0},
+	{"nspace", "?[ \t\r\v]", NULL, 0, 0},
 	{"int", "*[@space?]?[+-@?]*[0-9]", NULL, 0, 0},
 	{"nint", "?[+-@?]*[0-9]", NULL, 0, 0},
 	{"uint", "*[@space?]*[0-9]", NULL, 0, 0},

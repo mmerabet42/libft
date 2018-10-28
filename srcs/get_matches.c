@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 17:43:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/26 19:55:03 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/28 16:07:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 		matchs[1].str = matchs[1].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
 		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+			ft_lstpush_p(rgxi->matches,
+					ft_lstnew(&matchs[1], sizeof(t_regex_match)));
 		++i;
 	}
 	matchs[0].pos += matchs[1].pos;
@@ -31,7 +32,8 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 	{
 		matchs[0].str = matchs[0].str_begin + matchs[0].pos;
 		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[0], sizeof(t_regex_match)));
+			ft_lstpush_p(rgxi->matches,
+					ft_lstnew(&matchs[0], sizeof(t_regex_match)));
 		matchs[0].id = 0;
 		++i;
 	}
@@ -80,7 +82,8 @@ int			get_matches(t_regex_info *rgxi)
 		matchs[1].str = matchs[0].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
 		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches, ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+			ft_lstpush_p(rgxi->matches,
+					ft_lstnew(&matchs[1], sizeof(t_regex_match)));
 		++i;
 	}
 	return (i);

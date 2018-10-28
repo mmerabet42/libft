@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_regex.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
+/*   Updated: 2018/10/28 16:13:37 by mmerabet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_REGEX_H
 # define FT_REGEX_H
 
@@ -27,7 +39,7 @@ enum				e_regex_condtion
 	RGX_GREAT = 1, RGX_LESS, RGX_EQUAL, RGX_MARK
 };
 
-typedef struct		s_regex_func t_regex_func;
+typedef struct s_regex_func	t_regex_func;
 
 typedef struct		s_regex_rule
 {

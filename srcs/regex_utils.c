@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 20:05:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/27 18:13:48 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/28 16:11:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "ft_mem.h"
 #include "ft_types.h"
 
-void	regex_init(t_regex_info *regex_info, const char *regex, const char *str)
+void		regex_init(t_regex_info *regex_info, const char *regex,
+					const char *str)
 {
 	ft_bzero(regex_info, sizeof(t_regex_info));
 	regex_info->str_begin = str;
@@ -26,7 +27,7 @@ void	regex_init(t_regex_info *regex_info, const char *regex, const char *str)
 	regex_info->strn = -1;
 }
 
-int		regex_variable(t_regex_info *rgxi, const char *s)
+int			regex_variable(t_regex_info *rgxi, const char *s)
 {
 	if (ft_isdigit(*s))
 		return (ft_atoi(s));
@@ -47,7 +48,10 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	func.name = rgxi->regex;
 	func.regex = rgxi->str;
 	func.func = va_arg(vp, t_regex_funcptr);
-	func.id = ((flags & RGX_ID) ? va_arg(vp, int) : (int)ft_lstsize(*rules) + 1);
+	if (flags & RGX_ID)
+		func.id = va_arg(vp, int);
+	else
+		func.id = (int)ft_lstsize(*rule) + 1;
 	func.flags = (flags & ~(RGX_ID | RGX_ADD));
 	if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
 	{
@@ -59,7 +63,8 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	return (func.id);
 }
 
-int		manage_rules(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
+int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
+					va_list vp)
 {
 	t_list	**lst;
 

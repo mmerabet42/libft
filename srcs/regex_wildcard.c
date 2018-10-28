@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:34:08 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/28 16:00:47 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int			regex_wildcard(t_regex_info *rgxi)
 			++rgxi->len;
 			tmp.len = 0;
 			tmp.str = ++rgxi->str;
+			tmp.regex = rgxi->regex;
 		}
 		return (ret != -1 ? rgxi->len + ret : 0);
 	}
