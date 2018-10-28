@@ -106,7 +106,6 @@ int			regex_wildcard(t_regex_info *rgxi)
 			++rgxi->len;
 			tmp.len = 0;
 			tmp.str = ++rgxi->str;
-			tmp.regex = rgxi->regex;
 		}
 		return (ret != -1 ? rgxi->len + ret : 0);
 	}

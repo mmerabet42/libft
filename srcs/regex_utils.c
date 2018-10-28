@@ -39,26 +39,32 @@ int		regex_variable(t_regex_info *rgxi, const char *s)
 	return (0);
 }
 
-int		manage_rules(const char *str, t_list **rules, int flags, va_list vp)
+static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 {
 	t_regex_func	func;
 	t_list			*nw;
-	t_list			**lst;
-	int				ret;
 
-	ret = 0;
-	func.name = str;
-	if (flags & RGX_ADD)
+	func.name = rgxi->regex;
+	func.regex = rgxi->str;
+	func.func = va_arg(vp, t_regex_funcptr);
+	func.id = ((flags & RGX_ID) ? va_arg(vp, int) : (int)ft_lstsize(*rules) + 1);
+	func.flags = (flags & ~(RGX_ID | RGX_ADD));
+	if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
 	{
-		func.regex = va_arg(vp, const char *);
-		func.func = va_arg(vp, t_regex_funcptr);
-		func.id = ((flags & RGX_ID) ? va_arg(vp, int) : (int)ft_lstsize(*rules) + 1);
-		func.flags = (flags & ~(RGX_ID | RGX_ADD));
-		if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
-			return (-1);
-		ft_lstpushfront(rules, nw);
-		ret = func.id;
+		va_end(vp);
+		return (-1);
 	}
+	ft_lstpushfront(rules, nw);
+	va_end(vp);
+	return (func.id);
+}
+
+int		manage_rules(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
+{
+	t_list	**lst;
+
+	if (flags & RGX_ADD)
+		return (add_rule(rgxi, rules, flags, vp));
 	else if ((flags & RGX_GET) && (lst = va_arg(vp, t_list **)))
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
@@ -66,5 +72,5 @@ int		manage_rules(const char *str, t_list **rules, int flags, va_list vp)
 	else if (flags & RGX_CLEAN)
 		ft_lstdel(rules, content_delfunc);
 	va_end(vp);
-	return (ret);
+	return (0);
 }

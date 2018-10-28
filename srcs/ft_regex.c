@@ -70,8 +70,10 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_list			vp;
 
 	va_start(vp, str);
+	regex_info.str = str;
+	regex_info.regex = regex;
 	if (flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE))
-		return (manage_rules(str, &rules, flags, vp));
+		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));
 	regex_info.vars = (int *)vars;

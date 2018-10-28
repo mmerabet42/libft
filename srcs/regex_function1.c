@@ -83,6 +83,9 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	if (!(str = ft_strndup(&rule->arg[*i], j)))
 		return (-2);
 	rgxi2 = *rgxi;
+	rgxi2.next = NULL;
+	if (*rgxi->regex)
+		rgxi2.next = rgxi->regex;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = rgxi->rgx_begin;
 	rgxi2.flags = (RGX_END | (rgxi->flags & RGX_READABLE));

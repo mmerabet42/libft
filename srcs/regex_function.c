@@ -122,30 +122,7 @@ static t_regex_func	g_regexfs[] = {
 };
 static size_t		g_regex_len = (sizeof(g_regexfs) / sizeof(t_regex_func));
 
-t_regex_func		*get_regex_func(const char *name, int len_rule,
-						t_regex_info *rgxi)
-{
-	size_t	i;
-	int		len;
-
-	if (!len_rule || !name || !*name)
-		return (get_regex_func("DEFAULT", 7, rgxi));
-	i = 0;
-	while (i < g_regex_len)
-	{
-		len = ft_strlen(g_regexfs[i].name);
-		if (ft_strnequ(name, g_regexfs[i].name, ft_max(len_rule, len)))
-		{
-			if (rgxi && rgxi->id)
-				*rgxi->id = g_regexfs[i].id;
-			return (&g_regexfs[i]);
-		}
-		++i;
-	}
-	return (get_regex_rule(name, len_rule, rgxi));
-}
-
-t_regex_func		*get_regex_rule(const char *name, int len_rule,
+static t_regex_func	*get_regex_rule(const char *name, int len_rule,
 						t_regex_info *rgxi)
 {
 	t_list			*rules;
@@ -167,4 +144,27 @@ t_regex_func		*get_regex_rule(const char *name, int len_rule,
 		rules = rules->next;
 	}
 	return (NULL);
+}
+
+t_regex_func		*get_regex_func(const char *name, int len_rule,
+						t_regex_info *rgxi)
+{
+	size_t	i;
+	int		len;
+
+	if (!len_rule || !name || !*name)
+		return (get_regex_func("DEFAULT", 7, rgxi));
+	i = 0;
+	while (i < g_regex_len)
+	{
+		len = ft_strlen(g_regexfs[i].name);
+		if (ft_strnequ(name, g_regexfs[i].name, ft_max(len_rule, len)))
+		{
+			if (rgxi && rgxi->id)
+				*rgxi->id = g_regexfs[i].id;
+			return (&g_regexfs[i]);
+		}
+		++i;
+	}
+	return (get_regex_rule(name, len_rule, rgxi));
 }
