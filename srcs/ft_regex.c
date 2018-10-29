@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:26:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:19:27 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,24 @@ int			regex_pos(t_regex_info *rgxi)
 static void	get_args(t_regex_info *rgxi, va_list vp)
 {
 	if (rgxi->flags & RGX_RGXN)
-		rgxi->rgxn = va_arg(vp, int);
+		rgxi->rgxn = (int)va_arg(vp, int);
 	if (rgxi->flags & RGX_STRN)
-		rgxi->strn = va_arg(vp, int);
+		rgxi->strn = (int)va_arg(vp, int);
 	if (rgxi->flags & (RGX_GLOBAL | RGX_UGLOBAL))
 		rgxi->matches = (t_list **)va_arg(vp, t_list **);
+	else if (rgxi->flags & RGX_GROUPS)
+		rgxi->groups = (t_list **)va_arg(vp, t_list **);
 	else
 	{
 		if (rgxi->flags & RGX_POS)
-			rgxi->pos = va_arg(vp, int *);
+			rgxi->pos = (int *)va_arg(vp, int *);
 		if (rgxi->flags & RGX_ID)
-			rgxi->id = va_arg(vp, int *);
+			rgxi->id = (int *)va_arg(vp, int *);
 	}
 	if (rgxi->flags & RGX_DATA)
-		rgxi->data = va_arg(vp, void *);
+		rgxi->data = (int *)va_arg(vp, void *);
 	if (rgxi->flags & RGX_VAR)
-		rgxi->vars = va_arg(vp, int *);
+		rgxi->vars = (int *)va_arg(vp, int *);
 	va_end(vp);
 }
 
@@ -72,7 +74,7 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_start(vp, str);
 	regex_info.str = str;
 	regex_info.regex = regex;
-	if (flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE))
+	if (flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE | RGX_LOAD))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));

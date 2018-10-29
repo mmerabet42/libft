@@ -6,13 +6,15 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 22:48:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/13 11:19:59 by jraymond         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:55:17 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # define BUFF_SIZE 65536
+# define EOF_NEVER_REACH "\01\02\033\033[EOFEOF]\n"
 
 typedef struct	s_fd
 {

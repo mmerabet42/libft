@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/28 16:09:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:20:04 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static t_regex_func	g_regexfs[] = {
 	{"R", NULL, recursive_rgx, 0, 0},
 	{"E", NULL, expr_rgx, 0, 0},
 	{"X", NULL, regex_rgx, 0, 0},
+	{"G", NULL, groups_rgx, 0, 0},
 
 	{"upper", "?[A-Z]", NULL, 0, 0},
 	{"lower", "?[a-z]", NULL, 0, 0},
