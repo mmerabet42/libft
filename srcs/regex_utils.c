@@ -51,7 +51,7 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	if (flags & RGX_ID)
 		func.id = va_arg(vp, int);
 	else
-		func.id = (int)ft_lstsize(*rule) + 1;
+		func.id = (int)ft_lstsize(*rules) + 1;
 	func.flags = (flags & ~(RGX_ID | RGX_ADD));
 	if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
 	{
