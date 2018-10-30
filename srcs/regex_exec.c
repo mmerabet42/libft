@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/26 16:27:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/30 21:29:15 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int			regex_exec(t_regex_info *regex_info)
 
 	if ((ret = regex_exec2(regex_info)) == -1)
 	{
-		ft_printf("lsdc: %d\n", ft_lstsize(*regex_info->groups));
 		if (regex_info->flags & RGX_GROUP)
 			ft_lstdel(regex_info->groups, content_delfunc);
 	}
