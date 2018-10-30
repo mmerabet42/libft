@@ -42,7 +42,8 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 
 	regex_init(&rgxi2, rule->func->regex, rgxi->str);
 	rgxi2.str_begin = rgxi->str_begin;
-	rgxi2.flags = (RGX_END | (rule->func->flags & RGX_READABLE));
+	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	rgxi2.flags |= RGX_END;
 	rgxi2.param = rule->arg;
 	rgxi2.len_param = rule->len_arg;
 	rgxi2.vars = rgxi->vars;
@@ -61,7 +62,8 @@ static int			regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		return (-1);
 	rgxi2 = *rgxi;
 	rgxi2.len = 0;
-	rgxi2.flags = (RGX_END | (rgxi->flags & RGX_READABLE));
+	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	rgxi2.flags |= RGX_END;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = str;
 	ret = regex_exec(&rgxi2);

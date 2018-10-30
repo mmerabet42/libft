@@ -31,9 +31,10 @@
 # define RGX_ID (1 << 11)
 # define RGX_DATA (1 << 12)
 # define RGX_READABLE (1 << 13)
-# define RGX_GROUPS (1 << 14)
+# define RGX_GROUP (1 << 14)
 # define RGX_LOAD (1 << 15)
-# define RGX_FLAG_NUM 16
+# define RGX_FREEGRP (1 << 16)
+# define RGX_FLAG_NUM 17
 
 enum				e_regex_condtion
 {
@@ -81,11 +82,11 @@ typedef struct		s_regex_info
 
 typedef struct		s_regex_group
 {
+	const char		*str_begin;
 	const char		*str;
 	int				pos;
 	int				len;
 	int				id;
-	int				num;
 }					t_regex_group;
 
 typedef struct		s_regex_match
@@ -134,6 +135,7 @@ int					regex_wildcard(t_regex_info *rgxi);
 int					regex_bracket(const char *str, int *s);
 int					get_matches(t_regex_info *rgxi);
 int					regex_pos(t_regex_info *rgxi);
+int					regex_exec2(t_regex_info *regex_info);
 int					regex_exec(t_regex_info *regex_info);
 void				regex_init(t_regex_info *regex_info,
 								const char *regex,

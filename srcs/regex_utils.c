@@ -106,6 +106,8 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
 		ft_lstdel(lst, content_delfunc);
+	else if ((flags & RGX_FREEGRP) && (lst = va_arg(vp, t_list **)))
+		ft_lstdel(lst, content_delfunc);
 	else if (flags & RGX_CLEAN)
 		ft_lstdel(rules, content_delfunc);
 	va_end(vp);

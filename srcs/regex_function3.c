@@ -70,7 +70,8 @@ static int	fake_regex(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *rule)
 	t->regex = str;
 	t->rgx_begin = str;
 	t->len = 0;
-	t->flags = RGX_END;
+	t->flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_GROUP);
+	t->flags |= RGX_END;
 	r = regex_exec(t);
 	free(str);
 	return (r);

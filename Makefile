@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra# -g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g3 -fsanitize=address
 
 _PRINTFS	=	ft_printf.c ft_vprintf.c \
 				ft_printf_parser.c ft_printf_format.c ft_init_formats.c \
@@ -52,7 +52,7 @@ _LIBFTS	=	ft_abs.c ft_pow.c ft_sqrt.c ft_max.c ft_fmax.c ft_hexcolor.c \
 			ft_strpbrkstrpv_len.c ft_strnjoin.c ft_strinsert.c \
 			ft_regex.c regex_exec.c get_matches.c regex_bracket.c regex_wildcard.c \
 			regex_start.c regex_utils.c regex_function.c regex_function1.c \
-			regex_function2.c regex_function3.c
+			regex_function2.c regex_function3.c regex_function4.c
 
 _ICLDS		= libft.h ft_str.h ft_io.h ft_mem.h ft_list.h ft_btree.h ft_math.h \
 			ft_printf.h ft_time.h get_next_line.h ft_event.h ft_matrix.h \

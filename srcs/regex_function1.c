@@ -75,6 +75,7 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	int				ret;
 	int				j;
 	t_regex_info	rgxi2;
+	t_list			*grps;
 
 	if (rule->arg[*i] == (*rule->rule == 'a' ? '&' : '|'))
 		++*i;
@@ -88,9 +89,13 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 		rgxi2.next = rgxi->regex;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = rgxi->rgx_begin;
-	rgxi2.flags = (RGX_END | (rgxi->flags & RGX_READABLE));
+	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	rgxi2.flags |= RGX_END;
 	rgxi2.len = 0;
-	ret = regex_exec(&rgxi2);
+	grps = NULL;
+	rgxi2.groups = &grps;
+	if ((ret = regex_exec(&rgxi2)) != -1)
+		ft_lstpush_p(rgxi->groups, grps);
 	free(str);
 	*i += j;
 	return (ret);

@@ -48,14 +48,14 @@ static void	get_args(t_regex_info *rgxi, va_list vp)
 		rgxi->strn = (int)va_arg(vp, int);
 	if (rgxi->flags & (RGX_GLOBAL | RGX_UGLOBAL))
 		rgxi->matches = (t_list **)va_arg(vp, t_list **);
-	else if (rgxi->flags & RGX_GROUPS)
-		rgxi->groups = (t_list **)va_arg(vp, t_list **);
 	else
 	{
 		if (rgxi->flags & RGX_POS)
 			rgxi->pos = (int *)va_arg(vp, int *);
 		if (rgxi->flags & RGX_ID)
 			rgxi->id = (int *)va_arg(vp, int *);
+		if (rgxi->flags & RGX_GROUP)
+			rgxi->groups = (t_list **)va_arg(vp, t_list **);
 	}
 	if (rgxi->flags & RGX_DATA)
 		rgxi->data = (int *)va_arg(vp, void *);
@@ -74,7 +74,8 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_start(vp, str);
 	regex_info.str = str;
 	regex_info.regex = regex;
-	if (flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE | RGX_LOAD))
+	if ((flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE))
+			|| (flags & (RGX_FREEGRP | RGX_LOAD)))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));

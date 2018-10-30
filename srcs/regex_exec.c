@@ -58,7 +58,7 @@ static int	regex_equ(t_regex_info *rgxi)
 	return (i);
 }
 
-int			regex_exec(t_regex_info *regex_info)
+int	regex_exec2(t_regex_info *regex_info)
 {
 	int	pos;
 
@@ -82,4 +82,17 @@ int			regex_exec(t_regex_info *regex_info)
 	if (*regex_info->regex && !ft_strequ(regex_info->regex, "*"))
 		return (-1);
 	return (*regex_info->str ? -1 : regex_info->len);
+}
+
+int			regex_exec(t_regex_info *regex_info)
+{
+	int	ret;
+
+	if ((ret = regex_exec2(regex_info)) == -1)
+	{
+		ft_printf("lsdc: %d\n", ft_lstsize(*regex_info->groups));
+		if (regex_info->flags & RGX_GROUP)
+			ft_lstdel(regex_info->groups, content_delfunc);
+	}
+	return (ret);
 }
