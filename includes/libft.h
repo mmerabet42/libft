@@ -14,49 +14,49 @@
 # define FT_LIBFT_H
 
 /*
-** --------------------/ CONVERSION AND TYPE CHECKING FUNCTIONS	\---------------
+** --------------------/ CONVERSION AND TYPE CHECKING \-------------------------
 */
 
 # include "ft_types.h"
 
 /*
-** --------------------/ MEMORY FUNCTIONS \-------------------------------------
+** --------------------/ RAW MEMORY MANIPULATION \------------------------------
 */
 
 # include "ft_mem.h"
 
 /*
-** --------------------/ STRING FUNCTIONS \-------------------------------------
+** --------------------/ STRING MANIPULATION \----------------------------------
 */
 
 # include "ft_str.h"
 
 /*
-** --------------------/ INPUT OUTPUT FUNCTIONS \-------------------------------
+** --------------------/ INPUT OUTPUT STREAMING \-------------------------------
 */
 
 # include "ft_io.h"
 
 /*
-** --------------------/ LINKED LIST FUNCTIONS \--------------------------------
+** --------------------/ LINKED LIST LIBRARY \----------------------------------
 */
 
 # include "ft_list.h"
 
 /*
-** --------------------/ GENERAL BINARY TREES FUNCTIONS \-----------------------
+** --------------------/ BINARY TREES LIBRARY \---------------------------------
 */
 
 # include "ft_btree.h"
 
 /*
-** --------------------/ SOME MATH FUNCTIONS \----------------------------------
+** --------------------/ MATH LIBRARY \-----------------------------------------
 */
 
 # include "ft_math.h"
 
 /*
-** --------------------/ MATRIX TRANSFORM FUNCTIONS \---------------------------
+** --------------------/ MATRIX TRANSFORM LIBRARY \-----------------------------
 */
 
 # include "ft_matrix.h"
@@ -72,5 +72,11 @@
 */
 
 # include "ft_time.h"
+
+/*
+** --------------------/ REGULAR EXPRESSION LIBRARY \---------------------------
+*/
+
+# include "ft_regex.h"
 
 #endif
