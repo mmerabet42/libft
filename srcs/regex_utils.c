@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 20:05:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/29 19:02:25 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 16:10:21 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	return (func.id);
 }
 
+static void	free_match(void *p, size_t s)
+{
+	if (!p)
+		return ;
+	(void)s;
+	ft_lstdel(&((t_regex_match *)p)->groups, content_delfunc);
+	free(p);
+}
+
 int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 					va_list vp)
 {
@@ -105,7 +114,7 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 	else if ((flags & RGX_GET) && (lst = va_arg(vp, t_list **)))
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
-		ft_lstdel(lst, content_delfunc);
+		ft_lstdel(lst, free_match);
 	else if ((flags & RGX_FREEGRP) && (lst = va_arg(vp, t_list **)))
 		ft_lstdel(lst, content_delfunc);
 	else if (flags & RGX_CLEAN)

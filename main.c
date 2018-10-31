@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	int		n;
 	int		id = 0;
 
-	ft_regex(RGX_ADD, "DQUOTE", "\"*[\\\"|?![\"]@or?]\"", NULL);
+	ft_regex(RGX_ADD, "DQUOTE", "\"*[?[\\\"@G]|?![\"]@or?]\"", NULL);
 	
 	n = ft_regex(RGX_GROUP | RGX_ID, argv[1], argv[2], &id, &groups, &matches);
 
@@ -25,5 +25,6 @@ int main(int argc, char **argv)
 	
 	ft_regex(RGX_FREEGRP, NULL, NULL, &groups);
 	ft_regex(RGX_FREE, NULL, NULL, &matches);
+	ft_regex(RGX_CLEAN, NULL, NULL);
 	return (0);
 }

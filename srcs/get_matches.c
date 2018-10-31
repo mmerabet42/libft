@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 17:43:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/28 16:07:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 16:01:57 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int			get_matches(t_regex_info *rgxi)
 	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID);
 	rgxi->pos = &(matchs[0].pos);
 	rgxi->id = &(matchs[0].id);
+	matchs[0].groups = NULL;
+	rgxi->groups = &(matchs[0].groups);
 	matchs[0].str_begin = rgxi->str;
 	matchs[1].str_begin = rgxi->str;
 	if (rgxi->matches)

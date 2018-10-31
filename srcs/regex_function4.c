@@ -6,12 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 19:20:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/29 19:29:48 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 15:56:44 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_str.h"
+#include "ft_types.h"
 #include <stdlib.h>
 
 static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_regex_group *group)
@@ -41,7 +42,7 @@ static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_regex_group *group
 	return (group->len);
 }
 
-int	groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_regex_info	tmp;
 	t_regex_group	*group;
@@ -63,4 +64,27 @@ int	groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		ft_lstdel(rgxi->groups, content_delfunc);
 	free(rgx);
 	return (tmp.len);
+}
+
+int	ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+{
+	t_list			*it;
+	t_regex_group	*grp;
+	int				i;
+	int				n;
+
+	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
+		return (-1);
+	n = ft_atoi(rule->arg);
+	it = *rgxi->groups;
+	i = 0;
+	while (it)
+	{
+		if ((grp = it->content) && i == n)
+			if (ft_strnequ(grp->str, rgxi->str, grp->len))
+				return (grp->len);
+		++i;
+		it = it->next;
+	}
+	return (-1);
 }

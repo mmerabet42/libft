@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/29 19:20:04 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 16:12:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_regex_info	rgxi2;
 
-	regex_init(&rgxi2, rule->func->regex, rgxi->str);
-	rgxi2.str_begin = rgxi->str_begin;
+	rgxi2 = *rgxi;
+	rgxi2.regex = rule->func->regex;
+	rgxi2.rgx_begin = rule->func->regex;
+	rgxi2.str = rgxi->str;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
 	rgxi2.flags |= RGX_END;
 	rgxi2.param = rule->arg;
 	rgxi2.len_param = rule->len_arg;
-	rgxi2.vars = rgxi->vars;
 	if (rgxi->cid == -2)
 		rgxi2.id = rgxi->id;
 	return (regex_exec(&rgxi2));
@@ -98,6 +99,7 @@ static t_regex_func	g_regexfs[] = {
 	{"E", NULL, expr_rgx, 0, 0},
 	{"X", NULL, regex_rgx, 0, 0},
 	{"G", NULL, groups_rgx, 0, 0},
+	{"B", NULL, ugroups_rgx, 0, 0},
 
 	{"upper", "?[A-Z]", NULL, 0, 0},
 	{"lower", "?[a-z]", NULL, 0, 0},

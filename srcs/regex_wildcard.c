@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/28 16:00:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 15:57:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			regex_wildcard(t_regex_info *rgxi)
 		ret = 0;
 		tmp = *rgxi;
 		tmp.len = 0;
-		while (*rgxi->str && (ret = regex_exec(&tmp)) == -1)
+		while (*rgxi->str && (ret = regex_exec2(&tmp)) == -1)
 		{
 			++rgxi->len;
 			tmp.len = 0;

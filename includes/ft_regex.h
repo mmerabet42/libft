@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/29 19:29:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/10/31 15:45:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ struct				s_regex_func
 	int				flags;
 };
 
+int					ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					groups_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					modulus_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					case_rgx(t_regex_info *rgxi, t_regex_rule *rule);
