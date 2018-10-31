@@ -3,11 +3,15 @@
 
 int main(int argc, char **argv)
 {
+	(void)argc;
+
 	t_list	*matches = NULL;
 	t_list	*groups = NULL;
 	int		n;
 	int		id = 0;
 
+	ft_regex(RGX_ADD, "DQUOTE", "\"*[\\\"|?![\"]@or?]\"", NULL);
+	
 	n = ft_regex(RGX_GROUP | RGX_ID, argv[1], argv[2], &id, &groups, &matches);
 
 	t_list	*it = groups;

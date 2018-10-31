@@ -120,6 +120,7 @@ int					print_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					getint_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					debug_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule);
+int					regex_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 t_regex_func		*get_regex_func(const char *name,
 								int len_rule,
 								t_regex_info *rgxi);

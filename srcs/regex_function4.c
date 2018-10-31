@@ -30,7 +30,7 @@ static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_regex_group *group
 	tmp->groups = &grps;
 	if ((ret = regex_exec(tmp)) == -1)
 		return (-1);
-	ft_lstpush_p(&lst, *tmp->groups);
+	ft_lstpush_p(rgxi->groups, *tmp->groups);
 	group->id = id;
 	group->len = ret;
 	group->str_begin = rgxi->str_begin;
@@ -48,7 +48,7 @@ int	groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	char			*rgx;
 
 	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
-		return (-1);
+		return (regex_rgx(rgxi, rule));
 	if (!(rgx = ft_strndup(rule->arg, rule->len_arg)))
 		return (-1);
 	if (!(group = (t_regex_group *)malloc(sizeof(t_regex_group))))

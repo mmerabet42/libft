@@ -84,9 +84,6 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	if (!(str = ft_strndup(&rule->arg[*i], j)))
 		return (-2);
 	rgxi2 = *rgxi;
-	rgxi2.next = NULL;
-	if (*rgxi->regex)
-		rgxi2.next = rgxi->regex;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = rgxi->rgx_begin;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
@@ -95,7 +92,7 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	grps = NULL;
 	rgxi2.groups = &grps;
 	if ((ret = regex_exec(&rgxi2)) != -1)
-		ft_lstpush_p(rgxi->groups, grps);
+		ft_lstpush_p(rgxi->groups, *rgxi2.groups);
 	free(str);
 	*i += j;
 	return (ret);

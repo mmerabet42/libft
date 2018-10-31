@@ -52,7 +52,7 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	return (regex_exec(&rgxi2));
 }
 
-static int			regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int					regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	char			*str;
 	int				ret;

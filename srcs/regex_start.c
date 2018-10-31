@@ -41,7 +41,7 @@ static int	loop_stop(t_regex_info *rgxi, t_regex_info *tmp,
 	if (!r->cond || r->cond == RGX_MARK || r->cond == RGX_LESS
 			|| (r->cond == RGX_GREAT && r->i >= r->l))
 	{
-		if (*tmp->regex && (lret = regex_exec(tmp)) != -1)
+		if (*tmp->regex && (lret = regex_exec2(tmp)) != -1)
 		{
 			*tmp = *rgxi;
 			if ((tmp->flags & RGX_END) && (nret = regex_loop(tmp, r)) != -1)
