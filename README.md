@@ -16,8 +16,8 @@ The `make` command will generate a `libft.a` file that should be used to compile
 
 ## Sublibraries
 
-The **libft** libray is split into sublibraries for a better genericity.
-Each of these sublibraries has his own include path which is in the 'include' directory.
+The **libft** libray is split into sublibraries for a better management.
+Each of these sublibraries has his own header file which is in the 'include' directory.
 But you can include `libft.h` to include them all.
 
 | Name | Documentation |
