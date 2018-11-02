@@ -32,9 +32,10 @@
 # define RGX_DATA (1 << 12)
 # define RGX_READABLE (1 << 13)
 # define RGX_GROUP (1 << 14)
-# define RGX_LOAD (1 << 15)
-# define RGX_FREEGRP (1 << 16)
-# define RGX_FLAG_NUM 17
+# define RGX_INNER_GROUP (1 << 15)
+# define RGX_LOAD (1 << 16)
+# define RGX_FREEGRP (1 << 17)
+# define RGX_FLAG_NUM 18
 
 enum				e_regex_condtion
 {
@@ -77,6 +78,7 @@ typedef struct		s_regex_info
 	int				*id;
 	void			*data;
 	t_list			**groups;
+	t_list			**free_groups;
 	t_list			**matches;
 }					t_regex_info;
 

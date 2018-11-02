@@ -11,7 +11,11 @@ int main(int argc, char **argv)
 	int		id = 0;
 
 	ft_regex(RGX_ADD, "DQUOTE", "\"*[?[\\\"@G]|?![\"]@or?]\"", NULL);
-	
+	ft_regex(RGX_ADD | RGX_ID, "BRACKET", "?[?[@BRACKET0]|?[@BRACKET1]|?[@BRACKET2]@or]", NULL, -2);
+	ft_regex(RGX_ADD, "BRACKET0", "?[(*[?[@BRACKET]|?![{(){}[]}]@or?])@G]", NULL);
+	ft_regex(RGX_ADD, "BRACKET1", "?[{[*[?[@BRACKET]|?![{(){}[]}]@or?]]@G}]", NULL);
+	ft_regex(RGX_ADD, "BRACKET2", "?[\\{*[?[@BRACKET]|?![{(){}[]}]@or?]}@G]", NULL);
+
 	n = ft_regex(RGX_GROUP | RGX_ID, argv[1], argv[2], &id, &groups, &matches);
 
 	t_list	*it = groups;

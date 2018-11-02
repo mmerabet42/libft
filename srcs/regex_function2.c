@@ -70,12 +70,14 @@ int	recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_regex_info	tmp;
 
-	regex_init(&tmp, rgxi->rgx_begin, rgxi->str);
+	tmp = *rgxi;
+	tmp.len = 0;
+	tmp.regex = tmp.rgx_begin;
+	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	tmp.flags |= RGX_END;
 	if (ft_isdigit(*rule->arg))
 		tmp.regex += ft_atoi(rule->arg);
-	tmp.vars = rgxi->vars;
-	tmp.flags = RGX_END;
-	return (regex_exec(&tmp));
+	return (regex_exec2(&tmp));
 }
 
 int	modulus_rgx(t_regex_info *rgxi, t_regex_rule *rule)

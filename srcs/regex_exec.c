@@ -91,7 +91,7 @@ int			regex_exec(t_regex_info *regex_info)
 	if ((ret = regex_exec2(regex_info)) == -1)
 	{
 		if (regex_info->flags & RGX_GROUP)
-			ft_lstdel(regex_info->groups, content_delfunc);
+			ft_lstdel(regex_info->free_groups, content_delfunc);
 	}
 	return (ret);
 }

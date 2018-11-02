@@ -56,6 +56,7 @@ static void	get_args(t_regex_info *rgxi, va_list vp)
 			rgxi->id = (int *)va_arg(vp, int *);
 		if (rgxi->flags & RGX_GROUP)
 			rgxi->groups = (t_list **)va_arg(vp, t_list **);
+		rgxi->free_groups = rgxi->groups;
 	}
 	if (rgxi->flags & RGX_DATA)
 		rgxi->data = (int *)va_arg(vp, void *);

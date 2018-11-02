@@ -89,10 +89,10 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
 	rgxi2.flags |= RGX_END;
 	rgxi2.len = 0;
-	grps = NULL;
-	rgxi2.groups = &grps;
-	if ((ret = regex_exec(&rgxi2)) != -1)
-		ft_lstpush_p(rgxi->groups, *rgxi2.groups);
+	rgxi2.free_groups = NULL;
+	if ((rgxi->flags & RGX_GROUP) && rgxi->groups && (grps = ft_lstend(*rgxi->groups)))
+		rgxi2.free_groups = &grps->next;
+	ret = regex_exec(&rgxi2);
 	free(str);
 	*i += j;
 	return (ret);
