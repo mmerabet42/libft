@@ -47,7 +47,7 @@ static int	regex_equ(t_regex_info *rgxi)
 	while (rgxi->regex[i] && rgxi->str[i])
 	{
 		if (rgxi->regex[i] == '*' || rgxi->regex[i] == '?'
-				|| ((rgxi->flags & RGX_READABLE) && rgxi->regex[i] == ' '))
+				|| ((rgxi->flags & RGX_READABLE) && ft_isspace(rgxi->regex[i])))
 			return (i);
 		if (rgxi->regex[i] != rgxi->str[i])
 			return (-1);

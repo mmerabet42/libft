@@ -10,11 +10,25 @@ int main(int argc, char **argv)
 	int		n;
 	int		id = 0;
 
-	ft_regex(RGX_ADD, "DQUOTE", "\"*[?[\\\"@G]|?![\"]@or?]\"", NULL);
+/*	ft_regex(RGX_ADD, "DQUOTE", "\"*[?[\\\"@G]|?![\"]@or?]\"", NULL);
 	ft_regex(RGX_ADD | RGX_ID, "BRACKET", "?[?[@BRACKET0]|?[@BRACKET1]|?[@BRACKET2]@or]", NULL, -2);
 	ft_regex(RGX_ADD, "BRACKET0", "?[(*[?[@BRACKET]|?![{(){}[]}]@or?])@G]", NULL);
 	ft_regex(RGX_ADD, "BRACKET1", "?[{[*[?[@BRACKET]|?![{(){}[]}]@or?]]@G}]", NULL);
 	ft_regex(RGX_ADD, "BRACKET2", "?[\\{*[?[@BRACKET]|?![{(){}[]}]@or?]}@G]", NULL);
+*/	ft_regex(RGX_ADD, "A0_OPEN", "?[?*]?[!@?][", NULL);
+	ft_regex(RGX_ADD, "A0_CLOSE", "]", NULL);
+	ft_regex(RGX_ADD | RGX_READABLE, "A0",
+	R"(?[@A0_OPEN]
+	*[
+		?[@A0]
+	|
+		?[
+			?![@A0_OPEN]
+		&
+			?![@A0_CLOSE]
+		@and]
+	@or?]
+	?[@A0_CLOSE])", NULL);
 
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
 
