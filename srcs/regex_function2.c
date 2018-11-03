@@ -73,7 +73,7 @@ int	recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	tmp = *rgxi;
 	tmp.len = 0;
 	tmp.regex = tmp.rgx_begin;
-	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	tmp.flags |= RGX_END;
 	if (ft_isdigit(*rule->arg))
 		tmp.regex += ft_atoi(rule->arg);

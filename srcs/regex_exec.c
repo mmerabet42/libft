@@ -86,12 +86,26 @@ int	regex_exec2(t_regex_info *regex_info)
 
 int			regex_exec(t_regex_info *regex_info)
 {
-	int	ret;
+	int		ret;
+	t_list	*groups;
 
+	if (!(regex_info->flags & RGX_GROUP) || !regex_info->groups)
+	{
+		groups = NULL;
+		regex_info->flags |= (RGX_INNER_GROUP | RGX_GROUP);
+		regex_info->groups = &groups;
+		regex_info->free_groups = &groups;
+	}
 	if ((ret = regex_exec2(regex_info)) == -1)
 	{
 		if (regex_info->flags & RGX_GROUP)
 			ft_lstdel(regex_info->free_groups, content_delfunc);
+	}
+	if ((regex_info->flags & RGX_INNER_GROUP))
+	{
+		regex_info->groups = NULL;
+		regex_info->free_groups = NULL;
+		ft_lstdel(regex_info->groups, content_delfunc);
 	}
 	return (ret);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_regex.h"
+#include "ft_mem.h"
 
 static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 {
@@ -42,13 +43,19 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 
 static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs)
 {
-	int	i;
-	int	zero;
+	int		i;
+	int		zero;
+	t_list	*groups;
 
 	i = 0;
 	zero = 0;
+	groups = NULL;
+	rgxi->groups = &groups;
+	rgxi->free_groups = rgxi->groups;
 	while ((matchs[0].len = regex_pos(rgxi)) != -1)
 	{
+		matchs[0].groups = groups;
+		groups = NULL;
 		i += add_matches(rgxi, matchs, zero);
 		zero = (!matchs[0].len ? 1 : 0);
 		matchs[1].pos = matchs[0].pos + (!matchs[0].len ? 1 : matchs[0].len);
@@ -66,11 +73,9 @@ int			get_matches(t_regex_info *rgxi)
 	t_regex_match	matchs[2];
 	int				i;
 
-	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID);
+	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID | RGX_GROUP);
 	rgxi->pos = &(matchs[0].pos);
 	rgxi->id = &(matchs[0].id);
-	matchs[0].groups = NULL;
-	rgxi->groups = &(matchs[0].groups);
 	matchs[0].str_begin = rgxi->str;
 	matchs[1].str_begin = rgxi->str;
 	if (rgxi->matches)

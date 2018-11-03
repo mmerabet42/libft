@@ -22,15 +22,15 @@ static t_regex_group	*add_group(t_regex_info *rgxi, t_list *end)
 
 	if (!(lst = ft_lstnew(&group, sizeof(t_regex_group))))
 		return (NULL);
-	if ((end = ft_lstend(*rgxi->groups)))
+	if (end)
 	{
 		if ((lst->next = end->next))
-			lst->next->parent = lst->next;
+			lst->next->parent = lst;
 		end->next = lst;
 		lst->parent = end;
 	}
 	else
-		*rgxi->groups = lst;
+		ft_lstpushfront(rgxi->groups, lst);
 	return ((t_regex_group *)lst->content);
 }
 
@@ -43,6 +43,7 @@ static int				get_group(t_regex_info *rgxi, t_regex_info *tmp)
 
 	id = 0;
 	tmp->id = &id;
+	tmp->free_groups = NULL;
 	if (tmp->groups && (end = ft_lstend(*tmp->groups)))
 		tmp->free_groups = &end->next;
 	if ((ret = regex_exec(tmp)) == -1 || !(group = add_group(rgxi, end)))
@@ -68,7 +69,7 @@ int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		return (-1);
 	tmp = *rgxi;
 	tmp.len = 0;
-	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	tmp.flags |= (RGX_END | RGX_ID | RGX_GROUP);
 	tmp.regex = rgx;
 	if ((tmp.len = get_group(rgxi, &tmp)) == -1)

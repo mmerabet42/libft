@@ -86,7 +86,7 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 	rgxi2 = *rgxi;
 	rgxi2.regex = str;
 	rgxi2.rgx_begin = rgxi->rgx_begin;
-	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL);
+	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	rgxi2.flags |= RGX_END;
 	rgxi2.len = 0;
 	rgxi2.free_groups = NULL;
