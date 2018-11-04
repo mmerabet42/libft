@@ -76,6 +76,7 @@ int			get_matches(t_regex_info *rgxi)
 	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID | RGX_GROUP);
 	rgxi->pos = &(matchs[0].pos);
 	rgxi->id = &(matchs[0].id);
+	matchs[1].groups = NULL;
 	matchs[0].str_begin = rgxi->str;
 	matchs[1].str_begin = rgxi->str;
 	if (rgxi->matches)

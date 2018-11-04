@@ -31,15 +31,21 @@ int main(int argc, char **argv)
 	?[@A0_CLOSE]@G])", NULL);
 
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
-/*
-	t_list	*it = groups;
-	while (it)
+	t_list	*match_it = matches;
+	while (match_it)
 	{
-		t_regex_group *grp = (t_regex_group *)it->content;
-		ft_printf("group: '%.*s' %d %d %d\n", grp->len, grp->str, grp->pos, grp->len, grp->id);
-		it = it->next;
+		t_regex_match	*m = (t_regex_match *)match_it->content;
+		ft_printf("match: '%.*s'\n", m->len, m->str);
+		t_list	*group_it = m->groups;
+		while (group_it)
+		{
+			t_regex_group	*g = (t_regex_group *)group_it->content;
+			ft_printf("\tgroup match: '%.*s'\n", g->len, g->str);
+			group_it = group_it->next;
+		}
+		match_it = match_it->next;
 	}
-*/	ft_printf("Regular expression: '%s'\nString: '%s'\n", argv[1], argv[2]);
+	ft_printf("Regular expression: '%s'\nString: '%s'\n", argv[1], argv[2]);
 	ft_print_matches(argv[2], matches);
 	ft_printf("%d %d match\n", n, id);
 

@@ -149,5 +149,10 @@ int					ft_regex(int flags,
 								const char *regex,
 								const char *str, ...);
 void				ft_print_matches(const char *str, t_list *matches);
+void				ft_print_groups(const char *str,
+								int i,
+								int len,
+								t_list *groups,
+								const char *def_color);
 
 #endif
