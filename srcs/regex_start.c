@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/27 19:37:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/05 17:37:18 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ static int	loop_stop(t_regex_info *rgxi, t_regex_info *tmp,
 		if (tmp->groups && (end = ft_lstend(*tmp->groups)))
 			tmp->free_groups = &end->next;
 		if (*tmp->regex && (lret = regex_exec(tmp)) != -1)
-		{
-//			if ((tmp->flags & RGX_END) && (nret = regex_loop(tmp, r)) != -1)
-//				return (nret - lret);
 			return (lret);
-		}
 	}
 	if (++r->i == r->l && r->cond == RGX_EQUAL)
 		return (0);

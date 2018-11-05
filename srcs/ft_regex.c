@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/31 16:04:55 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/05 15:02:35 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,13 @@ void		ft_print_matches(const char *str, t_list *matches)
 	}
 	ft_printf("%#{magenta}}%{0}\n");
 }
-
+/*
 static const char	*g_group_colors[] = {
 	"lgreen", "lmagenta", ";238;18;137", ";65;105;225", ";60;179;113",
 	";255;165;0", ";56;142;142"
 };
 static const int	g_group_colors_len = sizeof(g_group_colors) / sizeof(char *);
-
+*/
 void		ft_print_groups(t_list *matches, int a)
 {
 	if (a)
