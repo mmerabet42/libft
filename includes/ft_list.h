@@ -56,6 +56,7 @@ t_list				*ft_strsplitstr_lst(const char *s, const char *sep);
 
 t_list				*ft_lstnew(const void *content, size_t content_size);
 t_list				*ft_lstcreate(void *content, size_t content_size);
+t_list				*ft_lstalloc(size_t content_size, int bzero_content);
 void				ft_lstdelone(t_list **alst, t_delfunc del);
 void				ft_lstdelone_d(t_list **alst, t_delfunc_d del, void *data);
 void				ft_lstdel(t_list **alst, t_delfunc del);

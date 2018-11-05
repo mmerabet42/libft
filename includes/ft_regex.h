@@ -17,6 +17,8 @@
 # include "ft_printf.h"
 # include <stdarg.h>
 
+# define LOAD_REGEX "?[*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
+
 # define RGX_END (1 << 0)
 # define RGX_RGXN (1 << 1)
 # define RGX_STRN (1 << 2)
@@ -132,6 +134,7 @@ int					manage_rules(t_regex_info *rgxi,
 								t_list **rules,
 								int flags,
 								va_list vp);
+int					regex_load(t_regex_info *rgxi, t_list **rules);
 int					regex_loop(t_regex_info *rgxi, t_regex_rule *rule);
 int					regex_variable(t_regex_info *rgxi, const char *s);
 int					regex_start(t_regex_info *rgxi, t_regex_rule *rule);
@@ -149,10 +152,6 @@ int					ft_regex(int flags,
 								const char *regex,
 								const char *str, ...);
 void				ft_print_matches(const char *str, t_list *matches);
-void				ft_print_groups(const char *str,
-								int i,
-								int len,
-								t_list *groups,
-								const char *def_color);
+void				ft_print_groups(t_list *matches, int a);
 
 #endif

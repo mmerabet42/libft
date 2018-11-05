@@ -52,7 +52,7 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	rgxi2.id = NULL;
 	if (rgxi->cid == -2)
 		rgxi2.id = rgxi->id;
-	return (regex_exec(&rgxi2));
+	return (regex_exec2(&rgxi2));
 }
 
 int					regex_rgx(t_regex_info *rgxi, t_regex_rule *rule)

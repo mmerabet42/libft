@@ -89,6 +89,7 @@ int			regex_wildcard(t_regex_info *rgxi)
 	int				ret;
 	int				neg;
 	t_regex_info	tmp;
+	t_list			*end;
 
 	if (!(neg = 0) && *rgxi->regex == '*')
 	{
@@ -101,7 +102,9 @@ int			regex_wildcard(t_regex_info *rgxi)
 		ret = 0;
 		tmp = *rgxi;
 		tmp.len = 0;
-		while (*rgxi->str && (ret = regex_exec2(&tmp)) == -1)
+		if (tmp.groups && (end = ft_lstend(*tmp.groups)))
+			tmp.free_groups = &end->next;
+		while (*rgxi->str && (ret = regex_exec(&tmp)) == -1)
 		{
 			++rgxi->len;
 			tmp.len = 0;

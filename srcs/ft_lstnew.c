@@ -44,6 +44,20 @@ t_list	*ft_lstcreate(void *content, size_t content_size)
 	return (lst);
 }
 
+t_list	*ft_lstalloc(size_t content_size, int bzero_content)
+{
+	void	*content;
+	t_list	*lst;
+
+	if (!(content = malloc(content_size)))
+		return (NULL);
+	if (bzero_content)
+		ft_bzero(content, content_size);
+	if (!(lst = ft_lstcreate(content, content_size)))
+		free(content);
+	return (lst);
+}
+
 void	ft_lstdelv(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list	*nxt;

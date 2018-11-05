@@ -14,7 +14,7 @@
 #include "ft_str.h"
 #include "ft_types.h"
 #include <stdlib.h>
-
+/*
 static t_regex_group	*add_group(t_regex_info *rgxi, t_list *end)
 {
 	t_list			*lst;
@@ -33,21 +33,21 @@ static t_regex_group	*add_group(t_regex_info *rgxi, t_list *end)
 		ft_lstpushfront(rgxi->groups, lst);
 	return ((t_regex_group *)lst->content);
 }
-
-static int				get_group(t_regex_info *rgxi, t_regex_info *tmp)
+*/
+static int				get_group(t_regex_info *rgxi, t_regex_info *tmp, t_list *lst)
 {
 	int				ret;
 	int				id;
-	t_list			*end;
 	t_regex_group	*group;
 
 	id = 0;
 	tmp->id = &id;
 	tmp->free_groups = NULL;
-	if (tmp->groups && (end = ft_lstend(*tmp->groups)))
-		tmp->free_groups = &end->next;
-	if ((ret = regex_exec(tmp)) == -1 || !(group = add_group(rgxi, end)))
+	
+	tmp->free_groups = &lst->next;
+	if ((ret = regex_exec(tmp)) == -1)
 		return (-1);
+	group = (t_regex_group *)lst->content;
 	group->id = id;
 	group->len = ret;
 	group->str_begin = rgxi->str_begin;
@@ -62,18 +62,28 @@ int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_regex_info	tmp;
 	char			*rgx;
+	t_list			*lst;
 
 	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
 		return (regex_rgx(rgxi, rule));
 	if (!(rgx = ft_strndup(rule->arg, rule->len_arg)))
 		return (-1);
+	if (!(lst = ft_lstalloc(sizeof(t_regex_group), 1)))
+		return (-1);
+	ft_lstpush_p(rgxi->groups, lst);
 	tmp = *rgxi;
 	tmp.len = 0;
 	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	tmp.flags |= (RGX_END | RGX_ID | RGX_GROUP);
 	tmp.regex = rgx;
-	if ((tmp.len = get_group(rgxi, &tmp)) == -1)
-		ft_lstdel(rgxi->free_groups, content_delfunc);
+	if ((tmp.len = get_group(rgxi, &tmp, lst)) == -1)
+	{
+		if (lst->parent)
+			lst->parent->next = NULL;
+		if (*rgxi->groups == lst)
+			*rgxi->groups = NULL;
+		ft_lstdel(&lst, content_delfunc);
+	}
 	free(rgx);
 	return (tmp.len);
 }
@@ -92,7 +102,7 @@ int	ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	i = 0;
 	while (it)
 	{
-		if ((grp = it->content) && i == n)
+		if ((grp = it->content) && grp->str && i + 1 == n)
 			if (ft_strnequ(grp->str, rgxi->str, grp->len))
 				return (grp->len);
 		++i;

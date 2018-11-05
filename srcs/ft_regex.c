@@ -124,26 +124,31 @@ static const char	*g_group_colors[] = {
 };
 static const int	g_group_colors_len = sizeof(g_group_colors) / sizeof(char *);
 
-void		ft_print_groups(const char *str, int i, int len, t_list *groups,
-						const char *def_color)
+void		ft_print_groups(t_list *matches, int a)
 {
-	int				n;
-	const char		*color;
-	t_regex_group	*m;
-
-	n = 0;
-	if (len == -1)
-		return ;
-	while (groups)
+	if (a)
 	{
-		m = (t_regex_group *)groups->content;
-		color = g_group_colors[n];
-		ft_printf("%{black}%#{%s}%.*s%{black}%#{%s}%.*s%{0}",
-				def_color, m->pos - i, str + i, color, m->len, m->str);
-		if (++n >= g_group_colors_len)
-			n = 0;
-		i = m->pos + m->len;
-		groups = groups->next;
+		t_list	*group_it = matches;
+		while (group_it)
+		{
+			t_regex_group	*g = (t_regex_group *)group_it->content;
+			ft_printf("\tgroup match: '%.*s'\n", g->len, g->str);
+			group_it = group_it->next;
+		}
+		return ;
 	}
-	ft_printf("%{black}%#{%s}%.*s%{0}", def_color, len - i, str + i);
+	t_list	*match_it = matches;
+	while (match_it)
+	{
+		t_regex_match	*m = (t_regex_match *)match_it->content;
+		ft_printf("match: '%.*s'\n", m->len, m->str);
+		t_list	*group_it = m->groups;
+		while (group_it)
+		{
+			t_regex_group	*g = (t_regex_group *)group_it->content;
+			ft_printf("\tgroup match: '%.*s'\n", g->len, g->str);
+			group_it = group_it->next;
+		}
+		match_it = match_it->next;
+	}
 }
