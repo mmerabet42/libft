@@ -124,3 +124,15 @@ char		*ft_strdupk(const char *s)
 	}
 	return (str);
 }
+
+char		*ft_strndupk(const char *s, size_t n)
+{
+	char	*str;
+	char	*res;
+
+	if (!s || !(str = ft_strndup(s, n)))
+		return (NULL);
+	res = ft_strdupk(str);
+	free(str);
+	return (res);
+}

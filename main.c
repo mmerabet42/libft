@@ -10,19 +10,9 @@ int main(int argc, char **argv)
 	t_list	*groups = NULL;
 	int		n;
 
-	ft_printf("str: '%s'\n", argv[1]);
-	char	*str = ft_strdupk(argv[1]);
-	char	*it = str;
-	while (*it)
-	{
-		ft_printf("lol: %d\n", *it);
-		++it;
-	}
-	return (0);
-
 	n = ft_regex(RGX_LOAD, "rules.rgx", NULL);
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
-	ft_printf("Regular expression: '%s'\nString: '%s'\n", argv[1], argv[2]);
+	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 
 	ft_print_groups(matches, 0);
 	ft_print_matches(argv[2], matches);
