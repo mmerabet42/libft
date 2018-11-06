@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/31 15:57:53 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:06:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,30 @@ static int	regex_mark(t_regex_info *rgxi)
 	return (0);
 }
 
-int			regex_wildcard(t_regex_info *rgxi)
+static int	wildcard_while(t_regex_info *rgxi)
 {
-	int				ret;
-	int				neg;
 	t_regex_info	tmp;
 	t_list			*end;
+	int				ret;
+
+	ret = 0;
+	tmp = *rgxi;
+	tmp.len = 0;
+	if (tmp.groups && (end = ft_lstend(*tmp.groups)))
+		tmp.free_groups = &end->next;
+	while (*rgxi->str && (ret = regex_exec(&tmp)) == -1)
+	{
+		++rgxi->len;
+		tmp.len = 0;
+		tmp.str = ++rgxi->str;
+		tmp.regex = rgxi->regex;
+	}
+	return (ret != -1 ? rgxi->len + ret : 0);
+}
+
+int			regex_wildcard(t_regex_info *rgxi)
+{
+	int				neg;
 
 	if (!(neg = 0) && *rgxi->regex == '*')
 	{
@@ -99,19 +117,7 @@ int			regex_wildcard(t_regex_info *rgxi)
 			return (expanded_wildcard(rgxi, '*', neg));
 		if (!*rgxi->regex)
 			return (rgxi->len + ft_strlen(rgxi->str));
-		ret = 0;
-		tmp = *rgxi;
-		tmp.len = 0;
-		if (tmp.groups && (end = ft_lstend(*tmp.groups)))
-			tmp.free_groups = &end->next;
-		while (*rgxi->str && (ret = regex_exec(&tmp)) == -1)
-		{
-			++rgxi->len;
-			tmp.len = 0;
-			tmp.str = ++rgxi->str;
-			tmp.regex = rgxi->regex;
-		}
-		return (ret != -1 ? rgxi->len + ret : 0);
+		return (wildcard_while(rgxi));
 	}
 	return (regex_mark(rgxi));
 }

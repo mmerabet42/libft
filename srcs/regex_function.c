@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/31 16:12:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:29:29 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,10 @@ static t_regex_func	g_regexfs[] = {
 	{"getint", NULL, getint_rgx, 0, 0},
 	{"ngetint", NULL, getint_rgx, 0, 0},
 
-	{"print", NULL, print_rgx, 0, 0},
+	{"true", NULL, write_rgx, 0, 0},
+	{"false", NULL, write_rgx, 0, 0},
+	{"write", NULL, write_rgx, 0, 0},
 	{"case", NULL, case_rgx, 0, 0},
-	{"return", NULL, print_rgx, 0, 0},
 	{"debug", NULL, debug_rgx, 0, 0},
 	{"%", NULL, modulus_rgx, 0, 0},
 	{"set%", NULL, modulus_rgx, 0, 0},

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:28:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:00:04 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	next_op(t_regex_rule *rule, int i)
 	return (j);
 }
 
-static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
+static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
 {
 	char			*str;
 	int				ret;
@@ -83,14 +83,14 @@ static int	move_i(t_regex_info *rgxi, t_regex_rule *rule, int *i)
 		return (-2);
 	if (!(str = ft_strndup(&rule->arg[*i], j)))
 		return (-2);
-	rgxi2 = *rgxi;
+	rgxi2 = *r;
 	rgxi2.regex = str;
-	rgxi2.rgx_begin = rgxi->rgx_begin;
+	rgxi2.rgx_begin = r->rgx_begin;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	rgxi2.flags |= RGX_END;
 	rgxi2.len = 0;
 	rgxi2.free_groups = NULL;
-	if ((rgxi->flags & RGX_GROUP) && rgxi->groups && (grps = ft_lstend(*rgxi->groups)))
+	if ((r->flags & RGX_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))
 		rgxi2.free_groups = &grps->next;
 	ret = regex_exec(&rgxi2);
 	free(str);

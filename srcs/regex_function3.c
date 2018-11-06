@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/28 16:14:22 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:26:43 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,6 @@
 #include "ft_str.h"
 #include "ft_types.h"
 #include "ft_mem.h"
-
-int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
-{
-	(void)rule;
-	if (*rule->rule == '^')
-	{
-		if (rgxi->str == rgxi->str_begin || !ft_isword(*(rgxi->str - 1)))
-			return (0);
-	}
-	else if (!*rgxi->str)
-		return (0);
-	else if (!ft_isword(*rgxi->str))
-	{
-		++rgxi->str;
-		return (0);
-	}
-	return (-1);
-}
-
-static int	get_result(t_regex_info *rgxi, t_regex_rule *rule)
-{
-	int		a;
-	int		b;
-	char	*s;
-
-	a = regex_variable(rgxi, rule->arg + 2);
-	if (!(s = ft_strnpbrk(rule->arg + 2, "+-/*%><=!", rule->len_arg - 2)))
-		return (a);
-	b = regex_variable(rgxi, s + 1);
-	if (*s == '+' || *s == '-')
-		return (*s == '+' ? (a + b) : (a - b));
-	else if (*s == '*')
-		return (a * b);
-	else if (*s == '=' || *s == '!')
-		return (*s == '=' ? (a == b) : (a != b));
-	else if (*s == '>' || *s == '<')
-		return (*s == '>' ? (a > b) : (a < b));
-	else if (*s == '/' && b != 0)
-		return (a / b);
-	else if (*s == '%' && b != 0)
-		return (a % b);
-	return (0);
-}
 
 static int	fake_regex(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *rule)
 {
@@ -70,7 +27,8 @@ static int	fake_regex(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *rule)
 	t->regex = str;
 	t->rgx_begin = str;
 	t->len = 0;
-	t->flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_GROUP | RGX_INNER_GROUP);
+	t->flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_GROUP);
+	t->flags &= ~(RGX_INNER_GROUP);
 	t->flags |= RGX_END;
 	r = regex_exec(t);
 	free(str);
@@ -105,6 +63,33 @@ static int	get_global(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *r)
 	return (res);
 }
 
+static int	get_result(t_regex_info *rgxi, t_regex_info *tmp, t_regex_rule *rule)
+{
+	int		a;
+	int		b;
+	char	*s;
+
+	if (rule->arg[1] == ',')
+		return (get_global(rgxi, tmp, rule));
+	a = regex_variable(rgxi, rule->arg + 2);
+	if (!(s = ft_strnpbrk(rule->arg + 2, "+-/*%><=!", rule->len_arg - 2)))
+		return (a);
+	b = regex_variable(rgxi, s + 1);
+	if (*s == '+' || *s == '-')
+		return (*s == '+' ? (a + b) : (a - b));
+	else if (*s == '*')
+		return (a * b);
+	else if (*s == '=' || *s == '!')
+		return (*s == '=' ? (a == b) : (a != b));
+	else if (*s == '>' || *s == '<')
+		return (*s == '>' ? (a > b) : (a < b));
+	else if (*s == '/' && b != 0)
+		return (a / b);
+	else if (*s == '%' && b != 0)
+		return (a % b);
+	return (0);
+}
+
 int			expr_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	int				r;
@@ -124,7 +109,7 @@ int			expr_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 			ret = r;
 	}
 	else
-		r = (rule->arg[1] == ',' ? get_global(rgxi, &tmp, rule) : get_result(rgxi, rule));
+		r = get_result(rgxi, &tmp, rule);
 	if (rule->arg[0] == '0')
 		return (r ? 0 : -1);
 	if (ft_isupper(rule->arg[0]))

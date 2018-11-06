@@ -1,0 +1,28 @@
+-BRACKET	"?[?[@BRACKET1]|?[@BRACKET2]|?[@BRACKET3]@or]"
+
+BRACKET1	"(*[?[@BRACKET]|?![{(){}[]}]@or?])"
+
+BRACKET2	"[*[?[@BRACKET]|?![{(){}[]}]@or?]]"
+
+BRACKET3	"{*[?[@BRACKET]|?![{(){}[]}]@or?]}"
+
+DQUOTE		"\"*[\\\"|?![\"]@or?]\""
+
+ONECOMMENT		"//*?[@$n]"
+MULTICOMMENT	"/?[*] * ?[*]/"
+
+COMMENT			"?[?[@ONECOMMENT]|?[@MULTICOMMENT]@or]"
+
+-STRUCTURE	"?[?[@STRUCT]|?[@TSTRUCT]@or]"
+
+STRUCT		"
+struct *[@space] ?[*[@word]@G] *[@space?]
+{
+	*![}]
+} *[@space?] ;"
+
+TSTRUCT		"
+typedef *[@space] struct *[@space] ?[*[@word]@G] *[@space?]
+{
+	*![}]
+} *[@space?] *[@word] *[@space?] ;"

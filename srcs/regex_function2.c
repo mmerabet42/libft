@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/19 19:28:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:27:47 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 #include "ft_types.h"
 #include "ft_printf.h"
 
-int	print_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	write_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	int	i;
 
+	if (rule->rule[0] == 't')
+		return (0);
+	else if (rule->rule[0] == 'f')
+		return (-1);
 	i = 0;
 	while (i < rule->len_arg)
 	{

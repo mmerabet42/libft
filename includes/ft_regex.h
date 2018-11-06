@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/05 18:16:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:29:43 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int					bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					delim_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					cond_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					expr_rgx(t_regex_info *rgxi, t_regex_rule *rule);
-int					print_rgx(t_regex_info *rgxi, t_regex_rule *rule);
+int					write_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					getint_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					debug_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule);
@@ -130,6 +130,7 @@ t_regex_func		*get_regex_func(const char *name,
 								int len_rule,
 								t_regex_info *rgxi);
 
+void				get_args(t_regex_info *rgxi, va_list vp);
 int					manage_rules(t_regex_info *rgxi,
 								t_list **rules,
 								int flags,

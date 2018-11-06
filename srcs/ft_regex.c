@@ -6,15 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/05 15:02:35 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:11:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_mem.h"
-#include "ft_types.h"
-#include "ft_math.h"
-#include "ft_printf.h"
 
 int			regex_pos(t_regex_info *rgxi)
 {
@@ -38,31 +35,6 @@ int			regex_pos(t_regex_info *rgxi)
 		return (ret);
 	}
 	return (regex_exec(rgxi));
-}
-
-static void	get_args(t_regex_info *rgxi, va_list vp)
-{
-	if (rgxi->flags & RGX_RGXN)
-		rgxi->rgxn = (int)va_arg(vp, int);
-	if (rgxi->flags & RGX_STRN)
-		rgxi->strn = (int)va_arg(vp, int);
-	if (rgxi->flags & (RGX_GLOBAL | RGX_UGLOBAL))
-		rgxi->matches = (t_list **)va_arg(vp, t_list **);
-	else
-	{
-		if (rgxi->flags & RGX_POS)
-			rgxi->pos = (int *)va_arg(vp, int *);
-		if (rgxi->flags & RGX_ID)
-			rgxi->id = (int *)va_arg(vp, int *);
-		if (rgxi->flags & RGX_GROUP)
-			rgxi->groups = (t_list **)va_arg(vp, t_list **);
-		rgxi->free_groups = rgxi->groups;
-	}
-	if (rgxi->flags & RGX_DATA)
-		rgxi->data = (int *)va_arg(vp, void *);
-	if (rgxi->flags & RGX_VAR)
-		rgxi->vars = (int *)va_arg(vp, int *);
-	va_end(vp);
 }
 
 int			ft_regex(int flags, const char *regex, const char *str, ...)
@@ -117,6 +89,7 @@ void		ft_print_matches(const char *str, t_list *matches)
 	}
 	ft_printf("%#{magenta}}%{0}\n");
 }
+
 /*
 static const char	*g_group_colors[] = {
 	"lgreen", "lmagenta", ";238;18;137", ";65;105;225", ";60;179;113",
