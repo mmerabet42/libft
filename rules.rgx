@@ -34,5 +34,5 @@ typedef *[@space] struct *[@space] ?[*[@word]@G] *[@space?]
 "
 
 FUNCTION		"
-?[?[@^w]*?[*[@space]i*?[@BRACKET1]*;@;]@G]
+?[@^w]?[*[?[@WORD]|?[@space]@or]?[(@;]@G]?[?[@BRACKET1]@G];
 "
