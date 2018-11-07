@@ -33,6 +33,20 @@ typedef *[@space] struct *[@space] ?[*[@word]@G] *[@space?]
 } *[@space?] ?[*[@word]@G] *[@space?] ;
 "
 
+JSON_FORMAT		"
+?[\\{
+	*[@space?]
+	*[
+		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?],*[@space?]
+	|
+		?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?]
+	@or?]
+}@G]
+"
+
+
+
+
 FUNCTION		"
 ?[@^w]?[*[?[@WORD]|?[@space]@or]?[(@;]@G]?[?[@BRACKET1]@G];
 "

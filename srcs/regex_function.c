@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/07 18:55:16 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/07 20:52:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	rgxi2.str = rgxi->str;
 	rgxi2.len = 0;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
+	rgxi2.flags &= ~(RGX_READABLE);
 	rgxi2.flags |= RGX_END | rule->func->flags;
 	rgxi2.param = rule->arg;
 	rgxi2.len_param = rule->len_arg;

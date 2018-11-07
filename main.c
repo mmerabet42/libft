@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	ft_regex(RGX_ADD, "BRCKT_GRP", "?[(*[?![()]|?[@BRCKT]@or?])@G]", NULL);
 
 	n = ft_regex(RGX_LOAD, "rules.rgx", NULL);
-	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
+	n = ft_regex(RGX_GLOBAL | RGX_READABLE, argv[1], argv[2], &matches);
 	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 
 	ft_print_matches(argv[2], matches);
