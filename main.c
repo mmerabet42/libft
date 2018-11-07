@@ -10,13 +10,14 @@ int main(int argc, char **argv)
 	t_list	*groups = NULL;
 	int		n;
 
+	ft_regex(RGX_ADD, "BRCKT_GRP", "?[(*[?![()]|?[@BRCKT]@or?])@G]", NULL);
+
 	n = ft_regex(RGX_LOAD, "rules.rgx", NULL);
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
 	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 
-	ft_print_groups(matches, 0);
 	ft_print_matches(argv[2], matches);
-	ft_printf("%d match\n", n);
+	ft_printf("\n%d match\n", n);
 
 	ft_regex(RGX_FREEGRP, NULL, NULL, &groups);
 	ft_regex(RGX_FREE, NULL, NULL, &matches);

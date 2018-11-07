@@ -154,5 +154,6 @@ int					ft_regex(int flags,
 								const char *str, ...);
 void				ft_print_matches(const char *str, t_list *matches);
 void				ft_print_groups(t_list *matches, int a);
+void				ft_print_groups2(const char *match, int pos, int len, t_list *groups, const char *def);
 
 #endif

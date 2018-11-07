@@ -6,10 +6,10 @@ BRACKET2	"[*[?[@BRACKET]|?![{(){}[]}]@or?]]"
 
 BRACKET3	"{*[?[@BRACKET]|?![{(){}[]}]@or?]}"
 
-DQUOTE		"\"*[\\\"|?![\"]@or?]\""
+DQUOTE		"\"*[?[\\\"@G]|?![\"]@or?]\""
 
 ONECOMMENT		"//*?[@$n]"
-MULTICOMMENT	"/?[*] * ?[*]/"
+MULTICOMMENT	"/?[*] ?[*![*/@equ]@G] ?[*]/"
 
 COMMENT			"?[?[@ONECOMMENT]|?[@MULTICOMMENT]@or]"
 
@@ -17,12 +17,12 @@ COMMENT			"?[?[@ONECOMMENT]|?[@MULTICOMMENT]@or]"
 
 STRUCT		"
 struct *[@space] ?[*[@word]@G] *[@space?]
-{
+?[\\{
 	*![}]
-} *[@space?] ;"
+}@G] *[@space?] ;"
 
 TSTRUCT		"
 typedef *[@space] struct *[@space] ?[*[@word]@G] *[@space?]
-{
+?[\\{
 	*![}]
-} *[@space?] *[@word] *[@space?] ;"
+}@G] *[@space?] ?[*[@word]@G] *[@space?] ;"
