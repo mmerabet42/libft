@@ -6,16 +6,20 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:33:56 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:06:51 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/08 20:35:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_str.h"
 #include "ft_mem.h"
+#include "ft_types.h"
 
 static void	fill_info(t_regex_info *rgxi, t_regex_rule *r, int jmp, int ret)
 {
+	if ((rgxi->flags & RGX_READABLE) && ft_isspace(*rgxi->regex))
+		while (ft_isspace(*rgxi->regex))
+			++rgxi->regex;
 	if (r->len_arg < 0)
 		r->len_arg = jmp - ret - (ret - (r->neg ? 2 : 1)) - r->cond;
 	else

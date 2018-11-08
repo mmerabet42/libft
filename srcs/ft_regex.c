@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:11:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/08 20:42:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ static void	ft_print_group(t_list **group, int *i)
 	cur = (t_regex_group *)(*group)->content;
 	next = NULL;
 	if ((*group = (*group)->next))
-		next = (t_regex_group *)(*group)->next->content;
+		next = (t_regex_group *)(*group)->content;
 	if (!next || cur->pos + cur->len <= next->pos)
 		ft_printf("%{black}%#{%s}%.*s%{0}", g_group_colors[j], cur->len, cur->str);
 	else

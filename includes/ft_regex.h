@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/07 20:56:33 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/08 20:43:08 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define RGX_LOAD (1 << 16)
 # define RGX_FREEGRP (1 << 17)
 # define RGX_ADD_MULTI (1 << 18)
-# define RGX_FLAG_NUM 19
+# define RGX_INLOOP (1 << 19)
+# define RGX_FLAG_NUM 20
 
 enum				e_regex_condtion
 {

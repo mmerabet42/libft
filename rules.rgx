@@ -37,16 +37,29 @@ JSON_FORMAT		"
 ?[\\{
 	*[@space?]
 	*[
-		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?],*[@space?]@X]
+		?[
+			?[*[@word]@G] *[@space?] : *[@space?]
+			?[
+				?[null@G]
+			|
+				?[?[@DQUOTE]@G]
+			|
+				?[@JSON_FORMAT]
+			@or]
+			*[@space?] , *[@space?]
+		@X]
 	|
-		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?]@X]
+		?[
+			?[*[@word]@G] *[@space?] : *[@space?]
+			?[
+				?[null@G]
+			|
+				?[?[@DQUOTE]@G]
+			|
+				?[@JSON_FORMAT]
+			@or]
+			*[@space?] ?[}@,]
+		@X]
 	@or?]
 ?[}@G]@G]
-"
-
-
-
-
-FUNCTION		"
-?[@^w]?[*[?[@WORD]|?[@space]@or]?[(@;]@G]?[?[@BRACKET1]@G];
 "
