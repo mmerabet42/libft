@@ -37,11 +37,11 @@ JSON_FORMAT		"
 ?[\\{
 	*[@space?]
 	*[
-		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?],*[@space?]
+		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?],*[@space?]@X]
 	|
-		?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?]
+		?[?[*[@word]@G]*[@space?]:*[@space?]?[?[?[@DQUOTE]@G]|?[@JSON_FORMAT]@or]*[@space?]@X]
 	@or?]
-}@G]
+?[}@G]@G]
 "
 
 

@@ -37,7 +37,8 @@
 # define RGX_INNER_GROUP (1 << 15)
 # define RGX_LOAD (1 << 16)
 # define RGX_FREEGRP (1 << 17)
-# define RGX_FLAG_NUM 18
+# define RGX_ADD_MULTI (1 << 18)
+# define RGX_FLAG_NUM 19
 
 enum				e_regex_condtion
 {
@@ -130,6 +131,8 @@ t_regex_func		*get_regex_func(const char *name,
 								int len_rule,
 								t_regex_info *rgxi);
 
+void				free_rule(void *s, size_t p);
+void				free_match(void *s, size_t p);
 void				get_args(t_regex_info *rgxi, va_list vp);
 int					manage_rules(t_regex_info *rgxi,
 								t_list **rules,

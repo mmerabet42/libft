@@ -1,6 +1,11 @@
 {
 	hello : "Hello",
 	ok : {
+		2 : {
+			3 : {
 
-	}
+			}
+		}
+	},
+	HAHAHAA: "ok"
 }

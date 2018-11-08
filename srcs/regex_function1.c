@@ -88,7 +88,6 @@ static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
 	rgxi2.rgx_begin = r->rgx_begin;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	rgxi2.flags |= RGX_END;
-	ft_printf("XX RULLE: '%s' %d\n", rgxi2.regex, rgxi2.flags & RGX_READABLE);
 	rgxi2.len = 0;
 	rgxi2.free_groups = NULL;
 	if ((r->flags & RGX_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))

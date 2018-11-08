@@ -12,6 +12,26 @@
 
 #include "ft_regex.h"
 
+static int	add_multi_rule(va_list vp)
+{
+	t_regex_func	*funcs;
+	size_t			funcs_len;
+	size_t			i;
+
+	if (!(funcs = va_arg(vp, t_regex_func *)))
+		return (-1);
+	funcs_len = va_arg(vp, size_t);
+	i = 0;
+	while (i < funcs_len)
+	{
+		if (ft_regex(RGX_ADD | funcs[i].flags, funcs[i].name, funcs[i].regex,
+				funcs[i].func, funcs[i].id) == -1)
+			return (-1);
+		++i;
+	}
+	return ((int)i);
+}
+
 static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 {
 	t_regex_func	func;
@@ -35,25 +55,6 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	return (func.id);
 }
 
-static void	free_rule(void *p, size_t s)
-{
-	if (!s)
-	{
-		free((void *)((t_regex_func *)p)->name);
-		free((void *)((t_regex_func *)p)->regex);
-	}
-	free(p);
-}
-
-static void	free_match(void *p, size_t s)
-{
-	if (!p)
-		return ;
-	(void)s;
-	ft_lstdel(&((t_regex_match *)p)->groups, content_delfunc);
-	free(p);
-}
-
 int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 					va_list vp)
 {
@@ -63,6 +64,8 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 		return (regex_load(rgxi, rules));
 	else if (flags & RGX_ADD)
 		return (add_rule(rgxi, rules, flags, vp));
+	else if (flags & RGX_ADD_MULTI)
+		return (add_multi_rule(vp));
 	else if ((flags & RGX_GET) && (lst = va_arg(vp, t_list **)))
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))

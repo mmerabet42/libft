@@ -48,8 +48,8 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_start(vp, str);
 	regex_info.str = str;
 	regex_info.regex = regex;
-	if ((flags & (RGX_ADD | RGX_GET | RGX_CLEAN | RGX_FREE))
-			|| (flags & (RGX_FREEGRP | RGX_LOAD)))
+	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_LOAD))
+			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN)))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));
@@ -125,7 +125,7 @@ static const char	*g_group_colors[] = {
 	"lgreen", "lmagenta", ";238;18;137", ";65;105;225", ";60;179;113",
 	";255;165;0", ";52;224;8", ";56;142;142", ";162;59;221", ";244;63;2"
 };
-static const int	g_group_colors_len = sizeof(g_group_colors) / sizeof(char *);
+static const int	g_gc_len = sizeof(g_group_colors) / sizeof(char *);
 
 static void	ft_print_group(t_list **group, int *i)
 {
@@ -136,22 +136,18 @@ static void	ft_print_group(t_list **group, int *i)
 	t_regex_group	*next;
 
 	j = (*i)++;
-	if (*i >= g_group_colors_len)
+	if (*i >= g_gc_len)
 		*i = 0;
 	cur = (t_regex_group *)(*group)->content;
 	next = NULL;
-	if ((*group)->next)
+	if ((*group = (*group)->next))
 		next = (t_regex_group *)(*group)->next->content;
 	if (!next || cur->pos + cur->len <= next->pos)
-	{
-		*group = (*group)->next;
 		ft_printf("%{black}%#{%s}%.*s%{0}", g_group_colors[j], cur->len, cur->str);
-	}
 	else
 	{
 		str = cur->str;
 		pos = cur->pos;
-		*group = (*group)->next;
 		while (next && cur->pos + cur->len > next->pos)
 		{
 			ft_printf("%{black}%#{%s}%.*s%{0}", g_group_colors[j], next->pos - pos, str);

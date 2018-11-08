@@ -55,3 +55,22 @@ int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	}
 	return (-1);
 }
+
+void		free_rule(void *p, size_t s)
+{
+	if (!s)
+	{
+		free((void *)((t_regex_func *)p)->name);
+		free((void *)((t_regex_func *)p)->regex);
+	}
+	free(p);
+}
+
+void		free_match(void *p, size_t s)
+{
+	if (!p)
+		return ;
+	(void)s;
+	ft_lstdel(&((t_regex_match *)p)->groups, content_delfunc);
+	free(p);
+}
