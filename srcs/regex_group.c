@@ -75,7 +75,7 @@ int			ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
 		return (-1);
 	n = ft_atoi(rule->arg);
-	it = *rgxi->groups;
+	it = *rgxi->groups_head;
 	i = 0;
 	while (it)
 	{

@@ -52,6 +52,7 @@ static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs)
 	groups = NULL;
 	rgxi->groups = &groups;
 	rgxi->free_groups = rgxi->groups;
+	rgxi->groups_head = rgxi->groups;
 	while ((matchs[0].len = regex_pos(rgxi)) != -1)
 	{
 		matchs[0].groups = groups;
