@@ -38,24 +38,6 @@ int		regex_variable(t_regex_info *rgxi, const char *s)
 	return (0);
 }
 
-int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
-{
-	(void)rule;
-	if (*rule->rule == '^')
-	{
-		if (rgxi->str == rgxi->str_begin || !ft_isword(*(rgxi->str - 1)))
-			return (0);
-	}
-	else if (!*rgxi->str)
-		return (0);
-	else if (!ft_isword(*rgxi->str))
-	{
-		++rgxi->str;
-		return (0);
-	}
-	return (-1);
-}
-
 void		free_rule(void *p, size_t s)
 {
 	if (!s)
@@ -66,11 +48,20 @@ void		free_rule(void *p, size_t s)
 	free(p);
 }
 
+void		free_group(void *p, size_t s)
+{
+	if (!p)
+		return ;
+	(void)s;
+	ft_lstdel(&((t_regex_group *)p)->groups, free_group);
+	free(p);
+}
+
 void		free_match(void *p, size_t s)
 {
 	if (!p)
 		return ;
 	(void)s;
-	ft_lstdel(&((t_regex_match *)p)->groups, content_delfunc);
+	ft_lstdel(&((t_regex_match *)p)->groups, free_group);
 	free(p);
 }

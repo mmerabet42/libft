@@ -1,13 +1,22 @@
+
 {
 	hello : "Hello",
 	ok : {
 		2:{
 		
 		},
-		prout: {
+		3: {
 			rest : null,
 			lol : null
-		}
+		},
+		HAHAHAA: "ok"
 	},
-	HAHAHAA: "ok"
+	lol:"haha"
 }
+
+
+
+{
+	mdr : "ok"
+}
+

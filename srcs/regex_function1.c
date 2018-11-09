@@ -85,13 +85,12 @@ static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
 		return (-2);
 	rgxi2 = *r;
 	rgxi2.regex = str;
-	rgxi2.rgx_begin = r->rgx_begin;
 	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
 	rgxi2.flags |= RGX_END;
 	rgxi2.len = 0;
-	rgxi2.free_groups = NULL;
+	rgxi2.free_groups = r->groups;
 	if ((r->flags & RGX_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))
-		rgxi2.free_groups = &grps->next;
+			rgxi2.free_groups = &grps->next;
 	ret = regex_exec(&rgxi2);
 	free(str);
 	*i += j;

@@ -127,7 +127,7 @@ static t_regex_func	g_regexfs[] = {
 	{"false", NULL, write_rgx, 0, 0},
 	{"write", NULL, write_rgx, 0, 0},
 	{"case", NULL, case_rgx, 0, 0},
-	{"debug", NULL, debug_rgx, 0, 0},
+	{"debug", NULL, write_rgx, 0, 0},
 	{"%", NULL, modulus_rgx, 0, 0},
 	{"set%", NULL, modulus_rgx, 0, 0},
 	{"equ", "?[@%]", NULL, 0, 0},

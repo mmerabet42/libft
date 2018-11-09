@@ -71,7 +71,7 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
 		ft_lstdel(lst, free_match);
 	else if ((flags & RGX_FREEGRP) && (lst = va_arg(vp, t_list **)))
-		ft_lstdel(lst, content_delfunc);
+		ft_lstdel(lst, free_group);
 	else if (flags & RGX_CLEAN)
 		ft_lstdel(rules, free_rule);
 	va_end(vp);
@@ -94,6 +94,7 @@ void		get_args(t_regex_info *rgxi, va_list vp)
 			rgxi->id = (int *)va_arg(vp, int *);
 		if (rgxi->flags & RGX_GROUP)
 			rgxi->groups = (t_list **)va_arg(vp, t_list **);
+		rgxi->groups_head = rgxi->groups;
 		rgxi->free_groups = rgxi->groups;
 	}
 	if (rgxi->flags & RGX_DATA)

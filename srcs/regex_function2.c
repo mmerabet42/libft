@@ -14,14 +14,38 @@
 #include "ft_types.h"
 #include "ft_printf.h"
 
+int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+{
+	(void)rule;
+	if (*rule->rule == '^')
+	{
+		if (rgxi->str == rgxi->str_begin || !ft_isword(*(rgxi->str - 1)))
+			return (0);
+	}
+	else if (!*rgxi->str)
+		return (0);
+	else if (!ft_isword(*rgxi->str))
+	{
+		++rgxi->str;
+		return (0);
+	}
+	return (-1);
+}
+
 int	write_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	int	i;
 
-	if (rule->rule[0] == 't')
+	if (rule->rule[0] == 't' || rule->rule[0] == 'f')
+		return (rule->rule[0] == 't' ? 0 : -1);
+	else if (rule->rule[0] == 'd')
+	{
+		ft_printf("DEBUG \"%.*s\" ->\n\tstr:\t\t'%s'\n\tstr_begin:\t'%s'\n",
+				rule->len_arg, rule->arg, rgxi->str, rgxi->str_begin);
+		ft_printf("\tregex:\t\t'%s'\n\tregex_begin:\t'%s'\n",
+				rgxi->regex, rgxi->rgx_begin);
 		return (0);
-	else if (rule->rule[0] == 'f')
-		return (-1);
+	}
 	i = 0;
 	while (i < rule->len_arg)
 	{
@@ -59,15 +83,6 @@ int	getint_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 		++i;
 	}
 	return (ret);
-}
-
-int	debug_rgx(t_regex_info *rgxi, t_regex_rule *rule)
-{
-	ft_printf("DEBUG \"%.*s\" ->\n\tstr:\t\t'%s'\n\tstr_begin:\t'%s'\n",
-			rule->len_arg, rule->arg, rgxi->str, rgxi->str_begin);
-	ft_printf("\tregex:\t\t'%s'\n\tregex_begin:\t'%s'\n",
-			rgxi->regex, rgxi->rgx_begin);
-	return (0);
 }
 
 int	recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule)

@@ -16,24 +16,23 @@
 
 static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_list *lst)
 {
-	int				ret;
 	int				id;
 	t_regex_group	*group;
 
 	id = 0;
 	tmp->id = &id;
-	tmp->free_groups = &lst->next;
-	if ((ret = regex_exec(tmp)) == -1)
+	group = (t_regex_group *)lst->content;
+	tmp->groups = &group->groups;
+	tmp->free_groups = NULL;
+	if ((group->len = regex_exec2(tmp)) == -1)
 	{
 		if (lst->parent)
 			lst->parent->next = NULL;
-		if (*rgxi->groups == lst)
+		else
 			*rgxi->groups = NULL;
 		return (-1);
 	}
-	group = (t_regex_group *)lst->content;
 	group->id = id;
-	group->len = ret;
 	group->str_begin = rgxi->str_begin;
 	group->str = rgxi->str;
 	group->pos = (int)(rgxi->str - rgxi->str_begin);
@@ -61,7 +60,7 @@ int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	tmp.flags |= (RGX_END | RGX_ID | RGX_GROUP);
 	tmp.regex = rgx;
 	if ((tmp.len = get_group(rgxi, &tmp, lst)) == -1)
-		ft_lstdel(&lst, content_delfunc);
+		ft_lstdel(&lst, free_group);
 	free(rgx);
 	return (tmp.len);
 }

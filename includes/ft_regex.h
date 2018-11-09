@@ -38,7 +38,6 @@
 # define RGX_LOAD (1 << 16)
 # define RGX_FREEGRP (1 << 17)
 # define RGX_ADD_MULTI (1 << 18)
-# define RGX_INLOOP (1 << 19)
 # define RGX_FLAG_NUM 20
 
 enum				e_regex_condtion
@@ -81,6 +80,7 @@ typedef struct		s_regex_info
 	int				cid;
 	int				*id;
 	void			*data;
+	t_list			**groups_head;
 	t_list			**groups;
 	t_list			**free_groups;
 	t_list			**matches;
@@ -93,6 +93,7 @@ typedef struct		s_regex_group
 	int				pos;
 	int				len;
 	int				id;
+	t_list			*groups;
 }					t_regex_group;
 
 typedef struct		s_regex_match
@@ -125,13 +126,13 @@ int					cond_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					expr_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					write_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					getint_rgx(t_regex_info *rgxi, t_regex_rule *rule);
-int					debug_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					regex_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 t_regex_func		*get_regex_func(const char *name,
 								int len_rule,
 								t_regex_info *rgxi);
 
+void				free_group(void *s, size_t p);
 void				free_rule(void *s, size_t p);
 void				free_match(void *s, size_t p);
 void				get_args(t_regex_info *rgxi, va_list vp);
@@ -159,5 +160,7 @@ int					ft_regex(int flags,
 void				ft_print_matches(const char *str, t_list *matches);
 void				ft_print_groups(t_list *matches, int a);
 void				ft_print_groups2(const char *match, int pos, int len, t_list *groups, const char *def);
+
+
 
 #endif

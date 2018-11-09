@@ -99,13 +99,13 @@ int			regex_exec(t_regex_info *regex_info)
 	if ((ret = regex_exec2(regex_info)) == -1)
 	{
 		if (regex_info->flags & RGX_GROUP)
-			ft_lstdel(regex_info->free_groups, content_delfunc);
+			ft_lstdel(regex_info->free_groups, free_group);
 	}
 	if ((regex_info->flags & RGX_INNER_GROUP))
 	{
 		regex_info->groups = NULL;
 		regex_info->free_groups = NULL;
-		ft_lstdel(regex_info->groups, content_delfunc);
+		ft_lstdel(regex_info->groups, free_group);
 	}
 	return (ret);
 }
