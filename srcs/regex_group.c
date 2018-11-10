@@ -65,6 +65,30 @@ int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	return (tmp.len);
 }
 
+static int	backreference(const char *str, t_list *groups, int n)
+{
+	static int		lvl;
+	t_regex_group	*grp;
+	int				ret;
+
+	if (!groups && !(lvl = 0))
+		return (0);
+	while (groups && ++lvl)
+	{
+		grp = (t_regex_group *)groups->content;
+		if (lvl == n)
+		{
+			if (!grp->str || !ft_strnequ(grp->str, str, grp->len))
+				return (-2);
+			return (grp->len);
+		}
+		if (grp->groups && (ret = backreference(str, grp->groups, n)) != -1)
+			return (ret);
+		groups = groups->next;
+	}
+	return (-1);
+}
+
 int			ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	t_list			*it;
@@ -74,16 +98,8 @@ int			ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 
 	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
 		return (-1);
-	n = ft_atoi(rule->arg);
 	it = *rgxi->groups_head;
-	i = 0;
-	while (it)
-	{
-		if ((grp = it->content) && grp->str && i + 1 == n)
-			if (ft_strnequ(grp->str, rgxi->str, grp->len))
-				return (grp->len);
-		++i;
-		it = it->next;
-	}
-	return (-1);
+	n = backreference(rgxi->str, *rgxi->groups_head, ft_atoi(rule->arg));
+	backreference(NULL, NULL, 0);
+	return (n < 0 ? -1 : n);
 }
