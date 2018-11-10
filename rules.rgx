@@ -55,7 +55,7 @@ JSON_FORMAT		"
 		|
 			?[@JSON_FORMAT]
 		@or]@G]
-		*[@space?] ?[ , *[@space?] | ?[}@,] @or]
+		*[@space?] ?[ , *[@space?] | ?[}@;] @or]
 	@X?]
 }
 "
