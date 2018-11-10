@@ -91,14 +91,10 @@ static int	backreference(const char *str, t_list *groups, int n)
 
 int			ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
-	t_list			*it;
-	t_regex_group	*grp;
-	int				i;
-	int				n;
+	int		n;
 
 	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
 		return (-1);
-	it = *rgxi->groups_head;
 	n = backreference(rgxi->str, *rgxi->groups_head, ft_atoi(rule->arg));
 	backreference(NULL, NULL, 0);
 	return (n < 0 ? -1 : n);
