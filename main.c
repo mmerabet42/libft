@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 
 	print_matches(matches);
 	ft_print_matches(argv[2], matches);
+	
 	ft_printf("\n%d match\n", n);
 
 	ft_regex(RGX_FREEGRP, NULL, NULL, &groups);

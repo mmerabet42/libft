@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/08 20:43:08 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/10 14:12:31 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,6 @@ int					ft_regex(int flags,
 								const char *regex,
 								const char *str, ...);
 void				ft_print_matches(const char *str, t_list *matches);
-void				ft_print_groups(t_list *matches, int a);
-void				ft_print_groups2(const char *match, int pos, int len, t_list *groups, const char *def);
-
-
+void				ft_print_groups(const char *match, int pos, int len, t_list *groups, const char *def);
 
 #endif
