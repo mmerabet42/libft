@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/10 18:57:08 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/11 15:26:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		ft_print_matches(const char *str, t_list *matches)
 		if (m->id == -1)
 			color = "white";
 		ft_printf("%#{black}%{white}%.*s", m->pos - i, str + i);
-		ft_print_groups(m->str, m->pos, m->len, m->groups, color);
+		ft_print_groups(m, m->groups, color);
 		ft_printf("%#{lred}%{black}%d%{0}", m->id);
 		n = !n;
 		i = m->pos + m->len;
@@ -98,31 +98,31 @@ static const char	*g_group_colors[] = {
 };
 static const int	g_gc_len = sizeof(g_group_colors) / sizeof(char *);
 
-void		ft_print_groups(const char *str, int pos, int len, t_list *group, const char *def)
+void		ft_print_groups(struct s_regex_match *m, t_list *group,
+					const char *def)
 {
 	static int		i;
 	int				j;
 	t_regex_group	*grp;
-	int				ipos;
+	int				pos;
 	const char		*color;
 
-	ipos = pos;
-	if (i >= g_gc_len)
+	if ((pos = m->pos) != -1 && i >= g_gc_len)
 		i = 0;
 	j = i;
 	color = (def ? def : g_group_colors[j]);
-	if (!group && len != -1)
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, len, str);
+	if (!group && m->len != -1)
+		ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
 	while (group && ++i)
 	{
 		grp = (t_regex_group *)group->content;
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, grp->pos - pos, str);
-		str += grp->pos - pos + grp->len;
+		ft_printf("%{black}%#{%s}%.*s%{0}", color, grp->pos - pos,
+				m->str_begin + pos);
 		pos = grp->pos + grp->len;
-		ft_print_groups(grp->str, grp->pos, grp->len, grp->groups, NULL);
+		ft_print_groups(grp, grp->groups, NULL);
 		if (!(group = group->next))
-			ft_printf("%{black}%#{%s}%.*s%{0}", color, len - (pos - ipos), str);
+			ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len - (pos - m->pos),
+					m->str_begin + pos);
 	}
-	if (def)
-		i = 0;
+	i = (def ? 0 : i);
 }

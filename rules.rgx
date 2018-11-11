@@ -25,11 +25,6 @@ JSON_KEYWORD	"?[null|true|false@or]"
 JSON_STRING		"?[@DQUOTE]"
 JSON_INTEGER	"?[@nint]"
 
-S	"?[@S]?[@S]"
-S	"(?[@S])
-S	"()"
-
-
 
 JSON_FORMAT		"
 {
@@ -70,4 +65,10 @@ JSON_ARRAY		"
 		*[@space?] ?[ , *[@space?] | ?[{ ] @;}] @or]
 	@X?]
 ]
+"
+
+PERFECT_SQUARE	"
+	?[n;*[o@>1]@E] ?[m=n-2@E] ?[\n]
+	*[ o *[ @=m] o ?[\n]  @X=m]
+	*[o@=n]
 "

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/10 14:12:31 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/11 12:43:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,7 @@ typedef struct		s_regex_info
 	t_list			**matches;
 }					t_regex_info;
 
-typedef struct		s_regex_group
-{
-	const char		*str_begin;
-	const char		*str;
-	int				pos;
-	int				len;
-	int				id;
-	t_list			*groups;
-}					t_regex_group;
-
+typedef struct s_regex_match	t_regex_group;
 typedef struct		s_regex_match
 {
 	const char		*str_begin;
@@ -158,6 +149,8 @@ int					ft_regex(int flags,
 								const char *regex,
 								const char *str, ...);
 void				ft_print_matches(const char *str, t_list *matches);
-void				ft_print_groups(const char *match, int pos, int len, t_list *groups, const char *def);
+void				ft_print_groups(struct s_regex_match *m,
+								t_list *groups,
+								const char *def);
 
 #endif

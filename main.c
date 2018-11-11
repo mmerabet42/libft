@@ -31,6 +31,12 @@ static void	print_matches(t_list *matches)
 
 int main(int argc, char **argv)
 {
+	t_json jsond = json_file("test");
+	t_json array = json_query(jsond, "ok.HAHAHAA");
+
+	json_destroy(jsond);
+
+	return (0);
 	(void)argc;
 
 	t_list	*matches = NULL;
