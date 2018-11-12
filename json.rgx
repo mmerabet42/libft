@@ -1,0 +1,47 @@
+DQUOTE			"\"*[?[\\\"@G]|?![\"]@or?]\""
+JSON_NAME		"*[@word]"
+JSON_KEYWORD	"?[null|true|false@or]"
+JSON_STRING		"?[@DQUOTE]"
+JSON_INTEGER	"?[@nint]"
+
+
+JSON_FORMAT		"
+{
+	*[@space?]
+	*[
+		?[?[@JSON_NAME]@G] *[@space?] : *[@space?]
+		?[?[
+			?[@JSON_KEYWORD]
+		|
+			?[@JSON_INTEGER]
+		|
+			?[@JSON_STRING]
+		|
+			?[@JSON_FORMAT]
+		|
+			?[@JSON_ARRAY]
+		@or]@G]
+		*[@space?] ?[ , *[@space?] | ?[}@;] @or]
+	@X?]
+}
+"
+
+JSON_ARRAY		"
+[
+	*[@space?]
+	*[
+		?[?[
+			?[@JSON_KEYWORD]
+		|
+			?[@JSON_INTEGER]
+		|
+			?[@JSON_STRING]
+		|
+			?[@JSON_FORMAT]
+		|
+			?[@JSON_ARRAY]
+		@or]@G]
+		*[@space?] ?[ , *[@space?] | ?[{ ] @;}] @or]
+	@X?]
+]
+"
