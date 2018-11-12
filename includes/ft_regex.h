@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/11 12:43:41 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 16:49:16 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 # define RGX_LOAD (1 << 16)
 # define RGX_FREEGRP (1 << 17)
 # define RGX_ADD_MULTI (1 << 18)
-# define RGX_FLAG_NUM 20
+# define RGX_TO (1 << 19)
+# define RGX_SET (1 << 20)
+# define RGX_FLAG_NUM 21
 
 enum				e_regex_condtion
 {
@@ -126,7 +128,6 @@ t_regex_func		*get_regex_func(const char *name,
 void				free_group(void *s, size_t p);
 void				free_rule(void *s, size_t p);
 void				free_match(void *s, size_t p);
-void				get_args(t_regex_info *rgxi, va_list vp);
 int					manage_rules(t_regex_info *rgxi,
 								t_list **rules,
 								int flags,

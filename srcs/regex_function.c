@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/11 11:37:00 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 19:06:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static t_regex_func	g_regexfs[] = {
 	{"G", NULL, groups_rgx, 0, 0},
 	{"X", NULL, regex_rgx, 0, 0},
 	{"B", NULL, ugroups_rgx, 0, 0},
+	{"BL", NULL, ugroups_rgx, 0, 0},
 
 	{"upper", "?[A-Z]", NULL, 0, 0},
 	{"lower", "?[a-z]", NULL, 0, 0},

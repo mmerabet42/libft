@@ -1,0 +1,23 @@
+HTML_NAME "*[@word]"
+
+HTML_TAG_ATTRVALUE "\"*[\\\"|?![\"]@or?]\""
+HTML_TAG_ATTR "
+	?[*[
+		*[@space]
+		?[
+			?[?[@HTML_NAME]@G] =
+			?[?[@HTML_TAG_ATTRVALUE]@G]
+		@G]
+	@X?]@G]
+"
+
+HTML_FORMAT "
+	< ?[*[@word]@G] ?[@HTML_TAG_ATTR] *[@space?]>
+	*[@space?]
+	?[*[
+		?[@HTML_FORMAT]
+	|
+		*[]?[<@;]
+	@or?]@G]
+	< / ?[1@BL] >
+"

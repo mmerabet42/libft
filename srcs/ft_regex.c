@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/11 15:26:59 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 13:05:23 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 #include "ft_mem.h"
 #include "ft_math.h"
 
-int			regex_pos(t_regex_info *rgxi)
+static void	get_args(t_regex_info *rgxi, va_list vp)
 {
-	const char	*str;
-	int			ret;
-
-	if (rgxi->pos)
+	if (rgxi->flags & RGX_RGXN)
+		rgxi->rgxn = (int)va_arg(vp, int);
+	if (rgxi->flags & RGX_STRN)
+		rgxi->strn = (int)va_arg(vp, int);
+	if (rgxi->flags & (RGX_GLOBAL | RGX_UGLOBAL))
+		rgxi->matches = (t_list **)va_arg(vp, t_list **);
+	else
 	{
-		*rgxi->pos = 0;
-		str = rgxi->str;
-		ret = 0;
-		while ((ret = regex_exec(rgxi)) == -1)
-		{
-			if (!*str)
-				return (-1);
-			rgxi->str = ++str;
-			rgxi->regex = rgxi->rgx_begin;
-			rgxi->len = 0;
-			++*rgxi->pos;
-		}
-		return (ret);
+		if (rgxi->flags & RGX_POS)
+			rgxi->pos = (int *)va_arg(vp, int *);
+		if (rgxi->flags & RGX_ID)
+			rgxi->id = (int *)va_arg(vp, int *);
+		if (rgxi->flags & RGX_GROUP)
+			rgxi->groups = (t_list **)va_arg(vp, t_list **);
+		rgxi->groups_head = rgxi->groups;
+		rgxi->free_groups = rgxi->groups;
 	}
-	return (regex_exec(rgxi));
+	if (rgxi->flags & RGX_DATA)
+		rgxi->data = (int *)va_arg(vp, void *);
+	if (rgxi->flags & RGX_VAR)
+		rgxi->vars = (int *)va_arg(vp, int *);
+	va_end(vp);
 }
 
 int			ft_regex(int flags, const char *regex, const char *str, ...)
@@ -48,8 +50,8 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_start(vp, str);
 	regex_info.str = str;
 	regex_info.regex = regex;
-	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_LOAD))
-			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN)))
+	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_LOAD | RGX_TO))
+			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN | RGX_SET)))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));

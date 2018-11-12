@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 16:24:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 19:38:21 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 14:56:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static int	interpret_fields(t_list *fields, t_list **rules)
 		ret = get_attributes((t_regex_match *)fields->content, &name, &regex);
 		if (!ret)
 			return (-1);
-		ret = RGX_ADD | RGX_READABLE | (ret == 2 ? RGX_ID : 0);
-		if (ft_regex(ret, name, regex, NULL, -2) == -1)
+		ret = RGX_ADD | RGX_READABLE | RGX_TO | (ret == 2 ? RGX_ID : 0);
+		if (ft_regex(ret, name, regex, rules, NULL, -2) == -1)
 		{
 			free(name);
 			free(regex);

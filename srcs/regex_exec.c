@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/07 20:56:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 12:31:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,3 +109,28 @@ int			regex_exec(t_regex_info *regex_info)
 	}
 	return (ret);
 }
+
+int			regex_pos(t_regex_info *rgxi)
+{
+	const char	*str;
+	int			ret;
+
+	if (rgxi->pos)
+	{
+		*rgxi->pos = 0;
+		str = rgxi->str;
+		ret = 0;
+		while ((ret = regex_exec(rgxi)) == -1)
+		{
+			if (!*str)
+				return (-1);
+			rgxi->str = ++str;
+			rgxi->regex = rgxi->rgx_begin;
+			rgxi->len = 0;
+			++*rgxi->pos;
+		}
+		return (ret);
+	}
+	return (regex_exec(rgxi));
+}
+

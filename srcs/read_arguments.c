@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 20:05:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:09:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/12 16:21:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	t_regex_func	func;
 	t_list			*nw;
 
+	if (flags & RGX_TO)
 	func.name = rgxi->regex;
 	func.regex = rgxi->str;
 	func.func = va_arg(vp, t_regex_funcptr);
@@ -44,7 +45,7 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 		func.id = va_arg(vp, int);
 	else
 		func.id = (int)ft_lstsize(*rules) + 1;
-	func.flags = (flags & ~(RGX_ID | RGX_ADD));
+	func.flags = (flags & ~(RGX_ID | RGX_ADD | RGX_TO));
 	if (!(nw = ft_lstnew(&func, sizeof(t_regex_func))))
 	{
 		va_end(vp);
@@ -60,12 +61,16 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 {
 	t_list	**lst;
 
+	if ((flags & RGX_TO) && (lst = va_arg(vp, t_list **)))
+		rules = lst;
 	if (flags & RGX_LOAD)
 		return (regex_load(rgxi, rules));
 	else if (flags & RGX_ADD)
 		return (add_rule(rgxi, rules, flags, vp));
 	else if (flags & RGX_ADD_MULTI)
 		return (add_multi_rule(vp));
+	else if (flags & RGX_SET && (lst = va_arg(vp, t_list **)))
+		*rules = *lst;
 	else if ((flags & RGX_GET) && (lst = va_arg(vp, t_list **)))
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
@@ -76,30 +81,4 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 		ft_lstdel(rules, free_rule);
 	va_end(vp);
 	return (0);
-}
-
-void		get_args(t_regex_info *rgxi, va_list vp)
-{
-	if (rgxi->flags & RGX_RGXN)
-		rgxi->rgxn = (int)va_arg(vp, int);
-	if (rgxi->flags & RGX_STRN)
-		rgxi->strn = (int)va_arg(vp, int);
-	if (rgxi->flags & (RGX_GLOBAL | RGX_UGLOBAL))
-		rgxi->matches = (t_list **)va_arg(vp, t_list **);
-	else
-	{
-		if (rgxi->flags & RGX_POS)
-			rgxi->pos = (int *)va_arg(vp, int *);
-		if (rgxi->flags & RGX_ID)
-			rgxi->id = (int *)va_arg(vp, int *);
-		if (rgxi->flags & RGX_GROUP)
-			rgxi->groups = (t_list **)va_arg(vp, t_list **);
-		rgxi->groups_head = rgxi->groups;
-		rgxi->free_groups = rgxi->groups;
-	}
-	if (rgxi->flags & RGX_DATA)
-		rgxi->data = (int *)va_arg(vp, void *);
-	if (rgxi->flags & RGX_VAR)
-		rgxi->vars = (int *)va_arg(vp, int *);
-	va_end(vp);
 }
