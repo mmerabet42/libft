@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/12 16:49:16 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/13 20:21:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct		s_regex_match
 	int				pos;
 	int				len;
 	int				id;
+	const char		*id_str;
 	t_list			*groups;
 }					t_regex_match;
 

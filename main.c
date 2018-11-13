@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 //	ft_regex(RGX_ADD_MULTI, NULL, NULL, g_funcs, sizeof(g_funcs) / sizeof(t_regex_func));
 
 //	ft_regex(RGX_ADD | RGX_READABLE | RGX_TO, "lool", "?[@alpha]", &nothing, NULL);
-	n = ft_regex(RGX_LOAD, "json.rgx", NULL);
+	n = ft_regex(RGX_LOAD, "printf.rgx", NULL);
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
 	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 

@@ -1,29 +1,25 @@
-HTML_NAME "*[@word]"
+HTML_NAME	"*[@word]"
 
-HTML_TAG_ATTRVALUE "\"*[\\\"|?![\"]@or?]\""
-HTML_TAG_ATTR "
-	*[
-		*[@space]
-		?[
-			?[?[@HTML_NAME]@G] =
-			?[?[@HTML_TAG_ATTRVALUE]@G]
-		@G]
-	@X]
+HTML_BLOCK	"
+?[
+	<*[@space?]?[?[@HTML_NAME]@G]*[@space?]>
+		*[@space?]
+		*[
+			?[?[@HTML_FORMAT]@G]
+			*[@space?]
+		@X?]
+	<*[@space?]/*[@space?]?[1@BL]*[@space?]>
+@G]
 "
 
-HTML_INNER "
-	*[
-		?[?[
-			*[@word]
-		|
-			?[@HTML_FORMAT]
-		@or]@G]
-		?[ ?[*[@space?]<@,] | *[@space?]  @or]
-	@X]
+HTML_LINE	"
+	?[<*[@space?]?[?[@HTML_NAME]@G]*[@space?]/*[@space?]>@G]
 "
 
-HTML_FORMAT "
-< ?[?[@HTML_NAME]@G] ?[?[@HTML_TAG_ATTR]@G?] *[@space?]>
-	?[*[@space?] ?[@HTML_INNER]@G]
-< / ?[1@BL] >
+HTML_FORMAT	"
+?[?[
+	?[@HTML_BLOCK]
+|
+	?[@HTML_LINE]
+@or]@G]
 "

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 17:43:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/10/31 16:01:57 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/13 20:21:09 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 		matchs[1].len = matchs[0].pos + (zero ? 1 : 0);
 		matchs[1].str = matchs[1].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
+		matchs[1].groups = NULL;
 		if (rgxi->matches)
 			ft_lstpush_p(rgxi->matches,
 					ft_lstnew(&matchs[1], sizeof(t_regex_match)));
