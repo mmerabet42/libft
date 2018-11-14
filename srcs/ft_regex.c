@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/13 18:41:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:24:10 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,32 @@ void		ft_print_groups(struct s_regex_match *m, t_list *group,
 					m->str_begin + pos);
 	}
 	i = (def ? 0 : i);
+}
+
+static void	print_groups(t_list *groups, int tab)
+{
+	t_regex_group	*grp;
+
+	while (groups)
+	{
+		grp = (t_regex_group *)groups->content;
+		ft_printf("%?*\tgroup: %d %d %d '%.*s'\n", tab,
+				grp->pos, grp->len, grp->id, grp->len, grp->str);
+		print_groups(grp->groups, tab + 1);
+		groups = groups->next;
+	}
+}
+
+void		print_matches(t_list *matches)
+{
+	t_regex_match	*mch;
+
+	while (matches)
+	{
+		mch = (t_regex_match *)matches->content;
+		ft_printf("match: %d %d %d '%.*s'\n",
+				mch->pos, mch->len, mch->id, mch->len, mch->str);
+		print_groups(mch->groups, 1);
+		matches = matches->next;
+	}
 }

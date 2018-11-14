@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/13 20:21:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:29:38 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdarg.h>
 
 # define LOAD_REGEX "?[?[-@?]*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
+# define CONTROL_REGEX "#?[*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
 
 # define RGX_END (1 << 0)
 # define RGX_RGXN (1 << 1)
@@ -126,7 +127,6 @@ t_regex_func		*get_regex_func(const char *name,
 								int len_rule,
 								t_regex_info *rgxi);
 
-void				free_group(void *s, size_t p);
 void				free_rule(void *s, size_t p);
 void				free_match(void *s, size_t p);
 int					manage_rules(t_regex_info *rgxi,
@@ -154,5 +154,6 @@ void				ft_print_matches(const char *str, t_list *matches);
 void				ft_print_groups(struct s_regex_match *m,
 								t_list *groups,
 								const char *def);
+void				print_matches(t_list *matches);
 
 #endif

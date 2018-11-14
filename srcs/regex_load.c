@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 16:24:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/12 14:56:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:29:32 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,29 @@ static int	interpret_fields(t_list *fields, t_list **rules)
 	return (0);
 }
 
+static void	import_regex(t_list **local, int unset)
+{
+	static t_list	*rules;
+
+	if (unset)
+	{
+		ft_regex(RGX_CLEAN | RGX_TO, NULL, NULL, local);
+		ft_regex(RGX_SET, NULL, NULL, &rules);
+		return ;
+	}
+	*local = NULL;
+	ft_regex(RGX_GET, NULL, NULL, &rules);
+	ft_regex(RGX_SET, NULL, NULL, local);
+	ft_regex(RGX_ADD, "CONTROL", CONTROL_REGEX, NULL);
+	ft_regex(RGX_ADD, "LOAD", LOAD_REGEX, NULL);
+}
+
 int			regex_load(t_regex_info *rgxi, t_list **rules)
 {
 	int		fd;
 	char	*str;
 	t_list	*fields;
+	t_list	*local;
 
 	if ((fd = open(rgxi->regex, O_RDONLY)) == -1)
 		return (-1);
@@ -79,9 +97,12 @@ int			regex_load(t_regex_info *rgxi, t_list **rules)
 	}
 	close(fd);
 	fields = NULL;
-	fd = ft_regex(RGX_GLOBAL, LOAD_REGEX, str, &fields);
+	import_regex(&local, 0);
+	fd = ft_regex(RGX_GLOBAL, "?[?[@CONTROL]|?[@LOAD]@or]", str, &fields);
+	print_matches(fields);
 	if (interpret_fields(fields, rules) == -1)
 		fd = -1;
+	import_regex(&local, 1);
 	ft_regex(RGX_FREE, NULL, NULL, &fields);
 	free(str);
 	return (fd);

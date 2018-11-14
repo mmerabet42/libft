@@ -9,28 +9,6 @@ static t_regex_func	g_funcs[] = {
 	{"TEST", "?[@digit]", NULL, 0, 0}
 };
 */
-static void	print_groups(t_list *groups, int tab)
-{
-	while (groups)
-	{
-		t_regex_group	*grp = (t_regex_group *)groups->content;
-		ft_printf("%?*\tgroup: %d %d %d '%.*s'\n", tab, grp->pos, grp->len, grp->id, grp->len, grp->str);
-		print_groups(grp->groups, tab + 1);
-		groups = groups->next;
-	}
-}
-
-static void	print_matches(t_list *matches)
-{
-	while (matches)
-	{
-		t_regex_match	*mch = (t_regex_match *)matches->content;
-		ft_printf("match: %d %d %d '%.*s'\n", mch->pos, mch->len, mch->id, mch->len, mch->str);
-		print_groups(mch->groups, 1);
-		matches = matches->next;
-	}
-}
-
 int main(int argc, char **argv)
 {
 	(void)argc;
@@ -42,6 +20,7 @@ int main(int argc, char **argv)
 //	ft_regex(RGX_ADD_MULTI, NULL, NULL, g_funcs, sizeof(g_funcs) / sizeof(t_regex_func));
 
 //	ft_regex(RGX_ADD | RGX_READABLE | RGX_TO, "lool", "?[@alpha]", &nothing, NULL);
+	int	pos;
 	ft_regex(RGX_ADD, "CONV", "?[diouxXDOUfFcCsSp%]", NULL);
 	ft_regex(RGX_IMPORT, "printf.rgx", NULL);
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);

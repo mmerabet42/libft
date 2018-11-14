@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/12 12:31:45 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:23:44 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int			regex_exec(t_regex_info *regex_info)
 	if ((ret = regex_exec2(regex_info)) == -1)
 	{
 		if (regex_info->flags & RGX_GROUP)
-			ft_lstdel(regex_info->free_groups, free_group);
+			ft_lstdel(regex_info->free_groups, free_match);
 	}
 	if ((regex_info->flags & RGX_INNER_GROUP))
 	{
 		regex_info->groups = NULL;
 		regex_info->free_groups = NULL;
-		ft_lstdel(regex_info->groups, free_group);
+		ft_lstdel(regex_info->groups, free_match);
 	}
 	return (ret);
 }

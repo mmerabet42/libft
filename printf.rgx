@@ -10,7 +10,7 @@ MOD	"
 PRINTF_FORMAT	"%?[*[@MOD]@G?]?[?[@CONV]@G]"
 
 PRINTF	"
-*[
+?[
 	?[*![%]@G] | ?[?[@PRINTF_FORMAT]@G]
 @or]
 "

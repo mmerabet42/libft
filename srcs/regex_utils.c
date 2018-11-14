@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 19:57:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:15:36 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:15:28 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,11 @@ void		free_rule(void *p, size_t s)
 	free(p);
 }
 
-void		free_group(void *p, size_t s)
-{
-	if (!p)
-		return ;
-	(void)s;
-	ft_lstdel(&((t_regex_group *)p)->groups, free_group);
-	free(p);
-}
-
 void		free_match(void *p, size_t s)
 {
 	if (!p)
 		return ;
 	(void)s;
-	ft_lstdel(&((t_regex_match *)p)->groups, free_group);
+	ft_lstdel(&((struct s_regex_match *)p)->groups, free_match);
 	free(p);
 }

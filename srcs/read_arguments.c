@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 20:05:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/12 16:21:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:26:26 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))
 		ft_lstdel(lst, free_match);
 	else if ((flags & RGX_FREEGRP) && (lst = va_arg(vp, t_list **)))
-		ft_lstdel(lst, free_group);
+		ft_lstdel(lst, free_match);
 	else if (flags & RGX_CLEAN)
 		ft_lstdel(rules, free_rule);
 	va_end(vp);

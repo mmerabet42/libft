@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 19:20:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/12 16:48:16 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:25:46 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	tmp.flags |= (RGX_END | RGX_ID | RGX_GROUP);
 	tmp.regex = rgx;
 	if ((tmp.len = get_group(rgxi, &tmp, lst)) == -1)
-		ft_lstdel(&lst, free_group);
+		ft_lstdel(&lst, free_match);
 	free(rgx);
 	return (tmp.len);
 }
