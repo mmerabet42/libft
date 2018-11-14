@@ -13,6 +13,16 @@ int main(int argc, char **argv)
 {
 	(void)argc;
 
+	t_list	node;
+	int	a = 5;
+	node->content = &a;
+	node->content_size = sizeof(int);
+
+	t_list node_next;
+
+	node->next = &node_next;
+
+
 	t_list	*matches = NULL;
 	t_list	*groups = NULL;
 	int		n;

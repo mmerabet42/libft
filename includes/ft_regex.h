@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:29:38 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/14 23:38:05 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include "ft_printf.h"
 # include <stdarg.h>
 
-# define LOAD_REGEX "?[?[-@?]*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
-# define CONTROL_REGEX "#?[*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
+# define LOAD_REGEX "?[?[-#@?]*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
 
 # define RGX_END (1 << 0)
 # define RGX_RGXN (1 << 1)

@@ -1,6 +1,8 @@
 WIDTH	"?[ *[@digit] | ?[*] @or]"
 PRECISION	". ?[ ?[*] | *[@digit] @or]"
 
+#import "prout"
+
 MOD	"
 ?[?[
 	hh | ll | ?[-+ hljtzL#0] | ?[@PRECISION] | ?[@WIDTH]
