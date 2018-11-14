@@ -50,7 +50,7 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	va_start(vp, str);
 	regex_info.str = str;
 	regex_info.regex = regex;
-	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_LOAD | RGX_TO))
+	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_IMPORT | RGX_TO))
 			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN | RGX_SET)))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);

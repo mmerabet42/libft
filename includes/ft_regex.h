@@ -35,7 +35,7 @@
 # define RGX_READABLE (1 << 13)
 # define RGX_GROUP (1 << 14)
 # define RGX_INNER_GROUP (1 << 15)
-# define RGX_LOAD (1 << 16)
+# define RGX_IMPORT (1 << 16)
 # define RGX_FREEGRP (1 << 17)
 # define RGX_ADD_MULTI (1 << 18)
 # define RGX_TO (1 << 19)

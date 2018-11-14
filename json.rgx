@@ -1,3 +1,21 @@
+
+TEST "
+	*[?[?[aeiou]@G]|?[@word]@or]
+"
+
+PROUT "
+	*[@space?]?[@TEST]
+"
+
+
+
+
+
+
+
+
+
+
 DQUOTE			"\"*[?[\\\"@G]|?![\"]@or?]\""
 JSON_NAME		"*[@word]"
 JSON_KEYWORD	"?[null|true|false@or]"

@@ -6,9 +6,8 @@ MOD	"
 	hh | ll | ?[-+ hljtzL#0] | ?[@PRECISION] | ?[@WIDTH]
 @or]@G]
 "
-SPEC	"?[diouxXDOUfFcCsSp%]"
 
-PRINTF_FORMAT	"%?[*[@MOD]@G?]?[?[@SPEC]@G]"
+PRINTF_FORMAT	"%?[*[@MOD]@G?]?[?[@CONV]@G]"
 
 PRINTF	"
 *[

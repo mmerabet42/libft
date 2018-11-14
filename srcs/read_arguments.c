@@ -37,7 +37,6 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	t_regex_func	func;
 	t_list			*nw;
 
-	if (flags & RGX_TO)
 	func.name = rgxi->regex;
 	func.regex = rgxi->str;
 	func.func = va_arg(vp, t_regex_funcptr);
@@ -63,7 +62,7 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 
 	if ((flags & RGX_TO) && (lst = va_arg(vp, t_list **)))
 		rules = lst;
-	if (flags & RGX_LOAD)
+	if (flags & RGX_IMPORT)
 		return (regex_load(rgxi, rules));
 	else if (flags & RGX_ADD)
 		return (add_rule(rgxi, rules, flags, vp));
