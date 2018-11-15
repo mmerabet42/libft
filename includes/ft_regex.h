@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 23:38:05 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/15 16:47:19 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct		s_regex_info
 	int				*pos;
 	int				cid;
 	int				*id;
+	const char		*id_str;
 	void			*data;
 	t_list			**groups_head;
 	t_list			**groups;

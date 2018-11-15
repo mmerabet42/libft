@@ -9,19 +9,10 @@ static t_regex_func	g_funcs[] = {
 	{"TEST", "?[@digit]", NULL, 0, 0}
 };
 */
+
 int main(int argc, char **argv)
 {
 	(void)argc;
-
-	t_list	node;
-	int	a = 5;
-	node->content = &a;
-	node->content_size = sizeof(int);
-
-	t_list node_next;
-
-	node->next = &node_next;
-
 
 	t_list	*matches = NULL;
 	t_list	*groups = NULL;
@@ -31,7 +22,6 @@ int main(int argc, char **argv)
 
 //	ft_regex(RGX_ADD | RGX_READABLE | RGX_TO, "lool", "?[@alpha]", &nothing, NULL);
 	int	pos;
-	ft_regex(RGX_ADD, "CONV", "?[diouxXDOUfFcCsSp%]", NULL);
 	ft_regex(RGX_IMPORT, "printf.rgx", NULL);
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
 	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);

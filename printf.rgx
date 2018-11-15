@@ -1,7 +1,6 @@
+
 WIDTH	"?[ *[@digit] | ?[*] @or]"
 PRECISION	". ?[ ?[*] | *[@digit] @or]"
-
-#import "prout"
 
 MOD	"
 ?[?[
@@ -9,7 +8,7 @@ MOD	"
 @or]@G]
 "
 
-PRINTF_FORMAT	"%?[*[@MOD]@G?]?[?[@CONV]@G]"
+PRINTF_FORMAT	"%?[*[@MOD]@G?]?[?@G]"
 
 PRINTF	"
 ?[

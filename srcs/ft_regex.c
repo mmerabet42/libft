@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:24:10 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/15 16:36:13 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ static void	print_groups(t_list *groups, int tab)
 	while (groups)
 	{
 		grp = (t_regex_group *)groups->content;
-		ft_printf("%?*\tgroup: %d %d %d '%.*s'\n", tab,
-				grp->pos, grp->len, grp->id, grp->len, grp->str);
+		ft_printf("%?*\tgroup: %d %d %d '%s' '%.*s'\n", tab,
+				grp->pos, grp->len, grp->id, grp->id_str, grp->len, grp->str);
 		print_groups(grp->groups, tab + 1);
 		groups = groups->next;
 	}
@@ -150,8 +150,8 @@ void		print_matches(t_list *matches)
 	while (matches)
 	{
 		mch = (t_regex_match *)matches->content;
-		ft_printf("match: %d %d %d '%.*s'\n",
-				mch->pos, mch->len, mch->id, mch->len, mch->str);
+		ft_printf("match: %d %d %d '%s' '%.*s'\n",
+				mch->pos, mch->len, mch->id, mch->id_str, mch->len, mch->str);
 		print_groups(mch->groups, 1);
 		matches = matches->next;
 	}

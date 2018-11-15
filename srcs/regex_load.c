@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 16:24:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 23:37:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/15 15:10:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,25 @@ static int	interpret_fields(t_list *fields, t_list **rules)
 		ret = get_attributes((t_regex_match *)fields->content, &name, &regex);
 		if (!ret)
 			return (-1);
-		flag |= (ret == 3 ? RGX_IMPORT : RGX_ADD);
-		flag |= RGX_READABLE | RGX_TO | (ret == 2 ? RGX_ID : 0);
-		if (ft_regex(flag, name, regex, rules, NULL, -2) == -1)
+		flag = (ret == 3 ? RGX_IMPORT : RGX_ADD);
+		flag |= RGX_ADD | RGX_READABLE | RGX_TO | (ret == 2 ? RGX_ID : 0);
+		if (ret == 3)
+		{
+			ret = ft_regex(RGX_IMPORT | flag, regex, NULL, rules);
+			ft_printf("importing: '%s'\n", regex);
+			free(name);
+			free(regex);
+			if (ret == -1)
+				return (-1);
+		}
+		else if (ft_regex(RGX_ADD | flag, name, regex, rules, NULL, -2) == -1)
 		{
 			free(name);
 			free(regex);
 			return (-1);
 		}
-		(*rules)->content_size = 0;
+		else
+			(*rules)->content_size = 0;
 		fields = fields->next;
 	}
 	return (0);
