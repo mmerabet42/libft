@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:27:47 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:35:33 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_types.h"
 #include "ft_printf.h"
 
-int			bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
 	(void)rule;
 	if (*rule->rule == '^')

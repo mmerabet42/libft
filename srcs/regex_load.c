@@ -6,17 +6,18 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 16:24:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/15 15:10:42 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:27:54 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "get_next_line.h"
 #include "ft_str.h"
+#include "ft_mem.h"
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	get_attributes(t_regex_match *m, char **name, char **regex)
+static int	get_attributes(t_regex_match *m, char **names)
 {
 	t_regex_group	*g;
 	int				n;
@@ -25,52 +26,56 @@ static int	get_attributes(t_regex_match *m, char **name, char **regex)
 	n = 1;
 	if (*g->str == '-' || *g->str == '#')
 		n = (*g->str == '-' ? 2 : 3);
-	if (n > 1 && !(*name = ft_strndup(g->str + 1, g->len - 1)))
+	if (n > 1 && !(names[0] = ft_strndup(g->str + 1, g->len - 1)))
 		return (0);
-	else if (n == 1 && !(*name = ft_strndup(g->str, g->len)))
+	else if (n == 1 && !(names[0] = ft_strndup(g->str, g->len)))
 		return (0);
 	g = (t_regex_group *)m->groups->next->content;
-	if (!(*regex = ft_strndupk(g->str + 1, g->len - 2)))
+	if (!(names[1] = ft_strndupk(g->str + 1, g->len - 2)))
 	{
-		free(*name);
+		free(names[0]);
 		return (0);
 	}
 	return (n);
 }
 
+static int	import_add(int ret, char **names, t_list **rules)
+{
+	int	flg;
+
+	flg = RGX_READABLE | RGX_TO | (ret == 2 ? RGX_ID : 0);
+	if (ret == 3)
+	{
+		ret = ft_regex(RGX_IMPORT | flg, names[1], NULL, rules);
+		free(names[0]);
+		free(names[1]);
+		if (ret == -1)
+			return (-1);
+	}
+	else if (ft_regex(RGX_ADD | flg, names[0], names[1], rules, NULL, -2) == -1)
+	{
+		free(names[0]);
+		free(names[1]);
+		return (-1);
+	}
+	else
+		(*rules)->content_size = 0;
+	return (0);
+}
+
 static int	interpret_fields(t_list *fields, t_list **rules)
 {
-	char	*name;
-	char	*regex;
+	char	*names[2];
 	int		ret;
-	int		flag;
 
 	while (fields)
 	{
-		name = NULL;
-		regex = NULL;
-		ret = get_attributes((t_regex_match *)fields->content, &name, &regex);
+		ft_bzero(names, sizeof(char *) * 2);
+		ret = get_attributes((t_regex_match *)fields->content, names);
 		if (!ret)
 			return (-1);
-		flag = (ret == 3 ? RGX_IMPORT : RGX_ADD);
-		flag |= RGX_ADD | RGX_READABLE | RGX_TO | (ret == 2 ? RGX_ID : 0);
-		if (ret == 3)
-		{
-			ret = ft_regex(RGX_IMPORT | flag, regex, NULL, rules);
-			ft_printf("importing: '%s'\n", regex);
-			free(name);
-			free(regex);
-			if (ret == -1)
-				return (-1);
-		}
-		else if (ft_regex(RGX_ADD | flag, name, regex, rules, NULL, -2) == -1)
-		{
-			free(name);
-			free(regex);
+		if (import_add(ret, names, rules) == -1)
 			return (-1);
-		}
-		else
-			(*rules)->content_size = 0;
 		fields = fields->next;
 	}
 	return (0);

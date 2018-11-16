@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/07 20:53:11 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:32:30 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
 	rgxi2.len = 0;
 	rgxi2.free_groups = r->groups;
 	if ((r->flags & RGX_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))
-			rgxi2.free_groups = &grps->next;
+		rgxi2.free_groups = &grps->next;
 	ret = regex_exec(&rgxi2);
 	free(str);
 	*i += j;

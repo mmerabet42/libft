@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/15 16:36:13 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 12:59:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int			ft_regex(int flags, const char *regex, const char *str, ...)
 	regex_info.str = str;
 	regex_info.regex = regex;
 	if ((flags & (RGX_ADD | RGX_ADD_MULTI | RGX_GET | RGX_IMPORT | RGX_TO))
-			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN | RGX_SET)))
+			|| (flags & (RGX_FREEGRP | RGX_FREE | RGX_CLEAN | RGX_SET))
+			|| (flags & (RGX_GETRULE)))
 		return (manage_rules(&regex_info, &rules, flags, vp));
 	regex_init(&regex_info, regex, str);
 	ft_bzero(vars, sizeof(int) * (52));
@@ -136,8 +137,8 @@ static void	print_groups(t_list *groups, int tab)
 	while (groups)
 	{
 		grp = (t_regex_group *)groups->content;
-		ft_printf("%?*\tgroup: %d %d %d '%s' '%.*s'\n", tab,
-				grp->pos, grp->len, grp->id, grp->id_str, grp->len, grp->str);
+		ft_printf("%?*\tgroup: %d %d %d '%.*s'\n", tab,
+				grp->pos, grp->len, grp->id, grp->len, grp->str);
 		print_groups(grp->groups, tab + 1);
 		groups = groups->next;
 	}
@@ -150,8 +151,8 @@ void		print_matches(t_list *matches)
 	while (matches)
 	{
 		mch = (t_regex_match *)matches->content;
-		ft_printf("match: %d %d %d '%s' '%.*s'\n",
-				mch->pos, mch->len, mch->id, mch->id_str, mch->len, mch->str);
+		ft_printf("match: %d %d %d '%.*s'\n",
+				mch->pos, mch->len, mch->id, mch->len, mch->str);
 		print_groups(mch->groups, 1);
 		matches = matches->next;
 	}

@@ -1,25 +1,3 @@
-WORD			"?[a-zA-Z0-9_*]"
-
-STRUCT			"
-struct *[@space] ?[*[@word]@G] *[@space?]
-{
-	*[@space]
-	*[?[?[@WORD]*?[@space]*?[@WORD]*;@G]*[@space?]@X]
-} *[@space?] ;
-"
-
-TSTRUCT			"
-typedef *[@space] struct *[@space] ?[*[@word]@G] *[@space?]
-{
-	*[@space]
-	*[?[?[@WORD]*?[@space]*?[@WORD]*;@G]*[@space?]@X]
-} *[@space?] ?[*[@word]@G] *[@space?] ;
-"
-
--STRUCTURE		"?[?[@STRUCT]|?[@TSTRUCT]@or]"
-
-PERFECT_SQUARE	"
-	?[n;*[o@>1]@E] ?[m=n-2@E] ?[\n]
-	*[ o *[ @=m] o ?[\n]  @X=m]
-	*[o@=n]
-"
+#import "struct.rgx"
+#import "json.rgx"
+#import "printf.rgx"

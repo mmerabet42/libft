@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:48 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/06 20:26:43 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:33:19 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ static int	get_global(t_regex_info *rgxi, t_regex_info *t, t_regex_rule *r)
 	return (res);
 }
 
-static int	get_result(t_regex_info *rgxi, t_regex_info *tmp, t_regex_rule *rule)
+static int	get_result(t_regex_info *rgxi,
+					t_regex_info *tmp,
+					t_regex_rule *rule)
 {
 	int		a;
 	int		b;

@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 19:57:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:15:28 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:33:51 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		regex_variable(t_regex_info *rgxi, const char *s)
 	return (0);
 }
 
-void		free_rule(void *p, size_t s)
+void	free_rule(void *p, size_t s)
 {
 	if (!s)
 	{
@@ -48,7 +48,7 @@ void		free_rule(void *p, size_t s)
 	free(p);
 }
 
-void		free_match(void *p, size_t s)
+void	free_match(void *p, size_t s)
 {
 	if (!p)
 		return ;

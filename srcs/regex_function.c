@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/15 16:29:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 12:43:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,7 @@ static t_regex_func	*get_regex_rule(const char *name, int len_rule,
 		if (ft_strnequ(name, func->name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
-			{
-				rgxi->id_str = func->name;
 				*rgxi->id = func->id;
-			}
 			return (func);
 		}
 		rules = rules->next;
@@ -178,10 +175,7 @@ t_regex_func		*get_regex_func(const char *name, int len_rule,
 		if (ft_strnequ(name, g_regexfs[i].name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
-			{
-				rgxi->id_str = g_regexfs[i].name;
 				*rgxi->id = g_regexfs[i].id;
-			}
 			return (&g_regexfs[i]);
 		}
 		++i;

@@ -6,11 +6,12 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 20:05:27 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:26:26 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 14:58:42 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
+#include "ft_str.h"
 
 static int	add_multi_rule(va_list vp)
 {
@@ -55,6 +56,33 @@ static int	add_rule(t_regex_info *rgxi, t_list **rules, int flags, va_list vp)
 	return (func.id);
 }
 
+static int	get_rule(t_regex_info *rgxi, t_list *rules, va_list vp)
+{
+	int				id;
+	t_regex_func	**mem;
+	t_regex_func	*rule;
+
+	id = -1;
+	mem = NULL;
+	if (!rgxi->regex)
+		id = va_arg(vp, int);
+	if ((mem = va_arg(vp, t_regex_func **)))
+		*mem = NULL;
+	while (rules)
+	{
+		rule = (t_regex_func *)rules->content;
+		if ((!rgxi->regex && id == rule->id)
+				|| (rgxi->regex && ft_strequ(rgxi->regex, rule->name)))
+		{
+			if (mem)
+				*mem = rule;
+			return (0);
+		}
+		rules = rules->next;
+	}
+	return (-1);
+}
+
 int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 					va_list vp)
 {
@@ -70,6 +98,8 @@ int			manage_rules(t_regex_info *rgxi, t_list **rules, int flags,
 		return (add_multi_rule(vp));
 	else if (flags & RGX_SET && (lst = va_arg(vp, t_list **)))
 		*rules = *lst;
+	else if (flags & RGX_GETRULE)
+		return (get_rule(rgxi, *rules, vp));
 	else if ((flags & RGX_GET) && (lst = va_arg(vp, t_list **)))
 		*lst = *rules;
 	else if ((flags & RGX_FREE) && (lst = va_arg(vp, t_list **)))

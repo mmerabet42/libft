@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/15 16:47:12 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:34:19 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,4 +133,3 @@ int			regex_pos(t_regex_info *rgxi)
 	}
 	return (regex_exec(rgxi));
 }
-
