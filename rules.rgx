@@ -1,3 +1,7 @@
 #import "struct.rgx"
 #import "json.rgx"
 #import "printf.rgx"
+
+MAIN	"
+	?[@JSON_FORMAT]
+"
