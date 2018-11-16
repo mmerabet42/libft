@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra# -g3 -fsanitize=address
 
 SRCD		=	srcs/
 INCLUDES_D	=	includes/
@@ -63,7 +63,8 @@ _TIME_FS	=	ft_timefnew.c
 
 _REGEX_FS	=	ft_regex.c regex_exec.c get_matches.c regex_bracket.c regex_wildcard.c \
 				regex_start.c regex_utils.c regex_function.c regex_function1.c \
-				regex_function2.c regex_function3.c regex_group.c regex_load.c read_arguments.c
+				regex_function2.c regex_function3.c regex_group.c regex_load.c read_arguments.c \
+				print_matches.c
 
 _LIBFTS		=	$(_MATH_FS) $(_TYPES_FS) $(_MATRIX_FS) $(_BTREE_FS) $(_LIST_FS) $(_MEM_FS) \
 				$(_IO_FS) $(_EVENT_FS) $(_STR_FS) $(_TIME_FS) $(_REGEX_FS)
@@ -179,10 +180,13 @@ clean:
 	@rm -f $(OBJB)
 	@echo "$(CRED)Cleaning$(CEND): $(NAME)"
 
-fclean: clean
+fclean:
+	@make clean
 	@rm -f $(NAME)
 	@echo "$(CRED)Full cleaning$(CEND): $(NAME)"
 
-re: fclean all
+re:
+	@make fclean
+	@make all
 
 .PHONY: all clean fclean re

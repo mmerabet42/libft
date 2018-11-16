@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 13:12:27 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 20:10:20 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_REGEX_H
 
 # include "ft_list.h"
-# include "ft_printf.h"
 # include <stdarg.h>
 
 # define LOAD_REGEX "?[?[-#@?]*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"

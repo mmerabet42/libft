@@ -23,12 +23,6 @@ int main(int argc, char **argv)
 //	ft_regex(RGX_ADD | RGX_READABLE | RGX_TO, "lool", "?[@alpha]", &nothing, NULL);
 	int	pos;
 	ft_regex(RGX_IMPORT, "rules.rgx", NULL);
-	
-	t_regex_func	*struct_rule;
-	ft_regex(RGX_GETRULE, "JSON_FORMAT", NULL, &struct_rule);
-	if (struct_rule)
-		ft_printf("awoirbjvk: '%s'\n", struct_rule->regex);
-	 
 	n = ft_regex(RGX_GLOBAL, argv[1], argv[2], &matches);
 	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 

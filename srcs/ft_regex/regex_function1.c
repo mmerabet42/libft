@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:28:22 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:32:30 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/16 20:26:12 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ft_str.h"
 #include "ft_types.h"
 #include "ft_math.h"
+#include "ft_printf.h"
 
 int			delim_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 {
@@ -27,6 +28,11 @@ int			delim_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	else if (*rule->rule == '$' && rule->rule[1] == 'n'
 			&& *rgxi->str == '\n')
 		return (0);
+	else if (*rule->rule == '0' && *rgxi->str == '\0')
+	{
+		ft_printf("owbrhv\n");
+		return (1);
+	}
 	return (-1);
 }
 
