@@ -152,6 +152,6 @@ void				ft_print_matches(const char *str, t_list *matches);
 void				ft_print_groups(struct s_regex_match *m,
 								t_list *groups,
 								const char *def);
-void				print_matches(t_list *matches);
+void				ft_print_matches_tree(t_list *matches, int tab);
 
 #endif

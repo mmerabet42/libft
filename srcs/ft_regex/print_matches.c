@@ -31,7 +31,7 @@ void		ft_print_matches(const char *str, t_list *matches)
 		color = (n ? "lcyan" : "lblue");
 		if (m->id == -1)
 			color = "white";
-		ft_printf("%#{black}%{white}%.*s", m->pos - i, str + i);
+		ft_printf("%#{black}%{white}%.*s%{0}", m->pos - i, str + i);
 		ft_print_groups(m, m->groups, color);
 		ft_printf("%#{lred}%{black}%d%{0}", m->id);
 		n = !n;
@@ -62,45 +62,31 @@ void		ft_print_groups(struct s_regex_match *m, t_list *group,
 	j = i;
 	color = (def ? def : g_group_colors[j]);
 	if (!group && m->len != -1)
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
+		ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
 	while (group && ++i)
 	{
 		grp = (t_regex_group *)group->content;
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, grp->pos - pos,
+		ft_printf("%#{black}%{%s}%.*s%{0}", color, grp->pos - pos,
 				m->str_begin + pos);
 		pos = grp->pos + grp->len;
 		ft_print_groups(grp, grp->groups, NULL);
 		if (!(group = group->next))
-			ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len - (pos - m->pos),
+			ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len - (pos - m->pos),
 					m->str_begin + pos);
 	}
 	i = (def ? 0 : i);
 }
 
-static void	print_groups(t_list *groups, int tab)
-{
-	t_regex_group	*grp;
-
-	while (groups)
-	{
-		grp = (t_regex_group *)groups->content;
-		ft_printf("%?*\tgroup: %d %d %d '%.*s'\n", tab,
-				grp->pos, grp->len, grp->id, grp->len, grp->str);
-		print_groups(grp->groups, tab + 1);
-		groups = groups->next;
-	}
-}
-
-void		print_matches(t_list *matches)
+void		ft_print_matches_tree(t_list *matches, int tab)
 {
 	t_regex_match	*mch;
 
 	while (matches)
 	{
 		mch = (t_regex_match *)matches->content;
-		ft_printf("match: %d %d %d '%.*s'\n",
+		ft_printf("%?*\t%#{white}%{black}<<<<%{0} %d %d %d '%.*s'\n", tab,
 				mch->pos, mch->len, mch->id, mch->len, mch->str);
-		print_groups(mch->groups, 1);
+		ft_print_matches_tree(mch->groups, tab + 1);
 		matches = matches->next;
 	}
 }

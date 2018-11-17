@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	n = ft_regex(RGX_GLOBAL, "?[@MAIN]", argv[2], &matches);
 //	ft_printf("Regular expression: '%s'\nString: '%s'\n\n\n", argv[1], argv[2]);
 
-//	print_matches(matches);
+	ft_print_matches_tree(matches, 0);
 	ft_print_matches(argv[2], matches);
 	
 	ft_printf("\n%d match(es)\n", n);
