@@ -62,16 +62,16 @@ void		ft_print_groups(struct s_regex_match *m, t_list *group,
 	j = i;
 	color = (def ? def : g_group_colors[j]);
 	if (!group && m->len != -1)
-		ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
+		ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
 	while (group && ++i)
 	{
 		grp = (t_regex_group *)group->content;
-		ft_printf("%#{black}%{%s}%.*s%{0}", color, grp->pos - pos,
+		ft_printf("%{black}%#{%s}%.*s%{0}", color, grp->pos - pos,
 				m->str_begin + pos);
 		pos = grp->pos + grp->len;
 		ft_print_groups(grp, grp->groups, NULL);
 		if (!(group = group->next))
-			ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len - (pos - m->pos),
+			ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len - (pos - m->pos),
 					m->str_begin + pos);
 	}
 	i = (def ? 0 : i);

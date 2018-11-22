@@ -40,7 +40,7 @@
 # define RGX_TO (1 << 19)
 # define RGX_SET (1 << 20)
 # define RGX_GETRULE (1 << 21)
-# define RGX_FLAG_NUM 21
+# define RGX_FLAG_NUM 22
 
 enum				e_regex_condtion
 {
