@@ -80,12 +80,19 @@ void		ft_print_groups(struct s_regex_match *m, t_list *group,
 void		ft_print_matches_tree(t_list *matches, int tab)
 {
 	t_regex_match	*mch;
+	t_regex_func	*func;
 
 	while (matches)
 	{
 		mch = (t_regex_match *)matches->content;
-		ft_printf("%?*\t%#{white}%{black}<<<<%{0} %d %d %d '%.*s'\n", tab,
-				mch->pos, mch->len, mch->id, mch->len, mch->str);
+		func = NULL;
+		ft_regex(RGX_GETRULE, NULL, NULL, mch->id, &func);
+		ft_printf("%?*\t%#{white}%{black}<<<<%{0} ", tab);
+		ft_printf("pos(%d) len(%d) ", mch->pos, mch->len);
+		if (func)
+			ft_printf("rule(%s) '%.*s'\n\n", func->name, mch->len, mch->str);
+		else
+			ft_printf("rule(%d) '%.*s'\n\n", mch->id, mch->len, mch->str);
 		ft_print_matches_tree(mch->groups, tab + 1);
 		matches = matches->next;
 	}

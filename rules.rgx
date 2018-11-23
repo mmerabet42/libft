@@ -2,4 +2,6 @@
 #import "json.rgx"
 #import "printf.rgx"
 
-MAIN	"?[?[*[@word]@G]:?[*[@word]@G]@G]"
+ROUND_BRACKET "( *[ ?![()] | ?[?[@ROUND_BRACKET]@G] @or?] )"
+
+MAIN	"?[?[@ROUND_BRACKET]@G]"
