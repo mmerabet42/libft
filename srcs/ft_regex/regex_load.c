@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 16:24:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:27:54 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/25 22:32:53 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #include "ft_mem.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include "ft_printf.h"
 
-static int	get_attributes(t_regex_match *m, char **names)
+static int	get_attributes(t_regex_match *m, char **names, char *fullpath)
 {
 	t_regex_group	*g;
 	int				n;
@@ -31,7 +32,8 @@ static int	get_attributes(t_regex_match *m, char **names)
 	else if (n == 1 && !(names[0] = ft_strndup(g->str, g->len)))
 		return (0);
 	g = (t_regex_group *)m->groups->next->content;
-	if (!(names[1] = ft_strndupk(g->str + 1, g->len - 2)))
+	names[1] = ft_strnjoin((n == 3 ? fullpath : NULL), g->str + 1, g->len - 2);
+	if (!names[1])
 	{
 		free(names[0]);
 		return (0);
@@ -63,7 +65,7 @@ static int	import_add(int ret, char **names, t_list **rules)
 	return (0);
 }
 
-static int	interpret_fields(t_list *fields, t_list **rules)
+static int	interpret_fields(t_list *fields, t_list **rules, char *fullpath)
 {
 	char	*names[2];
 	int		ret;
@@ -71,7 +73,7 @@ static int	interpret_fields(t_list *fields, t_list **rules)
 	while (fields)
 	{
 		ft_bzero(names, sizeof(char *) * 2);
-		ret = get_attributes((t_regex_match *)fields->content, names);
+		ret = get_attributes((t_regex_match *)fields->content, names, fullpath);
 		if (!ret)
 			return (-1);
 		if (import_add(ret, names, rules) == -1)
@@ -81,10 +83,20 @@ static int	interpret_fields(t_list *fields, t_list **rules)
 	return (0);
 }
 
+static char	*get_fullpath(const char *path)
+{
+	int	pos;
+
+	if ((pos = ft_strrchr_pos(path, '/')) == -1)
+		return (NULL);
+	return (ft_strndup(path, pos + 1));
+}
+
 int			regex_load(t_regex_info *rgxi, t_list **rules)
 {
 	int		fd;
 	char	*str;
+	char	*fullpath;
 	t_list	*fields;
 
 	if ((fd = open(rgxi->regex, O_RDONLY)) == -1)
@@ -97,11 +109,13 @@ int			regex_load(t_regex_info *rgxi, t_list **rules)
 		return (-1);
 	}
 	close(fd);
+	fullpath = get_fullpath(rgxi->regex);
 	fields = NULL;
 	fd = ft_regex(RGX_GLOBAL, LOAD_REGEX, str, &fields);
-	if (interpret_fields(fields, rules) == -1)
+	if (interpret_fields(fields, rules, fullpath) == -1)
 		fd = -1;
 	ft_regex(RGX_FREE, NULL, NULL, &fields);
 	free(str);
+	free(fullpath);
 	return (fd);
 }
