@@ -16,18 +16,18 @@ int main(int argc, char **argv)
 
 	t_list	*matches = NULL;
 	int		n;
-	t_list	*all_file = NULL;
 
-	ft_regex(RGX_IMPORT, argv[1], NULL, &all_file);
+	ft_regex(RGX_IMPORT, argv[1], NULL);
 
 	t_regex_func	*main_func = NULL;
 	ft_regex(RGX_GETRULE, "MAIN", NULL, &main_func);
 	if (main_func)
 	{
-		ft_printf("MAIN rule found !\n");
+	//	ft_printf("MAIN rule found !\n");
 		n = ft_regex(RGX_GLOBAL, "?[@MAIN]", argv[2], &matches);
 
-		ft_print_matches_tree(matches, 0);
+	//	ft_print_matches_tree(matches, 0);
+		ft_printf("Subject string: '%s'\n", argv[2]);
 		ft_print_matches(argv[2], matches);
 	
 		ft_printf("\n%d match(es)\n", n);

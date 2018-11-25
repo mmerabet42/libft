@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 20:09:21 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 20:10:58 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/25 17:26:41 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		ft_print_matches(const char *str, t_list *matches)
 }
 
 static const char	*g_group_colors[] = {
-	"lgreen", "magenta", ";238;18;137", ";65;105;225", ";60;179;113",
+	"lgreen", ";65;105;225", "magenta", ";238;18;137", ";60;179;113",
 	";255;165;1", ";52;224;8", ";56;142;142", ";162;59;221", ";244;63;2"
 };
 static const int	g_gc_len = sizeof(g_group_colors) / sizeof(char *);

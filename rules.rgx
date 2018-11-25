@@ -1,7 +1,6 @@
 #import "struct.rgx"
 #import "json.rgx"
 #import "printf.rgx"
+#import "bracket.rgx"
 
-ROUND_BRACKET "( *[ ?![()] | ?[?[@ROUND_BRACKET]@G] @or?] )"
-
-MAIN	"?[?[@ROUND_BRACKET]@G]"
+MAIN	"?[@BRACKET]"
