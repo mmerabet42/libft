@@ -57,7 +57,8 @@ _STR_FS		=	ft_strchrl.c ft_strdupli.c ft_revstr.c ft_strafter.c ft_strbefore.c f
 				ft_wcharlen.c ft_getwchar.c ft_wstrlen.c ft_getwstr.c ft_strmatch_opt.c ft_strbetweenps.c \
 				ft_strchrln.c ft_strmatch_old.c ft_strdupl.c ft_strpbrkstr.c ft_strnpbrkstr.c \
 				ft_strbetweenps_ext.c ft_strmatch.c ft_strntks.c ft_strpbrkstrp.c ft_strpbrkstrp_len.c \
-				ft_strcatl.c ft_strjoinl.c ft_strpbrkstrpv_len.c ft_strnjoin.c ft_strinsert.c
+				ft_strcatl.c ft_strjoinl.c ft_strpbrkstrpv_len.c ft_strnjoin.c ft_strinsert.c \
+				ft_getopt.c
 
 _TIME_FS	=	ft_timefnew.c
 

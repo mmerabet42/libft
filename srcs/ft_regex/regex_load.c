@@ -32,13 +32,14 @@ static int	get_attributes(t_regex_match *m, char **names, char *fullpath)
 	else if (n == 1 && !(names[0] = ft_strndup(g->str, g->len)))
 		return (0);
 	g = (t_regex_group *)m->groups->next->content;
-	names[1] = ft_strnjoin((n == 3 ? fullpath : NULL), g->str + 1, g->len - 2);
-	if (!names[1])
+	if ((names[1] = ft_strndupk(g->str + 1, g->len - 2)))
 	{
-		free(names[0]);
-		return (0);
+		names[1] = ft_strjoin_clr((n == 3 ? fullpath : NULL), names[1], 1);
+		if (names[1])
+			return (n);
 	}
-	return (n);
+	free(names[0]);
+	return (0);
 }
 
 static int	import_add(int ret, char **names, t_list **rules)

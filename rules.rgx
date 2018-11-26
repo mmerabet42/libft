@@ -3,4 +3,4 @@
 #import "printf.rgx"
 #import "bracket.rgx"
 
-MAIN	"?[@BRACKET]"
+MAIN	"?[@JSON_FORMAT]"
