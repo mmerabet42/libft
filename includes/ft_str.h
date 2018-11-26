@@ -191,6 +191,24 @@ char				*ft_strnjoinl_clr(char *a, char *b, size_t n, int d);
 char				*ft_strinsert(char *a, char *b, size_t start, size_t size);
 char				*ft_strerase(char *a, size_t start, size_t end);
 
+typedef struct		s_opt
+{
+	char			*cur;
+	char			**ptr;
+	int				n;
+	char			c;
+	int				seq;
+	int				ret;
+	char			*clong;
+}					t_opt;
+
+typedef enum	e_optret
+{
+	OPT_END, OPT_UNKNOWN, OPT_ALAST, OPT_OK, OPT_MISSING, OPT_EMPTY, OPT_EQUAL
+}				t_optret;
+
+int					ft_getopt(char ***argv, const char *options, t_opt *opt);
+
 typedef struct		s_pairint
 {
 	char			*ext;
