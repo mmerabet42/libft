@@ -1,6 +1,0 @@
-#import "struct.rgx"
-#import "json.rgx"
-#import "printf.rgx"
-#import "bracket.rgx"
-
-MAIN	"?[@JSON_FORMAT]"

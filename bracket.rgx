@@ -1,5 +1,0 @@
-BRACKET "?[ ?[ ?[@ROUND_BRACKET] | ?[@SQUARE_BRACKET] | ?[@CURLY_BRACKET] @or] @G]"
-
-ROUND_BRACKET "( *[ ?![{(){}[]}] | ?[@BRACKET] @or?] )"
-SQUARE_BRACKET "[ *[ ?![{(){}[]}] | ?[@BRACKET] @or?] ]"
-CURLY_BRACKET "{ *[ ?![{(){}[]}] | ?[@BRACKET] @or?] }"
