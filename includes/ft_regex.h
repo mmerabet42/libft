@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 20:10:20 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 19:04:49 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define RGX_TO (1 << 19)
 # define RGX_SET (1 << 20)
 # define RGX_GETRULE (1 << 21)
-# define RGX_FLAG_NUM 22
+# define RGX_IDSTR (1 << 22)
+# define RGX_FLAG_NUM 23
 
 enum				e_regex_condtion
 {
@@ -81,6 +82,7 @@ typedef struct		s_regex_info
 	int				*pos;
 	int				cid;
 	int				*id;
+	const char		**id_str;
 	void			*data;
 	t_list			**groups_head;
 	t_list			**groups;
@@ -96,6 +98,7 @@ typedef struct		s_regex_match
 	int				pos;
 	int				len;
 	int				id;
+	const char		*id_str;
 	t_list			*groups;
 }					t_regex_match;
 

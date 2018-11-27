@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/27 16:11:07 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 19:04:45 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static int			other_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	rgxi2.len_param = rule->len_arg;
 	rgxi2.id = NULL;
 	if (rgxi->cid == -2)
+	{
 		rgxi2.id = rgxi->id;
+		rgxi2.id_str = rgxi->id_str;
+	}
 	return (regex_exec2(&rgxi2));
 }
 
@@ -137,10 +140,6 @@ static t_regex_func	g_regexfs[] = {
 };
 static size_t		g_regex_len = (sizeof(g_regexfs) / sizeof(t_regex_func));
 
-/*
-** Implementing id_str
-*/
-
 static t_regex_func	*get_regex_rule(const char *name, int len_rule,
 						t_regex_info *rgxi)
 {
@@ -157,7 +156,11 @@ static t_regex_func	*get_regex_rule(const char *name, int len_rule,
 		if (ft_strnequ(name, func->name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
+			{
 				*rgxi->id = func->id;
+				if (rgxi->id_str)
+					*rgxi->id_str = func->name;
+			}
 			return (func);
 		}
 		rules = rules->next;
@@ -180,7 +183,11 @@ t_regex_func		*get_regex_func(const char *name, int len_rule,
 		if (ft_strnequ(name, g_regexfs[i].name, ft_max(len_rule, len)))
 		{
 			if (rgxi && rgxi->id)
+			{
 				*rgxi->id = g_regexfs[i].id;
+				if (rgxi->id_str)
+					*rgxi->id_str = g_regexfs[i].name;
+			}
 			return (&g_regexfs[i]);
 		}
 		++i;

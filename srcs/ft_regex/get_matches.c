@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 17:43:10 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 12:42:49 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:39:59 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 		matchs[1].len = matchs[0].pos + (zero ? 1 : 0);
 		matchs[1].str = matchs[1].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
+		matchs[1].id_str = NULL;
 		matchs[1].groups = NULL;
 		if (rgxi->matches)
 			ft_lstpush_p(rgxi->matches,
@@ -37,6 +38,7 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 			ft_lstpush_p(rgxi->matches,
 					ft_lstnew(&matchs[0], sizeof(t_regex_match)));
 		matchs[0].id = 0;
+		matchs[0].id_str = NULL;
 		++i;
 	}
 	return (i);
@@ -75,9 +77,10 @@ int			get_matches(t_regex_info *rgxi)
 	t_regex_match	matchs[2];
 	int				i;
 
-	rgxi->flags |= (RGX_POS | RGX_END | RGX_ID | RGX_GROUP);
+	rgxi->flags |= (RGX_POS | RGX_END | RGX_IDSTR | RGX_GROUP);
 	rgxi->pos = &(matchs[0].pos);
 	rgxi->id = &(matchs[0].id);
+	rgxi->id_str = &(matchs[0].id_str);
 	matchs[1].groups = NULL;
 	matchs[0].str_begin = rgxi->str;
 	matchs[1].str_begin = rgxi->str;
@@ -91,6 +94,7 @@ int			get_matches(t_regex_info *rgxi)
 		matchs[1].len = matchs[0].pos;
 		matchs[1].str = matchs[0].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
+		matchs[1].id_str = NULL;
 		if (rgxi->matches)
 			ft_lstpush_p(rgxi->matches,
 					ft_lstnew(&matchs[1], sizeof(t_regex_match)));

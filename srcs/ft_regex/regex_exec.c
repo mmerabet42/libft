@@ -6,14 +6,13 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:27:06 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 16:34:19 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:25:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_regex.h"
 #include "ft_str.h"
 #include "ft_types.h"
-#include "ft_printf.h"
 
 static int	special_char(char c, t_regex_info *rgxi)
 {
@@ -63,7 +62,10 @@ int			regex_exec2(t_regex_info *regex_info)
 	int	pos;
 
 	if (regex_info->id)
+	{
 		*regex_info->id = 0;
+		*regex_info->id_str = NULL;
+	}
 	regex_info->cid = 0;
 	while (*regex_info->regex)
 	{
@@ -97,10 +99,8 @@ int			regex_exec(t_regex_info *regex_info)
 		regex_info->free_groups = &groups;
 	}
 	if ((ret = regex_exec2(regex_info)) == -1)
-	{
 		if (regex_info->flags & RGX_GROUP)
 			ft_lstdel(regex_info->free_groups, free_match);
-	}
 	if ((regex_info->flags & RGX_INNER_GROUP))
 	{
 		regex_info->groups = NULL;

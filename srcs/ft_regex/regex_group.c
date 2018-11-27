@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 19:20:49 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/14 18:25:46 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:42:15 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_list *lst)
 {
 	int				id;
+	const char		*id_str;
 	t_regex_group	*group;
 
 	id = 0;
 	tmp->id = &id;
+	tmp->id_str = &id_str;
 	group = (t_regex_group *)lst->content;
 	tmp->groups = &group->groups;
 	tmp->free_groups = NULL;
@@ -33,6 +35,7 @@ static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_list *lst)
 		return (-1);
 	}
 	group->id = id;
+	group->id_str = id_str;
 	group->str_begin = rgxi->str_begin;
 	group->str = rgxi->str;
 	group->pos = (int)(rgxi->str - rgxi->str_begin);

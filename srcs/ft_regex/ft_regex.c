@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:26:52 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 20:10:41 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:25:52 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static void	get_args(t_regex_info *rgxi, va_list vp)
 	{
 		if (rgxi->flags & RGX_POS)
 			rgxi->pos = (int *)va_arg(vp, int *);
-		if (rgxi->flags & RGX_ID)
+		if (rgxi->flags & (RGX_ID | RGX_IDSTR))
 			rgxi->id = (int *)va_arg(vp, int *);
+		if (rgxi->flags & RGX_IDSTR)
+			rgxi->id_str = (const char **)va_arg(vp, const char **);
 		if (rgxi->flags & RGX_GROUP)
 			rgxi->groups = (t_list **)va_arg(vp, t_list **);
 		rgxi->groups_head = rgxi->groups;
