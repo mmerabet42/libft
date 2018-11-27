@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/19 19:31:44 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/16 20:41:34 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/27 16:11:07 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ static t_regex_func	g_regexfs[] = {
 	{"inf", "?[@inf]", NULL, 0, 0},
 };
 static size_t		g_regex_len = (sizeof(g_regexfs) / sizeof(t_regex_func));
+
+/*
+** Implementing id_str
+*/
 
 static t_regex_func	*get_regex_rule(const char *name, int len_rule,
 						t_regex_info *rgxi)
