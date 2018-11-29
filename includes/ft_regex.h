@@ -6,7 +6,7 @@
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 16:12:50 by mmerabet          #+#    #+#             */
-/*   Updated: 2018/11/27 19:04:49 by mmerabet         ###   ########.fr       */
+/*   Updated: 2018/11/29 20:18:34 by mmerabet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,18 @@ struct				s_regex_func
 	int				id;
 	int				flags;
 };
+/*
+typedef struct		s_func_slot
+{
+	const char		*name;
+	t_list			*slot;
+}					t_func_slot;
+*/
+typedef struct		s_rules
+{
+	int				n;
+	t_list			*rules;
+}					t_rules;
 
 int					ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule);
 int					groups_rgx(t_regex_info *rgxi, t_regex_rule *rule);
