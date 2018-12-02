@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   regex_function1.c                                  :+:      :+:    :+:   */
+/*   function1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,46 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_regex.h"
+#include "ft_lexiq.h"
 #include "ft_str.h"
 #include "ft_types.h"
 #include "ft_math.h"
 #include "ft_printf.h"
 
-int			delim_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			delim_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
-	if (*rule->rule == '^' && rgxi->str == rgxi->str_begin)
+	if (*rule->rule == '^' && lqeng->str == lqeng->str_begin)
 		return (0);
 	else if (*rule->rule == '^' && rule->rule[1] == 'n'
-			&& *(rgxi->str - 1) == '\n')
+			&& *(lqeng->str - 1) == '\n')
 		return (0);
-	else if (*rule->rule == '$' && !*rgxi->str)
+	else if (*rule->rule == '$' && !*lqeng->str)
 		return (0);
 	else if (*rule->rule == '$' && rule->rule[1] == 'n'
-			&& *rgxi->str == '\n')
+			&& *lqeng->str == '\n')
 		return (0);
-	else if (*rule->rule == '0' && *rgxi->str == '\0')
-	{
-		ft_printf("owbrhv\n");
+	else if (*rule->rule == '0' && *lqeng->str == '\0')
 		return (1);
-	}
 	return (-1);
 }
 
-int			case_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			case_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int	i;
 
 	i = -1;
-	while (++i < rule->len_arg && rgxi->str[i])
-		if (ft_tolower(rule->arg[i]) != ft_tolower(rgxi->str[i]))
+	while (++i < rule->len_arg && lqeng->str[i])
+		if (ft_tolower(rule->arg[i]) != ft_tolower(lqeng->str[i]))
 			return (-1);
-	if (!rgxi->str[i] && i < rule->len_arg)
+	if (!lqeng->str[i] && i < rule->len_arg)
 		return (-1);
 	return (i);
 }
 
-static int	next_op(t_regex_rule *rule, int i)
+static int	next_op(t_lq_rule *rule, int i)
 {
 	int	j;
 	int	pos;
@@ -61,7 +58,7 @@ static int	next_op(t_regex_rule *rule, int i)
 			return (j);
 		if (rule->arg[i] == '*' || rule->arg[i] == '?')
 		{
-			if ((pos = regex_bracket(&rule->arg[i], NULL)) == -1)
+			if ((pos = lq_bracket(&rule->arg[i], NULL)) == -1)
 				return (-1);
 			else if (pos != -2)
 			{
@@ -75,12 +72,12 @@ static int	next_op(t_regex_rule *rule, int i)
 	return (j);
 }
 
-static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
+static int	move_i(t_lq_eng *r, t_lq_rule *rule, int *i)
 {
 	char			*str;
 	int				ret;
 	int				j;
-	t_regex_info	rgxi2;
+	t_lq_eng		lqeng2;
 	t_list			*grps;
 
 	if (rule->arg[*i] == (*rule->rule == 'a' ? '&' : '|'))
@@ -89,21 +86,21 @@ static int	move_i(t_regex_info *r, t_regex_rule *rule, int *i)
 		return (-2);
 	if (!(str = ft_strndup(&rule->arg[*i], j)))
 		return (-2);
-	rgxi2 = *r;
-	rgxi2.regex = str;
-	rgxi2.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
-	rgxi2.flags |= RGX_END;
-	rgxi2.len = 0;
-	rgxi2.free_groups = r->groups;
-	if ((r->flags & RGX_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))
-		rgxi2.free_groups = &grps->next;
-	ret = regex_exec(&rgxi2);
+	lqeng2 = *r;
+	lqeng2.expr = str;
+	lqeng2.flags &= ~(LQ_POS | LQ_GLOBAL | LQ_UGLOBAL | LQ_INNER_GROUP);
+	lqeng2.flags |= LQ_END;
+	lqeng2.len = 0;
+	lqeng2.free_groups = r->groups;
+	if ((r->flags & LQ_GROUP) && r->groups && (grps = ft_lstend(*r->groups)))
+		lqeng2.free_groups = &grps->next;
+	ret = lq_exec(&lqeng2);
 	free(str);
 	*i += j;
 	return (ret);
 }
 
-int			cond_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			cond_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int		i;
 	int		ret;
@@ -114,7 +111,7 @@ int			cond_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	ret = 0;
 	while (i < rule->len_arg)
 	{
-		ret = move_i(rgxi, rule, &i);
+		ret = move_i(lqeng, rule, &i);
 		if (*rule->rule == 'a' && ret == -1)
 			return (-1);
 		else if (*rule->rule != 'a')

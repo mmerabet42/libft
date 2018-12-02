@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   regex_bracket.c                                    :+:      :+:    :+:   */
+/*   bracket.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_regex.h"
+#include "ft_lexiq.h"
 
 static int	bracket_start(const char *str)
 {
@@ -34,7 +34,7 @@ static int	bracket_end(const char *str, int l)
 	return (0);
 }
 
-int			regex_bracket(const char *str, int *s)
+int			lq_bracket(const char *str, int *s)
 {
 	int	i;
 	int	j;
@@ -51,7 +51,7 @@ int			regex_bracket(const char *str, int *s)
 	{
 		if (bracket_end(&str[i], l))
 			return (i + l + 1);
-		else if ((j = regex_bracket(&str[i], NULL)) == -1)
+		else if ((j = lq_bracket(&str[i], NULL)) == -1)
 			return (-1);
 		else if (j != -2)
 			i += j;

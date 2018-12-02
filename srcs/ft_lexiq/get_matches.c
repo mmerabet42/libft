@@ -10,33 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_regex.h"
+#include "ft_lexiq.h"
 #include "ft_mem.h"
 
-static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
+static int	add_matches(t_lq_eng *lqeng, t_lq_match *matchs, int zero)
 {
 	int	i;
 
 	i = 0;
-	if ((rgxi->flags & RGX_UGLOBAL) && matchs[0].pos)
+	if ((lqeng->flags & LQ_UGLOBAL) && matchs[0].pos)
 	{
 		matchs[1].len = matchs[0].pos + (zero ? 1 : 0);
 		matchs[1].str = matchs[1].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
 		matchs[1].id_str = NULL;
 		matchs[1].groups = NULL;
-		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches,
-					ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+		if (lqeng->matches)
+			ft_lstpush_p(lqeng->matches,
+					ft_lstnew(&matchs[1], sizeof(t_lq_match)));
 		++i;
 	}
 	matchs[0].pos += matchs[1].pos;
-	if (rgxi->flags & RGX_GLOBAL)
+	if (lqeng->flags & LQ_GLOBAL)
 	{
 		matchs[0].str = matchs[0].str_begin + matchs[0].pos;
-		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches,
-					ft_lstnew(&matchs[0], sizeof(t_regex_match)));
+		if (lqeng->matches)
+			ft_lstpush_p(lqeng->matches,
+					ft_lstnew(&matchs[0], sizeof(t_lq_match)));
 		matchs[0].id = 0;
 		matchs[0].id_str = NULL;
 		++i;
@@ -44,7 +44,7 @@ static int	add_matches(t_regex_info *rgxi, t_regex_match *matchs, int zero)
 	return (i);
 }
 
-static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs)
+static int	loop_matches(t_lq_eng *lqeng, t_lq_match *matchs)
 {
 	int		i;
 	int		zero;
@@ -53,51 +53,51 @@ static int	loop_matches(t_regex_info *rgxi, t_regex_match *matchs)
 	i = 0;
 	zero = 0;
 	groups = NULL;
-	rgxi->groups = &groups;
-	rgxi->free_groups = rgxi->groups;
-	rgxi->groups_head = rgxi->groups;
-	while ((matchs[0].len = regex_pos(rgxi)) != -1)
+	lqeng->groups = &groups;
+	lqeng->free_groups = lqeng->groups;
+	lqeng->groups_head = lqeng->groups;
+	while ((matchs[0].len = lq_pos(lqeng)) != -1)
 	{
 		matchs[0].groups = groups;
 		groups = NULL;
-		i += add_matches(rgxi, matchs, zero);
+		i += add_matches(lqeng, matchs, zero);
 		zero = (!matchs[0].len ? 1 : 0);
 		matchs[1].pos = matchs[0].pos + (!matchs[0].len ? 1 : matchs[0].len);
 		if (!*(matchs[0].str_begin + matchs[0].pos)
-				|| !*(rgxi->str = matchs[0].str_begin + matchs[1].pos))
+				|| !*(lqeng->str = matchs[0].str_begin + matchs[1].pos))
 			break ;
-		rgxi->regex = rgxi->rgx_begin;
-		rgxi->len = 0;
+		lqeng->expr = lqeng->expr_begin;
+		lqeng->len = 0;
 	}
 	return (i);
 }
 
-int			get_matches(t_regex_info *rgxi)
+int			lq_get_matches(t_lq_eng *lqeng)
 {
-	t_regex_match	matchs[2];
+	t_lq_match	matchs[2];
 	int				i;
 
-	rgxi->flags |= (RGX_POS | RGX_END | RGX_IDSTR | RGX_GROUP);
-	rgxi->pos = &(matchs[0].pos);
-	rgxi->id = &(matchs[0].id);
-	rgxi->id_str = &(matchs[0].id_str);
+	lqeng->flags |= (LQ_POS | LQ_END | LQ_IDSTR | LQ_GROUP);
+	lqeng->pos = &(matchs[0].pos);
+	lqeng->id = &(matchs[0].id);
+	lqeng->id_str = &(matchs[0].id_str);
 	matchs[1].groups = NULL;
-	matchs[0].str_begin = rgxi->str;
-	matchs[1].str_begin = rgxi->str;
-	if (rgxi->matches)
-		*rgxi->matches = NULL;
+	matchs[0].str_begin = lqeng->str;
+	matchs[1].str_begin = lqeng->str;
+	if (lqeng->matches)
+		*lqeng->matches = NULL;
 	i = 0;
 	matchs[1].pos = 0;
-	i = loop_matches(rgxi, matchs);
-	if ((rgxi->flags & RGX_UGLOBAL) && matchs[0].len == -1)
+	i = loop_matches(lqeng, matchs);
+	if ((lqeng->flags & LQ_UGLOBAL) && matchs[0].len == -1)
 	{
 		matchs[1].len = matchs[0].pos;
 		matchs[1].str = matchs[0].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
 		matchs[1].id_str = NULL;
-		if (rgxi->matches)
-			ft_lstpush_p(rgxi->matches,
-					ft_lstnew(&matchs[1], sizeof(t_regex_match)));
+		if (lqeng->matches)
+			ft_lstpush_p(lqeng->matches,
+					ft_lstnew(&matchs[1], sizeof(t_lq_match)));
 		++i;
 	}
 	return (i);

@@ -4,7 +4,7 @@ CFLAGS		=	-Wall -Werror -Wextra -g3 -fsanitize=address
 
 SRCD		=	srcs/
 INCLUDES_D	=	includes/
-_INCLUDES	=	libft.h ft_btree.h ft_list.h ft_mem.h ft_regex.h ft_types.h ft_event.h \
+_INCLUDES	=	libft.h ft_btree.h ft_list.h ft_mem.h ft_lexiq.h ft_types.h ft_event.h \
 				ft_math.h ft_printf.h ft_str.h ft_str.h get_next_line.h ft_io.h ft_matrix.h \
 				ft_printf_ext.h ft_time.h handlers.h
 
@@ -62,13 +62,9 @@ _STR_FS		=	ft_strchrl.c ft_strdupli.c ft_revstr.c ft_strafter.c ft_strbefore.c f
 
 _TIME_FS	=	ft_timefnew.c
 
-_REGEX_FS	=	ft_regex.c regex_exec.c get_matches.c regex_bracket.c regex_wildcard.c \
-				regex_start.c regex_utils.c regex_function.c regex_function1.c \
-				regex_function2.c regex_function3.c regex_group.c regex_load.c read_arguments.c \
+_LEXIQ_FS	=	ft_lexiq.c exec.c get_matches.c bracket.c wildcard.c start.c utils.c \
+				function.c function1.c function2.c function3.c group.c import.c args.c \
 				print_matches.c
-
-_LIBFTS		=	$(_MATH_FS) $(_TYPES_FS) $(_MATRIX_FS) $(_BTREE_FS) $(_LIST_FS) $(_MEM_FS) \
-				$(_IO_FS) $(_EVENT_FS) $(_STR_FS) $(_TIME_FS) $(_REGEX_FS)
 
 INCLUDES	=	$(addprefix $(INCLUDES_D),$(_INCLUDES))
 
@@ -94,13 +90,13 @@ STR_FS		=	$(addprefix $(SRCD)ft_str/,$(_STR_FS))
 STR_O		=	$(_STR_FS:.c=.o)
 TIME_FS		=	$(addprefix $(SRCD)ft_time/,$(_TIME_FS))
 TIME_O		=	$(_TIME_FS:.c=.o)
-REGEX_FS	=	$(addprefix $(SRCD)ft_regex/,$(_REGEX_FS))
-REGEX_O		=	$(_REGEX_FS:.c=.o)
+LEXIQ_FS	=	$(addprefix $(SRCD)ft_lexiq/,$(_LEXIQ_FS))
+LEXIQ_O		=	$(_LEXIQ_FS:.c=.o)
 
 SRCS		=	$(PRINTF_FS) $(MATH_FS) $(TYPES_FS) $(MATRIX_FS) $(BTREE_FS) $(LIST_FS) $(MEM_FS) \
-				$(IO_FS) $(EVENT_FS) $(STR_FS) $(TIME_FS) $(REGEX_FS)
+				$(IO_FS) $(EVENT_FS) $(STR_FS) $(TIME_FS) $(LEXIQ_FS)
 OBJS		=	$(PRINTF_O) $(MATH_O) $(TYPES_O) $(MATRIX_O) $(BTREE_O) $(LIST_O) $(MEM_O) \
-				$(IO_O) $(EVENT_O) $(STR_O) $(TIME_O) $(REGEX_O)
+				$(IO_O) $(EVENT_O) $(STR_O) $(TIME_O) $(LEXIQ_O)
 OBJD		=	.objs/
 OBJB		=	$(addprefix $(OBJD),$(OBJS))
 
@@ -172,7 +168,7 @@ $(OBJD)%.o: $(SRCD)ft_time/%.c $(INCLUDES) Makefile
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLUDES_D)
 
-$(OBJD)%.o: $(SRCD)ft_regex/%.c $(INCLUDES) Makefile
+$(OBJD)%.o: $(SRCD)ft_lexiq/%.c $(INCLUDES) Makefile
 	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $<"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLUDES_D)

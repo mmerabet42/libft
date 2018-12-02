@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   regex_function2.c                                  :+:      :+:    :+:   */
+/*   function2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,29 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_regex.h"
+#include "ft_lexiq.h"
 #include "ft_types.h"
 #include "ft_printf.h"
 
-int	bnd_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	bnd_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	(void)rule;
 	if (*rule->rule == '^')
 	{
-		if (rgxi->str == rgxi->str_begin || !ft_isword(*(rgxi->str - 1)))
+		if (lqeng->str == lqeng->str_begin || !ft_isword(*(lqeng->str - 1)))
 			return (0);
 	}
-	else if (!*rgxi->str)
+	else if (!*lqeng->str)
 		return (0);
-	else if (!ft_isword(*rgxi->str))
+	else if (!ft_isword(*lqeng->str))
 	{
-		++rgxi->str;
+		++lqeng->str;
 		return (0);
 	}
 	return (-1);
 }
 
-int	write_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	write_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int	i;
 
@@ -41,16 +41,16 @@ int	write_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	else if (rule->rule[0] == 'd')
 	{
 		ft_printf("DEBUG \"%.*s\" ->\n\tstr:\t\t'%s'\n\tstr_begin:\t'%s'\n",
-				rule->len_arg, rule->arg, rgxi->str, rgxi->str_begin);
-		ft_printf("\tregex:\t\t'%s'\n\tregex_begin:\t'%s'\n",
-				rgxi->regex, rgxi->rgx_begin);
+				rule->len_arg, rule->arg, lqeng->str, lqeng->str_begin);
+		ft_printf("\texpr:\t\t'%s'\n\texpr_begin:\t'%s'\n",
+				lqeng->expr, lqeng->expr_begin);
 		return (0);
 	}
 	i = 0;
 	while (i < rule->len_arg)
 	{
 		if (rule->arg[i] == '%' && ft_isalpha(rule->arg[i + 1]))
-			ft_printf("%d", regex_variable(rgxi, rule->arg + ++i));
+			ft_printf("%d", lq_variable(lqeng, rule->arg + ++i));
 		else
 			ft_printf("%c", rule->arg[i]);
 		++i;
@@ -59,7 +59,7 @@ int	write_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 	return (0);
 }
 
-int	getint_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	getint_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int	ret;
 	int	i;
@@ -67,54 +67,54 @@ int	getint_rgx(t_regex_info *rgxi, t_regex_rule *rule)
 
 	ret = 0;
 	if (*rule->rule == 'n')
-		ret = ft_regex(RGX_END, "?[@nint]", rgxi->str);
+		ret = ft_lexiq(LQ_END, "?[@nint]", lqeng->str);
 	else
-		ret = ft_regex(RGX_END, "?[@int]", rgxi->str);
+		ret = ft_lexiq(LQ_END, "?[@int]", lqeng->str);
 	if (!ft_isalpha(rule->arg[0]))
 		return (ret);
-	n = (ret == -1 ? 0 : ft_atoi(rgxi->str));
+	n = (ret == -1 ? 0 : ft_atoi(lqeng->str));
 	i = 0;
 	while (i < rule->len_arg)
 	{
 		if (ft_islower(rule->arg[i]))
-			rgxi->vars[rule->arg[i] - 97] = n;
+			lqeng->vars[rule->arg[i] - 97] = n;
 		else if (ft_isupper(rule->arg[i]))
-			rgxi->vars[26 + rule->arg[i] - 65] = n;
+			lqeng->vars[26 + rule->arg[i] - 65] = n;
 		++i;
 	}
 	return (ret);
 }
 
-int	recursive_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	recursive_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
-	t_regex_info	tmp;
+	t_lq_eng	tmp;
 
-	tmp = *rgxi;
+	tmp = *lqeng;
 	tmp.len = 0;
-	tmp.regex = tmp.rgx_begin;
-	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
-	tmp.flags |= RGX_END;
+	tmp.expr = tmp.expr_begin;
+	tmp.flags &= ~(LQ_POS | LQ_GLOBAL | LQ_UGLOBAL | LQ_INNER_GROUP);
+	tmp.flags |= LQ_END;
 	if (ft_isdigit(*rule->arg))
-		tmp.regex += ft_atoi(rule->arg);
-	return (regex_exec2(&tmp));
+		tmp.expr += ft_atoi(rule->arg);
+	return (lq_exec2(&tmp));
 }
 
-int	modulus_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int	modulus_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int	i;
 
 	if (*rule->rule == 's')
 	{
-		rgxi->param = rule->arg;
-		rgxi->len_param = rule->len_arg;
-		rgxi->param_i = 0;
+		lqeng->param = rule->arg;
+		lqeng->len_param = rule->len_arg;
+		lqeng->param_i = 0;
 	}
 	else
 	{
 		i = 0;
-		while (i < rgxi->len_param)
+		while (i < lqeng->len_param)
 		{
-			if (rgxi->str[i] != rgxi->param[i])
+			if (lqeng->str[i] != lqeng->param[i])
 				return (-1);
 			++i;
 		}

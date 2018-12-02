@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   regex_function4.c                                  :+:      :+:    :+:   */
+/*   group.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmerabet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,75 +10,75 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_regex.h"
+#include "ft_lexiq.h"
 #include "ft_str.h"
 #include "ft_types.h"
 
-static int	get_group(t_regex_info *rgxi, t_regex_info *tmp, t_list *lst)
+static int	get_group(t_lq_eng *lqeng, t_lq_eng *tmp, t_list *lst)
 {
 	int				id;
 	const char		*id_str;
-	t_regex_group	*group;
+	t_lq_group		*group;
 
 	id = 0;
 	tmp->id = &id;
 	tmp->id_str = &id_str;
-	group = (t_regex_group *)lst->content;
+	group = (t_lq_group *)lst->content;
 	tmp->groups = &group->groups;
 	tmp->free_groups = NULL;
-	if ((group->len = regex_exec2(tmp)) == -1)
+	if ((group->len = lq_exec2(tmp)) == -1)
 	{
 		if (lst->parent)
 			lst->parent->next = NULL;
 		else
-			*rgxi->groups = NULL;
+			*lqeng->groups = NULL;
 		return (-1);
 	}
 	group->id = id;
 	group->id_str = id_str;
-	group->str_begin = rgxi->str_begin;
-	group->str = rgxi->str;
-	group->pos = (int)(rgxi->str - rgxi->str_begin);
-	if ((rgxi->flags & RGX_ID) && rgxi->id)
-		*rgxi->id = group->id;
+	group->str_begin = lqeng->str_begin;
+	group->str = lqeng->str;
+	group->pos = (int)(lqeng->str - lqeng->str_begin);
+	if ((lqeng->flags & LQ_ID) && lqeng->id)
+		*lqeng->id = group->id;
 	return (group->len);
 }
 
-int			groups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			groups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
-	t_regex_info	tmp;
-	char			*rgx;
+	t_lq_eng		tmp;
+	char			*expr;
 	t_list			*lst;
 
-	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
-		return (regex_rgx(rgxi, rule));
-	if (!(rgx = ft_strndup(rule->arg, rule->len_arg)))
+	if (!(lqeng->flags & LQ_GROUP) || !lqeng->groups)
+		return (lexiq_lq(lqeng, rule));
+	if (!(expr = ft_strndup(rule->arg, rule->len_arg)))
 		return (-1);
-	if (!(lst = ft_lstalloc(sizeof(t_regex_group), 1)))
+	if (!(lst = ft_lstalloc(sizeof(t_lq_group), 1)))
 		return (-1);
-	ft_lstpush_p(rgxi->groups, lst);
-	tmp = *rgxi;
+	ft_lstpush_p(lqeng->groups, lst);
+	tmp = *lqeng;
 	tmp.len = 0;
-	tmp.flags &= ~(RGX_POS | RGX_GLOBAL | RGX_UGLOBAL | RGX_INNER_GROUP);
-	tmp.flags |= (RGX_END | RGX_ID | RGX_GROUP);
-	tmp.regex = rgx;
-	if ((tmp.len = get_group(rgxi, &tmp, lst)) == -1)
-		ft_lstdel(&lst, free_match);
-	free(rgx);
+	tmp.flags &= ~(LQ_POS | LQ_GLOBAL | LQ_UGLOBAL | LQ_INNER_GROUP);
+	tmp.flags |= (LQ_END | LQ_ID | LQ_GROUP);
+	tmp.expr = expr;
+	if ((tmp.len = get_group(lqeng, &tmp, lst)) == -1)
+		ft_lstdel(&lst, lq_free_match);
+	free(expr);
 	return (tmp.len);
 }
 
 static int	backreference(const char *str, t_list *groups, int n)
 {
 	static int		lvl;
-	t_regex_group	*grp;
+	t_lq_group		*grp;
 	int				ret;
 
 	if (!groups && !(lvl = 0))
 		return (0);
 	while (groups && ++lvl)
 	{
-		grp = (t_regex_group *)groups->content;
+		grp = (t_lq_group *)groups->content;
 		if (lvl == n)
 		{
 			if (!grp->str || !ft_strnequ(grp->str, str, grp->len))
@@ -92,18 +92,18 @@ static int	backreference(const char *str, t_list *groups, int n)
 	return (-1);
 }
 
-int			ugroups_rgx(t_regex_info *rgxi, t_regex_rule *rule)
+int			ugroups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	int		n;
 	t_list	*head;
 
-	if (!(rgxi->flags & RGX_GROUP) || !rgxi->groups)
+	if (!(lqeng->flags & LQ_GROUP) || !lqeng->groups)
 		return (-1);
 	if (rule->rule[1] == 'L')
-		head = *rgxi->groups;
+		head = *lqeng->groups;
 	else
-		head = *rgxi->groups_head;
-	n = backreference(rgxi->str, head, ft_atoi(rule->arg));
+		head = *lqeng->groups_head;
+	n = backreference(lqeng->str, head, ft_atoi(rule->arg));
 	backreference(NULL, NULL, 0);
 	return (n < 0 ? -1 : n);
 }
