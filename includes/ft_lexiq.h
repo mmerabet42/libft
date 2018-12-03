@@ -167,4 +167,20 @@ int					ft_lexiq(int flags,
 void				ft_print_matches(const char *str, t_list *matches);
 void				ft_print_matches_tree(t_list *matches, int tab);
 
+/*
+ft_lexiq_add(rule_name, expr) -> ft_lexiq(LQ_ADD, rule_name, expr, NULL)
+ft_lexiq_addcallback(rule_name, funcptr) -> ft_lexiq(LQ_ADD, rule_name, NULL, funcptr)
+ft_lexiq_import(file_name) -> ft_lexiq(LQ_IMPORT, file_name, NULL)
+ft_lexiq_getrule(rule_name) -> ft_lexiq(LQ_GETRULE, rule_name, NULL, &return)
+ft_lexiq_getrule_byid(id) -> ft_lexiq(LQ_GETRULE, NULL, NULL, id, &return)
+ft_lexiq_clean(void) -> ft_lexiq(LQ_CLEAN, NULL, NULL)
+ft_lexiq_set(rules) -> ft_lexiq(LQ_SET, NULL, NULL, rules)
+ft_lexiq_get(rules) -> ft_lexiq(LQ_GET, NULL, NULL, rules)
+ft_lexiq_find(expr, str, len) -> ft_lexiq(LQ_POS | LQ_END, expr, str, &return)
+ft_lexiq_match(expr, str) -> ft_lexiq(0, expr, str)
+ft_lexiq_matchgrp(expr, str, groups) -> ft_lexiq(LQ_GROUP, expr, str, groups)
+ft_lexiq_global(expr, str) -> ft_lexiq(LQ_GLOBAL, expr, str, &return)
+ft_lexiq_free(list) -> ft_lexiq(LQ_FREE, NULL, NULL, list)
+*/
+
 #endif
