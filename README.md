@@ -23,7 +23,7 @@ But you can include `libft.h` to include them all.
 | Name | Documentation |
 | --- | --- |
 | `ft_printf.h` |  https://github.com/mmerabet42/ft_printf |
-| `ft_regex.h` | https://github.com/mmerabet42/ft_regex |
+| `ft_lexiq.h` | https://github.com/mmerabet42/ft_lexiq |
 | `ft_list.h` | |
 | `ft_btree.h` | |
 | `ft_io.h` | |
