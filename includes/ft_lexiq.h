@@ -164,7 +164,9 @@ void				lq_init(t_lq_eng *lqeng,
 int					ft_lexiq(int flags,
 								const char *expression,
 								const char *str, ...);
-void				ft_print_matches(const char *str, t_list *matches);
+void				ft_print_matches(const char *str,
+								t_list *matches,
+								int print_id);
 void				ft_print_matches_tree(t_list *matches, int tab);
 
 /*

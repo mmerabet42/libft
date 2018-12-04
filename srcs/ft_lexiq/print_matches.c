@@ -33,22 +33,22 @@ void		ft_print_groups(struct s_lexiq_match *m, t_list *group,
 	j = i;
 	color = (def ? def : g_group_colors[j]);
 	if (!group && m->len != -1)
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
+		ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
 	while (group && ++i)
 	{
 		grp = (t_lq_group *)group->content;
-		ft_printf("%{black}%#{%s}%.*s%{0}", color, grp->pos - pos,
+		ft_printf("%#{black}%{%s}%.*s%{0}", color, grp->pos - pos,
 				m->str_begin + pos);
 		pos = grp->pos + grp->len;
 		ft_print_groups(grp, grp->groups, NULL);
 		if (!(group = group->next))
-			ft_printf("%{black}%#{%s}%.*s%{0}", color, m->len - (pos - m->pos),
+			ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len - (pos - m->pos),
 					m->str_begin + pos);
 	}
 	i = (def ? 0 : i);
 }
 
-void		ft_print_matches(const char *str, t_list *matches)
+void		ft_print_matches(const char *str, t_list *matches, int print_id)
 {
 	int				i;
 	int				n;
@@ -60,15 +60,13 @@ void		ft_print_matches(const char *str, t_list *matches)
 	i = 0;
 	n = 0;
 	ft_printf("%#{magenta}{%{0}");
-	while (matches)
+	while (matches && (m = (t_lq_match *)matches->content))
 	{
-		m = (t_lq_match *)matches->content;
 		color = (n ? "lcyan" : "lblue");
-		if (m->id == -1)
-			color = "white";
 		ft_printf("%#{black}%{white}%.*s%{0}", m->pos - i, str + i);
-		ft_print_groups(m, m->groups, color);
-		ft_printf("%#{lred}%{black}%d%{0}", m->id);
+		ft_print_groups(m, m->groups, (m->id == -1 ? "white" : color));
+		if (print_id)
+			ft_printf("%#{lred}%{black}%d%{0}", m->id);
 		n = !n;
 		i = m->pos + m->len;
 		if (!(matches = matches->next))
