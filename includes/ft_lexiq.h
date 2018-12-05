@@ -16,7 +16,7 @@
 # include "ft_list.h"
 # include <stdarg.h>
 
-# define LOAD_EXPR "?[?[-#@?]*[@word]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
+# define LOAD_EXPR "?[?[-#@?]*[@rulew]@G]*[@space?]?[\"*[\\\"|?![\"]@or?]\"@G]"
 
 # define LQ_END (1 << 0)
 # define LQ_EXPRN (1 << 1)

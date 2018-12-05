@@ -116,6 +116,7 @@ static t_lq_func	g_lq_funcs[] = {
 	{"alnum", "?[a-zA-Z0-9]", NULL, 0, 0},
 	{"punct", "?[{-!\"#\\$%&'()*+,./:;<=>?[]^_`{|}~@@}]", NULL, 0, 0},
 	{"word", "?[a-zA-Z0-9_]", NULL, 0, 0},
+	{"rulew", "?[-+~|:;/a-zA-Z0-9_]", NULL, 0, 0},
 	{"space", "?[ \f\n\t\r\v]", NULL, 0, 0},
 	{"blank", "?[ \t]", NULL, 0, 0},
 	{"graph", "?[\x21-\x7e]", NULL, 0, 0},

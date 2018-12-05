@@ -108,6 +108,8 @@ int			lq_start(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	t_lq_func	*tmp;
 
+	rule->i = 0;
+	rule->l = 0;
 	if (!rule->func)
 		return (-1);
 	else if (!rule->func->func)

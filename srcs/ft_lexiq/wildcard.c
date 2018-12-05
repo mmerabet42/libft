@@ -20,7 +20,7 @@ static void	fill_info(t_lq_eng *lqeng, t_lq_rule *r, int jmp, int ret)
 	if ((lqeng->flags & LQ_READABLE) && ft_isspace(*lqeng->expr))
 		while (ft_isspace(*lqeng->expr))
 			++lqeng->expr;
-	if (r->len_arg < 0)
+	if (r->len_arg < 0 && (r->rule = "DEFAULT"))
 		r->len_arg = jmp - ret - (ret - (r->neg ? 2 : 1)) - r->cond;
 	else
 	{
@@ -50,10 +50,11 @@ static int	expanded_wildcard(t_lq_eng *lqeng, char type, int neg)
 
 	if ((jmp = lq_bracket(lqeng->expr, &ret)) != -1)
 	{
-		ft_bzero(&rule, sizeof(t_lq_rule));
 		rule.type = type;
 		rule.neg = neg;
 		rule.len_arg = ft_strnrchr_pos(lqeng->expr + ret, '@', jmp - ret);
+		rule.cond = 0;
+		rule.len_rule = 0;
 		if (*(rule.arg = lqeng->expr + ret) == '\\'
 				&& (rule.arg[1] == '{' || rule.arg[1] == '\\'))
 		{
