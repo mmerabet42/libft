@@ -53,6 +53,7 @@ void	lq_free_match(void *p, size_t s)
 	if (!p)
 		return ;
 	(void)s;
-	ft_lstdel(&((struct s_lexiq_match *)p)->groups, lq_free_match);
+	free((void *)((struct s_lexiq_match *)p)->name);
+	ft_lstdel((t_list **)&((struct s_lexiq_match *)p)->groups, lq_free_match);
 	free(p);
 }

@@ -23,7 +23,7 @@ static int	get_attributes(t_lq_match *m, char **names, char *fullpath)
 	t_lq_group		*g;
 	int				n;
 
-	g = (t_lq_group *)m->groups->content;
+	g = m->groups->match;
 	n = 1;
 	if (*g->str == '-' || *g->str == '#')
 		n = (*g->str == '-' ? 2 : 3);
@@ -31,7 +31,7 @@ static int	get_attributes(t_lq_match *m, char **names, char *fullpath)
 		return (0);
 	else if (n == 1 && !(names[0] = ft_strndup(g->str, g->len)))
 		return (0);
-	g = (t_lq_group *)m->groups->next->content;
+	g = m->groups->next->match;
 	if ((names[1] = ft_strndupk(g->str + 1, g->len - 2)))
 	{
 		names[1] = ft_strjoin_clr((n == 3 ? fullpath : NULL), names[1], 1);

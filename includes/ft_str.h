@@ -33,6 +33,7 @@ char				*ft_strdupk(const char *s);
 char				*ft_strndupk(const char *s, size_t n);
 char				*ft_strdupli(const char *s);
 char				*ft_strndupli(const char *s, size_t n);
+char				*ft_strpdup(const char *begin, const char *end);
 
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);

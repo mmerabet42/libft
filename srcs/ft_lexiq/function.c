@@ -103,9 +103,11 @@ static t_lq_func	g_lq_funcs[] = {
 	{"R", NULL, recursive_lq, 0, 0},
 	{"E", NULL, expr_lq, 0, 0},
 	{"G", NULL, groups_lq, 0, 0},
+	{"NG", NULL, groups_lq, 0, 0},
 	{"X", NULL, lexiq_lq, 0, 0},
 	{"B", NULL, ugroups_lq, 0, 0},
-	{"BL", NULL, ugroups_lq, 0, 0},
+	{"NB", NULL, ugroups_lq, 0, 0},
+	{"LB", NULL, ugroups_lq, 0, 0},
 	{"0", NULL, delim_lq, 0, 0},
 
 	{"upper", "?[A-Z]", NULL, 0, 0},

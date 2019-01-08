@@ -33,6 +33,21 @@ char	*ft_strmdup(const char *a, size_t n)
 	return (ft_strndup(a, ft_strlen(a) + n));
 }
 
+char	*ft_strpdup(const char *begin, const char *end)
+{
+	const char	*rbegin;
+	const char	*rend;
+
+	rbegin = begin;
+	rend = end;
+	if (rbegin > rend)
+	{
+		rbegin = end;
+		rend = begin;
+	}
+	return (ft_strndup(rbegin, (size_t)(rend - rbegin)));
+}
+
 void	ft_strdel(char **ap)
 {
 	ft_memdel((void **)ap);

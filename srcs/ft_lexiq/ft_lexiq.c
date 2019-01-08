@@ -20,7 +20,7 @@ static void	get_args(t_lq_eng *lqeng, va_list vp)
 	if (lqeng->flags & LQ_STRN)
 		lqeng->strn = (int)va_arg(vp, int);
 	if (lqeng->flags & (LQ_GLOBAL | LQ_UGLOBAL))
-		lqeng->matches = (t_list **)va_arg(vp, t_list **);
+		lqeng->matches = (t_list **)va_arg(vp, t_lq_list **);
 	else
 	{
 		if (lqeng->flags & LQ_POS)
@@ -30,7 +30,7 @@ static void	get_args(t_lq_eng *lqeng, va_list vp)
 		if (lqeng->flags & LQ_IDSTR)
 			lqeng->id_str = (const char **)va_arg(vp, const char **);
 		if (lqeng->flags & LQ_GROUP)
-			lqeng->groups = (t_list **)va_arg(vp, t_list **);
+			lqeng->groups = (t_list **)va_arg(vp, t_lq_list **);
 		lqeng->groups_head = lqeng->groups;
 		lqeng->free_groups = lqeng->groups;
 	}

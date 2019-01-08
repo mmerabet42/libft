@@ -91,8 +91,12 @@ typedef struct		s_lexiq_eng
 	t_list			**matches;
 }					t_lq_eng;
 
+typedef struct s_lexiq_list		t_lq_list;
+
+typedef struct s_lexiq_match	t_lq_match;
 typedef struct s_lexiq_match	t_lq_group;
-typedef struct		s_lexiq_match
+
+struct				s_lexiq_match
 {
 	const char		*str_begin;
 	const char		*str;
@@ -100,8 +104,17 @@ typedef struct		s_lexiq_match
 	int				len;
 	int				id;
 	const char		*id_str;
-	t_list			*groups;
-}					t_lq_match;
+	const char		*name;
+	t_lq_list		*groups;
+};
+
+struct						s_lexiq_list
+{
+	struct s_lexiq_match	*match;
+	size_t					size;
+	t_lq_list				*next;
+	t_lq_list				*parent;
+};
 
 typedef int	(*t_lq_funcptr)(t_lq_eng *lq_eng, t_lq_rule *rule);
 struct				s_lexiq_func
@@ -112,6 +125,7 @@ struct				s_lexiq_func
 	int				id;
 	int				flags;
 };
+
 /*
 typedef struct		s_func_slot
 {
@@ -119,12 +133,14 @@ typedef struct		s_func_slot
 	t_list			*slot;
 }					t_func_slot;
 */
+
 typedef struct		s_rules
 {
 	int				n;
 	t_list			*rules;
 }					t_rules;
 
+int					ngroups_lq(t_lq_eng *lqend, t_lq_rule *rule);
 int					ugroups_lq(t_lq_eng *lqeng, t_lq_rule *rule);
 int					groups_lq(t_lq_eng *lqeng, t_lq_rule *rule);
 int					modulus_lq(t_lq_eng *lqeng, t_lq_rule *rule);
@@ -165,9 +181,9 @@ int					ft_lexiq(int flags,
 								const char *expression,
 								const char *str, ...);
 void				ft_print_matches(const char *str,
-								t_list *matches,
+								t_lq_list *matches,
 								int print_id);
-void				ft_print_matches_tree(t_list *matches, int tab);
+void				ft_print_matches_tree(t_lq_list *matches, int tab);
 
 /*
 ft_lexiq_add(rule_name, expr) -> ft_lexiq(LQ_ADD, rule_name, expr, NULL)

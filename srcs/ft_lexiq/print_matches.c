@@ -19,7 +19,7 @@ static const char	*g_group_colors[] = {
 };
 static const int	g_gc_len = sizeof(g_group_colors) / sizeof(char *);
 
-void		ft_print_groups(struct s_lexiq_match *m, t_list *group,
+static void	ft_print_groups(struct s_lexiq_match *m, t_lq_list *group,
 					const char *def)
 {
 	static int		i;
@@ -36,7 +36,7 @@ void		ft_print_groups(struct s_lexiq_match *m, t_list *group,
 		ft_printf("%#{black}%{%s}%.*s%{0}", color, m->len, m->str_begin + pos);
 	while (group && ++i)
 	{
-		grp = (t_lq_group *)group->content;
+		grp = group->match;
 		ft_printf("%#{black}%{%s}%.*s%{0}", color, grp->pos - pos,
 				m->str_begin + pos);
 		pos = grp->pos + grp->len;
@@ -48,7 +48,7 @@ void		ft_print_groups(struct s_lexiq_match *m, t_list *group,
 	i = (def ? 0 : i);
 }
 
-void		ft_print_matches(const char *str, t_list *matches, int print_id)
+void		ft_print_matches(const char *str, t_lq_list *matches, int print_id)
 {
 	int				i;
 	int				n;
@@ -60,7 +60,7 @@ void		ft_print_matches(const char *str, t_list *matches, int print_id)
 	i = 0;
 	n = 0;
 	ft_printf("%#{magenta}{%{0}");
-	while (matches && (m = (t_lq_match *)matches->content))
+	while (matches && (m = matches->match))
 	{
 		color = (n ? "lcyan" : "lblue");
 		ft_printf("%#{black}%{white}%.*s%{0}", m->pos - i, str + i);
@@ -75,13 +75,13 @@ void		ft_print_matches(const char *str, t_list *matches, int print_id)
 	ft_printf("%#{magenta}}%{0}\n");
 }
 
-void		ft_print_matches_tree(t_list *matches, int tab)
+void		ft_print_matches_tree(t_lq_list *matches, int tab)
 {
 	t_lq_match	*mch;
 
 	while (matches)
 	{
-		mch = (t_lq_match *)matches->content;
+		mch = matches->match;
 		ft_printf("%?*\t%#{white}%{black}<<<<%{0} ", tab);
 		ft_printf("pos(%d) len(%d) ", mch->pos, mch->len);
 		ft_printf("rule(%s) '%.*s'\n\n", mch->id_str, mch->len, mch->str);

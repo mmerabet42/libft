@@ -25,6 +25,7 @@ static int	add_matches(t_lq_eng *lqeng, t_lq_match *matchs, int zero)
 		matchs[1].id = -1;
 		matchs[1].id_str = NULL;
 		matchs[1].groups = NULL;
+		matchs[1].name = NULL;
 		if (lqeng->matches)
 			ft_lstpush_p(lqeng->matches,
 					ft_lstnew(&matchs[1], sizeof(t_lq_match)));
@@ -39,6 +40,7 @@ static int	add_matches(t_lq_eng *lqeng, t_lq_match *matchs, int zero)
 					ft_lstnew(&matchs[0], sizeof(t_lq_match)));
 		matchs[0].id = 0;
 		matchs[0].id_str = NULL;
+		matchs[0].name = NULL;
 		++i;
 	}
 	return (i);
@@ -46,14 +48,14 @@ static int	add_matches(t_lq_eng *lqeng, t_lq_match *matchs, int zero)
 
 static int	loop_matches(t_lq_eng *lqeng, t_lq_match *matchs)
 {
-	int		i;
-	int		zero;
-	t_list	*groups;
+	int				i;
+	int				zero;
+	t_lq_list	*groups;
 
 	i = 0;
 	zero = 0;
 	groups = NULL;
-	lqeng->groups = &groups;
+	lqeng->groups = (t_list **)&groups;
 	lqeng->free_groups = lqeng->groups;
 	lqeng->groups_head = lqeng->groups;
 	while ((matchs[0].len = lq_pos(lqeng)) != -1)
@@ -82,6 +84,8 @@ int			lq_get_matches(t_lq_eng *lqeng)
 	lqeng->id = &(matchs[0].id);
 	lqeng->id_str = &(matchs[0].id_str);
 	matchs[1].groups = NULL;
+	matchs[1].name = NULL;
+	matchs[0].name = NULL;
 	matchs[0].str_begin = lqeng->str;
 	matchs[1].str_begin = lqeng->str;
 	if (lqeng->matches)
@@ -95,6 +99,7 @@ int			lq_get_matches(t_lq_eng *lqeng)
 		matchs[1].str = matchs[0].str_begin + matchs[1].pos;
 		matchs[1].id = -1;
 		matchs[1].id_str = NULL;
+		matchs[1].name = NULL;
 		if (lqeng->matches)
 			ft_lstpush_p(lqeng->matches,
 					ft_lstnew(&matchs[1], sizeof(t_lq_match)));

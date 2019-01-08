@@ -24,7 +24,7 @@ static int	get_group(t_lq_eng *lqeng, t_lq_eng *tmp, t_list *lst)
 	tmp->id = &id;
 	tmp->id_str = &id_str;
 	group = (t_lq_group *)lst->content;
-	tmp->groups = &group->groups;
+	tmp->groups = (t_list **)&group->groups;
 	tmp->free_groups = NULL;
 	if ((group->len = lq_exec2(tmp)) == -1)
 	{
@@ -47,15 +47,23 @@ static int	get_group(t_lq_eng *lqeng, t_lq_eng *tmp, t_list *lst)
 int			groups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
 	t_lq_eng		tmp;
-	char			*expr;
 	t_list			*lst;
+	char			*expr;
+	int				pos;
 
 	if (!(lqeng->flags & LQ_GROUP) || !lqeng->groups)
 		return (lexiq_lq(lqeng, rule));
-	if (!(expr = ft_strndup(rule->arg, rule->len_arg)))
+	pos = 0;
+	if (rule->rule[0] == 'N' && (pos = ft_strchr_pos(rule->arg, ':')) != -1)
+		++pos;
+	if (pos == -1)
+		pos = 0;
+	if (!(expr = ft_strndup(rule->arg + pos, rule->len_arg - pos)))
 		return (-1);
 	if (!(lst = ft_lstalloc(sizeof(t_lq_group), 1)))
 		return (-1);
+	if (pos)
+		((t_lq_group *)lst->content)->name = ft_strndup(rule->arg, pos - 1);
 	ft_lstpush_p(lqeng->groups, lst);
 	tmp = *lqeng;
 	tmp.len = 0;
@@ -68,7 +76,10 @@ int			groups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 	return (tmp.len);
 }
 
-static int	backreference(const char *str, t_list *groups, int n)
+#include "ft_printf.h"
+
+static int	backreference(const char *str, t_lq_list *groups,
+		int n, t_lq_rule *r)
 {
 	static int		lvl;
 	t_lq_group		*grp;
@@ -78,14 +89,15 @@ static int	backreference(const char *str, t_list *groups, int n)
 		return (0);
 	while (groups && ++lvl)
 	{
-		grp = (t_lq_group *)groups->content;
-		if (lvl == n)
+		grp = groups->match;
+		if ((r && grp->name && ft_strnequ(grp->name, r->arg, r->len_arg))
+				|| (!r && lvl == n))
 		{
 			if (!grp->str || !ft_strnequ(grp->str, str, grp->len))
 				return (-2);
 			return (grp->len);
 		}
-		if (grp->groups && (ret = backreference(str, grp->groups, n)) != -1)
+		if (grp->groups && (ret = backreference(str, grp->groups, n, r)) != -1)
 			return (ret);
 		groups = groups->next;
 	}
@@ -94,16 +106,26 @@ static int	backreference(const char *str, t_list *groups, int n)
 
 int			ugroups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
 {
-	int		n;
-	t_list	*head;
+	int			n;
+	t_lq_list	*head;
 
 	if (!(lqeng->flags & LQ_GROUP) || !lqeng->groups)
 		return (-1);
-	if (rule->rule[1] == 'L')
-		head = *lqeng->groups;
+	if (rule->rule[0] == 'L')
+		head = (t_lq_list *)*lqeng->groups;
 	else
-		head = *lqeng->groups_head;
-	n = backreference(lqeng->str, head, ft_atoi(rule->arg));
-	backreference(NULL, NULL, 0);
+		head = (t_lq_list *)*lqeng->groups_head;
+	if (rule->rule[0] == 'G')
+		n = backreference(lqeng->str, head, ft_atoi(rule->arg), NULL);
+	else
+		n = backreference(lqeng->str, head, 0, rule);
+	backreference(NULL, NULL, 0, NULL);
 	return (n < 0 ? -1 : n);
+}
+
+int			ngroups_lq(t_lq_eng *lqeng, t_lq_rule *rule)
+{
+	(void)lqeng;
+	(void)rule;
+	return (0);
 }
