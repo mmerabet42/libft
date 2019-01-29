@@ -14,7 +14,7 @@
 #include "ft_mem.h"
 #include "ft_types.h"
 
-void	lq_init(t_lq_eng *lqeng, const char *expr , const char *str)
+void	lq_init(t_lq_eng *lqeng, const char *expr, const char *str)
 {
 	ft_bzero(lqeng, sizeof(t_lq_eng));
 	lqeng->str_begin = str;

@@ -42,7 +42,9 @@
 # define LQ_GETRULE (1 << 21)
 # define LQ_IDSTR (1 << 22)
 # define LQ_XREADABLE (1 << 23)
-# define LQ_FLAG_NUM 24
+# define LQ_ADDR (1 << 24)
+# define LQ_REGROUP (1 << 25)
+# define LQ_FLAG_NUM 26
 
 enum				e_lexiq_condtion
 {
@@ -176,6 +178,11 @@ int					lq_exec(t_lq_eng *lqeng);
 void				lq_init(t_lq_eng *lqeng,
 								const char *expr,
 								const char *str);
+
+int					lq_regroup(int flags,
+								const char *expr,
+								const char *str,
+								va_list vp);
 
 int					ft_lexiq(int flags,
 								const char *expression,
