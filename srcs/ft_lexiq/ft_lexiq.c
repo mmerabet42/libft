@@ -49,11 +49,10 @@ int			ft_lexiq(int flags, const char *expression, const char *str, ...)
 	va_list			vp;
 
 	va_start(vp, str);
-	lqeng.str = str;
-	lqeng.expr = expression;
-	lqeng.flags = flags;
 	if (flags & (LQ_REGROUP | LQ_ADDR))
 		return (lq_regroup(flags, expression, str, vp));
+	lqeng.str = str;
+	lqeng.expr = expression;
 	if ((flags & (LQ_ADD | LQ_ADD_MULTI | LQ_GET | LQ_IMPORT | LQ_TO))
 			|| (flags & (LQ_FREEGRP | LQ_FREE | LQ_CLEAN | LQ_SET))
 			|| (flags & (LQ_GETRULE)))
@@ -63,6 +62,7 @@ int			ft_lexiq(int flags, const char *expression, const char *str, ...)
 	lqeng.vars = (int *)vars;
 	lqeng.param = "LEXIQ";
 	lqeng.len_param = 5;
+	lqeng.flags = flags;
 	get_args(&lqeng, vp);
 	if (lqeng.matches)
 		return (lq_get_matches(&lqeng));

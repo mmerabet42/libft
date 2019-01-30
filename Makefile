@@ -64,7 +64,7 @@ _TIME_FS	=	ft_timefnew.c
 
 _LEXIQ_FS	=	ft_lexiq.c exec.c get_matches.c bracket.c wildcard.c start.c utils.c \
 				function.c function1.c function2.c function3.c group.c import.c args.c \
-				print_matches.c
+				print_matches.c regroup.c
 
 INCLUDES	=	$(addprefix $(INCLUDES_D),$(_INCLUDES))
 
