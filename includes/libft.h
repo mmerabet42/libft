@@ -77,6 +77,5 @@
 ** --------------------/ REGULAR EXPRESSION LIBRARY \---------------------------
 */
 
-# include "ft_lexiq.h"
 
 #endif
