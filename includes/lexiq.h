@@ -31,7 +31,8 @@ struct s_lq_node
 	t_lq_node *prev_or;
 };
 
-typedef struct s_lq_eng
+typedef struct s_lq_eng t_lq_eng;
+struct s_lq_eng
 {
 	const char *str;
 	const char *str_begin;
@@ -45,7 +46,8 @@ typedef struct s_lq_eng
 	t_lq_node *lookahead;
 	t_lq_node *parser_begin;
 	t_lq_node *current;
-} t_lq_eng;
+	t_lq_eng *prev_eng;
+};
 
 typedef int(*t_lq_func)(void *arg, t_lq_eng *eng);
 
@@ -55,6 +57,8 @@ struct s_lq_rule
 	t_lq_func func;
 	int flags;
 };
+
+void lq_printf(t_lq_eng *eng, const char *format, ...);
 
 t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b);
 

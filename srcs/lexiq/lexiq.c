@@ -15,6 +15,7 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->recur = b->recur + 1;
 	a->lookahead = b->lookahead;
 	a->lookahead_ret = b->lookahead_ret;
+	a->prev_eng = b;
 	return a;
 }
 
@@ -51,8 +52,8 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		else if (eng->i >= parser->min && eng->lookahead)
 		{
 			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = NULL;
-			eng2.lookahead_ret = NULL;
+			eng2.lookahead = (eng->prev_eng ? eng->prev_eng->lookahead : NULL);
+			eng2.lookahead_ret = (eng->prev_eng ? eng->prev_eng->lookahead_ret : NULL);
 			if ((ret = lq_run(flags, eng->lookahead, &eng2)) >= 0)
 			{
 				if (eng->lookahead_ret)
@@ -66,23 +67,24 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 			if (!parser->next_or)
 				return ret;
 			eng->str = str;
-			return lq_run(flags, parser->next_or, lq_eng_copy(&eng2, eng));
+			lq_eng_copy(&eng2, eng);
+			eng2.prev_eng = eng->prev_eng;
+			return lq_run(flags, parser->next_or, &eng2);
 		}
 		else if (ret <= -1 && parser->next)
 			return ret;
 		else if (ret <= -1)
 			return tret;
+		tret += ret;
+		eng->str += ret;
 		if (eng->eng_flags & LQ_STOP)
-		{
-			tret += ret;
-			eng->str += ret;
 			return tret;
-		}
+		lq_printf(eng, "parsr: '%s' '%s' %d\n", eng->str, parser->rule->name, ret);
+		if (parser->rule->name[0] == 'r')
+			lq_printf(eng, "arg: '%s'\n", ((t_lq_node *)parser->arg)->rule->name);
 		++eng->i;
 		if (eng->str >= eng->str_end)
 			break;
-		tret += ret;
-		eng->str += ret;
 		if (eng->i >= parser->max && parser->max != -1)
 			break;
 	}
@@ -96,8 +98,8 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		if (eng->lookahead)
 		{
 			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = NULL;
-			eng2.lookahead_ret = NULL;
+			eng2.lookahead = (eng->prev_eng ? eng->prev_eng->lookahead : NULL);
+			eng2.lookahead_ret = (eng->prev_eng ? eng->prev_eng->lookahead_ret : NULL);
 			ret = lq_run(flags, eng->lookahead, &eng2);
 			if (eng->lookahead_ret)
 				*eng->lookahead_ret = ret;
