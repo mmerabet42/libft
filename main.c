@@ -54,7 +54,11 @@ int main()
 						lq_node("?", "a-zA-Z", 2, 2, NULL, NULL),
 					NULL),
 				1, 1, NULL,
-		lq_node("$w", NULL, 1, 1, NULL, NULL)));
+		lq_node("r",
+				lq_node("$w", NULL, 1, 1, NULL, NULL),
+			1, 1, NULL, NULL)));
+
+	"^w <[a-zA-Z]{5} | [a-zA-Z]{2}> $w";
 
 	t_lq_node *delimsc =
 		lq_node("^w", NULL, 1, 1, NULL,
@@ -75,7 +79,7 @@ int main()
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
 	
-	t_lq_node *begin = delimsb;
+	t_lq_node *begin = delims;
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
 				lq_node("r",
@@ -92,8 +96,8 @@ int main()
 //	char *s = "   (lo(a)ol) ";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
-//	char *s = " -Helloo--ab";
-	char *s = "hhhhhello";
+	char *s = " -Helloo--ab";
+//	char *s = "hhhhhello";
 //	char *s = "hello world";
 //	char *s = "Hello      ";
 	int pos = 0;
