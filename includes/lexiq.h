@@ -26,9 +26,7 @@ struct s_lq_node
 	const t_lq_rule *rule;
 	void *arg;
 	t_lq_node *next;
-	t_lq_node *prev;
 	t_lq_node *next_or;
-	t_lq_node *prev_or;
 };
 
 typedef struct s_lq_eng t_lq_eng;
