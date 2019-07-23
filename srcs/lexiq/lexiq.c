@@ -40,7 +40,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 	eng->current = parser;
 	while (eng->str <= eng->str_end)
 	{
-		lq_printf(eng, "|node: '%s' '%s'", eng->str, parser->rule->name);
+		lq_printf(eng, "|node: '%s' '%s' %d %d", eng->str, parser->rule->name, parser->min, parser->max);
 		if (parser->rule->name[0] == 's')
 			ft_printf(" '%s'", parser->arg);
 		ft_printf("\n");
@@ -52,8 +52,13 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		else if (eng->i >= parser->min && eng->lookahead)
 		{
 			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = (eng->prev_eng ? eng->prev_eng->lookahead : NULL);
-			eng2.lookahead_ret = (eng->prev_eng ? eng->prev_eng->lookahead_ret : NULL);
+			eng2.lookahead = NULL;
+			eng2.lookahead_ret = NULL;
+			if (eng->lookahead && eng->prev_eng && eng->lookahead != eng->prev_eng->lookahead)
+			{
+				eng2.lookahead = eng->prev_eng->lookahead;
+				eng2.lookahead_ret = eng->prev_eng->lookahead_ret;
+			}
 			if ((ret = lq_run(flags, eng->lookahead, &eng2)) >= 0)
 			{
 				if (eng->lookahead_ret)
@@ -76,15 +81,12 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		else if (ret <= -1)
 			return tret;
 		tret += ret;
-		eng->str += ret;
 		if (eng->eng_flags & LQ_STOP)
 			return tret;
-		lq_printf(eng, "parsr: '%s' '%s' %d\n", eng->str, parser->rule->name, ret);
-		if (parser->rule->name[0] == 'r')
-			lq_printf(eng, "arg: '%s'\n", ((t_lq_node *)parser->arg)->rule->name);
 		++eng->i;
 		if (eng->str >= eng->str_end)
 			break;
+		eng->str += ret;
 		if (eng->i >= parser->max && parser->max != -1)
 			break;
 	}
@@ -98,8 +100,13 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		if (eng->lookahead)
 		{
 			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = (eng->prev_eng ? eng->prev_eng->lookahead : NULL);
-			eng2.lookahead_ret = (eng->prev_eng ? eng->prev_eng->lookahead_ret : NULL);
+			eng2.lookahead = NULL;
+			eng2.lookahead_ret = NULL;
+			if (eng->lookahead && eng->prev_eng && eng->lookahead != eng->prev_eng->lookahead)
+			{
+				eng2.lookahead = eng->prev_eng->lookahead;
+				eng2.lookahead_ret = eng->prev_eng->lookahead_ret;
+			}
 			ret = lq_run(flags, eng->lookahead, &eng2);
 			if (eng->lookahead_ret)
 				*eng->lookahead_ret = ret;

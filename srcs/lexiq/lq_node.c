@@ -15,17 +15,7 @@ t_lq_node *lq_node(const char *rule, void *arg,
 	lq->rule = lq_get_rule(rule);
 	lq->arg = arg;
 	lq->next = next;
-//	lq->undirect_next = 0;
-	if ((lq->next_or = next_or))
-		lq->next_or->prev_or = lq;
-	
-	t_lq_node *it = lq->next_or;
-	while (it)
-	{
-		if (it->next == LQ_PARENT)
-			it->next = lq->next;
-		it = it->next_or;
-	}
+	lq->next_or = next_or;
 	return lq;
 }
 

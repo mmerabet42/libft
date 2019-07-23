@@ -99,11 +99,11 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	eng2.eng_flags |= LQ_LOOKAHEAD;
 	ret = lq_run(eng->flags | LQ_LOOKAHEAD, arg, &eng2);
 	lq_printf(eng, "run func: '%s' '%s' %d %d\n", eng->str, arg->rule->name, ret, lh_ret);
-	if (ret <= -1 || *eng2.lookahead_ret <= -1)
+	if (ret <= -1 || lh_ret <= -1)
 		return ret;
 	lq_printf(eng, "stoooop: '%s' '%s' %d %d\n", eng->str, arg->rule->name, ret, lh_ret);
 	eng->eng_flags |= LQ_STOP;
-	return ret + *eng2.lookahead_ret;
+	return ret + lh_ret;
 }
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)
