@@ -1,6 +1,7 @@
 #ifndef LEXIQ_H
 # define LEXIQ_h
 
+# include <stdlib.h>
 # include "ft_printf.h"
 
 # define LQ_COMPILE (1 << 0)
@@ -10,7 +11,7 @@
 # define LQ_FIND (LQ_RUN | LQ_POS | LQ_END)
 # define LQ_STREND (1 << 4)
 # define LQ_LOOKAHEAD (1 << 5)
-# define LQ_GROUP (1 << 6)
+# define LQ_GROUPS (1 << 6)
 
 # define LQ_STOP (1 << 0)
 
@@ -19,7 +20,7 @@
 typedef struct s_lq_rule t_lq_rule;
 typedef struct s_lq_match t_lq_match;
 typedef struct s_lq_match t_lq_group;
-typedef struct s_lq_list t_lqlist;
+typedef struct s_lq_list t_lq_list;
 
 typedef struct s_lq_node t_lq_node;
 struct s_lq_node

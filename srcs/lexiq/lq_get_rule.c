@@ -126,8 +126,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 			return ret;
 		eng->eng_flags |= LQ_STOP;
 	}
-		
-	return ret + lh_ret;	
+	return ret + lh_ret;
 }
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)

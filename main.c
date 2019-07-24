@@ -79,7 +79,7 @@ int main()
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
 	
-	t_lq_node *begin = delims;
+	t_lq_node *begin = bracket;
 
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
@@ -97,9 +97,9 @@ int main()
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
 //	char *s = "     (lo(a)ol) l";
-//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
+	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
-	char *s = " -Helloo--ab";
+//	char *s = " -Helloo--ab";
 //	char *s = "hhhhhello";
 //	char *s = "Hello world";
 //	char *s = "Hello      ";
