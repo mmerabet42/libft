@@ -54,10 +54,18 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 			lq_eng_copy(&eng2, eng);
 			eng2.lookahead = NULL;
 			eng2.lookahead_ret = NULL;
-			if (eng->lookahead && eng->prev_eng && eng->lookahead != eng->prev_eng->lookahead)
+			t_lq_eng *prev_eng = eng->prev_eng;
+			while (prev_eng)
 			{
-				eng2.lookahead = eng->prev_eng->lookahead;
-				eng2.lookahead_ret = eng->prev_eng->lookahead_ret;
+				if (prev_eng->current->next == eng->lookahead)
+					break;
+				prev_eng = prev_eng->prev_eng;
+			}
+			eng2.prev_eng = prev_eng;
+			if (eng->lookahead && prev_eng && eng->lookahead != prev_eng->lookahead)
+			{
+				eng2.lookahead = prev_eng->lookahead;
+				eng2.lookahead_ret = prev_eng->lookahead_ret;
 			}
 			if ((ret = lq_run(flags, eng->lookahead, &eng2)) >= 0)
 			{
@@ -94,7 +102,6 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		return tret;
 	if ((eng->str < eng->str_end && !parser->next && !eng->lookahead) || eng->i < parser->min)
 		return -1;
-	lq_printf(eng, "'%s'\n", eng->str);
 	if (!parser->next)
 	{
 		if (eng->lookahead)
@@ -102,10 +109,18 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 			lq_eng_copy(&eng2, eng);
 			eng2.lookahead = NULL;
 			eng2.lookahead_ret = NULL;
-			if (eng->lookahead && eng->prev_eng && eng->lookahead != eng->prev_eng->lookahead)
+			t_lq_eng *prev_eng = eng->prev_eng;
+			while (prev_eng)
 			{
-				eng2.lookahead = eng->prev_eng->lookahead;
-				eng2.lookahead_ret = eng->prev_eng->lookahead_ret;
+				if (prev_eng->current->next == eng->lookahead)
+					break;
+				prev_eng = prev_eng->prev_eng;
+			}
+			eng2.prev_eng = prev_eng;
+			if (eng->lookahead && prev_eng && eng->lookahead != prev_eng->lookahead)
+			{
+				eng2.lookahead = prev_eng->lookahead;
+				eng2.lookahead_ret = prev_eng->lookahead_ret;
 			}
 			ret = lq_run(flags, eng->lookahead, &eng2);
 			if (eng->lookahead_ret)

@@ -8,6 +8,7 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_not(void *arg, t_lq_eng *eng);
 static int lq_rule_func(t_lq_func func, t_lq_eng *eng);
 static int lq_rule_delim(void *arg, t_lq_eng *eng);
+static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, 0},
@@ -15,6 +16,7 @@ static const t_lq_rule g_builtin_rules[] = {
 	{"r", (t_lq_func)lq_rule_run, 0},
 	{"!", (t_lq_func)lq_rule_not, 0},
 	{"!?", (t_lq_func)lq_rule_not, 0},
+	{"g", (t_lq_func)lq_rule_group, 0},
 	{"func", (t_lq_func)lq_rule_func, 0},
 
 	{"^", (t_lq_func)lq_rule_delim, 0},
@@ -85,25 +87,25 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	lq_eng_copy(&eng2, eng);
 	eng2.lookahead = NULL;
 	eng2.lookahead_ret = NULL;
-	eng2.eng_flags &= ~LQ_LOOKAHEAD;
 	if (!arg)
 		return lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
 	if (eng->i + 1 < eng->current->min)
 		return (lq_run(LQ_RUN | LQ_END, arg, &eng2));
 	eng2.lookahead_ret = &lh_ret;
 	if (!(eng2.lookahead = eng->current->next))
-	{
-		if ((eng2.lookahead = eng->lookahead))
-		{}//	eng2.lookahead_ret = eng->lookahead_ret;
-	}
-	eng2.eng_flags |= LQ_LOOKAHEAD;
-	ret = lq_run(eng->flags | LQ_LOOKAHEAD, arg, &eng2);
-	lq_printf(eng, "run func: '%s' '%s' %d %d\n", eng->str, arg->rule->name, ret, lh_ret);
+		eng2.lookahead = eng->lookahead;
+	ret = lq_run(eng->flags, arg, &eng2);
 	if (ret <= -1 || lh_ret <= -1)
 		return ret;
-	lq_printf(eng, "stoooop: '%s' '%s' %d %d\n", eng->str, arg->rule->name, ret, lh_ret);
 	eng->eng_flags |= LQ_STOP;
 	return ret + lh_ret;
+}
+
+static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
+{
+	(void)arg;
+	(void)eng;
+	return 0;
 }
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)
