@@ -7,16 +7,19 @@
 # define LQ_RUN (1 << 1)
 # define LQ_END (1 << 2)
 # define LQ_POS (1 << 3)
-# define LQ_ATTACH (1 << 4)
 # define LQ_FIND (LQ_RUN | LQ_POS | LQ_END)
-# define LQ_STREND (1 << 5)
-# define LQ_LOOKAHEAD (1 << 6)
+# define LQ_STREND (1 << 4)
+# define LQ_LOOKAHEAD (1 << 5)
+# define LQ_GROUP (1 << 6)
 
 # define LQ_STOP (1 << 0)
 
 # define LQ_PARENT ((t_lq_node *)0x10)
 
 typedef struct s_lq_rule t_lq_rule;
+typedef struct s_lq_match t_lq_match;
+typedef struct s_lq_match t_lq_group;
+typedef struct s_lq_list t_lqlist;
 
 typedef struct s_lq_node t_lq_node;
 struct s_lq_node
@@ -45,6 +48,8 @@ struct s_lq_eng
 	t_lq_node *parser_begin;
 	t_lq_node *current;
 	t_lq_eng *prev_eng;
+	t_lq_list **groups;
+	t_lq_list *groups_head;
 };
 
 typedef int(*t_lq_func)(void *arg, t_lq_eng *eng);
@@ -54,6 +59,22 @@ struct s_lq_rule
 	const char *name;
 	t_lq_func func;
 	int flags;
+};
+
+struct s_lq_match
+{
+	const char *str_begin;
+	const char *str;
+	int pos;
+	int len;
+};
+
+struct s_lq_list
+{
+	struct s_lq_match *match;
+	size_t size;
+	t_lq_list *next;
+	t_lq_list *parent;
 };
 
 void lq_printf(t_lq_eng *eng, const char *format, ...);
