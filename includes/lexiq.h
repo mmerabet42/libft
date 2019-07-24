@@ -8,10 +8,10 @@
 # define LQ_RUN (1 << 1)
 # define LQ_END (1 << 2)
 # define LQ_POS (1 << 3)
-# define LQ_FIND (LQ_RUN | LQ_POS | LQ_END)
 # define LQ_STREND (1 << 4)
 # define LQ_LOOKAHEAD (1 << 5)
 # define LQ_GROUPS (1 << 6)
+# define LQ_FIND (LQ_RUN | LQ_POS | LQ_END)
 
 # define LQ_STOP (1 << 0)
 

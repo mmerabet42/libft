@@ -1,0 +1,55 @@
+ROUND_BRACKET {
+	'(' ( !["()[]{}"] | BRACKET )* ')'
+}
+
+SQUARE_BRACKET {
+	'[' ( !["()[]{}"] | BRACKET )* ']'
+}
+
+CURLY_BRACKET {
+	'{' ( !["()[]{}"] | BRACKET )* '}'
+}
+
+BRACKET {
+	<ROUND_BRACKET | SQUARE_BRACKET | CURLY_BRACKET>
+}
+
+MAIN {
+	('Hello' | 'Bonjour'){a}
+}
+
+VALUE { digit }
+
+# 3 * 5 * 11 + 9
+
+DIV_OP {
+	<VALUE | MULT_OP | DIV_OP> space* <'*'> space* <VALUE>
+}
+
+MULT_OP {
+	<VALUE | MULT_OP | DIV_OP> space* <'*'> space* <VALUE>
+}
+
+PLUS_OP {
+	<MULT_OP | DIV_OP | VALUE | PLUS_OP> space* <'+'> space* <VALUE | MULT_OP | DIV_OP>
+}
+
+node("s", "")				// 1
+node("g",					// 2
+	node("s", "")			// 3
+	node("r",				// 4
+		node("g",			// 5
+			node("s", "")	// 6
+			node("s", "")	// 7
+		)
+	)
+	node("g"				// 8
+		node("s", "")		// 9
+	)
+)
+node("g",					// 10
+	node("s", "")			// 11
+)
+
+node 2 lookahead = node 10
+node 2 group = node 1
