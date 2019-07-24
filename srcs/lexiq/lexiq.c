@@ -170,6 +170,7 @@ int lexiq(int flags, ...)
 	eng.groups = NULL;
 	eng.groups_head = NULL;
 	eng.i = 0;
+	ret = -1;
 	if (flags & LQ_RUN)
 	{
 		parser = eng.parser_begin = va_arg(vp, t_lq_node *);

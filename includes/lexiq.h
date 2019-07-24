@@ -1,5 +1,5 @@
 #ifndef LEXIQ_H
-# define LEXIQ_h
+# define LEXIQ_H
 
 # include <stdlib.h>
 # include "ft_printf.h"
