@@ -103,9 +103,31 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 {
-	(void)arg;
-	(void)eng;
-	return 0;
+	t_lq_eng eng2;
+	int ret;
+	int lh_ret = 0;
+	t_lq_list *groups = NULL;
+
+	lq_eng_copy(&eng2, eng);
+	eng2.lookahead = NULL;
+	eng2.lookahead_ret = NULL;
+	eng2.groups = &groups;
+	if (!arg)
+		ret = lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
+	else if (eng->i + 1 < eng->current->min)
+		ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
+	else
+	{
+		eng2.lookahead_ret = &lh_ret;
+		if (!(eng2.lookahead = eng->current->next))
+			eng2.lookahead = eng->lookahead;
+		ret = lq_run(eng->flags, arg, &eng2);
+		if (ret <= -1 || lh_ret <= -1)
+			return ret;
+		eng->eng_flags |= LQ_STOP;
+	}
+		
+	return ret + lh_ret;	
 }
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)

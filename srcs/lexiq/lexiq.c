@@ -16,6 +16,8 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->lookahead = b->lookahead;
 	a->lookahead_ret = b->lookahead_ret;
 	a->prev_eng = b;
+	a->groups_head = b->groups_head;
+	a->groups = b->groups;
 	return a;
 }
 
@@ -165,6 +167,8 @@ int lexiq(int flags, ...)
 	eng.recur = 0;
 	eng.lookahead = NULL;
 	eng.lookahead_ret = NULL;
+	eng.groups = NULL;
+	eng.groups_head = NULL;
 	eng.i = 0;
 	if (flags & LQ_RUN)
 	{
@@ -174,13 +178,15 @@ int lexiq(int flags, ...)
 			eng.str_end = va_arg(vp, const char *);
 		else
 			eng.str_end = eng.str + strlen(eng.str);
-		if (eng.flags & LQ_POS)
+		if (flags & LQ_POS)
 			eng.pos = va_arg(vp, int *);
-		if (eng.flags & LQ_LOOKAHEAD)
+		if (flags & LQ_LOOKAHEAD)
 		{
 			eng.lookahead_ret = va_arg(vp, int *);
 			eng.lookahead = va_arg(vp, t_lq_node *);
 		}
+		if (flags & LQ_GROUPS)
+			eng.groups = va_arg(vp, t_lq_list **);
 		eng.flags &= ~LQ_POS;
 		ret = lq_pos(eng.flags, parser, &eng);
 	}
