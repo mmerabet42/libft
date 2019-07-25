@@ -53,3 +53,29 @@ node("g",					// 10
 
 node 2 lookahead = node 10
 node 2 group = node 1
+
+
+node("s", "(")
+node("r",
+	node("!?", "()[]{}")
+	| node("r", null)
+)
+node("s", ")")
+
+node("s", "(")
+node("r",
+	node("!?", "()[]{}")
+	|
+	node("r",
+		node("s", "(")
+		node("r",
+			node("!?", "()[]{}")
+			|
+			node("r")
+		)
+		node("s", ")")
+	)
+)
+node("s", ")")
+
+"(lo(a )ol)"

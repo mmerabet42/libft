@@ -11,41 +11,53 @@ int func_ex(void *arg, t_lq_eng *eng)
 
 int main()
 {
+	t_lq_node *bracket =
+		lq_node("g", NULL, 1, 1, NULL, NULL);
+
 	t_lq_node *round_bracket =
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
 				lq_node("!?", "()[]{}<>", 1, 1,
-					lq_node("r", NULL, 1, 1, NULL, NULL),
-					NULL),
+					bracket,
+				NULL),
 			0, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 	
 	t_lq_node *curly_bracket =
-		lq_node("s", "{", 1, 1, round_bracket,
+		lq_node("s", "{", 1, 1, NULL,
 		lq_node("r",
 				lq_node("!?", "()[]{}<>", 1, 1,
-					lq_node("r", NULL, 1, 1, NULL, NULL),
-					NULL),
+					bracket,
+				NULL),
 			0, -1, NULL,
 		lq_node("s", "}", 1, 1, NULL, NULL)));
 
 	t_lq_node *square_bracket =
-		lq_node("s", "[", 1, 1, curly_bracket,
+		lq_node("s", "[", 1, 1, NULL,
 		lq_node("r",
 				lq_node("!?", "()[]{}<>", 1, 1,
-					lq_node("r", NULL, 1, 1, NULL, NULL),
-					NULL),
+					bracket,
+				NULL),
 			0, -1, NULL,
 		lq_node("s", "]", 1, 1, NULL, NULL)));
 
-	t_lq_node *bracket =
-		lq_node("s", "<", 1, 1, square_bracket,
+	t_lq_node *pin_bracket =
+		lq_node("s", "<", 1, 1, NULL,
 		lq_node("r",
 				lq_node("!?", "()[]{}<>", 1, 1,
-					lq_node("r", NULL, 1, 1, NULL, NULL),
-					NULL),
+					bracket,
+				NULL),
 			0, -1, NULL,
 		lq_node("s", ">", 1, 1, NULL, NULL)));
+
+	bracket->arg = round_bracket;
+	bracket->next_or =
+		lq_node("g", curly_bracket, 1, 1,
+			lq_node("g", square_bracket, 1, 1,
+				lq_node("g", pin_bracket, 1, 1,
+					NULL, NULL),
+				NULL),
+			NULL);
 
 	t_lq_node *delims =
 		lq_node("^w", NULL, 1, 1, NULL,
@@ -96,8 +108,8 @@ int main()
 			1, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
-//	char *s = "     (lo(a)ol) l";
-	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
+	char *s = "     (lo(a)u{o}l) l";
+//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
 //	char *s = "hhhhhello";
