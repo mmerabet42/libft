@@ -42,10 +42,10 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 	eng->current = parser;
 	while (eng->str <= eng->str_end)
 	{
-		lq_printf(eng, "|node: '%s' '%s' %d %d", eng->str, parser->rule->name, parser->min, parser->max);
-		if (parser->rule->name[0] == 's')
-			ft_printf(" '%s'", parser->arg);
-		ft_printf("\n");
+	//	lq_printf(eng, "|node: '%s' '%s' %d %d %p", eng->str, parser->rule->name, parser->min, parser->max, eng->lookahead);
+	//	if (parser->rule->name[0] == 's')
+	//		ft_printf(" '%s'", parser->arg);
+	//	ft_printf("\n");
 		if (eng->i >= parser->min && parser->next)
 		{
 			if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) >= 0)
@@ -91,7 +91,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		else if (ret <= -1)
 			return tret;
 		tret += ret;
-		if (eng->eng_flags & LQ_STOP)
+		if ((eng->eng_flags & LQ_STOP))
 			return tret;
 		++eng->i;
 		if (eng->str >= eng->str_end)
@@ -169,6 +169,7 @@ int lexiq(int flags, ...)
 	eng.lookahead_ret = NULL;
 	eng.groups = NULL;
 	eng.groups_head = NULL;
+	eng.prev_eng = NULL;
 	eng.i = 0;
 	ret = -1;
 	if (flags & LQ_RUN)
