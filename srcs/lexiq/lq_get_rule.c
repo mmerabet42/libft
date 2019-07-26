@@ -112,6 +112,50 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 {
 	t_lq_eng eng2;
+	int ret = 0;
+	int lh_ret = 0;
+
+	lq_printf(eng, "enter capture: '%s'\n", eng->str);
+
+	lq_eng_copy(&eng2, eng);
+	eng2.lookahead = NULL;
+	eng2.lookahead_ret = NULL;
+	if (!arg)
+	{
+		ret = lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
+		lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
+		return ret;
+	}
+	if (eng->i + 1 < eng->current->min)
+	{
+		ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
+		lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
+		return ret;
+	}
+	t_lq_eng *it_eng;
+	it_eng = eng->prev_eng;
+	while (it_eng)
+	{
+		if (it_eng->current == eng->current)
+		{
+			ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
+			lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
+			return ret;
+		}
+		it_eng = it_eng->prev_eng;
+	}
+	eng2.lookahead_ret = &lh_ret;
+	if (!(eng2.lookahead = eng->current->next))
+		eng2.lookahead = eng->lookahead;
+	ret = lq_run(eng->flags, arg, &eng2);
+	if (ret >= 0)
+		lq_printf(eng, "catpured: '%.*s' %d '%s'\n", ret, eng->str, ret, eng2.lookahead->arg);
+	if (ret <= -1 || lh_ret <= -1)
+		return ret;
+	eng->eng_flags |= LQ_STOP;
+	return ret + lh_ret;
+/*
+	t_lq_eng eng2;
 	t_lq_eng *it_eng;
 	int ret = 0;
 	int lh_ret = 0;
@@ -147,7 +191,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 		}
 	}
 	lq_printf(eng, "captured: '%.*s' %d\n", ret, eng->str, ret);
-	return ret + lh_ret;
+	return ret + lh_ret;*/
 }
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)
