@@ -108,7 +108,7 @@ int main()
 			1, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
-	char *s = "     (lo(a)u{o}l) l";
+	char *s = "     {loa(u{o})l} l";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
