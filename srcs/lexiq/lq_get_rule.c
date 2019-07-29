@@ -16,7 +16,7 @@ static const t_lq_rule g_builtin_rules[] = {
 	{"r", (t_lq_func)lq_rule_run, 0},
 	{"!", (t_lq_func)lq_rule_not, 0},
 	{"!?", (t_lq_func)lq_rule_not, 0},
-	{"g", (t_lq_func)lq_rule_group, 0},
+//	{"g", (t_lq_func)lq_rule_group, 0},
 	{"func", (t_lq_func)lq_rule_func, 0},
 
 	{"^", (t_lq_func)lq_rule_delim, 0},
@@ -85,7 +85,9 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	int lh_ret = 0;
 
 	lq_eng_copy(&eng2, eng);
-	eng2.lookahead = NULL;
+	eng2.parent_eng = eng;
+	eng2.lookahead_ret = &lh_ret;
+/*	eng2.lookahead = NULL;
 	eng2.lookahead_ret = NULL;
 	if (!arg)
 		return lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
@@ -106,9 +108,9 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	if (ret <= -1 || lh_ret <= -1)
 		return ret;
 	eng->eng_flags |= LQ_STOP;
-	return ret + lh_ret;
+	return ret + lh_ret;*/
 }
-
+/*
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 {
 	t_lq_eng eng2;
@@ -154,7 +156,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 		return ret;
 	eng->eng_flags |= LQ_STOP;
 	return ret + lh_ret;
-/*
+
 	t_lq_eng eng2;
 	t_lq_eng *it_eng;
 	int ret = 0;
@@ -191,8 +193,8 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 		}
 	}
 	lq_printf(eng, "captured: '%.*s' %d\n", ret, eng->str, ret);
-	return ret + lh_ret;*/
-}
+	return ret + lh_ret;
+}*/
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)
 {

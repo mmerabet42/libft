@@ -16,6 +16,7 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->lookahead = b->lookahead;
 	a->lookahead_ret = b->lookahead_ret;
 	a->prev_eng = b;
+	a->parent_eng = b->parent_eng;
 	a->groups_head = b->groups_head;
 	a->groups = b->groups;
 	return a;
@@ -51,10 +52,21 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 			if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) >= 0)
 				return tret + ret;
 		}
-		else if (eng->i >= parser->min && eng->lookahead)
+		else if (eng->i >= parser->min)
 		{
 			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = NULL;
+			t_lq_eng *it_eng = eng->parent_eng;
+			while (it_eng)
+			{
+				if (it_eng->current->min != it_eng->current->max || it_eng->current->next)
+					break ;
+				it_eng = it_eng->parent_eng;
+			}
+			if (it_eng)
+			{
+				
+			}
+		/*	eng2.lookahead = NULL;
 			eng2.lookahead_ret = NULL;
 			eng2.prev_eng = eng->prev_eng;
 			while (eng2.prev_eng)
@@ -74,7 +86,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 				if (eng->lookahead_ret)
 					*eng->lookahead_ret = ret;
 				return tret;
-			}
+			}*/
 		}
 		ret = parser->rule->func(parser->arg, eng);
 		if (ret <= -1 && eng->i < parser->min)
@@ -169,7 +181,7 @@ int lexiq(int flags, ...)
 	eng.lookahead_ret = NULL;
 	eng.groups = NULL;
 	eng.groups_head = NULL;
-	eng.prev_eng = NULL;
+	eng.parent_eng = NULL;
 	eng.i = 0;
 	ret = -1;
 	if (flags & LQ_RUN)
