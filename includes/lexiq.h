@@ -48,6 +48,7 @@ struct s_lq_eng
 	t_lq_node *lookahead;
 	t_lq_node *parser_begin;
 	t_lq_node *current;
+	t_lq_eng *parent_eng;
 	t_lq_eng *prev_eng;
 	t_lq_list **groups;
 	t_lq_list *groups_head;
