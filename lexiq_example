@@ -76,19 +76,6 @@ node("r",
 		node("s", ")")
 	)
 )
-node("r",
-	node("!?", "()[]{}")
-	|
-	node("r",
-		node("s", "(")
-		node("r",
-			node("!?", "()[]{}")
-			|
-			node("r")
-		)
-		node("s", ")")
-	)
-)
 node("s", ")")
 
 "(lo(a )ol)"
