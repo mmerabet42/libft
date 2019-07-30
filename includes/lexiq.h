@@ -44,7 +44,7 @@ struct s_lq_eng
 	int *pos;
 	int recur;
 	int i;
-	int *lookahead_ret;
+	int lookahead_ret;
 	t_lq_node *lookahead;
 	t_lq_node *parser_begin;
 	t_lq_node *current;
