@@ -12,7 +12,7 @@ int func_ex(void *arg, t_lq_eng *eng)
 int main()
 {
 	t_lq_node *bracket =
-		lq_node("g", NULL, 1, 1, NULL, NULL);
+		lq_node("r", NULL, 1, 1, NULL, NULL);
 
 	t_lq_node *round_bracket =
 		lq_node("s", "(", 1, 1, NULL,
@@ -52,20 +52,20 @@ int main()
 
 	bracket->arg = round_bracket;
 	bracket->next_or =
-		lq_node("g", curly_bracket, 1, 1,
-			lq_node("g", square_bracket, 1, 1,
-				lq_node("g", pin_bracket, 1, 1,
+		lq_node("r", curly_bracket, 1, 1,
+			lq_node("r", square_bracket, 1, 1,
+				lq_node("r", pin_bracket, 1, 1,
 					NULL, NULL),
 				NULL),
 			NULL);
 
 	t_lq_node *delims =
 		lq_node("^w", NULL, 1, 1, NULL,
-			lq_node("r",
-					lq_node("?", "a-zA-Z", 5, 5,
-						lq_node("?", "a-zA-Z", 2, 2, NULL, NULL),
-					NULL),
-				1, 1, NULL,
+		lq_node("r",
+				lq_node("?", "a-zA-Z", 5, 5,
+					lq_node("?", "a-zA-Z", 2, 2, NULL, NULL),
+				NULL),
+			1, 1, NULL,
 		lq_node("r",
 				lq_node("$w", NULL, 1, 1, NULL, NULL),
 			1, 1, NULL, NULL)));
@@ -86,7 +86,7 @@ int main()
 	t_lq_node *delimsb =
 		lq_node("r",
 				lq_node("r",
-					lq_node("s", "h", 1, -1, NULL, NULL),
+					lq_node("?", "h", 1, -1, NULL, NULL),
 				1, 1, NULL, NULL),
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
@@ -95,12 +95,12 @@ int main()
 
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
-				lq_node("r",
+				lq_node("r1",
 						lq_node("?", "a-z", 1, -1, NULL, NULL),
 					1, 1, NULL,
-				lq_node("r",
+				lq_node("r2",
 						lq_node("s", ":", 1, 1, NULL,
-						lq_node("r",
+						lq_node("r3",
 								lq_node("?", "0-9", 1, -1, NULL, NULL),
 							1, 1, NULL, NULL)),
 					1, 1, NULL,
@@ -108,7 +108,7 @@ int main()
 			1, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
-	char *s = "     {loa(u{o})l} l";
+	char *s = "     (loa((uo)l) l";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
@@ -118,7 +118,7 @@ int main()
 	int pos = 0;
 	int false_ret = 0;
 	int r = lexiq(LQ_RUN | LQ_POS | LQ_END, begin, s, &pos);
-	printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
+	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
 
 //	lq_node_del(&begin);
 	return 0;
