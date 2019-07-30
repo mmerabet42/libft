@@ -111,7 +111,7 @@ static int lq_rule_not(void *arg, t_lq_eng *eng)
 
 	if (eng->current->rule->name[1] == '?')
 	{
-		if (lq_rule_any((const char *)arg, eng) < 0)
+		if (*eng->str && lq_rule_any((const char *)arg, eng) < 0)
 			return 1;
 	}
 	else if (lq_run(LQ_RUN | LQ_END, (t_lq_node *)arg, lq_eng_copy(&eng2, eng)) == -1)
