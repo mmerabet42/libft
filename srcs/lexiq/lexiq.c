@@ -19,6 +19,7 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->parent_eng = b->parent_eng;
 	a->groups_head = b->groups_head;
 	a->groups = b->groups;
+	a->lookahead_ret = 0;
 	return a;
 }
 
@@ -43,8 +44,8 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 	eng->current = parser;
 	while (eng->str <= eng->str_end)
 	{
-		lq_printf(eng, "|node: '%s' '%s' %d %d %p", eng->str, parser->rule->name, parser->min, parser->max, eng->lookahead);
-		if (parser->rule->name[0] == 's')
+		lq_printf(eng, "|node: '%s' '%s' %d %d", eng->str, parser->rule->name, parser->min, parser->max);
+		if (parser->rule->name[0] == 's' || parser->rule->name[0] == '?' || parser->rule->name[1] == '!')
 			ft_printf(" '%s'", parser->arg);
 		ft_printf("\n");
 		if (eng->i >= parser->min && parser->next)
@@ -55,55 +56,85 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		else if (eng->i >= parser->min)
 		{
 			lq_eng_copy(&eng2, eng);
+			t_lq_eng *eng_next = NULL;
+			t_lq_eng *eng_loop = NULL;
 			t_lq_eng *it_eng = eng->parent_eng;
-			while (it_eng)
+			if (eng->parent_eng)
+				lq_printf(eng, "|parent_eng: '%s'\n", eng->parent_eng->current->rule->name);
+			else
+				lq_printf(eng, "|no parent_eng\n");
+			while (it_eng && (!eng_next || !eng_loop))
 			{
-				if (it_eng->current->min != it_eng->current->max || it_eng->current->next)
-					break ;
+				if (!eng_next && it_eng->current->next)
+					eng_next = it_eng;
+				if (!eng_next && !eng_loop && it_eng->current->min != it_eng->current->max)
+					eng_loop = it_eng;
 				it_eng = it_eng->parent_eng;
 			}
-			if (it_eng)
+			if (eng_next)
+				lq_printf(eng, "|eng_next: '%s'\n", eng_next->current->next->rule->name);
+			if (eng_loop)
+				lq_printf(eng, "|eng_loop: '%s'\n", eng_loop->current->rule->name);
+			if ((eng_loop && eng_loop->i + 1 < eng_loop->current->min)
+					|| (!eng_next && eng_loop && eng_loop->i + 1 >= eng_loop->current->min))
 			{
-				
+				lq_printf(eng, "|'loop': '%s'", eng_loop->current->rule->name);
+				if (eng_next->current->rule->name[0] == 's')
+					ft_printf(" '%s'", eng_next->current->arg);
+				ft_printf("\n");
+				eng2.parent_eng = eng_loop->parent_eng;
+				int tmp_i = eng_loop->i++;
+				if ((ret = lq_run(flags, eng_loop->current, &eng2)) >= 0)
+				{
+					eng_loop->lookahead_ret = ret;
+					return tret;
+				}
+				eng_loop->i = tmp_i;
 			}
-		/*	eng2.lookahead = NULL;
-			eng2.lookahead_ret = NULL;
-			eng2.prev_eng = eng->prev_eng;
-			while (eng2.prev_eng)
+			else if (eng_next)
 			{
-				if (eng2.prev_eng->current->next == eng->lookahead)
-					break;
-				eng2.prev_eng = eng2.prev_eng->prev_eng;
+				lq_printf(eng, "|'next': '%s'", eng_next->current->next->rule->name);
+				if (eng_next->current->next->rule->name[0] == 's')
+					ft_printf(" '%s'", eng_next->current->next->arg);
+				ft_printf("\n");
+				eng2.parent_eng = eng_next->parent_eng;
+				if ((ret = lq_run(flags, eng_next->current->next, &eng2)) >= 0)
+				{
+					eng_next->lookahead_ret = ret;
+					return tret;
+				}
+				else if (eng_loop && eng_loop->i + 1 >= eng_loop->current->min)
+				{
+					eng2.parent_eng = eng_loop->parent_eng;
+					int tmp_i = eng_loop->i++;
+					if ((ret = lq_run(flags, eng_loop->current, &eng2)) >= 0)
+					{
+						eng_loop->lookahead_ret = ret;
+						return tret;
+					}
+					eng_loop->i = tmp_i;
+				}
 			}
-			if (eng2.prev_eng && eng->lookahead != eng2.prev_eng->lookahead)
-			{
-				eng2.lookahead = eng2.prev_eng->lookahead;
-				eng2.lookahead_ret = eng2.prev_eng->lookahead_ret;
-				eng2.groups = eng2.prev_eng->groups;
-			}
-			if ((ret = lq_run(flags, eng->lookahead, &eng2)) >= 0)
-			{
-				if (eng->lookahead_ret)
-					*eng->lookahead_ret = ret;
-				return tret;
-			}*/
 		}
 		ret = parser->rule->func(parser->arg, eng);
+		lq_printf(eng, "|node ret: %d\n", ret);
 		if (ret <= -1 && eng->i < parser->min)
 		{
 			if (!parser->next_or)
 				return ret;
 			eng->str = str;
 			lq_eng_copy(&eng2, eng);
-			eng2.prev_eng = eng->prev_eng;
 			return lq_run(flags, parser->next_or, &eng2);
 		}
 		else if (ret <= -1 && parser->next)
 			return ret;
 		else if (ret <= -1)
+		{
+			lq_printf(eng, "oook\n");
 			return tret;
+		}
 		tret += ret;
-		if ((eng->eng_flags & LQ_STOP))
+		if ((parser->rule->flags & LQ_STOP))
 			return tret;
 		++eng->i;
 		if (eng->str >= eng->str_end)
@@ -112,37 +143,75 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		if (eng->i >= parser->max && parser->max != -1)
 			break;
 	}
-	if ((flags & LQ_END) && !parser->next && !eng->lookahead)
-		return tret;
-	if ((eng->str < eng->str_end && !parser->next && !eng->lookahead) || eng->i < parser->min)
+	if (eng->i < parser->min)
+		return -1;
+	if ((eng->str < eng->str_end && !parser->next && !eng->lookahead && !(flags & LQ_END)))
 		return -1;
 	if (!parser->next)
 	{
-		if (eng->lookahead)
+		lq_eng_copy(&eng2, eng);
+		t_lq_eng *eng_next = NULL;
+		t_lq_eng *eng_loop = NULL;
+		t_lq_eng *it_eng = eng->parent_eng;
+		if (eng->parent_eng)
+			lq_printf(eng, "|parent_eng: '%s'\n", eng->parent_eng->current->rule->name);
+		else
+			lq_printf(eng, "|no parent_eng\n");
+		while (it_eng && (!eng_next || !eng_loop))
 		{
-			lq_eng_copy(&eng2, eng);
-			eng2.lookahead = NULL;
-			eng2.lookahead_ret = NULL;
-			eng2.prev_eng = eng->prev_eng;
-			while (eng2.prev_eng)
+			if (!eng_next && !eng_loop && it_eng->current->min != it_eng->current->max)
+				eng_loop = it_eng;
+			if (!eng_next && it_eng->current->next)
+				eng_next = it_eng;
+			it_eng = it_eng->parent_eng;
+		}
+		if (!it_eng && !eng_next && !eng_loop)
+		{
+			if (flags & LQ_END)
+				return tret;
+			else
+				return -1;
+		}
+		if (eng_next)
+			lq_printf(eng, "|eng_next: '%s'\n", eng_next->current->next->rule->name);
+		if (eng_loop)
+			lq_printf(eng, "|eng_loop: '%s'\n", eng_loop->current->rule->name);
+		if ((eng_loop && eng_loop->i + 1 < eng_loop->current->min)
+				|| (!eng_next && eng_loop && eng_loop->i + 1 >= eng_loop->current->min))
+		{
+			lq_printf(eng, "|'loop': '%s'", eng_loop->current->rule->name);
+			if (eng_next->current->rule->name[0] == 's')
+				ft_printf(" '%s'", eng_next->current->arg);
+			ft_printf("\n");
+			eng2.parent_eng = eng_loop->parent_eng;
+			++eng_loop->i;
+			eng_loop->lookahead_ret = lq_run(flags, eng_loop->current, &eng2);
+		}
+		else if (eng_next)
+		{
+			lq_printf(eng, "|'next': '%s'", eng_next->current->next->rule->name);
+			if (eng_next->current->next->rule->name[0] == 's')
+				ft_printf(" '%s'", eng_next->current->next->arg);
+			ft_printf("\n");
+			eng2.parent_eng = eng_next->parent_eng;
+			if ((ret = lq_run(flags, eng_next->current->next, &eng2)) >= 0)
+				eng_next->lookahead_ret = ret;
+			else if (eng_loop && eng_loop->i + 1 >= eng_loop->current->min)
 			{
-				if (eng2.prev_eng->current->next == eng->lookahead)
-					break;
-				eng2.prev_eng = eng2.prev_eng->prev_eng;
+				lq_printf(eng, "|trying loop\n");
+				eng2.parent_eng = eng_loop->parent_eng;
+				++eng_loop->i;
+				if ((ret = lq_run(flags, eng_loop->current, &eng2)) <= -1)
+					return ret;
+				eng_loop->lookahead_ret = ret;
 			}
-			if (eng2.prev_eng && eng->lookahead != eng2.prev_eng->lookahead)
-			{
-				eng2.lookahead = eng2.prev_eng->lookahead;
-				eng2.lookahead_ret = eng2.prev_eng->lookahead_ret;
-				eng2.groups = eng2.prev_eng->groups;
-			}
-			ret = lq_run(flags, eng->lookahead, &eng2);
-			if (eng->lookahead_ret)
-				*eng->lookahead_ret = ret;
+			else
+				return ret;
+			lq_printf(eng, "|ret: %d\n", eng_next->lookahead_ret);
 		}
 		return tret;
 	}
-	if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) <= -1)
+	else if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) <= -1)
 		return ret;
 	return tret + ret;
 }
@@ -161,6 +230,7 @@ int lq_pos(int flags, t_lq_node *parser, t_lq_eng *eng)
 	{
 		eng->str = ++str;
 		++(*eng->pos);
+		ft_printf("moving %d!\n", *eng->pos);
 	}
 	return ret;
 }
@@ -173,14 +243,16 @@ int lexiq(int flags, ...)
 	t_lq_node *parser;
 
 	va_start(vp, flags);
+	memset(&eng, 0, sizeof(t_lq_eng));
 	eng.flags = flags;
 	eng.eng_flags = 0;
 	eng.pos = NULL;
 	eng.recur = 0;
 	eng.lookahead = NULL;
-	eng.lookahead_ret = NULL;
+	eng.lookahead_ret = 0;
 	eng.groups = NULL;
 	eng.groups_head = NULL;
+	eng.prev_eng = NULL;
 	eng.parent_eng = NULL;
 	eng.i = 0;
 	ret = -1;
@@ -194,11 +266,11 @@ int lexiq(int flags, ...)
 			eng.str_end = eng.str + strlen(eng.str);
 		if (flags & LQ_POS)
 			eng.pos = va_arg(vp, int *);
-		if (flags & LQ_LOOKAHEAD)
-		{
-			eng.lookahead_ret = va_arg(vp, int *);
-			eng.lookahead = va_arg(vp, t_lq_node *);
-		}
+	//	if (flags & LQ_LOOKAHEAD)
+	//	{
+	//		eng.lookahead_ret = va_arg(vp, int *);
+	//		eng.lookahead = va_arg(vp, t_lq_node *);
+	//	}
 		if (flags & LQ_GROUPS)
 			eng.groups = va_arg(vp, t_lq_list **);
 		eng.flags &= ~LQ_POS;

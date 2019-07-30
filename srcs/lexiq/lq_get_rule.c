@@ -8,12 +8,19 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_not(void *arg, t_lq_eng *eng);
 static int lq_rule_func(t_lq_func func, t_lq_eng *eng);
 static int lq_rule_delim(void *arg, t_lq_eng *eng);
-static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
+//static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, 0},
 	{"?", (t_lq_func)lq_rule_any, 0},
-	{"r", (t_lq_func)lq_rule_run, 0},
+	{"r", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r1", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r2", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r3", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r4", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r5", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r6", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r7", (t_lq_func)lq_rule_run, LQ_STOP},
 	{"!", (t_lq_func)lq_rule_not, 0},
 	{"!?", (t_lq_func)lq_rule_not, 0},
 //	{"g", (t_lq_func)lq_rule_group, 0},
@@ -82,119 +89,21 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 {
 	t_lq_eng eng2;
 	int ret = 0;
-	int lh_ret = 0;
 
 	lq_eng_copy(&eng2, eng);
 	eng2.parent_eng = eng;
-	eng2.lookahead_ret = &lh_ret;
-/*	eng2.lookahead = NULL;
-	eng2.lookahead_ret = NULL;
+	eng->lookahead_ret = 0;
 	if (!arg)
-		return lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
-	if (eng->i + 1 < eng->current->min)
-		return (lq_run(LQ_RUN | LQ_END, arg, &eng2));
-	t_lq_eng *it_eng;
-	it_eng = eng->prev_eng;
-	while (it_eng)
-	{
-		if (it_eng->current == eng->current)
-			return lq_run(LQ_RUN | LQ_END, arg, &eng2);
-		it_eng = it_eng->prev_eng;
-	}
-	eng2.lookahead_ret = &lh_ret;
-	if (!(eng2.lookahead = eng->current->next))
-		eng2.lookahead = eng->lookahead;
+		arg = eng->parser_begin;
 	ret = lq_run(eng->flags, arg, &eng2);
-	if (ret <= -1 || lh_ret <= -1)
+	lq_printf(eng, "|run: '%s' %d %d\n", arg->rule->name, ret, eng->lookahead_ret);
+	if (ret <= -1)
 		return ret;
+	else if (eng->lookahead_ret <= -1)
+		return eng->lookahead_ret;
 	eng->eng_flags |= LQ_STOP;
-	return ret + lh_ret;*/
+	return ret + eng->lookahead_ret;
 }
-/*
-static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
-{
-	t_lq_eng eng2;
-	int ret = 0;
-	int lh_ret = 0;
-
-	lq_printf(eng, "enter capture: '%s'\n", eng->str);
-
-	lq_eng_copy(&eng2, eng);
-	eng2.lookahead = NULL;
-	eng2.lookahead_ret = NULL;
-	if (!arg)
-	{
-		ret = lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
-		lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
-		return ret;
-	}
-	if (eng->i + 1 < eng->current->min)
-	{
-		ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
-		lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
-		return ret;
-	}
-	t_lq_eng *it_eng;
-	it_eng = eng->prev_eng;
-	while (it_eng)
-	{
-		if (it_eng->current == eng->current)
-		{
-			ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
-			lq_printf(eng, "catpured: '%.*s' %d\n", ret, eng->str, ret);
-			return ret;
-		}
-		it_eng = it_eng->prev_eng;
-	}
-	eng2.lookahead_ret = &lh_ret;
-	if (!(eng2.lookahead = eng->current->next))
-		eng2.lookahead = eng->lookahead;
-	ret = lq_run(eng->flags, arg, &eng2);
-	if (ret >= 0)
-		lq_printf(eng, "catpured: '%.*s' %d '%s'\n", ret, eng->str, ret, eng2.lookahead->arg);
-	if (ret <= -1 || lh_ret <= -1)
-		return ret;
-	eng->eng_flags |= LQ_STOP;
-	return ret + lh_ret;
-
-	t_lq_eng eng2;
-	t_lq_eng *it_eng;
-	int ret = 0;
-	int lh_ret = 0;
-
-	lq_eng_copy(&eng2, eng);
-	eng2.lookahead = NULL;
-	eng2.lookahead_ret = NULL;
-	if (!arg)
-		ret = lq_run(LQ_RUN | LQ_END, eng->parser_begin, &eng2);
-	if (eng->i + 1 < eng->current->min)
-		ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
-	else
-	{
-		it_eng = eng->prev_eng;
-		while (it_eng)
-		{
-			if (it_eng->current == eng->current)
-			{
-				ret = lq_run(LQ_RUN | LQ_END, arg, &eng2);
-				break;			
-			}
-			it_eng = it_eng->prev_eng;
-		}
-		if (!it_eng || it_eng->current != eng->current)
-		{
-			eng2.lookahead_ret = &lh_ret;
-			if (!(eng2.lookahead = eng->current->next))
-				eng2.lookahead = eng->lookahead;
-			ret = lq_run(eng->flags, arg, &eng2);
-			if (ret <= -1 || lh_ret <= -1)
-				return ret;
-			eng->eng_flags |= LQ_STOP;
-		}
-	}
-	lq_printf(eng, "captured: '%.*s' %d\n", ret, eng->str, ret);
-	return ret + lh_ret;
-}*/
 
 static int lq_rule_not(void *arg, t_lq_eng *eng)
 {
