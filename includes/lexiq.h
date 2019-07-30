@@ -42,6 +42,7 @@ struct s_lq_eng
 	int flags;
 	int eng_flags;
 	int *pos;
+	int *ret_ptr;
 	int recur;
 	int i;
 	int lookahead_ret;

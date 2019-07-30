@@ -12,7 +12,7 @@ int func_ex(void *arg, t_lq_eng *eng)
 int main()
 {
 	t_lq_node *bracket =
-		lq_node("r", NULL, 1, 1, NULL, NULL);
+		lq_node("g", NULL, 1, 1, NULL, NULL);
 
 	t_lq_node *round_bracket =
 		lq_node("s", "(", 1, 1, NULL,
@@ -52,9 +52,9 @@ int main()
 
 	bracket->arg = round_bracket;
 	bracket->next_or =
-		lq_node("r", curly_bracket, 1, 1,
-			lq_node("r", square_bracket, 1, 1,
-				lq_node("r", pin_bracket, 1, 1,
+		lq_node("g", curly_bracket, 1, 1,
+			lq_node("g", square_bracket, 1, 1,
+				lq_node("g", pin_bracket, 1, 1,
 					NULL, NULL),
 				NULL),
 			NULL);
@@ -91,16 +91,16 @@ int main()
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
 	
-	t_lq_node *begin =
+	t_lq_node *begin = bracket;
 
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
-				lq_node("r1",
+				lq_node("r",
 						lq_node("?", "a-z", 1, -1, NULL, NULL),
 					1, 1, NULL,
-				lq_node("r2",
+				lq_node("r",
 						lq_node("s", ":", 1, 1, NULL,
-						lq_node("r3",
+						lq_node("r",
 								lq_node("?", "0-9", 1, -1, NULL, NULL),
 							1, 1, NULL, NULL)),
 					1, 1, NULL,
@@ -108,11 +108,11 @@ int main()
 			1, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
-//	char *s = "     (loa((uo)l) l";
+	char *s = "     {lol} l";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
-	char *s = "hhhhhello";
+//	char *s = "hhhhhello";
 //	char *s = "Hello world";
 //	char *s = "Hello      ";
 	int pos = 0;
