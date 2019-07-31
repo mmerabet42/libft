@@ -83,6 +83,7 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	t_lq_eng eng2;
 	int ret = 0;
 
+	lq_printf(eng, "|run: %d\n", eng->i);
 	lq_eng_copy(&eng2, eng);
 	eng2.parent_eng = eng;
 	eng->lookahead_ret = 0;
@@ -147,6 +148,7 @@ static int lq_rule_delim(void *arg, t_lq_eng *eng)
 			return 0;
 		if (strchr("nw", eng->current->rule->name[1]))
 		{
+			lq_printf(eng, "|delim: '%s' '%s'\n", eng->current->rule->name, eng->str);
 			if (*(eng->str - 1) == '\n')
 				return 0;
 			if (eng->current->rule->name[1] == 'w')
@@ -154,7 +156,8 @@ static int lq_rule_delim(void *arg, t_lq_eng *eng)
 				if (!(isalpha(*(eng->str - 1)) || isdigit(*(eng->str - 1))
 						|| *(eng->str - 1) == '_'))
 					return 0;
-			}	
+			}
+			lq_printf(eng, "|false\n");
 		}
 	}
 	else if (eng->current->rule->name[0] == '$')
