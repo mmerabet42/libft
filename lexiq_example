@@ -62,20 +62,22 @@ node("r",
 )
 node("s", ")")
 
-node("s", "(")
-node("r",
-	node("!?", "()[]{}")
-	|
+node("g",
+	node("s", "(")
 	node("r",
-		node("s", "(")
-		node("r",
-			node("!?", "()[]{}")
-			|
-			node("r")
+		node("!?", "()[]{}")
+		|
+		node("g",
+			node("s", "(")
+			node("r",
+				node("!?", "()[]{}")
+				|
+				node("r")
+			)
+			node("s", ")")
 		)
-		node("s", ")")
 	)
 )
-node("s", ")")
+node("s", "")
 
 "(lo(a )ol)"
