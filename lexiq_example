@@ -68,13 +68,15 @@ node("g",
 		node("!?", "()[]{}")
 		|
 		node("g",
-			node("s", "(")
 			node("r",
-				node("!?", "()[]{}")
-				|
-				node("r")
+				node("s", "(")
+				node("r",
+					node("!?", "()[]{}")
+					|
+					node("r")
+				)
+				node("s", ")")
 			)
-			node("s", ")")
 		)
 	)
 )

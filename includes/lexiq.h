@@ -46,7 +46,6 @@ struct s_lq_eng
 	int recur;
 	int i;
 	int lookahead_ret;
-	t_lq_node *lookahead;
 	t_lq_node *parser_begin;
 	t_lq_node *current;
 	t_lq_eng *parent_eng;

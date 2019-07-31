@@ -83,7 +83,6 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	t_lq_eng eng2;
 	int ret = 0;
 
-	lq_printf(eng, "|run: %d\n", eng->i);
 	lq_eng_copy(&eng2, eng);
 	eng2.parent_eng = eng;
 	eng->lookahead_ret = 0;
