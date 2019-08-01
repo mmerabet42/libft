@@ -34,18 +34,23 @@ void subtract_tret(t_lq_eng *it_eng, int tret)
 int get_proper_eng(t_lq_eng *it_eng, t_lq_eng **eng_loop, t_lq_eng **eng_next, int tret)
 {
 	int *tmp_ret;
+	int eng_tret;
 
 	*eng_loop = NULL;
 	*eng_next = NULL;
+	eng_tret = tret;
 	if ((tmp_ret = it_eng->ret_ptr))
+	{
 		*tmp_ret += tret;
+		eng_tret = *tmp_ret;
+	}
 	it_eng = it_eng->parent_eng;
 	while (it_eng && (!*eng_next || !*eng_loop))
 	{
 		if (it_eng->ret_ptr != tmp_ret)
 		{
 			if ((tmp_ret = it_eng->ret_ptr))
-				*it_eng->ret_ptr += tret;
+				*it_eng->ret_ptr += eng_tret;
 		}
 		if (!*eng_next && !*eng_loop
 				&& it_eng->current->min != it_eng->current->max
