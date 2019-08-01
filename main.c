@@ -91,16 +91,16 @@ int main()
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
 	
-	t_lq_node *begin = bracket;/*
+	t_lq_node *begin = bracket;
 
 	//	lq_node("^w", NULL, 1, 1, NULL,
 		lq_node("g",
 				lq_node("g",
 						lq_node("?", "a-z", 2, 2, NULL, NULL),
-					1, 5, NULL, NULL),
+					1, -1, NULL, NULL),
 			1, 1, NULL, NULL);
 	//	lq_node("s", "hello", 1, 1, NULL, NULL));
-*/
+
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
 				lq_node("r",

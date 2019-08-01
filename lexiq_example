@@ -88,7 +88,12 @@ node("g",
 	node("g",
 		node("?", "a-z")
 	)
+	node("g",
+		node("?", "a-z")
+	)
 )
-node("s", "hello")
+node("g",
+	node("s", "hello")
+)
 
 "bcphello"
