@@ -42,7 +42,7 @@ struct s_lq_eng
 	int flags;
 	int eng_flags;
 	int *pos;
-	int *ret_ptr;
+	int *len_ptr;
 	int recur;
 	int i;
 	int lookahead_ret;
@@ -69,6 +69,7 @@ struct s_lq_match
 	const char *str;
 	int pos;
 	int len;
+	t_lq_list *groups;
 };
 
 struct s_lq_list
