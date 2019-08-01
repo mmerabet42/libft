@@ -1,6 +1,7 @@
 #include "lexiq.h"
-#include <string.h>
-#include <ctype.h>
+#include "ft_str.h"
+#include "ft_types.h"
+#include "ft_mem.h"
 
 static int lq_rule_string(const char *arg, t_lq_eng *eng);
 static int lq_rule_any(const char *arg, t_lq_eng *eng);
@@ -15,7 +16,6 @@ static const t_lq_rule g_builtin_rules[] = {
 	{"?", (t_lq_func)lq_rule_any, 0},
 	{"r", (t_lq_func)lq_rule_run, LQ_STOP},
 	{"g", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g1", (t_lq_func)lq_rule_group, LQ_STOP},
 	{"!", (t_lq_func)lq_rule_not, 0},
 	{"!?", (t_lq_func)lq_rule_not, 0},
 	{"func", (t_lq_func)lq_rule_func, 0},
@@ -36,7 +36,7 @@ const t_lq_rule *lq_get_rule(const char *name)
 	i = 0;
 	while (i < g_builtin_rules_len)
 	{
-		if (!strcmp(name, g_builtin_rules[i].name))
+		if (!ft_strcmp(name, g_builtin_rules[i].name))
 			return &g_builtin_rules[i];
 		++i;
 	}
@@ -103,7 +103,8 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	int ret;
 	t_lq_group group;
 	t_lq_list group_list;
-	
+	t_lq_list *group_list_ptr;
+
 	group_list.match = &group;
 	group_list.size = sizeof(group);
 	group_list.next = NULL;
@@ -116,7 +117,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	group.str = eng->str;
 	group.pos = (int)(eng->str - eng->str_begin);
 	group.groups = NULL;
-
+	group.len = 0;
 	eng->len_ptr = &group.len;
 	lq_eng_copy(&eng2, eng);
 	eng2.groups = &group.groups;
@@ -126,11 +127,23 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	if (!arg)
 		arg = eng->parser_begin;
 	ret = lq_run(eng->flags, arg, &eng2);
-	if (ret <= -1)
-		return ret;
-	else if (eng->lookahead_ret <= -1)
-		return eng->lookahead_ret;
-	lq_printf(eng, "|captured: '%.*s' %d %d %d\n", ret, eng->str, ret, eng->lookahead_ret, group.len);
+	eng->len_ptr = NULL;
+	if (ret <= -1 || eng->lookahead_ret <= -1)
+	{
+		if ((*eng->groups = group_list.parent))
+			group_list.parent->next = NULL;
+		return (ret <= -1 ? ret : eng->lookahead_ret);
+	}
+	if (!(group_list_ptr = ft_memdup(&group_list, sizeof(t_lq_list))))
+		return -1;
+	if (!(group_list_ptr->match = ft_memdup(&group, sizeof(t_lq_group))))
+		return -1;
+	if (group_list_ptr->parent)
+		group_list_ptr->parent->next = group_list_ptr;
+	else
+		eng->groups_head = group_list_ptr;
+	*eng->groups = group_list_ptr;
+//	lq_printf(eng, "|captured: '%.*s' %d %d %d\n", ret, eng->str, ret, eng->lookahead_ret, group.len);
 	return ret + eng->lookahead_ret;
 }
 
@@ -162,31 +175,29 @@ static int lq_rule_delim(void *arg, t_lq_eng *eng)
 	{
 		if (eng->str == eng->str_begin)
 			return 0;
-		if (strchr("nw", eng->current->rule->name[1]))
+		if (ft_strchr("nw", eng->current->rule->name[1]))
 		{
-			lq_printf(eng, "|delim: '%s' '%s'\n", eng->current->rule->name, eng->str);
 			if (*(eng->str - 1) == '\n')
 				return 0;
 			if (eng->current->rule->name[1] == 'w')
 			{
-				if (!(isalpha(*(eng->str - 1)) || isdigit(*(eng->str - 1))
+				if (!(ft_isalpha(*(eng->str - 1)) || ft_isdigit(*(eng->str - 1))
 						|| *(eng->str - 1) == '_'))
 					return 0;
 			}
-			lq_printf(eng, "|false\n");
 		}
 	}
 	else if (eng->current->rule->name[0] == '$')
 	{	
 		if (eng->str == eng->str_end)
 			return 0;
-		if (strchr("nw", eng->current->rule->name[1]))
+		if (ft_strchr("nw", eng->current->rule->name[1]))
 		{
 			if (*eng->str == '\n')
 				return 0;
 			if (eng->current->rule->name[1] == 'w')
 			{
-				if (!(isalpha(*eng->str) || isdigit(*eng->str) || *eng->str == '_'))
+				if (!(ft_isalpha(*eng->str) || ft_isdigit(*eng->str) || *eng->str == '_'))
 					return 0;
 			}	
 		}

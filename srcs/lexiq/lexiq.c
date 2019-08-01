@@ -1,5 +1,6 @@
 #include "lexiq.h"
-#include <string.h>
+#include "ft_str.h"
+#include "ft_mem.h"
 
 void subtract_tret(t_lq_eng *it_eng, int tret)
 {
@@ -236,10 +237,9 @@ int lexiq(int flags, ...)
 	t_lq_list *groups;
 
 	va_start(vp, flags);
-	memset(&eng, 0, sizeof(t_lq_eng));
+	ft_bzero(&eng, sizeof(t_lq_eng));
 	eng.flags = flags;
 	ret = -1;
-	groups = NULL;
 	if (flags & LQ_RUN)
 	{
 		parser = eng.parser_begin = va_arg(vp, t_lq_node *);
@@ -247,12 +247,13 @@ int lexiq(int flags, ...)
 		if (flags & LQ_STREND)
 			eng.str_end = va_arg(vp, const char *);
 		else
-			eng.str_end = eng.str + strlen(eng.str);
+			eng.str_end = eng.str + ft_strlen(eng.str);
 		if (flags & LQ_POS)
 			eng.pos = va_arg(vp, int *);
 		if (flags & LQ_GROUPS)
 			eng.groups = va_arg(vp, t_lq_list **);
-		else
+		groups = NULL;
+		if (!eng.groups)
 			eng.groups = &groups;
 		eng.flags &= ~LQ_POS;
 		ret = lq_pos(eng.flags, parser, &eng);

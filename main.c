@@ -84,8 +84,8 @@ int main()
 		lq_node("$w", NULL, 1, 1, NULL, NULL)));
 
 	t_lq_node *delimsb =
-		lq_node("r",
-				lq_node("r",
+		lq_node("g",
+				lq_node("g",
 					lq_node("?", "h", 1, -1, NULL, NULL),
 				1, 1, NULL, NULL),
 			1, 1, NULL,
@@ -126,8 +126,10 @@ int main()
 //	char *s = "Hello      ";
 	int pos = 0;
 	int false_ret = 0;
-	int r = lexiq(LQ_RUN | LQ_POS | LQ_END, begin, s, &pos);
+	t_lq_list *groups = NULL;
+	int r = lexiq(LQ_RUN | LQ_POS | LQ_END | LQ_GROUPS, begin, s, &pos, &groups);
 	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
+	ft_print_matches_tree(groups, 0);
 //	ft_printf("original: '%s'\n", s);
 
 //	lq_node_del(&begin);

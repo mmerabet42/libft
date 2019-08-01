@@ -80,6 +80,9 @@ struct s_lq_list
 	t_lq_list *parent;
 };
 
+void ft_print_matches(t_lq_list *matches);
+void ft_print_matches_tree(t_lq_list *matches, int tab);
+
 void lq_printf(t_lq_eng *eng, const char *format, ...);
 
 t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b);
