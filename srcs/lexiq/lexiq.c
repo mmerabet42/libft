@@ -3,21 +3,21 @@
 
 void subtract_tret(t_lq_eng *it_eng, int tret)
 {
-	int *tmp_ret;
+	int *last_len;
 	t_lq_eng *eng_loop;
 	t_lq_eng *eng_next;
 
 	eng_loop = NULL;
 	eng_next = NULL;
-	if ((tmp_ret = it_eng->ret_ptr))
-		*tmp_ret -= tret;
+	if ((last_len = it_eng->len_ptr))
+		*last_len -= tret;
 	it_eng = it_eng->parent_eng;
 	while (it_eng && (!eng_next || !eng_loop))
 	{
-		if (it_eng->ret_ptr != tmp_ret)
+		if (it_eng->len_ptr != last_len)
 		{
-			if ((tmp_ret = it_eng->ret_ptr))
-				*it_eng->ret_ptr -= tret;
+			if ((last_len = it_eng->len_ptr))
+				*it_eng->len_ptr -= tret;
 		}
 		if (!eng_next && !eng_loop
 				&& it_eng->current->min != it_eng->current->max
@@ -33,24 +33,24 @@ void subtract_tret(t_lq_eng *it_eng, int tret)
 
 int get_proper_eng(t_lq_eng *it_eng, t_lq_eng **eng_loop, t_lq_eng **eng_next, int tret)
 {
-	int *tmp_ret;
+	int *last_len;
 	int eng_tret;
 
 	*eng_loop = NULL;
 	*eng_next = NULL;
 	eng_tret = tret;
-	if ((tmp_ret = it_eng->ret_ptr))
+	if ((last_len = it_eng->len_ptr))
 	{
-		*tmp_ret += tret;
-		eng_tret = *tmp_ret;
+		*last_len += tret;
+		eng_tret = *last_len;
 	}
 	it_eng = it_eng->parent_eng;
 	while (it_eng && (!*eng_next || !*eng_loop))
 	{
-		if (it_eng->ret_ptr != tmp_ret)
+		if (it_eng->len_ptr != last_len)
 		{
-			if ((tmp_ret = it_eng->ret_ptr))
-				*it_eng->ret_ptr += eng_tret;
+			if ((last_len = it_eng->len_ptr))
+				*it_eng->len_ptr += eng_tret;
 		}
 		if (!*eng_next && !*eng_loop
 				&& it_eng->current->min != it_eng->current->max
@@ -83,12 +83,12 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 		eng_loop = NULL;
 		if (eng->i >= parser->min && parser->next)
 		{
-			if (eng->ret_ptr)
-				*eng->ret_ptr += tret;
+			if (eng->len_ptr)
+				*eng->len_ptr += tret;
 			if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) >= 0)
 				return tret + ret;
-			if (eng->ret_ptr)
-				*eng->ret_ptr -= tret;
+			if (eng->len_ptr)
+				*eng->len_ptr -= tret;
 		}
 		else if (eng->i >= parser->min)
 		{
@@ -98,7 +98,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 					|| (!eng_next && eng_loop && eng_loop->i + 1 >= eng_loop->current->min))
 			{
 				eng2.parent_eng = eng_loop->parent_eng;
-				eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+				eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 				eng2.i = eng_loop->i + 1;
 				if ((ret = lq_run(flags, eng_loop->current, &eng2)) >= 0)
 				{
@@ -109,7 +109,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 			else if (eng_next)
 			{
 				eng2.parent_eng = eng_next->parent_eng;
-				eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+				eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 				if ((ret = lq_run(flags, eng_next->current->next, &eng2)) >= 0)
 				{
 					eng_next->lookahead_ret = ret;
@@ -118,7 +118,7 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 				else if (eng_loop && eng_loop->i + 1 >= eng_loop->current->min)
 				{
 					eng2.parent_eng = eng_loop->parent_eng;
-					eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+					eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 					eng2.i = eng_loop->i + 1;
 					if ((ret = lq_run(flags, eng_loop->current, &eng2)) >= 0)
 					{
@@ -166,20 +166,20 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 				|| (!eng_next && eng_loop && eng_loop->i + 1 >= eng_loop->current->min))
 		{
 			eng2.parent_eng = eng_loop->parent_eng;
-			eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+			eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 			eng2.i = eng_loop->i + 1;
 			eng_loop->lookahead_ret = lq_run(flags, eng_loop->current, &eng2);
 		}
 		else if (eng_next)
 		{
 			eng2.parent_eng = eng_next->parent_eng;
-			eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+			eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 			if ((ret = lq_run(flags, eng_next->current->next, &eng2)) >= 0)
 				eng_next->lookahead_ret = ret;
 			else if (eng_loop && eng_loop->i + 1 >= eng_loop->current->min)
 			{
 				eng2.parent_eng = eng_loop->parent_eng;
-				eng2.ret_ptr = (eng2.parent_eng ? eng2.parent_eng->ret_ptr : NULL);
+				eng2.len_ptr = (eng2.parent_eng ? eng2.parent_eng->len_ptr : NULL);
 				eng2.i = eng_loop->i + 1;
 				if ((ret = lq_run(flags, eng_loop->current, &eng2)) <= -1)
 				{
@@ -198,12 +198,12 @@ int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng)
 	}
 	else
 	{
-		if (eng->ret_ptr)
-			*eng->ret_ptr += tret;
+		if (eng->len_ptr)
+			*eng->len_ptr += tret;
 		if ((ret = lq_run(flags, parser->next, lq_eng_copy(&eng2, eng))) >= 0)
 			return tret + ret;
-		if (eng->ret_ptr)
-			*eng->ret_ptr -= tret;
+		if (eng->len_ptr)
+			*eng->len_ptr -= tret;
 	}
 	return ret;
 }
@@ -233,11 +233,13 @@ int lexiq(int flags, ...)
 	int ret;
 	t_lq_eng eng;
 	t_lq_node *parser;
+	t_lq_list *groups;
 
 	va_start(vp, flags);
 	memset(&eng, 0, sizeof(t_lq_eng));
 	eng.flags = flags;
 	ret = -1;
+	groups = NULL;
 	if (flags & LQ_RUN)
 	{
 		parser = eng.parser_begin = va_arg(vp, t_lq_node *);
@@ -250,6 +252,8 @@ int lexiq(int flags, ...)
 			eng.pos = va_arg(vp, int *);
 		if (flags & LQ_GROUPS)
 			eng.groups = va_arg(vp, t_lq_list **);
+		else
+			eng.groups = &groups;
 		eng.flags &= ~LQ_POS;
 		ret = lq_pos(eng.flags, parser, &eng);
 	}

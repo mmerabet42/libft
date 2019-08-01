@@ -100,11 +100,27 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 {
 	t_lq_eng eng2;
-	int ret = 0;
-	int ret_ptr = 0;
+	int ret;
+	t_lq_group group;
+	t_lq_list group_list;
+	
+	group_list.match = &group;
+	group_list.size = sizeof(group);
+	group_list.next = NULL;
+	if ((group_list.parent = *eng->groups))
+		(*eng->groups)->next = &group_list;
+	else
+		eng->groups_head = &group_list;
+	*eng->groups = &group_list;
+	group.str_begin = eng->str_begin;
+	group.str = eng->str;
+	group.pos = (int)(eng->str - eng->str_begin);
+	group.groups = NULL;
 
-	eng->ret_ptr = &ret_ptr;
+	eng->len_ptr = &group.len;
 	lq_eng_copy(&eng2, eng);
+	eng2.groups = &group.groups;
+	eng2.groups_head = NULL;
 	eng2.parent_eng = eng;
 	eng->lookahead_ret = 0;
 	if (!arg)
@@ -114,7 +130,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 		return ret;
 	else if (eng->lookahead_ret <= -1)
 		return eng->lookahead_ret;
-	lq_printf(eng, "|captured: '%.*s' %d %d %d %p\n", ret, eng->str, ret, eng->lookahead_ret, ret_ptr, &ret_ptr);
+	lq_printf(eng, "|captured: '%.*s' %d %d %d\n", ret, eng->str, ret, eng->lookahead_ret, group.len);
 	return ret + eng->lookahead_ret;
 }
 
