@@ -83,3 +83,12 @@ node("g",
 node("s", "")
 
 "(lo(a )ol)"
+
+node("g",
+	node("g",
+		node("?", "a-z")
+	)
+)
+node("s", "hello")
+
+"bcphello"

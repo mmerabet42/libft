@@ -91,14 +91,16 @@ int main()
 			1, 1, NULL,
 		lq_node("s", "hello", 1, 1, NULL, NULL));
 	
-	t_lq_node *begin = bracket;
+	t_lq_node *begin = bracket;/*
 
 	//	lq_node("^w", NULL, 1, 1, NULL,
-		lq_node("r",
-				lq_node("?", "a-z", 1, 1, NULL, NULL),
-			0, 5, NULL,
-		lq_node("s", "hello", 1, 1, NULL, NULL));
-
+		lq_node("g",
+				lq_node("g",
+						lq_node("?", "a-z", 2, 2, NULL, NULL),
+					1, 5, NULL, NULL),
+			1, 1, NULL, NULL);
+	//	lq_node("s", "hello", 1, 1, NULL, NULL));
+*/
 		lq_node("s", "(", 1, 1, NULL,
 		lq_node("r",
 				lq_node("r",
@@ -114,8 +116,8 @@ int main()
 			1, -1, NULL,
 		lq_node("s", ")", 1, 1, NULL, NULL)));
 
-//	char *s = "hellohello";
-	char *s = "(((l{ook})ol)";
+//	char *s = "bololfihvfhello";
+	char *s = "(l({ook}o[l])l)";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
@@ -126,6 +128,7 @@ int main()
 	int false_ret = 0;
 	int r = lexiq(LQ_RUN | LQ_POS | LQ_END, begin, s, &pos);
 	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
+//	ft_printf("original: '%s'\n", s);
 
 //	lq_node_del(&begin);
 	return 0;
