@@ -62,7 +62,7 @@ _STR_FS		=	ft_strchrl.c ft_strdupli.c ft_revstr.c ft_strafter.c ft_strbefore.c f
 
 _TIME_FS	=	ft_timefnew.c
 
-_LEXIQ_FS	=	lexiq.c lq_get_rule.c lq_node.c utils.c print_matches.c \
+_LEXIQ_FS	=	lexiq.c lq_get_rule.c lq_node.c utils.c print_matches.c quant.c 
 
 INCLUDES	=	$(addprefix $(INCLUDES_D),$(_INCLUDES))
 

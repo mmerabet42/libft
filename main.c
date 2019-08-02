@@ -12,113 +12,104 @@ int func_ex(void *arg, t_lq_eng *eng)
 int main()
 {
 	t_lq_node *bracket =
-		lq_node("g", NULL, 1, 1, NULL, NULL);
+		lq_node("g", NULL, lq_quant(1, 1), NULL, NULL);
 
 	t_lq_node *round_bracket =
-		lq_node("s", "(", 1, 1, NULL,
+		lq_node("s", "(", lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("!?", "()[]{}<>", 1, 1,
+				lq_node("!?", "()[]{}<>", lq_quant(1, 1),
 					bracket,
 				NULL),
-			0, -1, NULL,
-		lq_node("s", ")", 1, 1, NULL, NULL)));
+			lq_quant(0, -1), NULL,
+		lq_node("s", ")", lq_quant(1, 1), NULL, NULL)));
 	
 	t_lq_node *curly_bracket =
-		lq_node("s", "{", 1, 1, NULL,
+		lq_node("s", "{", lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("!?", "()[]{}<>", 1, 1,
+				lq_node("!?", "()[]{}<>", lq_quant(1, 1),
 					bracket,
 				NULL),
-			0, -1, NULL,
-		lq_node("s", "}", 1, 1, NULL, NULL)));
+			lq_quant(0, -1), NULL,
+		lq_node("s", "}", lq_quant(1, 1), NULL, NULL)));
 
 	t_lq_node *square_bracket =
-		lq_node("s", "[", 1, 1, NULL,
+		lq_node("s", "[", lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("!?", "()[]{}<>", 1, 1,
+				lq_node("!?", "()[]{}<>", lq_quant(1, 1),
 					bracket,
 				NULL),
-			0, -1, NULL,
-		lq_node("s", "]", 1, 1, NULL, NULL)));
+			lq_quant(0, -1), NULL,
+		lq_node("s", "]", lq_quant(1, 1), NULL, NULL)));
 
 	t_lq_node *pin_bracket =
-		lq_node("s", "<", 1, 1, NULL,
+		lq_node("s", "<", lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("!?", "()[]{}<>", 1, 1,
+				lq_node("!?", "()[]{}<>", lq_quant(1, 1),
 					bracket,
 				NULL),
-			0, -1, NULL,
-		lq_node("s", ">", 1, 1, NULL, NULL)));
+			lq_quant(0, -1), NULL,
+		lq_node("s", ">", lq_quant(1, 1), NULL, NULL)));
 
 	bracket->arg = round_bracket;
 	bracket->next_or =
-		lq_node("g", curly_bracket, 1, 1,
-			lq_node("g", square_bracket, 1, 1,
-				lq_node("g", pin_bracket, 1, 1,
+		lq_node("g", curly_bracket, lq_quant(1, 1),
+			lq_node("g", square_bracket, lq_quant(1, 1),
+				lq_node("g", pin_bracket, lq_quant(1, 1),
 					NULL, NULL),
 				NULL),
 			NULL);
 
 	t_lq_node *delims =
-		lq_node("^w", NULL, 1, 1, NULL,
+		lq_node("^w", NULL, lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("?", "a-zA-Z", 5, 5,
-					lq_node("?", "a-zA-Z", 2, 2, NULL, NULL),
+				lq_node("?", "a-zA-Z", lq_quant(5, 5),
+					lq_node("?", "a-zA-Z", lq_quant(2, 2), NULL, NULL),
 				NULL),
-			1, 1, NULL,
+			lq_quant(1, 1), NULL,
 		lq_node("r",
-				lq_node("$w", NULL, 1, 1, NULL, NULL),
-			1, 1, NULL, NULL)));
+				lq_node("$w", NULL, lq_quant(1, 1), NULL, NULL),
+			lq_quant(1, 1), NULL, NULL)));
 
 	"^w <[a-zA-Z]{5} | [a-zA-Z]{2}> $w";
 
 	t_lq_node *delimsc =
-		lq_node("^w", NULL, 1, 1, NULL,
+		lq_node("^w", NULL, lq_quant(1, 1), NULL,
 		lq_node("g",
 				lq_node("r",
-						lq_node("?", "a-zA-Z", 5, 5,
-							lq_node("?", "a-zA-Z", 2, 2, NULL, NULL),
+						lq_node("?", "a-zA-Z", lq_quant(5, 5),
+							lq_node("?", "a-zA-Z", lq_quant(2, 2), NULL, NULL),
 						NULL),
-					1, 1, NULL, NULL),
-			1, 1, NULL,
-		lq_node("$w", NULL, 1, 1, NULL, NULL)));
+					lq_quant(1, 1), NULL, NULL),
+			lq_quant(1, 1), NULL,
+		lq_node("$w", NULL, lq_quant(1, 1), NULL, NULL)));
 
 	t_lq_node *delimsb =
 		lq_node("g",
 				lq_node("g",
-					lq_node("?", "h", 1, -1, NULL, NULL),
-				1, 1, NULL, NULL),
-			1, 1, NULL,
-		lq_node("s", "hello", 1, 1, NULL, NULL));
+					lq_node("?", "h", lq_quant(1, -1), NULL, NULL),
+				lq_quant(1, 1), NULL, NULL),
+			lq_quant(1, 1), NULL,
+		lq_node("s", "hello", lq_quant(1, 1), NULL, NULL));
 	
 	t_lq_node *begin = bracket;
-
-	//	lq_node("^w", NULL, 1, 1, NULL,
+		lq_node("s", "(", lq_quant(1, 1), NULL,
 		lq_node("g",
 				lq_node("g",
-						lq_node("?", "a-z", 2, 2, NULL, NULL),
-					1, -1, NULL, NULL),
-			1, 1, NULL, NULL);
-	//	lq_node("s", "hello", 1, 1, NULL, NULL));
-
-		lq_node("s", "(", 1, 1, NULL,
-		lq_node("r",
+						lq_node("?", "a-z", lq_quant(1, -1), NULL, NULL),
+					lq_quant(1, 1), NULL,
 				lq_node("r",
-						lq_node("?", "a-z", 1, -1, NULL, NULL),
-					1, 1, NULL,
-				lq_node("r",
-						lq_node("s", ":", 1, 1, NULL,
-						lq_node("r",
-								lq_node("?", "0-9", 1, -1, NULL, NULL),
-							1, 1, NULL, NULL)),
-					1, 1, NULL,
-				lq_node("s", ";", 1, 1, NULL, NULL))),
-			1, -1, NULL,
-		lq_node("s", ")", 1, 1, NULL, NULL)));
+						lq_node("s", ":", lq_quant(1, 1), NULL,
+						lq_node("g",
+								lq_node("?", "0-9", lq_quant(1, -1), NULL, NULL),
+							lq_quant(1, 1), NULL, NULL)),
+					lq_quant(1, 1), NULL,
+				lq_node("s", ";", lq_quant(1, 1), NULL, NULL))),
+			lq_quant(1, -1), NULL,
+		lq_node("s", ")", lq_quant(1, 1), NULL, NULL)));
 
 //	char *s = "bololfihvfhello";
-	char *s = "(l({ook}o[l])l)";
-//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
+//	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
+	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
 //	char *s = "hhhhhello";
