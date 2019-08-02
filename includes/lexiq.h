@@ -15,18 +15,31 @@
 
 # define LQ_STOP (1 << 0)
 
-# define LQ_PARENT ((t_lq_node *)0x10)
+# define LQ_VAR_NUM 100
 
 typedef struct s_lq_rule t_lq_rule;
 typedef struct s_lq_match t_lq_match;
 typedef struct s_lq_match t_lq_group;
 typedef struct s_lq_list t_lq_list;
 
-typedef struct s_lq_node t_lq_node;
-struct s_lq_node
+typedef struct s_lq_quant t_lq_quant;
+struct s_lq_quant
 {
 	int min;
 	int max;
+	unsigned int min_var:1;
+	unsigned int max_var:1;
+};
+
+t_lq_quant lq_quant(int min, int max);
+t_lq_quant lq_quant0(int min, int max);
+t_lq_quant lq_quant1(int min, int max);
+t_lq_quant lq_quant2(int min, int max);
+
+typedef struct s_lq_node t_lq_node;
+struct s_lq_node
+{
+	t_lq_quant quant;
 	const t_lq_rule *rule;
 	void *arg;
 	t_lq_node *next;
@@ -36,7 +49,14 @@ struct s_lq_node
 typedef struct s_lq_eng t_lq_eng;
 struct s_lq_eng
 {
+	t_lq_node *parser_begin;
+	t_lq_node *current;
+	t_lq_eng *parent_eng;
+	t_lq_eng *prev_eng;
+	t_lq_list **groups;
+	t_lq_list *groups_head;
 	const char *str;
+	const char *str_p;
 	const char *str_begin;
 	const char *str_end;
 	int flags;
@@ -46,12 +66,7 @@ struct s_lq_eng
 	int recur;
 	int i;
 	int lookahead_ret;
-	t_lq_node *parser_begin;
-	t_lq_node *current;
-	t_lq_eng *parent_eng;
-	t_lq_eng *prev_eng;
-	t_lq_list **groups;
-	t_lq_list *groups_head;
+	int *vars;
 };
 
 typedef int(*t_lq_func)(void *arg, t_lq_eng *eng);
@@ -80,7 +95,7 @@ struct s_lq_list
 	t_lq_list *parent;
 };
 
-void ft_print_matches(t_lq_list *matches);
+void ft_print_matches(const char *str,t_lq_list *matches);
 void ft_print_matches_tree(t_lq_list *matches, int tab);
 
 void lq_printf(t_lq_eng *eng, const char *format, ...);
@@ -88,15 +103,18 @@ void lq_printf(t_lq_eng *eng, const char *format, ...);
 t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b);
 
 t_lq_node *lq_node(const char *rule, void *arg,
-				int min, int max,
+				t_lq_quant quant,
 				t_lq_node *next_or, t_lq_node *next);
 void lq_node_del(t_lq_node **lq);
+
+int get_min(t_lq_eng *eng);
+int get_max(t_lq_eng *eng);
 
 const t_lq_rule *lq_get_rule(const char *name);
 
 int lq_compile(int flags, const char *expr);
-int lq_run(int flags, t_lq_node *parser, t_lq_eng *eng);
-int lq_pos(int flags, t_lq_node *parser, t_lq_eng *eng);
+int lq_run(t_lq_node *parser, t_lq_eng *eng);
+int lq_pos(t_lq_node *parser, t_lq_eng *eng);
 
 int lexiq(int flags, ...);
 
