@@ -18,7 +18,7 @@ static const char	*g_group_colors[] = {
 	";255;165;1", ";52;224;8", ";56;142;142", ";162;59;221", ";244;63;2"
 };
 static const int	g_gc_len = sizeof(g_group_colors) / sizeof(char *);
-
+/*
 static void inner_print_matches(const char *s, int len, t_lq_list *matches)
 {
 	static int i = 0;
@@ -29,7 +29,7 @@ static void inner_print_matches(const char *s, int len, t_lq_list *matches)
 	{
 		if (matches->match->str > s)
 			ft_printf("%.*s", (int)(matches->match->str - s), s + current_pos);
-		current_pos = matches->match->str + matches->match->len;
+		current_pos = matches->match->pos + matches->match->len;
 		inner_print_matches(matches->match->str, matches->match->len, matches->match->groups);
 		if (current_pos < len)
 			ft_printf("%.*s")
@@ -40,8 +40,8 @@ void ft_print_matches(t_lq_list *matches)
 {
 	inner_print_matches(matches->match->str_begin, ft_strlen(matches->match->str_begin), matches);
 }
+*/
 
-/*
 static void	ft_print_groups(struct s_lq_match *m, t_lq_list *group,
 					const char *def)
 {
@@ -71,9 +71,8 @@ static void	ft_print_groups(struct s_lq_match *m, t_lq_list *group,
 	i = (def ? 0 : i);
 }
 
-void		ft_print_matches(const char *str, t_lq_list *matches, int print_id)
+void		ft_print_matches(const char *str, t_lq_list *matches)
 {
-	(void)print_id;
 	int				i;
 	int				n;
 	const char		*color;
@@ -89,8 +88,6 @@ void		ft_print_matches(const char *str, t_lq_list *matches, int print_id)
 		color = (n ? "lcyan" : "lblue");
 		ft_printf("%#{black}%{white}%.*s%{0}", m->pos - i, str + i);
 		ft_print_groups(m, m->groups, color);
-//		if (print_id)
-//			ft_printf("%#{lred}%{black}%d%{0}", m->id);
 		n = !n;
 		i = m->pos + m->len;
 		if (!(matches = matches->next))
@@ -98,7 +95,7 @@ void		ft_print_matches(const char *str, t_lq_list *matches, int print_id)
 	}
 	ft_printf("%#{magenta}}%{0}\n");
 }
-*/
+
 void		ft_print_matches_tree(t_lq_list *matches, int tab)
 {
 	t_lq_match	*mch;

@@ -89,7 +89,7 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	eng->lookahead_ret = 0;
 	if (!arg)
 		arg = eng->parser_begin;
-	ret = lq_run(eng->flags, arg, &eng2);
+	ret = lq_run(arg, &eng2);
 	if (ret <= -1)
 		return ret;
 	else if (eng->lookahead_ret <= -1)
@@ -126,7 +126,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	eng->lookahead_ret = 0;
 	if (!arg)
 		arg = eng->parser_begin;
-	ret = lq_run(eng->flags, arg, &eng2);
+	ret = lq_run(arg, &eng2);
 	eng->len_ptr = NULL;
 	if (ret <= -1 || eng->lookahead_ret <= -1)
 	{
@@ -155,8 +155,11 @@ static int lq_rule_not(void *arg, t_lq_eng *eng)
 	{
 		if (*eng->str && lq_rule_any((const char *)arg, eng) < 0)
 			return 1;
+		return -1;
 	}
-	else if (lq_run(LQ_RUN | LQ_END, (t_lq_node *)arg, lq_eng_copy(&eng2, eng)) == -1)
+	lq_eng_copy(&eng2, eng);
+	eng2.flags |= LQ_END;
+	if (lq_run((t_lq_node *)arg, lq_eng_copy(&eng2, eng)) == -1)
 		return 1;
 	return -1;
 }

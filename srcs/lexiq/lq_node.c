@@ -4,14 +4,15 @@
 #include <stdio.h>
 
 t_lq_node *lq_node(const char *rule, void *arg,
-				int min, int max,
+				t_lq_quant quant,
 				t_lq_node *next_or, t_lq_node *next)
 {
 	t_lq_node *lq = (t_lq_node *)malloc(sizeof(t_lq_node));
 	if (!lq)
 		return NULL;
-	lq->min = (min > max && max != -1 ? max : min);
-	lq->max = (min > max && max != -1 ? min : max);
+//	lq->min = (min > max && max != -1 ? max : min);
+//	lq->max = (min > max && max != -1 ? min : max);
+	lq->quant = quant;
 	lq->rule = lq_get_rule(rule);
 	lq->arg = arg;
 	lq->next = next;
@@ -29,4 +30,22 @@ void lq_node_del(t_lq_node **lq)
 	*lq = NULL;
 	lq_node_del(&next);
 	lq_node_del(&next_or);
+}
+
+int get_min(t_lq_eng *eng)
+{
+	if (!eng->current->quant.min_var)
+		return eng->current->quant.min;
+	if (eng->current->quant.min < LQ_VAR_NUM)
+		return eng->vars[eng->current->quant.min];
+	return 0;
+}
+
+int get_max(t_lq_eng *eng)
+{
+	if (!eng->current->quant.max_var)
+		return eng->current->quant.max;
+	if (eng->current->quant.max < LQ_VAR_NUM)
+		return eng->vars[eng->current->quant.max];
+	return 0;
 }
