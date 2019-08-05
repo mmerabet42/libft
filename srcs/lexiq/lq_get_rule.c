@@ -15,7 +15,21 @@ static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, 0},
 	{"?", (t_lq_func)lq_rule_any, 0},
 	{"r", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r1", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r2", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r3", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r4", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r5", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r6", (t_lq_func)lq_rule_run, LQ_STOP},
+	{"r7", (t_lq_func)lq_rule_run, LQ_STOP},
 	{"g", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g1", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g2", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g3", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g4", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g5", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g6", (t_lq_func)lq_rule_group, LQ_STOP},
+	{"g7", (t_lq_func)lq_rule_group, LQ_STOP},
 	{"!", (t_lq_func)lq_rule_not, 0},
 	{"!?", (t_lq_func)lq_rule_not, 0},
 	{"func", (t_lq_func)lq_rule_func, 0},
@@ -90,6 +104,7 @@ static int lq_rule_run(t_lq_node *arg, t_lq_eng *eng)
 	if (!arg)
 		arg = eng->parser_begin;
 	ret = lq_run(arg, &eng2);
+	//lq_printf(eng, "run ret: %d %d\n", ret, eng->lookahead_ret);
 	if (ret <= -1)
 		return ret;
 	else if (eng->lookahead_ret <= -1)
@@ -127,7 +142,8 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	if (!arg)
 		arg = eng->parser_begin;
 	ret = lq_run(arg, &eng2);
-	eng->len_ptr = NULL;
+	group.len = ret;
+//	eng->len_ptr = NULL;
 	if (ret <= -1 || eng->lookahead_ret <= -1)
 	{
 		if ((*eng->groups = group_list.parent))

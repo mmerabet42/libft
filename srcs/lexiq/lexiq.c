@@ -125,8 +125,9 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 
 	lq_eng_copy(eng2, eng);
 	get_proper_eng(eng, &eng_loop, &eng_next, tret);
+//	lq_printf(eng, "eng_next: %p %p\n", eng_next, eng_loop);
 	if (!eng_next && !eng_loop)
-		return ((eng->flags & LQ_END) ? tret : -1);
+		return ((eng->flags & LQ_END) || eng->str >= eng->str_end ? tret : -1);
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
 	{
@@ -220,6 +221,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	eng->current = parser;
 	while (eng->str <= eng->str_end)
 	{
+//		lq_printf(eng, "|node: '%s' '%s'\n", parser->rule->name, eng->str);
 		if ((ret = exec_optional(eng, &eng2, &eng_next, tret)) >= 0)
 			return ret;
 		ret = parser->rule->func(parser->arg, eng);
@@ -228,7 +230,13 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		else if (ret <= -1 && (parser->next || eng_next))
 			return ret;
 		else if (ret <= -1)
+		{
+			if (eng->str < eng->str_end && !(eng->flags & LQ_END))
+				return ret;
+			if (eng->len_ptr)
+				*eng->len_ptr += tret;
 			return tret;
+		}
 		tret += ret;
 		if ((parser->rule->flags & LQ_STOP))
 			return tret;
@@ -240,8 +248,6 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 			break;
 	}
 	if (eng->i < get_min(eng))
-		return -1;
-	if ((eng->str < eng->str_end && !parser->next && !(eng->flags & LQ_END)))
 		return -1;
 	if (!parser->next)
 		return exec_lookahead2(eng, &eng2, tret);
