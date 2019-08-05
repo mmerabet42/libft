@@ -109,7 +109,19 @@ int main()
 */
 
 	t_lq_node *rule_name =
-		lq_node("?", "a-zA-Z");
+		lq_node("?", "a-zA-Z0-9_-", lq_quant(1, 1), NULL, NULL);
+
+	t_lq_node *quantifier =
+		lq_node("s", "{", lq_quant(1, 1), NULL,
+		lq_node("?", " \t", lq_quant(0, -1), NULL,
+		lq_node("g"
+				lq_node("?", "0-9", lq_quant(0, -1), NULL, NULL),
+			lq_quant(1, 1), NULL,
+		lq_node("r",
+				lq_node("s", ",", lq_quant(0, 1), NULL,
+				lq_node("g")),
+			lq_quant(0, 1), NULL, NULL))));
+	t_lq_node *begin;
 
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
