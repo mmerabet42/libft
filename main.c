@@ -11,7 +11,7 @@ int func_ex(void *arg, t_lq_eng *eng)
 
 int main()
 {
-	t_lq_node *bracket =
+/*	t_lq_node *bracket =
 		lq_node("g", NULL, lq_quant(1, 1), NULL, NULL);
 
 	t_lq_node *round_bracket =
@@ -91,7 +91,7 @@ int main()
 			lq_quant(1, 1), NULL,
 		lq_node("s", "hello", lq_quant(1, 1), NULL, NULL));
 	
-	t_lq_node *begin = bracket;
+	t_lq_node *begin = delimsb;
 		lq_node("s", "(", lq_quant(1, 1), NULL,
 		lq_node("g",
 				lq_node("g",
@@ -106,19 +106,24 @@ int main()
 				lq_node("s", ";", lq_quant(1, 1), NULL, NULL))),
 			lq_quant(1, -1), NULL,
 		lq_node("s", ")", lq_quant(1, 1), NULL, NULL)));
+*/
+
+	t_lq_node *rule_name =
+		lq_node("?", "a-zA-Z");
 
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
-	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
+//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
 //	char *s = "hhhhhello";
 //	char *s = "Hello world";
 //	char *s = "Hello      ";
+	char *s = "9*987+-1";
 	int pos = 0;
 	int false_ret = 0;
 	t_lq_list *groups = NULL;
-	int r = lexiq(LQ_RUN | LQ_POS | LQ_END | LQ_GROUPS, begin, s, &pos, &groups);
+	int r = lexiq(LQ_RUN | LQ_GROUPS, begin, s, &groups);
 	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
 	ft_print_matches_tree(groups, 0);
 //	ft_printf("original: '%s'\n", s);
