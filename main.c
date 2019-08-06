@@ -157,7 +157,9 @@ int main(int argc, char **argv)
 		NULL); 
 
 	t_lq_node *node_rule =
-		lq_node("?", "a-zA-Z0-9_-", lq_quant(1, -1), NULL,
+		lq_node("rn",
+				lq_node("?", "a-zA-Z0-9_-", lq_quant(1, -1), NULL, NULL),
+			lq_quant(1, 1), NULL,
 		lq_node("name", "RULE_NAME", lq_quant(1, 1), NULL, NULL));
 
 	t_lq_node *backslash_char =
@@ -216,13 +218,32 @@ int main(int argc, char **argv)
 		lq_node("?", "nw", lq_quant(0, 1), NULL,
 		lq_node("name", "BOUNDARY", lq_quant(1, 1), NULL, NULL)));
 
+	t_lq_node *expression =
+		lq_node("r", NULL, lq_quant(1, 1), NULL, NULL);
+
+	t_lq_node *node_parenthesis =
+		lq_node("s", "(", lq_quant(1, 1), NULL,
+		lq_node("g", expression, lq_quant(1, 1), NULL,
+		lq_node("s", ")", lq_quant(1, 1), NULL,
+		lq_node("name", "PARENTHESIS", lq_quant(1, 1), NULL, NULL))));
+
+	t_lq_node *node_capture =
+		lq_node("s", "<", lq_quant(1, 1), NULL,
+		lq_node("g", expression, lq_quant(1, 1), NULL,
+		lq_node("s", ">", lq_quant(1, 1), NULL,
+		lq_node("name", "CAPTURE", lq_quant(1, 1), NULL, NULL))));
+
 	t_lq_node *node =
 		lq_node("g",
 				lq_node("r", node_rule, lq_quant(1, 1),
 					lq_node("r", node_bracket, lq_quant(1, 1),
 						lq_node("r", node_dot, lq_quant(1, 1),
 							lq_node("r", quote, lq_quant(1, 1),
-								lq_node("r", node_boundary, lq_quant(1, 1), NULL, NULL),
+								lq_node("r", node_boundary, lq_quant(1, 1),
+									lq_node("r", node_parenthesis, lq_quant(1, 1),
+										lq_node("r", node_capture, lq_quant(1, 1), NULL, NULL),
+									NULL),
+								NULL),
 							NULL),
 						NULL),
 					NULL),
@@ -232,7 +253,7 @@ int main(int argc, char **argv)
 		lq_node("g", quantifier, lq_quant(0, 1), NULL,
 		lq_node("name", "NODE", lq_quant(1, 1), NULL, NULL))));
 
-	t_lq_node *expression =
+	expression->arg =
 		lq_node("r",
 				lq_node("?", " \t", lq_quant(0, -1), NULL,
 				lq_node("g", node, lq_quant(1, 1), NULL,
@@ -245,7 +266,7 @@ int main(int argc, char **argv)
 			lq_quant(0, -1), NULL,
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
 
-	t_lq_node *begin =// lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
+	t_lq_node *begin = lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
 		lq_node("g",
 				lq_node("?", "a-z", lq_quant(0, -1), NULL, NULL),
 			lq_quant(1, 1), NULL,

@@ -66,6 +66,19 @@ int get_proper_eng(t_lq_eng *it_eng, t_lq_eng **eng_loop, t_lq_eng **eng_next, i
 	return (it_eng ? 1 : 0);
 }
 
+void proper_copy(t_lq_eng *a, t_lq_eng *b, int increment_i)
+{
+	if ((a->parent_eng = b->parent_eng))
+	{
+		a->len_ptr = b->parent_eng->len_ptr;
+		a->current_group = b->parent_eng->current_group;
+	}
+	a->groups = b->groups;
+	a->groups_head = b->groups_head;
+	if (increment_i)
+		a->i = b->i + 1;
+}
+
 int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret)
 {
 	t_lq_eng *eng_loop;
@@ -79,14 +92,7 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!*eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
 	{
-		if ((eng2->parent_eng = eng_loop->parent_eng))
-		{
-			eng2->len_ptr = eng2->parent_eng->len_ptr;
-			eng2->current_group = eng2->parent_eng->current_group;
-		}
-		eng2->groups = eng_loop->groups;
-		eng2->groups_head = eng_loop->groups_head;
-		eng2->i = eng_loop->i + 1;
+		proper_copy(eng2, eng_loop, 1);
 		if ((ret = lq_run(eng_loop->current, eng2)) >= 0)
 		{
 			eng_loop->lookahead_ret = ret;
@@ -95,13 +101,7 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 	}
 	else if (*eng_next)
 	{
-		if ((eng2->parent_eng = (*eng_next)->parent_eng))
-		{
-			eng2->len_ptr = eng2->parent_eng->len_ptr;
-			eng2->current_group = eng2->parent_eng->current_group;
-		}
-		eng2->groups = (*eng_next)->groups;
-		eng2->groups_head = (*eng_next)->groups_head;
+		proper_copy(eng2, *eng_next, 0);
 		if ((ret = lq_run((*eng_next)->current->next, eng2)) >= 0)
 		{
 			(*eng_next)->lookahead_ret = ret;
@@ -109,14 +109,7 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 		}
 		else if (eng_loop && eng_loop->i + 1 >= get_min(eng_loop))
 		{
-			if ((eng2->parent_eng = eng_loop->parent_eng))
-			{
-				eng2->len_ptr = eng2->parent_eng->len_ptr;
-				eng2->current_group = eng2->parent_eng->current_group;
-			}
-			eng2->groups = eng_loop->groups;
-			eng2->groups_head = eng_loop->groups_head;
-			eng2->i = eng_loop->i + 1;
+			proper_copy(eng2, eng_loop, 1);
 			if ((ret = lq_run(eng_loop->current, eng2)) >= 0)
 			{
 				eng_loop->lookahead_ret = ret;
@@ -138,43 +131,22 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	eng2->len_ptr = NULL;
 	eng2->current_group = NULL;	
 	get_proper_eng(eng, &eng_loop, &eng_next, tret);
-//	lq_printf(eng, "eng_next: %p %p\n", eng_next, eng_loop);
 	if (!eng_next && !eng_loop)
 		return ((eng->flags & LQ_END) || eng->str >= eng->str_end ? tret : -1);
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
 	{
-		if ((eng2->parent_eng = eng_loop->parent_eng))
-		{
-			eng2->len_ptr = eng2->parent_eng->len_ptr;
-			eng2->current_group = eng2->parent_eng->current_group;
-		}
-		eng2->groups = eng_loop->groups;
-		eng2->groups_head = eng_loop->groups_head;
-		eng2->i = eng_loop->i + 1;
+		proper_copy(eng2, eng_loop, 1);
 		eng_loop->lookahead_ret = lq_run(eng_loop->current, eng2);
 	}
 	else if (eng_next)
 	{
-		if ((eng2->parent_eng = eng_next->parent_eng))
-		{
-			eng2->len_ptr = eng2->parent_eng->len_ptr;
-			eng2->current_group = eng2->parent_eng->current_group;
-		}
-		eng2->groups = eng_next->groups;
-		eng2->groups_head = eng_next->groups_head;
+		proper_copy(eng2, eng_next, 0);
 		if ((ret = lq_run(eng_next->current->next, eng2)) >= 0)
 			eng_next->lookahead_ret = ret;
 		else if (eng_loop && eng_loop->i + 1 >= get_min(eng_loop))
 		{
-			if ((eng2->parent_eng = eng_loop->parent_eng))
-			{
-				eng2->len_ptr = eng2->parent_eng->len_ptr;
-				eng2->current_group = eng2->parent_eng->current_group;
-			}
-			eng2->groups = eng_loop->groups;
-			eng2->groups_head = eng_loop->groups_head;
-			eng2->i = eng_loop->i + 1;
+			proper_copy(eng2, eng_loop, 1);
 			if ((ret = lq_run(eng_loop->current, eng2)) <= -1)
 			{
 				subtract_tret(eng, tret);
