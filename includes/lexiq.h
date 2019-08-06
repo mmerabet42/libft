@@ -55,6 +55,7 @@ struct s_lq_eng
 	t_lq_eng *prev_eng;
 	t_lq_list **groups;
 	t_lq_list *groups_head;
+	t_lq_group *current_group;
 	const char *str;
 	const char *str_p;
 	const char *str_begin;
@@ -84,6 +85,7 @@ struct s_lq_match
 	const char *str;
 	int pos;
 	int len;
+	const char *name;
 	t_lq_list *groups;
 };
 
