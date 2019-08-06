@@ -20,6 +20,7 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->groups = b->groups;
 	a->lookahead_ret = 0;
 	a->len_ptr = b->len_ptr;
+	a->current_group = b->current_group;
 	return a;
 }
 

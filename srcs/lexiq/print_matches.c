@@ -104,7 +104,7 @@ void		ft_print_matches_tree(t_lq_list *matches, int tab)
 	{
 		mch = matches->match;
 		ft_printf("%?*\t%#{white}%{black}<<<<%{0} ", tab);
-		ft_printf("pos(%d) len(%d) ", mch->pos, mch->len);
+		ft_printf("pos(%d) len(%d) name(%s) ", mch->pos, mch->len, mch->name);
 		ft_printf("'%.*s'\n\n", mch->len, mch->str);
 		ft_print_matches_tree(mch->groups, tab + 1);
 		matches = matches->next;

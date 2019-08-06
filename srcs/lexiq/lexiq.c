@@ -73,12 +73,17 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 
 	eng_loop = NULL;
 	lq_eng_copy(eng2, eng);
+	eng2->len_ptr = NULL;
+	eng2->current_group = NULL;
 	get_proper_eng(eng, &eng_loop, eng_next, tret);
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!*eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
 	{
-		eng2->parent_eng = eng_loop->parent_eng;
-		eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+		if ((eng2->parent_eng = eng_loop->parent_eng))
+		{
+			eng2->len_ptr = eng2->parent_eng->len_ptr;
+			eng2->current_group = eng2->parent_eng->current_group;
+		}
 		eng2->groups = eng_loop->groups;
 		eng2->groups_head = eng_loop->groups_head;
 		eng2->i = eng_loop->i + 1;
@@ -90,8 +95,11 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 	}
 	else if (*eng_next)
 	{
-		eng2->parent_eng = (*eng_next)->parent_eng;
-		eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+		if ((eng2->parent_eng = (*eng_next)->parent_eng))
+		{
+			eng2->len_ptr = eng2->parent_eng->len_ptr;
+			eng2->current_group = eng2->parent_eng->current_group;
+		}
 		eng2->groups = (*eng_next)->groups;
 		eng2->groups_head = (*eng_next)->groups_head;
 		if ((ret = lq_run((*eng_next)->current->next, eng2)) >= 0)
@@ -101,8 +109,11 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 		}
 		else if (eng_loop && eng_loop->i + 1 >= get_min(eng_loop))
 		{
-			eng2->parent_eng = eng_loop->parent_eng;
-			eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+			if ((eng2->parent_eng = eng_loop->parent_eng))
+			{
+				eng2->len_ptr = eng2->parent_eng->len_ptr;
+				eng2->current_group = eng2->parent_eng->current_group;
+			}
 			eng2->groups = eng_loop->groups;
 			eng2->groups_head = eng_loop->groups_head;
 			eng2->i = eng_loop->i + 1;
@@ -124,6 +135,8 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	t_lq_eng *eng_loop;
 
 	lq_eng_copy(eng2, eng);
+	eng2->len_ptr = NULL;
+	eng2->current_group = NULL;	
 	get_proper_eng(eng, &eng_loop, &eng_next, tret);
 //	lq_printf(eng, "eng_next: %p %p\n", eng_next, eng_loop);
 	if (!eng_next && !eng_loop)
@@ -131,8 +144,11 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
 	{
-		eng2->parent_eng = eng_loop->parent_eng;
-		eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+		if ((eng2->parent_eng = eng_loop->parent_eng))
+		{
+			eng2->len_ptr = eng2->parent_eng->len_ptr;
+			eng2->current_group = eng2->parent_eng->current_group;
+		}
 		eng2->groups = eng_loop->groups;
 		eng2->groups_head = eng_loop->groups_head;
 		eng2->i = eng_loop->i + 1;
@@ -140,16 +156,22 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	}
 	else if (eng_next)
 	{
-		eng2->parent_eng = eng_next->parent_eng;
-		eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+		if ((eng2->parent_eng = eng_next->parent_eng))
+		{
+			eng2->len_ptr = eng2->parent_eng->len_ptr;
+			eng2->current_group = eng2->parent_eng->current_group;
+		}
 		eng2->groups = eng_next->groups;
 		eng2->groups_head = eng_next->groups_head;
 		if ((ret = lq_run(eng_next->current->next, eng2)) >= 0)
 			eng_next->lookahead_ret = ret;
 		else if (eng_loop && eng_loop->i + 1 >= get_min(eng_loop))
 		{
-			eng2->parent_eng = eng_loop->parent_eng;
-			eng2->len_ptr = (eng2->parent_eng ? eng2->parent_eng->len_ptr : NULL);
+			if ((eng2->parent_eng = eng_loop->parent_eng))
+			{
+				eng2->len_ptr = eng2->parent_eng->len_ptr;
+				eng2->current_group = eng2->parent_eng->current_group;
+			}
 			eng2->groups = eng_loop->groups;
 			eng2->groups_head = eng_loop->groups_head;
 			eng2->i = eng_loop->i + 1;
@@ -223,37 +245,35 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	{
 //		lq_printf(eng, "|node: '%s' '%s'\n", parser->rule->name, eng->str);
 		if ((ret = exec_optional(eng, &eng2, &eng_next, tret)) >= 0)
-			return ret;
+			return (ret);
 		ret = parser->rule->func(parser->arg, eng);
 		if (ret <= -1 && eng->i < get_min(eng))
-			return exec_or(eng, &eng2, ret);
+			return (exec_or(eng, &eng2, ret));
 		else if (ret <= -1 && (parser->next || eng_next))
-			return ret;
+			return (ret);
 		else if (ret <= -1)
 		{
 			if (eng->str < eng->str_end && !(eng->flags & LQ_END))
-				return ret;
+				return (ret);
 			if (eng->len_ptr)
 				*eng->len_ptr += tret;
-			return tret;
+			return (tret);
 		}
 		tret += ret;
 		if ((parser->rule->flags & LQ_STOP))
-			return tret;
+			return (tret);
 		++eng->i;
 		if (eng->str >= eng->str_end)
-			break;
+			break ;
 		eng->str += ret;
 		if (eng->i >= get_max(eng) && get_max(eng) != -1)
-			break;
+			break ;
 	}
 	if (eng->i < get_min(eng))
-		return -1;
+		return (-1);
 	if (!parser->next)
-		return exec_lookahead2(eng, &eng2, tret);
-	else if ((ret = exec_next(eng, &eng2, tret)) >= 0)
-			return ret;
-	return ret;
+		return (exec_lookahead2(eng, &eng2, tret));
+	return (exec_next(eng, &eng2, tret));
 }
 
 int lq_pos(t_lq_node *parser, t_lq_eng *eng)
