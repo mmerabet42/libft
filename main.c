@@ -89,13 +89,13 @@ int main(int argc, char **argv)
 
 	t_lq_node *delimsb =
 		lq_node("g",
-				lq_node("g",
+				lq_node("g1",
 					lq_node("?", "h", lq_quant(1, -1), NULL, NULL),
 				lq_quant(1, 1), NULL, NULL),
 			lq_quant(1, 1), NULL,
 		lq_node("s", "hello", lq_quant(1, 1), NULL, NULL));
 	
-	t_lq_node *begin = bracket;
+	t_lq_node *begin =// bracket;
 		lq_node("s", "(", lq_quant(1, 1), NULL,
 		lq_node("g",
 				lq_node("g",
@@ -157,10 +157,8 @@ int main(int argc, char **argv)
 		NULL); 
 
 	t_lq_node *node_rule =
-		lq_node("rn",
-				lq_node("?", "a-zA-Z0-9_-", lq_quant(1, -1), NULL, NULL),
-			lq_quant(1, 1), NULL,
-		lq_node("name", "RULE_NAME", lq_quant(1, 1), NULL, NULL));
+		lq_node("?", "a-zA-Z0-9_-", lq_quant(1, -1), NULL,
+		lq_node("name", "RULE_NAME", lq_quant(1, 1), NULL, NULL);
 
 	t_lq_node *backslash_char =
 		lq_node("s", "\\", lq_quant(1, 1), NULL,
@@ -234,6 +232,7 @@ int main(int argc, char **argv)
 		lq_node("name", "CAPTURE", lq_quant(1, 1), NULL, NULL))));
 
 	t_lq_node *node =
+	/*	lq_node("name", "NODE", lq_quant(1, 1), NULL,*/
 		lq_node("g",
 				lq_node("r", node_rule, lq_quant(1, 1),
 					lq_node("r", node_bracket, lq_quant(1, 1),
@@ -267,20 +266,14 @@ int main(int argc, char **argv)
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
 
 	t_lq_node *begin = lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
-		lq_node("g",
-				lq_node("?", "a-z", lq_quant(0, -1), NULL, NULL),
-			lq_quant(1, 1), NULL,
-		lq_node("g",
-				lq_node("?", "a-z", lq_quant(0, -1), NULL, NULL),
-			lq_quant(1, 1), NULL, NULL));
+
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
+//	char *s = "()";
 //	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
 //	char *s = "(ab:78;vv:89945;)";
 //	char *s = " -Helloo--ab";
 //	char *s = "hhhhhello";
-//	char *s = "Hello world";
-//	char *s = "Hello      ";
 	char *s = argv[1];
 	int pos = 0;
 	int false_ret = 0;
@@ -293,3 +286,5 @@ int main(int argc, char **argv)
 //	lq_node_del(&begin);
 	return 0;
 }
+/*
+*/
