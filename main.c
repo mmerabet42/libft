@@ -158,7 +158,7 @@ int main(int argc, char **argv)
 
 	t_lq_node *node_rule =
 		lq_node("?", "a-zA-Z0-9_-", lq_quant(1, -1), NULL,
-		lq_node("name", "RULE_NAME", lq_quant(1, 1), NULL, NULL);
+		lq_node("name", "RULE", lq_quant(1, 1), NULL, NULL));
 
 	t_lq_node *backslash_char =
 		lq_node("s", "\\", lq_quant(1, 1), NULL,
@@ -170,12 +170,14 @@ int main(int argc, char **argv)
 		lq_node("r",
 				lq_node("g", backslash_char, lq_quant(1, 1),
 					lq_node("g",
-							lq_node("!?", "'", lq_quant(1, 1), NULL,
+							lq_node("!?", "'\\", lq_quant(1, -1), NULL,
 							lq_node("name", "CHAR", lq_quant(1, 1), NULL, NULL)),
 						lq_quant(1, 1), NULL, NULL),
 				NULL),
 			lq_quant(0, -1), NULL,
-		lq_node("s", "'", lq_quant(1, 1), NULL,
+		lq_node("s", "'", lq_quant(1, 1), NULL,/*
+			lq_node("?", "", lq_quant(0, -1), NULL,
+			lq_node("name", "UNKNOWN_QUOTE", lq_quant(1, 1), NULL, NULL)),*/
 		lq_node("name", "QUOTE", lq_quant(1, 1), NULL, NULL))));
 
 	t_lq_node *inner_bracket =
@@ -232,7 +234,6 @@ int main(int argc, char **argv)
 		lq_node("name", "CAPTURE", lq_quant(1, 1), NULL, NULL))));
 
 	t_lq_node *node =
-	/*	lq_node("name", "NODE", lq_quant(1, 1), NULL,*/
 		lq_node("g",
 				lq_node("r", node_rule, lq_quant(1, 1),
 					lq_node("r", node_bracket, lq_quant(1, 1),
@@ -251,11 +252,16 @@ int main(int argc, char **argv)
 		lq_node("?", " \t", lq_quant(0, -1), NULL,
 		lq_node("g", quantifier, lq_quant(0, 1), NULL,
 		lq_node("name", "NODE", lq_quant(1, 1), NULL, NULL))));
-
+	
 	expression->arg =
 		lq_node("r",
 				lq_node("?", " \t", lq_quant(0, -1), NULL,
-				lq_node("g", node, lq_quant(1, 1), NULL,
+				lq_node("g",
+						lq_node("r", node, lq_quant(1, 1),
+							lq_node("?", "", lq_quant(1, -1), NULL,
+							lq_node("name", "UNKNOWN_TOKEN", lq_quant(1, 1), NULL, NULL)),
+						NULL),
+					lq_quant(1, 1), NULL,
 				lq_node("?", " \t", lq_quant(0, -1), NULL,
 				lq_node("g",
 						lq_node("s", "|", lq_quant(1, 1), NULL,
@@ -265,7 +271,15 @@ int main(int argc, char **argv)
 			lq_quant(0, -1), NULL,
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
 
-	t_lq_node *begin = lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
+	lexiq(LQ_ADD, "rule", lq_node("?", "a-z", lq_quant(1, -1), NULL, NULL));
+
+	t_lq_node *begin =// lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
+		lq_node("g",
+				lq_node("rule", NULL, lq_quant(1, -1), NULL, NULL),
+			lq_quant(1, 1), NULL,
+		lq_node("g",
+				lq_node("?", "a-z", lq_quant(1, -1), NULL, NULL),
+			lq_quant(1, 1), NULL, NULL));
 
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
