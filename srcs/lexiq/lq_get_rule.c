@@ -14,36 +14,22 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_name(const char *name, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
-	{"s", (t_lq_func)lq_rule_string, 0},
-	{"?", (t_lq_func)lq_rule_any, 0},
-	{"r", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r1", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r2", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r3", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r4", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r5", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r6", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"r7", (t_lq_func)lq_rule_run, LQ_STOP},
-	{"rn", (t_lq_func)lq_rule_runn, 0},
-	{"g", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g1", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g2", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g3", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g4", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g5", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g6", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"g7", (t_lq_func)lq_rule_group, LQ_STOP},
-	{"!", (t_lq_func)lq_rule_not, 0},
-	{"!?", (t_lq_func)lq_rule_not, 0},
-	{"func", (t_lq_func)lq_rule_func, 0},
-	{"name", (t_lq_func)lq_rule_name, 0},
+	{"s", (t_lq_func)lq_rule_string, NULL, 0},
+	{"?", (t_lq_func)lq_rule_any, NULL, 0},
+	{"r", (t_lq_func)lq_rule_run, NULL, LQ_STOP},
+	{"rn", (t_lq_func)lq_rule_runn, NULL, 0},
+	{"g", (t_lq_func)lq_rule_group, NULL, LQ_STOP},
+	{"!", (t_lq_func)lq_rule_not, NULL, 0},
+	{"!?", (t_lq_func)lq_rule_not, NULL, 0},
+	{"func", (t_lq_func)lq_rule_func, NULL, 0},
+	{"name", (t_lq_func)lq_rule_name, NULL, 0},
 
-	{"^", (t_lq_func)lq_rule_delim, 0},
-	{"$", (t_lq_func)lq_rule_delim, 0},
-	{"^n", (t_lq_func)lq_rule_delim, 0},
-	{"$n", (t_lq_func)lq_rule_delim, 0},
-	{"^w", (t_lq_func)lq_rule_delim, 0},
-	{"$w", (t_lq_func)lq_rule_delim, 0},
+	{"^", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"$", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"^n", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"$n", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"^w", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"$w", (t_lq_func)lq_rule_delim, NULL, 0},
 };
 static const size_t g_builtin_rules_len = (sizeof(g_builtin_rules) / sizeof(g_builtin_rules[0]));
 
@@ -55,10 +41,10 @@ const t_lq_rule *lq_get_rule(const char *name)
 	while (i < g_builtin_rules_len)
 	{
 		if (!ft_strcmp(name, g_builtin_rules[i].name))
-			return &g_builtin_rules[i];
+			return (&g_builtin_rules[i]);
 		++i;
 	}
-	return NULL;
+	return (lq_get_rule2(name));
 }
 
 static int lq_rule_string(const char *arg, t_lq_eng *eng)
@@ -157,6 +143,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	group.pos = (int)(eng->str - eng->str_begin);
 	group.groups = NULL;
 	group.name = NULL;
+	group.rule_name = NULL;
 	group.len = 0;
 	eng->len_ptr = &group.len;
 	eng->current_group = &group;

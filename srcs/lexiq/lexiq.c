@@ -213,17 +213,22 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 
 	ret = 0;	
 	eng->current = parser;
-//	lq_printf(eng, "|node: '%s' '%s'", parser->rule->name, eng->str);
-//	if (parser->rule->name[0] == 's' || parser->rule->name[0] == '?')
-//		ft_printf(" '%s'", parser->arg);
-//	ft_printf("\n"); 
 	if (eng->i >= get_max(eng) && get_max(eng) != -1)
 	{
 		if (!parser->next)
 			return (exec_lookahead2(eng, &eng2, 0));
 		return (exec_next(eng, &eng2, 0));		
 	}
-	ret = parser->rule->func(parser->arg, eng);
+	if (eng->current_group && (parser->rule->flags & LQ_SAVE_RULE_NAME))
+		eng->current_group->rule_name = parser->rule->name;
+	if (parser->rule->func)
+		ret = parser->rule->func(parser->arg, eng);
+	else if (parser->rule->parser)
+	{
+		lq_eng_copy(&eng2, eng);
+		eng2.parent_eng = eng;
+		ret = lq_run(parser->rule->parser, &eng2);
+	}
 	if (ret <= -1 && eng->i < get_min(eng))
 		return (exec_or(eng, &eng2, ret));
 	else if (ret <= -1)
@@ -250,6 +255,20 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	eng->str += ret;
 	if (eng->len_ptr)
 		*eng->len_ptr += ret;
+	if (eng->i >= get_max(eng) && get_max(eng) != -1)
+	{
+		if (!parser->next)
+			ret2 = exec_lookahead2(eng, &eng2, 0);
+		else
+			ret2 = exec_next(eng, &eng2, 0);		
+		if (ret2 <= -1)
+		{
+			eng->str -= ret;
+			if (eng->len_ptr)
+				*eng->len_ptr -= ret;
+		}
+		return (ret2 <= -1 ? ret2 : ret + ret2);
+	}
 	if ((ret2 = lq_run(parser, eng)) >= 0)
 		return (ret + ret2);
 	if ((ret2 = exec_optional(eng, &eng2, &eng_next, 0)) >= 0)
@@ -323,40 +342,64 @@ int lq_pos(t_lq_node *parser, t_lq_eng *eng)
 	return ret;
 }
 
-int lexiq(int flags, ...)
+static int lexiq_run(int flags, va_list vp)
 {
-	va_list vp;
-	int ret;
 	t_lq_eng eng;
 	t_lq_node *parser;
 	t_lq_list *groups;
 	int vars[LQ_VAR_NUM];
 
-	va_start(vp, flags);
 	ft_bzero(&eng, sizeof(t_lq_eng));
 	ft_bzero(vars, sizeof(vars));
 	eng.flags = flags;
-	ret = -1;
-	if (flags & LQ_RUN)
+	eng.parser_begin = va_arg(vp, t_lq_node *);
+	parser = eng.parser_begin;
+	eng.str_begin = va_arg(vp, const char *);
+	eng.str = eng.str_begin;
+	eng.str_p = eng.str;
+	if (flags & LQ_STREND)
+		eng.str_end = va_arg(vp, const char *);
+	else
+		eng.str_end = eng.str + ft_strlen(eng.str);
+	if (flags & LQ_POS)
+		eng.pos = va_arg(vp, int *);
+	if (flags & LQ_GROUPS)
+		eng.groups = va_arg(vp, t_lq_list **);
+	groups = NULL;
+	if (!eng.groups)
+		eng.groups = &groups;
+	return (lq_pos(parser, &eng));
+}
+
+static int lexiq_add(int flags, va_list vp)
+{
+	const char *name;
+	t_lq_func func;
+	t_lq_node *parser;
+
+	if (!(name = va_arg(vp, const char *)))
+		return (-1);
+	if (!(flags & LQ_COMPILE))
 	{
-		eng.parser_begin = va_arg(vp, t_lq_node *);
-		parser = eng.parser_begin;
-		eng.str_begin = va_arg(vp, const char *);
-		eng.str = eng.str_begin;
-		eng.str_p = eng.str;
-		if (flags & LQ_STREND)
-			eng.str_end = va_arg(vp, const char *);
-		else
-			eng.str_end = eng.str + ft_strlen(eng.str);
-		if (flags & LQ_POS)
-			eng.pos = va_arg(vp, int *);
-		if (flags & LQ_GROUPS)
-			eng.groups = va_arg(vp, t_lq_list **);
-		groups = NULL;
-		if (!eng.groups)
-			eng.groups = &groups;
-		eng.flags &= ~LQ_POS;
-		ret = lq_pos(parser, &eng);
+		func = NULL;
+		parser = NULL;
+		if ((flags & LQ_FUNC) && !(func = va_arg(vp, t_lq_func)))
+			return (-1);
+		else if (!(flags & LQ_FUNC) && !(parser = va_arg(vp, t_lq_node *)))
+			return (-1);
+		return (lq_add(flags, name, parser, func));
 	}
-	return ret;
+	return (0);
+}
+
+int lexiq(int flags, ...)
+{
+	va_list vp;
+
+	va_start(vp, flags);
+	if (flags & LQ_RUN)
+		return (lexiq_run(flags, vp));
+	else if (flags & LQ_ADD)
+		return (lexiq_add(flags, vp));
+	return (-1);
 }

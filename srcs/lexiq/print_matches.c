@@ -23,14 +23,16 @@ static void inner_print_matches(const char *s, int len, t_lq_list *matches)
 {
 	static int i = 0;
 	int current_pos;
+	t_lq_match *mch;
 
 	current_pos = 0;
 	while (matches)
 	{
-		if (matches->match->str > s)
-			ft_printf("%.*s", (int)(matches->match->str - s), s + current_pos);
-		current_pos = matches->match->pos + matches->match->len;
-		inner_print_matches(matches->match->str, matches->match->len, matches->match->groups);
+		mch = matches->match;
+		if (mch->str > s)
+			ft_printf("%.*s", (int)(mch->str - s), s + current_pos);
+		current_pos = mch->pos + mch->len;
+		inner_print_matches(mch->str, mch->len, mch->groups);
 		if (current_pos < len)
 			ft_printf("%.*s")
 	}
@@ -104,7 +106,7 @@ void		ft_print_matches_tree(t_lq_list *matches, int tab)
 	{
 		mch = matches->match;
 		ft_printf("%?*\t%#{white}%{black}<<<<%{0} ", tab);
-		ft_printf("pos(%d) len(%d) name(%s) ", mch->pos, mch->len, mch->name);
+		ft_printf("pos(%d) len(%d) name(%s) rule(%s) ", mch->pos, mch->len, mch->name, mch->rule_name);
 		ft_printf("'%.*s'\n\n", mch->len, mch->str);
 		ft_print_matches_tree(mch->groups, tab + 1);
 		matches = matches->next;
