@@ -3,6 +3,7 @@
 
 # include <stdlib.h>
 # include "ft_printf.h"
+# include "ft_list.h"
 
 # define LQ_COMPILE (1 << 0)
 # define LQ_RUN (1 << 1)
@@ -11,9 +12,12 @@
 # define LQ_STREND (1 << 4)
 # define LQ_LOOKAHEAD (1 << 5)
 # define LQ_GROUPS (1 << 6)
+# define LQ_ADD (1 << 7)
+# define LQ_FUNC (1 << 8)
 # define LQ_FIND (LQ_RUN | LQ_POS | LQ_END)
 
 # define LQ_STOP (1 << 0)
+# define LQ_SAVE_RULE_NAME (1 << 1)
 
 # define LQ_VAR_NUM 100
 
@@ -76,8 +80,15 @@ struct s_lq_rule
 {
 	const char *name;
 	t_lq_func func;
+	t_lq_node *parser;
 	int flags;
 };
+
+typedef struct s_lq_rule_list
+{
+	t_list *head;
+	t_list *tail;
+} t_lq_rule_list;
 
 struct s_lq_match
 {
@@ -86,6 +97,7 @@ struct s_lq_match
 	int pos;
 	int len;
 	const char *name;
+	const char *rule_name;
 	t_lq_list *groups;
 };
 
@@ -113,6 +125,9 @@ int get_min(t_lq_eng *eng);
 int get_max(t_lq_eng *eng);
 
 const t_lq_rule *lq_get_rule(const char *name);
+t_lq_rule *lq_get_rule2(const char *name);
+
+int lq_add(int flags, const char *name, t_lq_node *parser, t_lq_func func);
 
 int lq_compile(int flags, const char *expr);
 int lq_run(t_lq_node *parser, t_lq_eng *eng);
