@@ -272,9 +272,48 @@ int main(int argc, char **argv)
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
 
 
+	lexiq(LQ_ADD, "ROUND_BRACKET",
+		lq_node("s", "(", lq_quant(1, 1), NULL,
+		lq_node("r",
+				lq_node("!?", "()[]{}", lq_quant(1, 1),
+					lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL),
+				NULL),
+			lq_quant(0, -1), NULL,
+		lq_node("s", ")", lq_quant(1, 1), NULL, NULL)))
+	);
+
+	lexiq(LQ_ADD, "SQUARE_BRACKET",
+		lq_node("s", "[", lq_quant(1, 1), NULL,
+		lq_node("r",
+				lq_node("!?", "()[]{}", lq_quant(1, 1),
+					lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL),
+				NULL),
+			lq_quant(0, -1), NULL,
+		lq_node("s", "]", lq_quant(1, 1), NULL, NULL)))
+	);
+
+	lexiq(LQ_ADD, "CURLY_BRACKET",
+		lq_node("s", "{", lq_quant(1, 1), NULL,
+		lq_node("r",
+				lq_node("!?", "()[]{}", lq_quant(1, 1),
+					lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL),
+				NULL),
+			lq_quant(0, -1), NULL,
+		lq_node("s", "}", lq_quant(1, 1), NULL, NULL)))
+	);
+
+	lexiq(LQ_ADD, "BRACKET",
+		lq_node("g",
+				lq_node("ROUND_BRACKET", NULL, lq_quant(1, 1),
+					lq_node("SQUARE_BRACKET",  NULL, lq_quant(1, 1),
+						lq_node("CURLY_BRACKET", NULL, lq_quant(1, 1), NULL, NULL),
+					NULL),
+				NULL),
+			lq_quant(1, 1), NULL, NULL)
+	);
+
 	t_lq_node *begin =// lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
-
-
+			lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL);
 
 
 //	char *s = "bololfihvfhello";
