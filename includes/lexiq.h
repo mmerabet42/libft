@@ -43,9 +43,10 @@ t_lq_quant lq_quant2(int min, int max);
 typedef struct s_lq_node t_lq_node;
 struct s_lq_node
 {
-	t_lq_quant quant;
+	const char *rule_name;
 	const t_lq_rule *rule;
 	void *arg;
+	t_lq_quant quant;
 	t_lq_node *next;
 	t_lq_node *next_or;
 };

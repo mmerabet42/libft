@@ -271,15 +271,11 @@ int main(int argc, char **argv)
 			lq_quant(0, -1), NULL,
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
 
-	lexiq(LQ_ADD, "rule", lq_node("?", "a-z", lq_quant(1, -1), NULL, NULL));
 
 	t_lq_node *begin =// lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
-		lq_node("g",
-				lq_node("rule", NULL, lq_quant(1, -1), NULL, NULL),
-			lq_quant(1, 1), NULL,
-		lq_node("g",
-				lq_node("?", "a-z", lq_quant(1, -1), NULL, NULL),
-			lq_quant(1, 1), NULL, NULL));
+
+
+
 
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";

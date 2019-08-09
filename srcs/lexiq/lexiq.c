@@ -211,7 +211,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	t_lq_eng eng2;
 	t_lq_eng *eng_next;
 
-	ret = 0;	
+	ret = 0;
 	eng->current = parser;
 	if (eng->i >= get_max(eng) && get_max(eng) != -1)
 	{
@@ -219,6 +219,8 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 			return (exec_lookahead2(eng, &eng2, 0));
 		return (exec_next(eng, &eng2, 0));		
 	}
+	if (!parser->rule && !(parser->rule = lq_get_rule(parser->rule_name)))
+		return (-1);
 	if (eng->current_group && (parser->rule->flags & LQ_SAVE_RULE_NAME))
 		eng->current_group->rule_name = parser->rule->name;
 	if (parser->rule->func)

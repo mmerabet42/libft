@@ -10,11 +10,10 @@ t_lq_node *lq_node(const char *rule, void *arg,
 	t_lq_node *lq = (t_lq_node *)malloc(sizeof(t_lq_node));
 	if (!lq)
 		return NULL;
-//	lq->min = (min > max && max != -1 ? max : min);
-//	lq->max = (min > max && max != -1 ? min : max);
-	lq->quant = quant;
+	lq->rule_name = rule;
 	lq->rule = lq_get_rule(rule);
 	lq->arg = arg;
+	lq->quant = quant;
 	lq->next = next;
 	lq->next_or = next_or;
 	return lq;

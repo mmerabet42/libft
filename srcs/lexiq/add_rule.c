@@ -13,11 +13,9 @@ int lq_add_rule(int flags, const char *name, t_lq_node *parser, t_lq_func func)
 	if (!(rule = (t_lq_rule *)malloc(sizeof(t_lq_rule))))
 		return (-1);
 	rule->name = name;
-	rule->func = NULL;
 	rule->func = func;
-	if ((rule->parser = parser))
-		flags |= LQ_STOP;
-	rule->flags = flags | LQ_SAVE_RULE_NAME;
+	rule->parser = parser;
+	rule->flags = flags | LQ_SAVE_RULE_NAME | (parser ? LQ_STOP : 0);
 	if (!(list = (t_list *)malloc(sizeof(t_list))))
 	{
 		free(rule);
@@ -26,8 +24,11 @@ int lq_add_rule(int flags, const char *name, t_lq_node *parser, t_lq_func func)
 	list->content = (void *)rule;
 	list->content_size = sizeof(t_lq_rule);
 	list->next = NULL;
+	list->parent = g_rule_list.tail;
 	if (!(list->parent = g_rule_list.tail))
 		g_rule_list.head = list;
+	else
+		g_rule_list.tail->next = list;
 	g_rule_list.tail = list;
 	return (0); 
 }
