@@ -20,6 +20,10 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->groups = b->groups;
 	a->lookahead_ret = 0;
 	a->len_ptr = b->len_ptr;
+	if (b->current->rule->flags & LQ_TRANSPARENT)
+		a->rule_name_ptr = b->rule_name_ptr;
+	else
+		a->rule_name_ptr = NULL;
 	a->current_group = b->current_group;
 	return a;
 }

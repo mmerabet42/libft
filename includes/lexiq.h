@@ -18,6 +18,7 @@
 
 # define LQ_STOP (1 << 0)
 # define LQ_SAVE_RULE_NAME (1 << 1)
+# define LQ_TRANSPARENT (1 << 2)
 
 # define LQ_VAR_NUM 100
 
@@ -69,6 +70,7 @@ struct s_lq_eng
 	int eng_flags;
 	int *pos;
 	int *len_ptr;
+	const char **rule_name_ptr;
 	int recur;
 	int i;
 	int lookahead_ret;

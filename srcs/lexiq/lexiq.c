@@ -223,10 +223,10 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	if (!parser->rule && !(parser->rule = lq_get_rule(parser->rule_name)))
 		return (-1);
 	tmp_rule_name = NULL;
-	if (eng->current_group && (parser->rule->flags & LQ_SAVE_RULE_NAME))
+	if (eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
 	{
-		tmp_rule_name = eng->current_group->rule_name;
-		eng->current_group->rule_name = parser->rule->name;
+		tmp_rule_name = *eng->rule_name_ptr;
+		*eng->rule_name_ptr = parser->rule->name;
 	}
 	if (parser->rule->func)
 		ret = parser->rule->func(parser->arg, eng);
@@ -236,16 +236,12 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		eng2.parent_eng = eng;
 		ret = lq_run(parser->rule->parser, &eng2);
 	}
+	if (ret <= -1 && eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
+		*eng->rule_name_ptr = tmp_rule_name;
 	if (ret <= -1 && eng->i < get_min(eng))
-	{
-		if (eng->current_group && (parser->rule->flags & LQ_SAVE_RULE_NAME))
-			eng->current_group->rule_name = tmp_rule_name;
 		return (exec_or(eng, &eng2, ret));
-	}
 	else if (ret <= -1)
 	{
-		if (eng->current_group && (parser->rule->flags & LQ_SAVE_RULE_NAME))
-			eng->current_group->rule_name = tmp_rule_name;
 		if ((ret2 = exec_optional(eng, &eng2, &eng_next, 0)) >= 0)
 			return (ret2);
 		if (parser->next || eng_next)

@@ -14,22 +14,22 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_name(const char *name, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
-	{"s", (t_lq_func)lq_rule_string, NULL, 0},
-	{"?", (t_lq_func)lq_rule_any, NULL, 0},
-	{"r", (t_lq_func)lq_rule_run, NULL, LQ_STOP},
-	{"rn", (t_lq_func)lq_rule_runn, NULL, 0},
-	{"g", (t_lq_func)lq_rule_group, NULL, LQ_STOP},
-	{"!", (t_lq_func)lq_rule_not, NULL, 0},
-	{"!?", (t_lq_func)lq_rule_not, NULL, 0},
-	{"func", (t_lq_func)lq_rule_func, NULL, 0},
-	{"name", (t_lq_func)lq_rule_name, NULL, 0},
+	{"s", (t_lq_func)lq_rule_string, NULL, LQ_TRANSPARENT},
+	{"?", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
+	{"r", (t_lq_func)lq_rule_run, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"rn", (t_lq_func)lq_rule_runn, NULL, LQ_TRANSPARENT},
+	{"g", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"!", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
+	{"!?", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
+	{"func", (t_lq_func)lq_rule_func, NULL, LQ_TRANSPARENT},
+	{"name", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
 
-	{"^", (t_lq_func)lq_rule_delim, NULL, 0},
-	{"$", (t_lq_func)lq_rule_delim, NULL, 0},
-	{"^n", (t_lq_func)lq_rule_delim, NULL, 0},
-	{"$n", (t_lq_func)lq_rule_delim, NULL, 0},
-	{"^w", (t_lq_func)lq_rule_delim, NULL, 0},
-	{"$w", (t_lq_func)lq_rule_delim, NULL, 0},
+	{"^", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"$", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"^n", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"$n", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"^w", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"$w", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
 };
 static const size_t g_builtin_rules_len = (sizeof(g_builtin_rules) / sizeof(g_builtin_rules[0]));
 
@@ -146,6 +146,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	group.rule_name = NULL;
 	group.len = 0;
 	eng->len_ptr = &group.len;
+	eng->rule_name_ptr = &group.rule_name;
 	eng->current_group = &group;
 	lq_eng_copy(&eng2, eng);
 	eng2.groups = &group.groups;
