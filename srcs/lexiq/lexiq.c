@@ -5,20 +5,25 @@
 void subtract_tret(t_lq_eng *it_eng, int tret)
 {
 	int *last_len;
+	int eng_tret;
 	t_lq_eng *eng_loop;
 	t_lq_eng *eng_next;
 
 	eng_loop = NULL;
 	eng_next = NULL;
+	eng_tret = tret;
 	if ((last_len = it_eng->len_ptr))
+	{
 		*last_len -= tret;
+		eng_tret = *last_len;
+	}
 	it_eng = it_eng->parent_eng;
 	while (it_eng && (!eng_next || !eng_loop))
 	{
 		if (it_eng->len_ptr != last_len)
 		{
 			if ((last_len = it_eng->len_ptr))
-				*it_eng->len_ptr -= tret;
+				*it_eng->len_ptr -= eng_tret;
 		}
 		if (!eng_next && !eng_loop
 				&& get_min(it_eng) != get_max(it_eng)
@@ -42,6 +47,7 @@ int get_proper_eng(t_lq_eng *it_eng, t_lq_eng **eng_loop, t_lq_eng **eng_next, i
 	eng_tret = tret;
 	if ((last_len = it_eng->len_ptr))
 	{
+		lq_printf(it_eng, "ook:\n", tret, *last_len, last_len);
 		*last_len += tret;
 		eng_tret = *last_len;
 	}
@@ -70,10 +76,13 @@ void proper_copy(t_lq_eng *a, t_lq_eng *b, int increment_i)
 {
 	a->len_ptr = NULL;
 	a->current_group = NULL;
+	a->rule_name_ptr = NULL;
 	if ((a->parent_eng = b->parent_eng))
 	{
 		a->len_ptr = b->parent_eng->len_ptr;
 		a->current_group = b->parent_eng->current_group;
+		if (b->parent_eng->current->rule->flags & LQ_TRANSPARENT)
+			a->rule_name_ptr = b->parent_eng->rule_name_ptr;
 	}
 	a->groups = b->groups;
 	a->groups_head = b->groups_head;
@@ -88,6 +97,7 @@ int exec_lookahead1(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret
 
 	eng_loop = NULL;
 	lq_eng_copy(eng2, eng);
+	lq_printf(eng, "lookahead1\n");
 	get_proper_eng(eng, &eng_loop, eng_next, tret);
 	if ((eng_loop && eng_loop->i + 1 < get_min(eng_loop))
 			|| (!*eng_next && eng_loop && eng_loop->i + 1 >= get_min(eng_loop)))
@@ -126,7 +136,10 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	int ret;
 	t_lq_eng *eng_next;
 	t_lq_eng *eng_loop;
+	t_lq_eng eng3;
+	eng2 = &eng3;
 
+	lq_printf(eng, "lookahead2\n", (eng->len_ptr ? *eng->len_ptr : -1));
 	lq_eng_copy(eng2, eng);
 	get_proper_eng(eng, &eng_loop, &eng_next, tret);
 	if (!eng_next && !eng_loop)
@@ -183,7 +196,11 @@ int exec_or(t_lq_eng *eng, t_lq_eng *eng2, int ret)
 		return ret;
 	eng->str = eng->str_p;
 	lq_eng_copy(eng2, eng);
-	return lq_run(eng->current->next_or, eng2);
+	eng2->rule_name_ptr = eng->rule_name_ptr;
+	ret = lq_run(eng->current->next_or, eng2);
+//	if (ret >= 0 && eng->len_ptr)
+//		*eng->len_ptr += ret;
+	return (ret);
 }
 
 int exec_optional(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret)
@@ -204,16 +221,42 @@ int exec_optional(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret)
 	return -1;
 }
 
+int exec_rule(t_lq_eng *eng, t_lq_eng *eng2)
+{
+	const char *tmp_rule_name;
+	int ret;
+
+	tmp_rule_name = NULL;
+	if (eng->rule_name_ptr
+			&& (eng->current->rule->flags & LQ_SAVE_RULE_NAME))
+	{
+		tmp_rule_name = *eng->rule_name_ptr;
+		*eng->rule_name_ptr = eng->current->rule->name;
+	}
+	if (eng->current->rule->func)
+		ret = eng->current->rule->func(eng->current->arg, eng);
+	else if (eng->current->rule->parser)
+	{
+		lq_eng_copy(eng2, eng);
+		eng2->parent_eng = eng;
+		ret = lq_run(eng->current->rule->parser, eng2);
+	}
+	if (ret <= -1 && eng->rule_name_ptr
+			&& (eng->current->rule->flags & LQ_SAVE_RULE_NAME))
+		*eng->rule_name_ptr = tmp_rule_name;
+	return (ret);
+}
+
 int lq_run(t_lq_node *parser, t_lq_eng *eng)
 {
 	int ret;
 	int ret2;
 	t_lq_eng eng2;
 	t_lq_eng *eng_next;
-	const char *tmp_rule_name;
 
 	ret = 0;
 	eng->current = parser;
+	lq_printf(eng, "|node: '%s' '%s'\n", parser->rule->name, eng->str, eng->len_ptr, (eng->len_ptr ? *eng->len_ptr : -1));
 	if (eng->i >= get_max(eng) && get_max(eng) != -1)
 	{
 		if (!parser->next)
@@ -222,22 +265,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	}
 	if (!parser->rule && !(parser->rule = lq_get_rule(parser->rule_name)))
 		return (-1);
-	tmp_rule_name = NULL;
-	if (eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
-	{
-		tmp_rule_name = *eng->rule_name_ptr;
-		*eng->rule_name_ptr = parser->rule->name;
-	}
-	if (parser->rule->func)
-		ret = parser->rule->func(parser->arg, eng);
-	else if (parser->rule->parser)
-	{
-		lq_eng_copy(&eng2, eng);
-		eng2.parent_eng = eng;
-		ret = lq_run(parser->rule->parser, &eng2);
-	}
-	if (ret <= -1 && eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
-		*eng->rule_name_ptr = tmp_rule_name;
+	ret = exec_rule(eng, &eng2);
 	if (ret <= -1 && eng->i < get_min(eng))
 		return (exec_or(eng, &eng2, ret));
 	else if (ret <= -1)
@@ -347,6 +375,9 @@ int lq_pos(t_lq_node *parser, t_lq_eng *eng)
 		eng->i = 0;
 		eng->str = ++str;
 		++(*eng->pos);
+		eng->len_ptr = NULL;
+		eng->current_group = NULL;
+		eng->rule_name_ptr = NULL;
 	}
 	return ret;
 }
@@ -360,6 +391,7 @@ static int lexiq_run(int flags, va_list vp)
 
 	ft_bzero(&eng, sizeof(t_lq_eng));
 	ft_bzero(vars, sizeof(vars));
+	eng.len_ptr = NULL;
 	eng.flags = flags;
 	eng.parser_begin = va_arg(vp, t_lq_node *);
 	parser = eng.parser_begin;

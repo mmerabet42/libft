@@ -155,8 +155,9 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	eng->lookahead_ret = 0;
 	if (!arg)
 		arg = eng->parser_begin;
+	lq_printf(eng, "|grouper: %p %d\n", eng->len_ptr, *eng->len_ptr);
 	ret = lq_run(arg, &eng2);
-	group.len = ret;
+//	group.len = ret;
 //	eng->len_ptr = NULL;
 	if (ret <= -1 || eng->lookahead_ret <= -1)
 	{

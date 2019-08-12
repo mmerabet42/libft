@@ -7,8 +7,9 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->i = 0;
 	a->eng_flags = 0;
 	a->str = b->str;
-	a->str_p = a->str;
+	a->str_p = b->str;
 	a->str_begin = b->str_begin;
+//	lq_printf(b, "len_ptr: '%d'\n", (b->len_ptr ? *b->len_ptr : -1));
 	a->str_end = b->str_end;
 	a->pos = b->pos;
 	a->parser_begin = b->parser_begin;
