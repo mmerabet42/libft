@@ -270,6 +270,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		return (exec_or(eng, &eng2, ret));
 	else if (ret <= -1)
 	{
+		lq_printf(eng, "optional1");
 		if ((ret2 = exec_optional(eng, &eng2, &eng_next, 0)) >= 0)
 			return (ret2);
 		if (parser->next || eng_next)
@@ -297,7 +298,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		if (!parser->next)
 			ret2 = exec_lookahead2(eng, &eng2, 0);
 		else
-			ret2 = exec_next(eng, &eng2, 0);		
+			ret2 = exec_next(eng, &eng2, 0);
 		if (ret2 <= -1)
 		{
 			eng->str -= ret;
