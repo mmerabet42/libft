@@ -349,9 +349,8 @@ int main(int argc, char **argv)
 			lq_quant(1, 1), NULL, NULL)
 	);
 
-
-	t_lq_node *begin = lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
-	//		lq_node("EXPRESSION", NULL, lq_quant(1, 1), NULL, NULL);
+	t_lq_node *begin =// lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
+			lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL);
 	/*	lq_node("g",
 				lq_node("g",
 						lq_node("g",
