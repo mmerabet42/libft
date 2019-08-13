@@ -12,6 +12,7 @@ static int lq_rule_func(t_lq_func func, t_lq_eng *eng);
 static int lq_rule_delim(void *arg, t_lq_eng *eng);
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_name(const char *name, t_lq_eng *eng);
+static int lq_rule_backreference_name(const char *name, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, NULL, LQ_TRANSPARENT},
@@ -23,6 +24,7 @@ static const t_lq_rule g_builtin_rules[] = {
 	{"!?", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
 	{"func", (t_lq_func)lq_rule_func, NULL, LQ_TRANSPARENT},
 	{"name", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
+	{"bn", (t_lq_func)lq_rule_backreference_name, NULL, LQ_TRANSPARENT},
 
 	{"^", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
 	{"$", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
@@ -155,7 +157,6 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	eng->lookahead_ret = 0;
 	if (!arg)
 		arg = eng->parser_begin;
-	lq_printf(eng, "|grouper: %p %d\n", eng->len_ptr, *eng->len_ptr);
 	ret = lq_run(arg, &eng2);
 //	group.len = ret;
 //	eng->len_ptr = NULL;
@@ -245,4 +246,10 @@ static int lq_rule_name(const char *name, t_lq_eng *eng)
 	if (eng->current_group)
 		eng->current_group->name = name;
 	return 0;
+}
+
+static int lq_rule_backreference_name(const char *name, t_lq_eng *eng)
+{
+	(void)name; (void)eng;	
+	return (0);
 }

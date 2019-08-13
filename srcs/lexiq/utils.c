@@ -7,9 +7,8 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->i = 0;
 	a->eng_flags = 0;
 	a->str = b->str;
-	a->str_p = b->str;
+	a->str_p = a->str;
 	a->str_begin = b->str_begin;
-	lq_printf(b, "len_ptr: '%d'\n", (b->len_ptr ? *b->len_ptr : -1));
 	a->str_end = b->str_end;
 	a->pos = b->pos;
 	a->parser_begin = b->parser_begin;
@@ -19,6 +18,7 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->parent_eng = b->parent_eng;
 	a->groups_head = b->groups_head;
 	a->groups = b->groups;
+	a->master_groups_head = b->master_groups_head;
 	a->lookahead_ret = 0;
 	a->len_ptr = b->len_ptr;
 	if (b->current->rule->flags & LQ_TRANSPARENT)
