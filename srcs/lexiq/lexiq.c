@@ -381,7 +381,7 @@ static int lexiq_run(int flags, va_list vp)
 	groups = NULL;
 	if (!eng.groups)
 		eng.groups = &groups;
-	eng.master_groups_head = &eng.groups;
+	eng.master_groups_head = &eng.groups_head;
 	return (lq_pos(parser, &eng));
 }
 
