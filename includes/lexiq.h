@@ -61,6 +61,7 @@ struct s_lq_eng
 	t_lq_eng *prev_eng;
 	t_lq_list **groups;
 	t_lq_list *groups_head;
+	t_lq_list **master_groups_head;
 	t_lq_group *current_group;
 	const char *str;
 	const char *str_p;
