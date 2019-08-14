@@ -312,13 +312,14 @@ int main(int argc, char **argv)
 	);
 
 	t_lq_node *begin =
-//			lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
-			lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL);
+			lq_node("g", expression, lq_quant(1, 1), NULL, NULL);
+//			lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL);
 		lq_node("g",
 				lq_node("?", "", lq_quant(1, -1), NULL,
 				lq_node("name", "HELLO", lq_quant(1, 1), NULL, NULL)),
 			lq_quant(1, 1), NULL,
-		lq_node("bn", "HELLO", lq_quant(1, 1), NULL, NULL)); 
+		lq_node("s", " - ", lq_quant(1, 1), NULL,
+		lq_node("bn", "HELLO", lq_quant(1, 1), NULL, NULL))); 
 
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
