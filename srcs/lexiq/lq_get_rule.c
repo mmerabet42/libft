@@ -12,7 +12,7 @@ static int lq_rule_func(t_lq_func func, t_lq_eng *eng);
 static int lq_rule_delim(void *arg, t_lq_eng *eng);
 static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
 static int lq_rule_name(const char *name, t_lq_eng *eng);
-static int lq_rule_backreference_name(const char *name, t_lq_eng *eng);
+int lq_rule_backreference_name(const char *name, t_lq_eng *eng);
 
 static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, NULL, LQ_TRANSPARENT},
@@ -158,7 +158,7 @@ static int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	if (!arg)
 		arg = eng->parser_begin;
 	ret = lq_run(arg, &eng2);
-//	group.len = ret;
+	group.len = ret;
 //	eng->len_ptr = NULL;
 	if (ret <= -1 || eng->lookahead_ret <= -1)
 	{
@@ -248,8 +248,42 @@ static int lq_rule_name(const char *name, t_lq_eng *eng)
 	return 0;
 }
 
-static int lq_rule_backreference_name(const char *name, t_lq_eng *eng)
+static int search_group_name(const char *name, t_lq_group *grp, t_lq_eng *eng)
 {
-	(void)name; (void)eng;	
-	return (0);
+	t_lq_list *it;
+	int ret;
+	int i;
+
+	if (!ft_strcmp(name, grp->name))
+	{
+		i = 0;
+		while (i < grp->len && (eng->str + i) < eng->str_end
+				&& eng->str[i] == grp->str[i])
+			++i;
+		if (i == grp->len)	
+			return (grp->len);
+	}
+	it = grp->groups;
+	while (it)
+	{
+		if ((ret = search_group_name(name, it->match, eng)) >= 0)
+			return (ret);
+		it = it->next;
+	}
+	return (-1);
+}
+
+int lq_rule_backreference_name(const char *name, t_lq_eng *eng)
+{
+	t_lq_list *it;
+	int ret;
+
+	it = *eng->master_groups_head;
+	while (it)
+	{
+		if ((ret = search_group_name(name, it->match, eng)))
+			return (ret);
+		it = it->next;
+	}
+	return (-1);
 }

@@ -75,7 +75,7 @@ void proper_copy(t_lq_eng *a, t_lq_eng *b, int increment_i)
 	{
 		a->len_ptr = b->parent_eng->len_ptr;
 		a->current_group = b->parent_eng->current_group;
-		if (!(b->parent_eng->current->rule->flags & LQ_TRANSPARENT))
+		if (b->parent_eng->current->rule->flags & LQ_TRANSPARENT)
 			a->rule_name_ptr = b->parent_eng->rule_name_ptr;
 	}
 	a->groups = b->groups;
@@ -291,51 +291,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		*eng->len_ptr -= ret;
 	return (ret2);	
 }
-/*
-int lq_run(t_lq_node *parser, t_lq_eng *eng)
-{
-	int tret;
-	int ret;
-	t_lq_eng eng2;
-	t_lq_eng *eng_next;
 
-	tret = 0;
-	eng->current = parser;
-	while (eng->str <= eng->str_end)
-	{
-		lq_printf(eng, "|node: '%s' '%s'\n", parser->rule->name, eng->str);
-		if ((ret = exec_optional(eng, &eng2, &eng_next, tret)) >= 0)
-			return (ret);
-		ret = parser->rule->func(parser->arg, eng);
-		if (ret <= -1 && eng->i < get_min(eng))
-			return (exec_or(eng, &eng2, ret));
-		else if (ret <= -1 && (parser->next || eng_next))
-			return (ret);
-		else if (ret <= -1)
-		{
-			if (eng->str < eng->str_end && !(eng->flags & LQ_END))
-				return (ret);
-			if (eng->len_ptr)
-				*eng->len_ptr += tret;
-			return (tret);
-		}
-		tret += ret;
-		if ((parser->rule->flags & LQ_STOP))
-			return (tret);
-		++eng->i;
-		if (eng->str >= eng->str_end)
-			break ;
-		eng->str += ret;
-		if (eng->i >= get_max(eng) && get_max(eng) != -1)
-			break ;
-	}
-	if (eng->i < get_min(eng))
-		return (-1);
-	if (!parser->next)
-		return (exec_lookahead2(eng, &eng2, tret));
-	return (exec_next(eng, &eng2, tret));
-}
-*/
 int lq_pos(t_lq_node *parser, t_lq_eng *eng)
 {
 	int ret;

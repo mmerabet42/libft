@@ -17,8 +17,8 @@ t_lq_eng *lq_eng_copy(t_lq_eng *a, t_lq_eng *b)
 	a->prev_eng = b;
 	a->parent_eng = b->parent_eng;
 	a->groups_head = b->groups_head;
-	a->groups = b->groups;
 	a->master_groups_head = b->master_groups_head;
+	a->groups = b->groups;
 	a->lookahead_ret = 0;
 	a->len_ptr = b->len_ptr;
 	if (b->current->rule->flags & LQ_TRANSPARENT)
