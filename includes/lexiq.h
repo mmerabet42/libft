@@ -139,4 +139,15 @@ int lq_pos(t_lq_node *parser, t_lq_eng *eng);
 
 int lexiq(int flags, ...);
 
+int lq_rule_string(const char *arg, t_lq_eng *eng);
+int lq_rule_any(const char *arg, t_lq_eng *eng);
+int lq_rule_run(t_lq_node *arg, t_lq_eng *eng);
+int lq_rule_runn(t_lq_node *arg, t_lq_eng *eng);
+int lq_rule_not(void *arg, t_lq_eng *eng);
+int lq_rule_func(t_lq_func func, t_lq_eng *eng);
+int lq_rule_delim(void *arg, t_lq_eng *eng);
+int lq_rule_group(t_lq_node *arg, t_lq_eng *eng);
+int lq_rule_name(const char *name, t_lq_eng *eng);
+int lq_rule_backreference_name(const char *name, t_lq_eng *eng);
+
 #endif // LEXIQ_H
