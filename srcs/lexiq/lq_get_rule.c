@@ -6,13 +6,20 @@
 static const t_lq_rule g_builtin_rules[] = {
 	{"s", (t_lq_func)lq_rule_string, NULL, LQ_TRANSPARENT},
 	{"?", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
+	{"?1", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
+	{"?2", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
 	{"r", (t_lq_func)lq_rule_run, NULL, LQ_STOP | LQ_TRANSPARENT},
 	{"rn", (t_lq_func)lq_rule_runn, NULL, LQ_TRANSPARENT},
 	{"g", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"g1", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"g2", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
 	{"!", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
 	{"!?", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
 	{"func", (t_lq_func)lq_rule_func, NULL, LQ_TRANSPARENT},
 	{"name", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
+	{"name1", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
+	{"name2", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
+	{"name3", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
 	{"bn", (t_lq_func)lq_rule_backreference_name, NULL, LQ_TRANSPARENT},
 
 	{"^", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
@@ -146,7 +153,6 @@ int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 	eng->lookahead_ret = 0;
 	if (!arg)
 		arg = eng->parser_begin;
-	lq_printf(eng, "grouper: %p\n", eng->len_ptr);
 	ret = lq_run(arg, &eng2);
 //	group.len = ret;
 //	eng->len_ptr = NULL;
@@ -166,7 +172,6 @@ int lq_rule_group(t_lq_node *arg, t_lq_eng *eng)
 		eng->groups_head = group_list_ptr;
 	*eng->groups = group_list_ptr;
 	eng->current_group = group_list_ptr->match;
-//	lq_printf(eng, "|captured: '%.*s' %d %d %d\n", ret, eng->str, ret, eng->lookahead_ret, group.len);
 	return ret + eng->lookahead_ret;
 }
 
@@ -268,6 +273,8 @@ int lq_rule_backreference_name(const char *name, t_lq_eng *eng)
 	t_lq_list *it;
 	int ret;
 
+	if (!name)
+		return (0);
 	it = *eng->master_groups_head;
 	while (it)
 	{
