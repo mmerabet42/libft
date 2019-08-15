@@ -15,6 +15,7 @@ int lq_add_rule(int flags, const char *name, t_lq_node *parser, t_lq_func func)
 	rule->name = name;
 	rule->func = func;
 	rule->parser = parser;
+	rule->parser_it = parser;
 	rule->flags = flags | LQ_SAVE_RULE_NAME | (parser ? LQ_STOP : 0);
 	if (!(list = (t_list *)malloc(sizeof(t_list))))
 	{
@@ -54,7 +55,7 @@ int lq_add(int flags, const char *name, t_lq_node *parser, t_lq_func func)
 				it_node->next_or = parser;
 				break ;
 			}
-			it_node = it_node->next_or;	
+			it_node = it_node->next_or;
 		}	
 		return (0);
 	}

@@ -45,7 +45,7 @@ typedef struct s_lq_node t_lq_node;
 struct s_lq_node
 {
 	const char *rule_name;
-	const t_lq_rule *rule;
+	t_lq_rule *rule;
 	void *arg;
 	t_lq_quant quant;
 	t_lq_node *next;
@@ -85,6 +85,7 @@ struct s_lq_rule
 	const char *name;
 	t_lq_func func;
 	t_lq_node *parser;
+	t_lq_node *parser_it;
 	int flags;
 };
 
@@ -128,7 +129,7 @@ void lq_node_del(t_lq_node **lq);
 int get_min(t_lq_eng *eng);
 int get_max(t_lq_eng *eng);
 
-const t_lq_rule *lq_get_rule(const char *name);
+t_lq_rule *lq_get_rule(const char *name);
 t_lq_rule *lq_get_rule2(const char *name);
 
 int lq_add(int flags, const char *name, t_lq_node *parser, t_lq_func func);

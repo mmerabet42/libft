@@ -267,6 +267,50 @@ int main(int argc, char **argv)
 				lq_node("?", " \t", lq_quant(0, -1), NULL, NULL))))),
 			lq_quant(0, -1), NULL,
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
+/*
+	lexiq(LQ_ADD, "EXPR",
+		lq_node("EXPR", NULL, lq_quant(1, 1), NULL,
+		lq_node("s", "+", lq_quant(1, 1), NULL,
+		lq_node("?", "0-9", lq_quant(1, 1), NULL, NULL)))
+	);
+
+	lexiq(LQ_ADD, "EXPR",
+		lq_node("?1", "0-9", lq_quant(1, -1), NULL, NULL)
+	);
+*/
+	t_lq_node *begin =
+		lq_node("g2", expression, lq_quant(1, 1), NULL, NULL);
+//		lq_node("EXPR", NULL, lq_quant(1, 1), NULL, NULL);
+
+		lq_node("g",
+				lq_node("g",
+						lq_node("?", "", lq_quant(1, -1), NULL,
+						lq_node("name", "HELLO", lq_quant(1, 1), NULL, NULL)),
+					lq_quant(1, 1), NULL,
+				lq_node("s", " - ", lq_quant(1, 1), NULL,
+				lq_node("bn", "HELLO", lq_quant(1, 1), NULL,
+				lq_node("name", "HELLO2", lq_quant(1, 1), NULL, NULL)))),
+			lq_quant(1, 1), NULL,
+		lq_node("bn", "HELLO2", lq_quant(1, 1), NULL, NULL));
+
+
+//	char *s = "bololfihvfhello";
+//	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
+//	char *s = "()";
+//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
+//	char *s = "(ab:78;vv:89945;)";
+//	char *s = " -Helloo--ab";
+//	char *s = "hhhhhello";
+	char *s = argv[1];
+	int pos = 0;
+	int false_ret = 0;
+	t_lq_list *groups = NULL;
+	int r = lexiq(LQ_RUN | LQ_GROUPS, begin, s, &groups);
+	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
+//	ft_print_matches_tree(groups, 0);
+	return 0;
+}
+/*
 
 	lexiq(LQ_ADD, "ROUND_BRACKET",
 		lq_node("s", "(", lq_quant(1, 1), NULL,
@@ -307,41 +351,4 @@ int main(int argc, char **argv)
 				NULL),
 			lq_quant(1, 1), NULL, NULL)
 	);
-
-	t_lq_node *begin =
-//		lq_node("g2", expression, lq_quant(1, 1), NULL, NULL);
-		lq_node("BRACKET", NULL, lq_quant(1, 1), NULL, NULL);
-
-		lq_node("g",
-				lq_node("g",
-						lq_node("?", "", lq_quant(1, -1), NULL,
-						lq_node("name", "HELLO", lq_quant(1, 1), NULL, NULL)),
-					lq_quant(1, 1), NULL,
-				lq_node("s", " - ", lq_quant(1, 1), NULL,
-				lq_node("bn", "HELLO", lq_quant(1, 1), NULL,
-				lq_node("name", "HELLO2", lq_quant(1, 1), NULL, NULL)))),
-			lq_quant(1, 1), NULL,
-		lq_node("bn", "HELLO2", lq_quant(1, 1), NULL, NULL));
-
-
-//	char *s = "bololfihvfhello";
-//	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
-//	char *s = "()";
-//	char *s = "   ([h]d{<a>d}((((((((((((((((((((e)))))))))))<b>)<c>))))))))dd) ookf erb";
-//	char *s = "(ab:78;vv:89945;)";
-//	char *s = " -Helloo--ab";
-//	char *s = "hhhhhello";
-	char *s = argv[1];
-	int pos = 0;
-	int false_ret = 0;
-	t_lq_list *groups = NULL;
-	int r = lexiq(LQ_RUN | LQ_GROUPS, begin, s, &groups);
-	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
-	ft_print_matches_tree(groups, 0);
-//	ft_printf("original: '%s'\n", s);
-
-//	lq_node_del(&begin);
-	return 0;
-}
-/*
 */

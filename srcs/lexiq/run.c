@@ -155,7 +155,6 @@ int exec_lookahead2(t_lq_eng *eng, t_lq_eng *eng2, int tret)
 	}
 	else if (eng_next)
 	{
-	//	lq_printf(eng, "exec next! '%s' '%s'\n", eng->current->rule->name, eng->str);
 		if (eng_loop && eng_loop->i + 1 >= get_min(eng_loop))
 		{
 			proper_copy(eng2, eng_loop, 1);
@@ -258,6 +257,7 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	}
 	if (!parser->rule && !(parser->rule = lq_get_rule(parser->rule_name)))
 		return (-1);
+//	lq_printf(eng, "|node: '%s' '%s'\n", parser->rule->name, eng->str);
 	tmp_rule_name = NULL;
 	if (eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
 	{
@@ -271,7 +271,10 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 		lq_eng_copy(&eng2, eng);
 		eng2.parent_eng = eng;
 		ret = lq_run(parser->rule->parser, &eng2);
+		if (ret >= 0)
+			return (ret);
 	}
+//	lq_printf(eng, "ret: '%s' %d\n", parser->rule->name, ret);
 	if (ret <= -1 && eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
 		*eng->rule_name_ptr = tmp_rule_name;
 	if (ret <= -1 && eng->i < get_min(eng))

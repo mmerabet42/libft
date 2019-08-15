@@ -3,35 +3,35 @@
 #include "ft_types.h"
 #include "ft_mem.h"
 
-static const t_lq_rule g_builtin_rules[] = {
-	{"s", (t_lq_func)lq_rule_string, NULL, LQ_TRANSPARENT},
-	{"?", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
-	{"?1", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
-	{"?2", (t_lq_func)lq_rule_any, NULL, LQ_TRANSPARENT},
-	{"r", (t_lq_func)lq_rule_run, NULL, LQ_STOP | LQ_TRANSPARENT},
-	{"rn", (t_lq_func)lq_rule_runn, NULL, LQ_TRANSPARENT},
-	{"g", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
-	{"g1", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
-	{"g2", (t_lq_func)lq_rule_group, NULL, LQ_STOP | LQ_TRANSPARENT},
-	{"!", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
-	{"!?", (t_lq_func)lq_rule_not, NULL, LQ_TRANSPARENT},
-	{"func", (t_lq_func)lq_rule_func, NULL, LQ_TRANSPARENT},
-	{"name", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
-	{"name1", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
-	{"name2", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
-	{"name3", (t_lq_func)lq_rule_name, NULL, LQ_TRANSPARENT},
-	{"bn", (t_lq_func)lq_rule_backreference_name, NULL, LQ_TRANSPARENT},
+static t_lq_rule g_builtin_rules[] = {
+	{"s", (t_lq_func)lq_rule_string, NULL, NULL, LQ_TRANSPARENT},
+	{"?", (t_lq_func)lq_rule_any, NULL, NULL, LQ_TRANSPARENT},
+	{"?1", (t_lq_func)lq_rule_any, NULL, NULL, LQ_TRANSPARENT},
+	{"?2", (t_lq_func)lq_rule_any, NULL, NULL, LQ_TRANSPARENT},
+	{"r", (t_lq_func)lq_rule_run, NULL, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"rn", (t_lq_func)lq_rule_runn, NULL, NULL, LQ_TRANSPARENT},
+	{"g", (t_lq_func)lq_rule_group, NULL, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"g1", (t_lq_func)lq_rule_group, NULL, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"g2", (t_lq_func)lq_rule_group, NULL, NULL, LQ_STOP | LQ_TRANSPARENT},
+	{"!", (t_lq_func)lq_rule_not, NULL, NULL, LQ_TRANSPARENT},
+	{"!?", (t_lq_func)lq_rule_not, NULL, NULL, LQ_TRANSPARENT},
+	{"func", (t_lq_func)lq_rule_func, NULL, NULL, LQ_TRANSPARENT},
+	{"name", (t_lq_func)lq_rule_name, NULL, NULL, LQ_TRANSPARENT},
+	{"name1", (t_lq_func)lq_rule_name, NULL, NULL, LQ_TRANSPARENT},
+	{"name2", (t_lq_func)lq_rule_name, NULL, NULL, LQ_TRANSPARENT},
+	{"name3", (t_lq_func)lq_rule_name, NULL, NULL, LQ_TRANSPARENT},
+	{"bn", (t_lq_func)lq_rule_backreference_name, NULL, NULL, LQ_TRANSPARENT},
 
-	{"^", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
-	{"$", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
-	{"^n", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
-	{"$n", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
-	{"^w", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
-	{"$w", (t_lq_func)lq_rule_delim, NULL, LQ_TRANSPARENT},
+	{"^", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
+	{"$", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
+	{"^n", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
+	{"$n", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
+	{"^w", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
+	{"$w", (t_lq_func)lq_rule_delim, NULL, NULL, LQ_TRANSPARENT},
 };
 static const size_t g_builtin_rules_len = (sizeof(g_builtin_rules) / sizeof(g_builtin_rules[0]));
 
-const t_lq_rule *lq_get_rule(const char *name)
+t_lq_rule *lq_get_rule(const char *name)
 {
 	size_t i;
 
