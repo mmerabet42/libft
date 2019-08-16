@@ -1,10 +1,11 @@
+
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra# -g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g3# -fsanitize=address
 
 SRCD		=	srcs/
 INCLUDES_D	=	includes/
-_INCLUDES	=	libft.h ft_btree.h ft_list.h ft_mem.h ft_lexiq.h ft_types.h ft_event.h \
+_INCLUDES	=	libft.h ft_btree.h ft_list.h lexiq.h ft_mem.h ft_types.h ft_event.h \
 				ft_math.h ft_printf.h ft_str.h ft_str.h get_next_line.h ft_io.h ft_matrix.h \
 				ft_printf_ext.h ft_time.h handlers.h
 
@@ -62,9 +63,7 @@ _STR_FS		=	ft_strchrl.c ft_strdupli.c ft_revstr.c ft_strafter.c ft_strbefore.c f
 
 _TIME_FS	=	ft_timefnew.c
 
-_LEXIQ_FS	=	ft_lexiq.c exec.c get_matches.c bracket.c wildcard.c start.c utils.c \
-				function.c function1.c function2.c function3.c group.c import.c args.c \
-				print_matches.c regroup.c
+_LEXIQ_FS	=	lexiq.c run.c lq_get_rule.c lq_node.c utils.c print_matches.c quant.c add_rule.c 
 
 INCLUDES	=	$(addprefix $(INCLUDES_D),$(_INCLUDES))
 
@@ -90,7 +89,7 @@ STR_FS		=	$(addprefix $(SRCD)ft_str/,$(_STR_FS))
 STR_O		=	$(_STR_FS:.c=.o)
 TIME_FS		=	$(addprefix $(SRCD)ft_time/,$(_TIME_FS))
 TIME_O		=	$(_TIME_FS:.c=.o)
-LEXIQ_FS	=	$(addprefix $(SRCD)ft_lexiq/,$(_LEXIQ_FS))
+LEXIQ_FS	=	$(addprefix $(SRCD)lexiq/,$(_LEXIQ_FS))
 LEXIQ_O		=	$(_LEXIQ_FS:.c=.o)
 
 SRCS		=	$(PRINTF_FS) $(MATH_FS) $(TYPES_FS) $(MATRIX_FS) $(BTREE_FS) $(LIST_FS) $(MEM_FS) \
@@ -168,7 +167,7 @@ $(OBJD)%.o: $(SRCD)ft_time/%.c $(INCLUDES) Makefile
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLUDES_D)
 
-$(OBJD)%.o: $(SRCD)ft_lexiq/%.c $(INCLUDES) Makefile
+$(OBJD)%.o: $(SRCD)lexiq/%.c $(INCLUDES) Makefile
 	@printf "\r\033[K$(CGREEN)Compiling$(CEND): $<"
 	@mkdir -p $(OBJD)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLUDES_D)
