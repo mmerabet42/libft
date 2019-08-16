@@ -307,7 +307,7 @@ int main(int argc, char **argv)
 	t_lq_list *groups = NULL;
 	int r = lexiq(LQ_RUN | LQ_GROUPS, begin, s, &groups);
 	ft_printf("ret: %d %d: '%.*s'\n", r, false_ret, r, s + pos);
-//	ft_print_matches_tree(groups, 0);
+	ft_print_matches_tree(groups, 0);
 	return 0;
 }
 /*
