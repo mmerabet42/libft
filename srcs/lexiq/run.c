@@ -239,8 +239,6 @@ int exec_optional(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret)
 	return -1;
 }
 
-int exec_rule()
-
 int lq_run(t_lq_node *parser, t_lq_eng *eng)
 {
 	int ret;

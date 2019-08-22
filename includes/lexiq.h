@@ -85,7 +85,9 @@ struct s_lq_rule
 	const char *name;
 	t_lq_func func;
 	t_lq_node *parser;
-	t_lq_node *parser_it;
+	t_list *parsers;
+	t_list *parsers_tail;
+	t_list *parsers_it;
 	int flags;
 };
 

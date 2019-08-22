@@ -293,7 +293,6 @@ int main(int argc, char **argv)
 			lq_quant(1, 1), NULL,
 		lq_node("bn", "HELLO2", lq_quant(1, 1), NULL, NULL));
 
-
 //	char *s = "bololfihvfhello";
 //	char *s = "(l({ook}o[l])l<(he)[l{}]lo>)";
 //	char *s = "()";
