@@ -64,6 +64,7 @@ static int lq_add_parser(t_lq_rule *rule, t_lq_node *parser)
 		}
 		rule->parsers_tail = rule->parsers;
 		rule->parser = NULL;
+		rule->parsers_it = rule->parsers;
 	}
 	list->parent = rule->parsers_tail;
 	rule->parsers_tail->next = list;

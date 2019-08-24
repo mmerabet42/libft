@@ -267,18 +267,15 @@ int main(int argc, char **argv)
 				lq_node("?", " \t", lq_quant(0, -1), NULL, NULL))))),
 			lq_quant(0, -1), NULL,
 		lq_node("name", "EXPRESSION", lq_quant(1, 1), NULL, NULL));
-/*
+
 	lexiq(LQ_ADD, "EXPR",
 		lq_node("EXPR", NULL, lq_quant(1, 1), NULL,
 		lq_node("s", "+", lq_quant(1, 1), NULL,
-		lq_node("?", "0-9", lq_quant(1, 1), NULL, NULL)))
-	);
-
+		lq_node("?", "0-9", lq_quant(1, 1), NULL, NULL))));
 	lexiq(LQ_ADD, "EXPR",
-		lq_node("?1", "0-9", lq_quant(1, -1), NULL, NULL)
-	);
-*/
-	t_lq_node *begin =
+		lq_node("?", "0-9", lq_quant(1, 1), NULL, NULL));
+
+	t_lq_node *begin = lq_node("EXPR", NULL, lq_quant(1, 1), NULL, NULL);
 		lq_node("g2", expression, lq_quant(1, 1), NULL, NULL);
 //		lq_node("EXPR", NULL, lq_quant(1, 1), NULL, NULL);
 

@@ -238,6 +238,46 @@ int exec_optional(t_lq_eng *eng, t_lq_eng *eng2, t_lq_eng **eng_next, int tret)
 	}
 	return -1;
 }
+#include <unistd.h>
+int exec_parser(t_lq_eng *eng, t_lq_eng *eng2)
+{
+	int ret;
+	t_list *parser_it;
+	t_list *parser_it_tmp;
+
+	if (eng->current->rule->parser)
+	{
+		lq_eng_copy(eng2, eng);
+		eng2->parent_eng = eng;
+		return (lq_run(eng->current->rule->parser, eng2));
+	}
+	else if ((parser_it = eng->current->rule->parsers_it))
+	{
+	//	t_lq_node *node = (t_lq_node *)parser_it->content;
+	//	lq_printf(eng, "helo: '%s'\n", (node->rule ? node->rule->name : NULL));
+		if (!(eng->current->rule->parsers_it = parser_it->next))
+			eng->current->rule->parsers_it = eng->current->rule->parsers;
+		parser_it_tmp = parser_it;
+		while (parser_it)
+		{
+			lq_eng_copy(eng2, eng);
+			eng2->parent_eng = eng;
+			if ((ret = lq_run((t_lq_node *)parser_it->content, eng2)) >= 0)
+				return (ret);
+			parser_it = parser_it->next;
+		}
+		parser_it = eng->current->rule->parsers;
+		while (parser_it != parser_it_tmp)
+		{
+			lq_eng_copy(eng2, eng);
+			eng2->parent_eng = eng;
+			if ((ret = lq_run((t_lq_node *)parser_it->content, eng2)) >= 0)
+				return (ret);
+			parser_it = parser_it->next;
+		}
+	}
+	return (-1);
+}
 
 int lq_run(t_lq_node *parser, t_lq_eng *eng)
 {
@@ -266,13 +306,16 @@ int lq_run(t_lq_node *parser, t_lq_eng *eng)
 	}
 	if (parser->rule->func)
 		ret = parser->rule->func(parser->arg, eng);
-	else if (parser->rule->parser)
+	else if (parser->rule->parser || parser->rule->parsers)
 	{
-		lq_eng_copy(&eng2, eng);
-		eng2.parent_eng = eng;
-		ret = lq_run(parser->rule->parser, &eng2);
+		ret = exec_parser(eng, &eng2);
 		if (ret >= 0)
-			return (ret);
+			return (ret + eng2.lookahead_ret);
+	//	lq_eng_copy(&eng2, eng);
+	//	eng2.parent_eng = eng;
+	//	ret = lq_run(parser->rule->parser, &eng2);
+	//	if (ret >= 0)
+	//		return (ret);
 	}
 //	lq_printf(eng, "ret: '%s' %d\n", parser->rule->name, ret);
 	if (ret <= -1 && eng->rule_name_ptr && (parser->rule->flags & LQ_SAVE_RULE_NAME))
